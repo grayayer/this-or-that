@@ -270,11 +270,14 @@ class LandBookScraper {
 
 		try {
 			// Wait for content to be fully loaded
-			await new Promise(resolve => setTimeout(resolve, 2000));
+			await new Promise(resolve => setTimeout(resolve, 3000));
 
 			// Extract website items from the grid
 			const websiteData = await this.page.evaluate(() => {
-				// Find the websites grid container
+				// Find the websites grid container - target ID="websites" class="websites" specifically
+				const primaryGrid = document.querySelector('#websites.websites');
+
+				// Also try other possible grid containers
 				const possibleGrids = [
 					'#websites.websites',
 					'#websites',
@@ -282,13 +285,17 @@ class LandBookScraper {
 					'.gallery-grid',
 					'.website-grid',
 					'[data-websites]',
-					'.grid-container'
+					'.grid-container',
+					'.results-grid',
+					'.designs-grid'
 				];
 
-				let grid = null;
-				for (const selector of possibleGrids) {
-					grid = document.querySelector(selector);
-					if (grid) break;
+				let grid = primaryGrid; // Prefer the specific target
+				if (!grid) {
+					for (const selector of possibleGrids) {
+						grid = document.querySelector(selector);
+						if (grid) break;
+					}
 				}
 
 				if (!grid) {
@@ -296,31 +303,58 @@ class LandBookScraper {
 					grid = document.body;
 				}
 
-				// Find website item wrappers
+				// Find website-item-wrapper elements specifically
 				const itemSelectors = [
 					'.website-item-wrapper',
 					'.website-item',
 					'[data-website-id]',
-					'[class*="website"]',
-					'a[href*="/website/"]'
+					'[class*="website-item"]',
+					'a[href*="/website/"]',
+					'[class*="design-item"]',
+					'a[href*="/design/"]'
 				];
 
 				let items = [];
 				for (const selector of itemSelectors) {
 					items = Array.from(grid.querySelectorAll(selector));
-					if (items.length > 0) break;
+					if (items.length > 0) {
+						console.log(`Found ${items.length} items using selector: ${selector}`);
+						break;
+					}
 				}
 
-				console.log(`Found ${items.length} website items`);
+				if (items.length === 0) {
+					console.log('No items found with standard selectors, trying broader search...');
+					// Broader search for any links that might be website items
+					items = Array.from(document.querySelectorAll('a[href*="/website/"], a[href*="/design/"]'));
+				}
+
+				console.log(`Processing ${items.length} website items`);
 
 				return items.map((item, index) => {
 					try {
+						// Check if this item contains an advertisement - exclude if it does
+						const hasAd = item.querySelector('div.framer-v2-ad');
+						if (hasAd) {
+							return {
+								index,
+								isAdvertisement: true,
+								excluded: true,
+								element: {
+									tagName: item.tagName,
+									className: item.className,
+									id: item.id
+								}
+							};
+						}
+
 						// Extract thumbnail image URL
 						let thumbnailUrl = null;
 						const imgSelectors = [
 							'img',
 							'.thumbnail img',
 							'.website-thumbnail img',
+							'.preview img',
 							'[data-src]',
 							'[style*="background-image"]'
 						];
@@ -328,35 +362,44 @@ class LandBookScraper {
 						for (const imgSelector of imgSelectors) {
 							const img = item.querySelector(imgSelector);
 							if (img) {
-								thumbnailUrl = img.src || img.dataset.src || img.getAttribute('data-src');
+								// Try different image URL sources
+								thumbnailUrl = img.src ||
+									img.dataset.src ||
+									img.getAttribute('data-src') ||
+									img.getAttribute('data-lazy-src');
+
+								// Handle background images
 								if (!thumbnailUrl && img.style.backgroundImage) {
 									const match = img.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
 									if (match) thumbnailUrl = match[1];
 								}
-								if (thumbnailUrl) break;
+
+								if (thumbnailUrl && thumbnailUrl !== 'about:blank') break;
 							}
 						}
 
 						// Extract detail page link
 						let detailUrl = null;
-						const linkSelectors = [
-							'a[href*="/website/"]',
-							'a',
-							'[data-href]',
-							'[href]'
-						];
-
-						for (const linkSelector of linkSelectors) {
-							const link = item.querySelector(linkSelector);
-							if (link && link.href && link.href.includes('/website/')) {
-								detailUrl = link.href;
-								break;
-							}
-						}
 
 						// If item itself is a link
-						if (!detailUrl && item.tagName === 'A' && item.href && item.href.includes('/website/')) {
+						if (item.tagName === 'A' && item.href) {
 							detailUrl = item.href;
+						} else {
+							// Look for links within the item
+							const linkSelectors = [
+								'a[href*="/website/"]',
+								'a[href*="/design/"]',
+								'a',
+								'[data-href]'
+							];
+
+							for (const linkSelector of linkSelectors) {
+								const link = item.querySelector(linkSelector);
+								if (link && link.href && (link.href.includes('/website/') || link.href.includes('/design/'))) {
+									detailUrl = link.href;
+									break;
+								}
+							}
 						}
 
 						// Extract any visible text/title
@@ -364,9 +407,11 @@ class LandBookScraper {
 						const titleSelectors = [
 							'.title',
 							'.website-title',
-							'h1', 'h2', 'h3',
 							'.name',
-							'[data-title]'
+							'h1', 'h2', 'h3', 'h4',
+							'[data-title]',
+							'.caption',
+							'figcaption'
 						];
 
 						for (const titleSelector of titleSelectors) {
@@ -374,6 +419,14 @@ class LandBookScraper {
 							if (titleEl && titleEl.textContent.trim()) {
 								title = titleEl.textContent.trim();
 								break;
+							}
+						}
+
+						// If no title found, try to extract from alt text or data attributes
+						if (!title) {
+							const img = item.querySelector('img');
+							if (img && img.alt) {
+								title = img.alt.trim();
 							}
 						}
 
@@ -385,7 +438,8 @@ class LandBookScraper {
 							element: {
 								tagName: item.tagName,
 								className: item.className,
-								id: item.id
+								id: item.id,
+								href: item.href || null
 							}
 						};
 					} catch (error) {
@@ -403,13 +457,15 @@ class LandBookScraper {
 				});
 			});
 
-			// Filter out items with errors or missing data
-			const validItems = websiteData.filter(item =>
-				!item.error &&
-				item.thumbnailUrl &&
-				item.detailUrl &&
-				item.detailUrl.startsWith('http') // Ensure it's a full URL
-			);
+			// Filter out items with errors, missing critical data, or advertisements
+			const validItems = websiteData.filter(item => {
+				if (item.error) return false;
+				if (item.excluded || item.isAdvertisement) return false;
+				if (!item.detailUrl) return false;
+				if (!item.detailUrl.startsWith('http')) return false;
+				// Thumbnail is nice to have but not required
+				return true;
+			});
 
 			// Limit to maxItems for free accounts
 			const limitedItems = validItems.slice(0, this.options.maxItems);
@@ -420,10 +476,26 @@ class LandBookScraper {
 				console.log(`⚠️  Limited to ${limitedItems.length} items due to free account restrictions`);
 			}
 
-			// Log any items with errors for debugging
+			// Log any items with errors or exclusions for debugging
 			const errorItems = websiteData.filter(item => item.error);
+			const adItems = websiteData.filter(item => item.isAdvertisement);
+
 			if (errorItems.length > 0) {
 				console.log(`⚠️  ${errorItems.length} items had errors during processing`);
+				// Log first few errors for debugging
+				errorItems.slice(0, 3).forEach((item, index) => {
+					console.log(`   Error ${index + 1}: ${item.error}`);
+				});
+			}
+
+			if (adItems.length > 0) {
+				console.log(`🚫 ${adItems.length} advertisement items excluded`);
+			}
+
+			// Log items missing thumbnails
+			const noThumbnailItems = validItems.filter(item => !item.thumbnailUrl);
+			if (noThumbnailItems.length > 0) {
+				console.log(`⚠️  ${noThumbnailItems.length} items missing thumbnail images`);
 			}
 
 			return {
@@ -431,7 +503,8 @@ class LandBookScraper {
 				items: limitedItems,
 				totalFound: websiteData.length,
 				validItems: validItems.length,
-				errorItems: errorItems.length
+				errorItems: errorItems.length,
+				noThumbnailItems: noThumbnailItems.length
 			};
 
 		} catch (error) {
@@ -446,6 +519,267 @@ class LandBookScraper {
 				error: error.message
 			};
 		}
+	}
+
+	async scrapeDetailPage(detailUrl) {
+		console.log(`🔍 Scraping detail page: ${detailUrl.substring(0, 60)}...`);
+
+		try {
+			// Navigate to the detail page
+			await this.page.goto(detailUrl, {
+				waitUntil: 'networkidle2',
+				timeout: this.options.timeout
+			});
+
+			// Wait for content to load
+			await new Promise(resolve => setTimeout(resolve, 2000));
+
+			// Extract detailed data from the page
+			const detailData = await this.page.evaluate(() => {
+				const result = {
+					websiteName: null,
+					websiteUrl: null,
+					category: null,
+					style: null,
+					industry: null,
+					type: null,
+					colors: [],
+					screenshotUrl: null,
+					tags: []
+				};
+
+				// Target div.website-content-sidebar for taxonomy data
+				const sidebar = document.querySelector('div.website-content-sidebar');
+
+				if (sidebar) {
+					// Extract website name from H1 element within the sidebar
+					const h1 = sidebar.querySelector('h1');
+					if (h1) {
+						result.websiteName = h1.textContent.trim();
+					}
+
+					// Extract website URL from anchor with "?ref=land-book.com" query parameter
+					const refLink = sidebar.querySelector('a[href*="?ref=land-book.com"]');
+					if (refLink) {
+						result.websiteUrl = refLink.href;
+					}
+
+					// Parse taxonomy sections (Category, Style, Industry, Type) from row elements with text-muted labels
+					const taxonomyRows = sidebar.querySelectorAll('.row, [class*="row"]');
+					taxonomyRows.forEach(row => {
+						const label = row.querySelector('.text-muted, [class*="text-muted"], .label, [class*="label"]');
+						if (label) {
+							const labelText = label.textContent.trim().toLowerCase();
+							const valueElement = row.querySelector('a, span, div');
+
+							if (valueElement && valueElement !== label) {
+								const value = valueElement.textContent.trim();
+
+								if (labelText.includes('category')) {
+									result.category = value;
+								} else if (labelText.includes('style')) {
+									result.style = value;
+								} else if (labelText.includes('industry')) {
+									result.industry = value;
+								} else if (labelText.includes('type')) {
+									result.type = value;
+								}
+							}
+						}
+					});
+
+					// Extract color hex codes from website-colors-item elements' background-color styles
+					const colorItems = sidebar.querySelectorAll('.website-colors-item, [class*="color"]');
+					colorItems.forEach(colorItem => {
+						const bgColor = colorItem.style.backgroundColor;
+						if (bgColor) {
+							// Convert RGB to hex if needed
+							const rgbMatch = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+							if (rgbMatch) {
+								const r = parseInt(rgbMatch[1]);
+								const g = parseInt(rgbMatch[2]);
+								const b = parseInt(rgbMatch[3]);
+								const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+								result.colors.push(hex.toUpperCase());
+							}
+						}
+
+						// Also check for direct hex color in data attributes or text
+						const hexColor = colorItem.getAttribute('data-color') ||
+							colorItem.textContent.match(/#[0-9A-Fa-f]{6}/);
+						if (hexColor) {
+							result.colors.push(typeof hexColor === 'string' ? hexColor : hexColor[0]);
+						}
+					});
+				}
+
+				// If sidebar approach doesn't work, try alternative selectors
+				if (!result.websiteName) {
+					const altNameSelectors = ['h1', '.website-title', '.title', '[data-title]'];
+					for (const selector of altNameSelectors) {
+						const nameEl = document.querySelector(selector);
+						if (nameEl && nameEl.textContent.trim()) {
+							result.websiteName = nameEl.textContent.trim();
+							break;
+						}
+					}
+				}
+
+				if (!result.websiteUrl) {
+					const altUrlSelectors = [
+						'a[href*="?ref="]',
+						'a[target="_blank"]',
+						'.website-link a',
+						'[data-url]'
+					];
+					for (const selector of altUrlSelectors) {
+						const urlEl = document.querySelector(selector);
+						if (urlEl && urlEl.href) {
+							result.websiteUrl = urlEl.href;
+							break;
+						}
+					}
+				}
+
+				// Capture high-quality screenshot URLs from detail pages
+				const screenshotSelectors = [
+					'.website-screenshot img',
+					'.preview-image img',
+					'.main-image img',
+					'img[src*="screenshot"]',
+					'img[src*="preview"]',
+					'.website-image img'
+				];
+
+				for (const selector of screenshotSelectors) {
+					const img = document.querySelector(selector);
+					if (img && img.src && !img.src.includes('thumbnail')) {
+						result.screenshotUrl = img.src;
+						break;
+					}
+				}
+
+				// Extract additional tags from various sources
+				const tagSelectors = [
+					'.tags a',
+					'.categories a',
+					'.labels span',
+					'[data-tags]'
+				];
+
+				tagSelectors.forEach(selector => {
+					const tagElements = document.querySelectorAll(selector);
+					tagElements.forEach(tag => {
+						const tagText = tag.textContent.trim();
+						if (tagText && !result.tags.includes(tagText)) {
+							result.tags.push(tagText);
+						}
+					});
+				});
+
+				// Add taxonomy data to tags if not already present
+				[result.category, result.style, result.industry, result.type].forEach(item => {
+					if (item && !result.tags.includes(item)) {
+						result.tags.push(item);
+					}
+				});
+
+				return result;
+			});
+
+			// Validate and clean up the extracted data
+			const cleanedData = {
+				websiteName: detailData.websiteName || 'Untitled',
+				websiteUrl: detailData.websiteUrl || null,
+				category: detailData.category || null,
+				style: detailData.style || null,
+				industry: detailData.industry || null,
+				type: detailData.type || null,
+				colors: [...new Set(detailData.colors)], // Remove duplicates
+				screenshotUrl: detailData.screenshotUrl || null,
+				tags: [...new Set(detailData.tags.filter(tag => tag && tag.length > 0))], // Remove duplicates and empty tags
+				detailPageUrl: detailUrl
+			};
+
+			console.log(`✅ Successfully scraped detail page for: ${cleanedData.websiteName}`);
+
+			return {
+				success: true,
+				data: cleanedData
+			};
+
+		} catch (error) {
+			console.error(`❌ Failed to scrape detail page ${detailUrl}:`, error.message);
+			this.errors.push({
+				type: 'detail-scraping',
+				url: detailUrl,
+				error: error.message
+			});
+
+			return {
+				success: false,
+				error: error.message,
+				url: detailUrl
+			};
+		}
+	}
+
+	async scrapeAllDetailPages(gridItems) {
+		console.log(`🕷️  Starting detail page scraping for ${gridItems.length} items...`);
+
+		const results = [];
+		const errors = [];
+
+		for (let i = 0; i < gridItems.length; i++) {
+			const item = gridItems[i];
+			console.log(`\n📄 Processing item ${i + 1}/${gridItems.length}: ${item.title || 'Untitled'}`);
+
+			try {
+				const detailResult = await this.scrapeDetailPage(item.detailUrl);
+
+				if (detailResult.success) {
+					// Combine grid data with detail data
+					const combinedData = {
+						id: `design_${Date.now()}_${i}`, // Generate unique ID
+						...detailResult.data,
+						thumbnailUrl: item.thumbnailUrl,
+						gridTitle: item.title,
+						gridIndex: item.index
+					};
+
+					results.push(combinedData);
+				} else {
+					errors.push(detailResult);
+				}
+
+				// Add delay between requests to be respectful
+				if (i < gridItems.length - 1) {
+					await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+				}
+
+			} catch (error) {
+				console.error(`❌ Error processing item ${i + 1}:`, error.message);
+				errors.push({
+					success: false,
+					error: error.message,
+					url: item.detailUrl,
+					item: item
+				});
+			}
+		}
+
+		console.log(`\n✅ Detail scraping completed!`);
+		console.log(`   Successfully scraped: ${results.length}/${gridItems.length} items`);
+		console.log(`   Errors: ${errors.length}`);
+
+		return {
+			success: true,
+			results: results,
+			errors: errors,
+			totalProcessed: gridItems.length,
+			successCount: results.length,
+			errorCount: errors.length
+		};
 	}
 
 	getErrors() {
