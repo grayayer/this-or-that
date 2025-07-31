@@ -17,13 +17,13 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"puppeteer": "^21.0.0",
-		"playwright": "^1.40.0"
+		"puppeteer": "^23.0.0",
+		"playwright": "^1.48.0"
 	},
 	"devDependencies": {
-		"eslint": "^8.0.0"
+		"eslint": "^9.0.0"
 	},
 	"engines": {
-		"node": ">=16.0.0"
+		"node": ">=18.0.0"
 	}
 }

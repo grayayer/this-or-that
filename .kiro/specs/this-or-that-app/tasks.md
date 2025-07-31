@@ -6,8 +6,8 @@
   - Create package.json for scraper with Puppeteer/Playwright dependencies
   - _Requirements: 6.1, 6.2_
 
-- [ ] 2. Build Land-book scraper tool for data collection
-- [ ] 2.1 Create basic scraper setup and navigation
+- [-] 2. Build Land-book scraper tool for data collection
+- [-] 2.1 Create basic scraper setup and navigation
   - Set up Puppeteer/Playwright with proper browser configuration
   - Implement navigation to Land-book category pages (e.g., health-and-fitness + light-colors)
   - Add logic to handle the 20-item limit per page for free accounts
