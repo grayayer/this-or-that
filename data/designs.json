@@ -1,0 +1,100 @@
+{
+  "metadata": {
+    "generatedAt": "2025-07-31T01:57:37.707Z",
+    "totalDesigns": 3,
+    "source": "Land-book.com",
+    "scraper": "LandBookScraper v1.0",
+    "formatErrors": 0
+  },
+  "designs": [
+    {
+      "id": "design_modern-portfolio_0_1753927057707_el8rx4d6e",
+      "image": "https://cdn.land-book.com/screenshot1.webp",
+      "tags": {
+        "style": [
+          "Minimalist",
+          "Clean",
+          "Modern",
+          "Bold Typography",
+          "Grid Layout"
+        ],
+        "industry": [
+          "Design",
+          "Creative"
+        ],
+        "typography": [],
+        "type": [
+          "Personal"
+        ],
+        "category": [
+          "Portfolio",
+          "Personal"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#FFFFFF",
+          "#000000",
+          "#F5F5F5"
+        ]
+      },
+      "title": "Modern Portfolio"
+    },
+    {
+      "id": "design_health-app-landing_1_1753927057707_zfgo7hvsp",
+      "image": "https://cdn.land-book.com/screenshot2.webp",
+      "tags": {
+        "style": [
+          "Colorful",
+          "Gradient",
+          "Mobile First",
+          "Responsive"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Technology"
+        ],
+        "typography": [
+          "Sans-serif"
+        ],
+        "type": [
+          "Service",
+          "Commercial"
+        ],
+        "category": [
+          "Landing Page"
+        ],
+        "platform": [
+          "React"
+        ],
+        "colors": [
+          "#4A90E2",
+          "#7ED321",
+          "#FFFFFF"
+        ]
+      },
+      "title": "Health App Landing"
+    },
+    {
+      "id": "design_incomplete-design_2_1753927057707_ygqqplogc",
+      "image": "https://cdn.land-book.com/thumb3.webp",
+      "tags": {
+        "style": [
+          "Minimal",
+          "Valid Tag",
+          "Another Tag"
+        ],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FF0000"
+        ]
+      },
+      "title": "Incomplete Design"
+    }
+  ]
+}

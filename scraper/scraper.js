@@ -947,6 +947,379 @@ class LandBookScraper {
 	hasErrors() {
 		return this.errors.length > 0;
 	}
+
+	// Generate unique ID for each scraped design
+	generateUniqueId(websiteName = '', index = 0) {
+		const timestamp = Date.now();
+		const random = Math.random().toString(36).substr(2, 9);
+
+		// Handle null/undefined websiteName
+		const safeName = websiteName || '';
+		const nameSlug = safeName
+			.toLowerCase()
+			.replace(/[^a-z0-9]/g, '-')
+			.replace(/-+/g, '-')
+			.replace(/^-|-$/g, '')
+			.substr(0, 20);
+
+		return `design_${nameSlug || 'untitled'}_${index}_${timestamp}_${random}`;
+	}
+
+	// Validate and cleanup malformed tags
+	validateAndCleanTags(tags) {
+		if (!tags || typeof tags !== 'object') {
+			return {
+				style: [],
+				industry: [],
+				typography: [],
+				type: [],
+				category: [],
+				platform: [],
+				colors: []
+			};
+		}
+
+		const cleanedTags = {};
+		const validCategories = ['style', 'industry', 'typography', 'type', 'category', 'platform', 'colors'];
+
+		validCategories.forEach(category => {
+			let categoryTags = tags[category] || [];
+
+			// Ensure it's an array
+			if (!Array.isArray(categoryTags)) {
+				categoryTags = [];
+			}
+
+			// Clean up individual tags
+			categoryTags = categoryTags
+				.filter(tag => tag && typeof tag === 'string') // Remove null/undefined/non-string values
+				.map(tag => tag.trim()) // Trim whitespace
+				.filter(tag => tag.length > 0) // Remove empty strings
+				.filter(tag => tag.length <= 100) // Remove excessively long tags
+				.map(tag => {
+					// Clean up common formatting issues
+					return tag
+						.replace(/\s+/g, ' ') // Normalize whitespace
+						.replace(/[^\w\s\-&().,#]/g, '') // Remove special characters except common ones
+						.trim();
+				})
+				.filter(tag => tag.length > 0); // Remove empty strings after cleaning
+
+			// Special validation for colors
+			if (category === 'colors') {
+				categoryTags = categoryTags
+					.filter(color => /^#[0-9A-Fa-f]{6}$/i.test(color)) // Validate hex format
+					.map(color => color.toUpperCase()); // Normalize to uppercase
+			}
+
+			// Remove duplicates (case-insensitive)
+			const seen = new Set();
+			categoryTags = categoryTags.filter(tag => {
+				const lowerTag = tag.toLowerCase();
+				if (seen.has(lowerTag)) {
+					return false;
+				}
+				seen.add(lowerTag);
+				return true;
+			});
+
+			// Limit number of tags per category to prevent bloat
+			const maxTagsPerCategory = category === 'colors' ? 10 : 15;
+			if (categoryTags.length > maxTagsPerCategory) {
+				categoryTags = categoryTags.slice(0, maxTagsPerCategory);
+			}
+
+			cleanedTags[category] = categoryTags;
+		});
+
+		return cleanedTags;
+	}
+
+	// Format extracted data into the specified JSON structure
+	formatDesignData(rawData, index = 0) {
+		try {
+			// Validate input data
+			if (!rawData || typeof rawData !== 'object') {
+				throw new Error('Invalid raw data provided');
+			}
+
+			// Generate unique ID
+			const id = this.generateUniqueId(rawData.websiteName, index);
+
+			// Use screenshot URL if available, fallback to thumbnail
+			const imageUrl = rawData.screenshotUrl || rawData.thumbnailUrl;
+
+			if (!imageUrl) {
+				throw new Error('No image URL available');
+			}
+
+			// Prepare tags object from scraped data
+			const rawTags = {
+				style: rawData.style || [],
+				industry: rawData.industry || [],
+				typography: [], // Will be populated from general tags if available
+				type: rawData.type || [],
+				category: rawData.category || [],
+				platform: rawData.platform || [],
+				colors: rawData.colors || []
+			};
+
+			// Try to categorize general tags into typography and other categories
+			if (rawData.tags && Array.isArray(rawData.tags)) {
+				rawData.tags.forEach(tag => {
+					// Skip null, undefined, or non-string tags
+					if (!tag || typeof tag !== 'string') {
+						return;
+					}
+
+					const lowerTag = tag.toLowerCase();
+
+					// Categorize typography-related tags
+					if (lowerTag.includes('serif') || lowerTag.includes('sans') ||
+						lowerTag.includes('script') || lowerTag.includes('display') ||
+						lowerTag.includes('mono') || lowerTag.includes('font') ||
+						lowerTag.includes('type') && (lowerTag.includes('bold') || lowerTag.includes('light'))) {
+						rawTags.typography.push(tag);
+					}
+					// Add other uncategorized tags to style if they seem style-related
+					else if (!rawTags.style.includes(tag) && !rawTags.industry.includes(tag) &&
+						!rawTags.type.includes(tag) && !rawTags.category.includes(tag) &&
+						!rawTags.platform.includes(tag)) {
+						rawTags.style.push(tag);
+					}
+				});
+			}
+
+			// Validate and clean tags
+			const cleanedTags = this.validateAndCleanTags(rawTags);
+
+			// Format according to schema
+			const formattedDesign = {
+				id: id,
+				image: imageUrl,
+				tags: cleanedTags
+			};
+
+			// Add optional fields if available
+			if (rawData.websiteName && rawData.websiteName !== 'Untitled') {
+				formattedDesign.title = rawData.websiteName;
+			}
+
+			// Author field is not typically available from Land-book scraping
+			// but we'll include it in the structure for future use
+			if (rawData.author) {
+				formattedDesign.author = rawData.author;
+			}
+
+			return {
+				success: true,
+				design: formattedDesign
+			};
+
+		} catch (error) {
+			console.error('Error formatting design data:', error.message);
+			return {
+				success: false,
+				error: error.message,
+				rawData: rawData
+			};
+		}
+	}
+
+	// Validate complete design object against schema
+	validateDesignObject(design) {
+		const errors = [];
+
+		// Required fields
+		if (!design.id || typeof design.id !== 'string') {
+			errors.push('Missing or invalid id field');
+		}
+
+		if (!design.image || typeof design.image !== 'string') {
+			errors.push('Missing or invalid image field');
+		} else {
+			// Basic URL validation
+			try {
+				new URL(design.image);
+			} catch (e) {
+				errors.push('Invalid image URL format');
+			}
+		}
+
+		if (!design.tags || typeof design.tags !== 'object') {
+			errors.push('Missing or invalid tags field');
+		} else {
+			// Validate tags structure
+			const requiredTagCategories = ['style', 'industry', 'typography', 'type', 'category', 'platform', 'colors'];
+			requiredTagCategories.forEach(category => {
+				if (!Array.isArray(design.tags[category])) {
+					errors.push(`Invalid tags.${category} - must be an array`);
+				}
+			});
+
+			// Validate color format
+			if (Array.isArray(design.tags.colors)) {
+				design.tags.colors.forEach((color, index) => {
+					if (!/^#[0-9A-Fa-f]{6}$/i.test(color)) {
+						errors.push(`Invalid color format at tags.colors[${index}]: ${color}`);
+					}
+				});
+			}
+		}
+
+		// Optional fields validation
+		if (design.title && typeof design.title !== 'string') {
+			errors.push('Invalid title field - must be string');
+		}
+
+		if (design.author && typeof design.author !== 'string') {
+			errors.push('Invalid author field - must be string');
+		}
+
+		return {
+			isValid: errors.length === 0,
+			errors: errors
+		};
+	}
+
+	// Generate and output designs.json file
+	async generateJsonOutput(scrapedData, outputPath = '../data/designs.json') {
+		console.log(`📝 Generating JSON output for ${scrapedData.length} designs...`);
+
+		const designs = [];
+		const formatErrors = [];
+
+		// Format each scraped design
+		scrapedData.forEach((rawData, index) => {
+			const formatResult = this.formatDesignData(rawData, index);
+
+			if (formatResult.success) {
+				// Validate the formatted design
+				const validation = this.validateDesignObject(formatResult.design);
+
+				if (validation.isValid) {
+					designs.push(formatResult.design);
+					console.log(`   ✅ Formatted design: ${formatResult.design.title || formatResult.design.id}`);
+				} else {
+					console.log(`   ❌ Validation failed for design ${index + 1}:`);
+					validation.errors.forEach(error => console.log(`      - ${error}`));
+					formatErrors.push({
+						index: index,
+						errors: validation.errors,
+						rawData: rawData
+					});
+				}
+			} else {
+				console.log(`   ❌ Format failed for design ${index + 1}: ${formatResult.error}`);
+				formatErrors.push({
+					index: index,
+					error: formatResult.error,
+					rawData: formatResult.rawData
+				});
+			}
+		});
+
+		// Generate final JSON structure
+		const outputData = {
+			metadata: {
+				generatedAt: new Date().toISOString(),
+				totalDesigns: designs.length,
+				source: 'Land-book.com',
+				scraper: 'LandBookScraper v1.0',
+				formatErrors: formatErrors.length
+			},
+			designs: designs
+		};
+
+		try {
+			// Ensure output directory exists
+			const outputDir = path.dirname(outputPath);
+			await fs.mkdir(outputDir, { recursive: true });
+
+			// Write JSON file with pretty formatting
+			const jsonString = JSON.stringify(outputData, null, 2);
+			await fs.writeFile(outputPath, jsonString, 'utf8');
+
+			console.log(`✅ Successfully generated JSON output:`);
+			console.log(`   File: ${outputPath}`);
+			console.log(`   Total designs: ${designs.length}`);
+			console.log(`   Format errors: ${formatErrors.length}`);
+			console.log(`   File size: ${(jsonString.length / 1024).toFixed(2)} KB`);
+
+			// Generate summary statistics
+			const stats = this.generateOutputStatistics(designs);
+			console.log(`\n📊 Content Statistics:`);
+			console.log(`   Designs with titles: ${stats.withTitles}`);
+			console.log(`   Designs with colors: ${stats.withColors}`);
+			console.log(`   Average tags per design: ${stats.avgTagsPerDesign.toFixed(1)}`);
+			console.log(`   Most common style tags: ${stats.topStyleTags.slice(0, 3).join(', ')}`);
+			console.log(`   Most common industries: ${stats.topIndustries.slice(0, 3).join(', ')}`);
+
+			return {
+				success: true,
+				outputPath: outputPath,
+				totalDesigns: designs.length,
+				formatErrors: formatErrors.length,
+				statistics: stats
+			};
+
+		} catch (error) {
+			console.error('❌ Failed to write JSON output:', error.message);
+			return {
+				success: false,
+				error: error.message,
+				designs: designs,
+				formatErrors: formatErrors
+			};
+		}
+	}
+
+	// Generate statistics about the output data
+	generateOutputStatistics(designs) {
+		const stats = {
+			withTitles: 0,
+			withColors: 0,
+			totalTags: 0,
+			tagCounts: {
+				style: {},
+				industry: {},
+				typography: {},
+				type: {},
+				category: {},
+				platform: {}
+			}
+		};
+
+		designs.forEach(design => {
+			if (design.title) stats.withTitles++;
+			if (design.tags.colors && design.tags.colors.length > 0) stats.withColors++;
+
+			// Count tags by category
+			Object.keys(stats.tagCounts).forEach(category => {
+				if (design.tags[category]) {
+					stats.totalTags += design.tags[category].length;
+					design.tags[category].forEach(tag => {
+						stats.tagCounts[category][tag] = (stats.tagCounts[category][tag] || 0) + 1;
+					});
+				}
+			});
+		});
+
+		// Calculate averages and top tags
+		stats.avgTagsPerDesign = designs.length > 0 ? stats.totalTags / designs.length : 0;
+
+		stats.topStyleTags = Object.entries(stats.tagCounts.style)
+			.sort(([, a], [, b]) => b - a)
+			.slice(0, 5)
+			.map(([tag]) => tag);
+
+		stats.topIndustries = Object.entries(stats.tagCounts.industry)
+			.sort(([, a], [, b]) => b - a)
+			.slice(0, 5)
+			.map(([tag]) => tag);
+
+		return stats;
+	}
 }
 
 // Helper function to prompt user for input
@@ -1142,11 +1515,74 @@ if (require.main === module) {
 				});
 			}
 
-			console.log('\n✨ Ready to proceed with detail page scraping!');
-			console.log('💡 This completes the basic setup and grid scraping. Next steps will implement detail page data extraction.');
+			// Ask if user wants to proceed with detail scraping
+			console.log('\n🔍 Detail page scraping:');
+			const proceedWithDetails = await promptUser('Proceed with detail page scraping to extract full data? (y/n) [default: y]: ');
+			const shouldScrapeDetails = !['n', 'no', 'false', '0'].includes(proceedWithDetails.toLowerCase());
+
+			if (shouldScrapeDetails && gridResults.items.length > 0) {
+				console.log('\n🕷️  Starting detail page scraping...');
+				console.log('⚠️  This may take several minutes depending on the number of items.');
+				console.log('⏱️  Implementing respectful crawling with rate limiting...\n');
+
+				const detailResults = await scraper.scrapeAllDetailPages(gridResults.items);
+
+				if (detailResults.success && detailResults.results.length > 0) {
+					console.log(`\n✅ Detail scraping completed!`);
+					console.log(`   Successfully scraped: ${detailResults.successCount}/${detailResults.totalProcessed} items`);
+					console.log(`   Errors: ${detailResults.errorCount}`);
+
+					// Generate JSON output
+					console.log('\n📝 Generating JSON output...');
+					const jsonResult = await scraper.generateJsonOutput(detailResults.results);
+
+					if (jsonResult.success) {
+						console.log(`\n🎉 Scraping completed successfully!`);
+						console.log(`📄 JSON file generated: ${jsonResult.outputPath}`);
+						console.log(`📊 Total designs: ${jsonResult.totalDesigns}`);
+						console.log(`⚠️  Format errors: ${jsonResult.formatErrors}`);
+
+						if (jsonResult.statistics) {
+							console.log(`\n📈 Content quality:`);
+							console.log(`   Designs with titles: ${jsonResult.statistics.withTitles}/${jsonResult.totalDesigns}`);
+							console.log(`   Designs with colors: ${jsonResult.statistics.withColors}/${jsonResult.totalDesigns}`);
+							console.log(`   Average tags per design: ${jsonResult.statistics.avgTagsPerDesign.toFixed(1)}`);
+						}
+
+						console.log('\n✨ Your designs.json file is ready for use in the This or That application!');
+					} else {
+						console.error(`❌ Failed to generate JSON output: ${jsonResult.error}`);
+						console.log('💡 Raw scraped data is still available in memory if needed.');
+					}
+				} else {
+					console.error('❌ Detail scraping failed or returned no results');
+					if (detailResults.errors && detailResults.errors.length > 0) {
+						console.log('\n❌ Detail scraping errors:');
+						detailResults.errors.slice(0, 5).forEach((error, index) => {
+							console.log(`   ${index + 1}. ${error.url || 'Unknown URL'}: ${error.error}`);
+						});
+					}
+				}
+			} else {
+				console.log('\n⏭️  Skipping detail page scraping.');
+				console.log('💡 Grid data is available but JSON output requires detail page data.');
+			}
+
+			console.log('\n📋 Final Summary:');
+			console.log(`   ✅ Browser initialized`);
+			console.log(`   ✅ Navigation successful`);
+			console.log(`   ✅ Grid scraping successful`);
+			if (shouldScrapeDetails) {
+				console.log(`   ✅ Detail scraping ${detailResults?.success ? 'successful' : 'failed'}`);
+				console.log(`   ✅ JSON output ${jsonResult?.success ? 'generated' : 'failed'}`);
+			}
+			console.log(`   📊 Items found: ${items.available}/${items.total}`);
+			console.log(`   📊 Items scraped: ${gridResults.items.length}`);
+			console.log(`   ⚠️  Total errors: ${scraper.getErrors().length}`);
 
 		} catch (error) {
 			console.error('❌ Scraper failed:', error.message);
+			console.error('Stack trace:', error.stack);
 			process.exit(1);
 		} finally {
 			await scraper.close();
