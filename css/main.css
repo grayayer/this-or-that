@@ -190,12 +190,42 @@ a:hover {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
+.image-option.loading {
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.image-option.loading .design-image {
+    opacity: 0;
+}
+
+.image-option.loaded .design-image {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.image-option.error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
 .design-image {
     width: 100%;
     height: auto;
     min-height: 200px;
     object-fit: cover;
     display: block;
+    transition: opacity 0.3s ease;
 }
 
 .image-overlay {
@@ -214,6 +244,11 @@ a:hover {
 
 .image-option:hover .image-overlay {
     opacity: 1;
+}
+
+.image-option.loading .image-overlay,
+.image-option.error .image-overlay {
+    display: none;
 }
 
 .choice-label {

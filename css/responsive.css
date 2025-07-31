@@ -55,6 +55,10 @@
         min-height: 180px;
     }
 
+    .image-option.loading {
+        min-height: 180px;
+    }
+
     /* Adjust button sizes for mobile */
     .btn {
         padding: 14px 20px;
@@ -101,6 +105,10 @@
         min-height: 200px;
     }
 
+    .image-option.loading {
+        min-height: 200px;
+    }
+
     .vs-divider {
         order: 2;
         padding: 16px;
@@ -129,6 +137,10 @@
     }
 
     .design-image {
+        min-height: 220px;
+    }
+
+    .image-option.loading {
         min-height: 220px;
     }
 
@@ -186,6 +198,10 @@
         min-height: 250px;
     }
 
+    .image-option.loading {
+        min-height: 250px;
+    }
+
     .vs-divider {
         padding: 20px;
         font-size: 1.25rem;
@@ -227,6 +243,10 @@
     }
 
     .design-image {
+        min-height: 280px;
+    }
+
+    .image-option.loading {
         min-height: 280px;
     }
 }
@@ -272,6 +292,10 @@
     }
 
     .design-image {
+        min-height: 140px;
+    }
+
+    .image-option.loading {
         min-height: 140px;
     }
 

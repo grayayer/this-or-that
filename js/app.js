@@ -269,6 +269,354 @@ function clearAppError() {
 	appState.error = null;
 }
 
+/**
+ * Loads the next pair of images for user selection
+ * Implements duplicate prevention logic and ensures variety
+ * @returns {boolean} - True if pair loaded successfully, false otherwise
+ */
+function loadNextPair() {
+	try {
+		if (!isAppReady()) {
+			console.error('❌ App not ready for loading pairs');
+			return false;
+		}
+
+		if (appState.config.enableLogging) {
+			console.log(`🔄 Loading next pair (round ${appState.currentRound + 1})`);
+		}
+
+		// Get a new pair using the data loader
+		const pairs = appState.dataLoader.getRandomPairs(1, appState.usedPairs);
+
+		if (pairs.length === 0) {
+			console.warn('⚠️ No more unique pairs available');
+			// If we've exhausted all pairs, reset used pairs and try again
+			if (appState.usedPairs.size > 0) {
+				appState.usedPairs.clear();
+				const retryPairs = appState.dataLoader.getRandomPairs(1, appState.usedPairs);
+				if (retryPairs.length > 0) {
+					appState.currentPair = retryPairs[0];
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			appState.currentPair = pairs[0];
+		}
+
+		// Update UI with new pair
+		displayImagePair(appState.currentPair);
+
+		// Preload next images in background
+		preloadNextImages();
+
+		if (appState.config.enableLogging) {
+			console.log(`✅ Loaded pair: ${appState.currentPair[0].id} vs ${appState.currentPair[1].id}`);
+		}
+
+		return true;
+
+	} catch (error) {
+		handleAppError(error, 'loadNextPair');
+		return false;
+	}
+}
+
+/**
+ * Displays the current image pair in the UI
+ * @param {Array} pair - Array of two design objects
+ */
+function displayImagePair(pair) {
+	if (!pair || pair.length !== 2) {
+		console.error('❌ Invalid pair provided to displayImagePair');
+		return;
+	}
+
+	const image1Element = document.getElementById('image-1');
+	const image2Element = document.getElementById('image-2');
+	const option1Element = document.getElementById('image-option-1');
+	const option2Element = document.getElementById('image-option-2');
+
+	if (!image1Element || !image2Element || !option1Element || !option2Element) {
+		console.error('❌ Required image elements not found in DOM');
+		return;
+	}
+
+	// Set up first image
+	setupImageElement(image1Element, pair[0], option1Element);
+
+	// Set up second image
+	setupImageElement(image2Element, pair[1], option2Element);
+
+	// Show selection section and hide loading
+	showSelectionSection();
+}
+
+/**
+ * Sets up an individual image element with loading states and error handling
+ * @param {HTMLImageElement} imgElement - The image element
+ * @param {Object} design - The design object
+ * @param {HTMLElement} containerElement - The container element
+ */
+function setupImageElement(imgElement, design, containerElement) {
+	// Store design ID on container for click handling
+	containerElement.dataset.designId = design.id;
+
+	// Add loading class
+	containerElement.classList.add('loading');
+
+	// Set up image load handlers
+	imgElement.onload = () => {
+		containerElement.classList.remove('loading');
+		containerElement.classList.add('loaded');
+
+		if (appState.config.enableLogging) {
+			console.log(`✅ Image loaded: ${design.id}`);
+		}
+	};
+
+	imgElement.onerror = () => {
+		containerElement.classList.remove('loading');
+		containerElement.classList.add('error');
+
+		// Set fallback image or placeholder
+		imgElement.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY2NjY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIFVuYXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';
+		imgElement.alt = `Design ${design.id} - Image unavailable`;
+
+		console.warn(`⚠️ Failed to load image: ${design.id}`);
+	};
+
+	// Set image source and alt text
+	imgElement.src = design.image;
+	imgElement.alt = design.title || `Design option ${design.id}`;
+}
+
+/**
+ * Preloads the next set of images in the background for better performance
+ */
+function preloadNextImages() {
+	try {
+		// Get next potential pairs for preloading
+		const nextPairs = appState.dataLoader.getRandomPairs(2, appState.usedPairs);
+
+		nextPairs.forEach(pair => {
+			pair.forEach(design => {
+				const img = new Image();
+				img.src = design.image;
+				// Images will be cached by browser for faster loading
+			});
+		});
+
+		if (appState.config.enableLogging && nextPairs.length > 0) {
+			console.log(`🔄 Preloaded ${nextPairs.length * 2} images`);
+		}
+	} catch (error) {
+		// Preloading failure shouldn't break the app
+		console.warn('⚠️ Failed to preload images:', error.message);
+	}
+}
+
+/**
+ * Handles user selection of an image
+ * @param {string} selectedDesignId - ID of the selected design
+ */
+function handleSelection(selectedDesignId) {
+	try {
+		if (!appState.currentPair || appState.currentPair.length !== 2) {
+			console.error('❌ No current pair available for selection');
+			return false;
+		}
+
+		const selectedDesign = appState.currentPair.find(design => design.id === selectedDesignId);
+		const rejectedDesign = appState.currentPair.find(design => design.id !== selectedDesignId);
+
+		if (!selectedDesign || !rejectedDesign) {
+			console.error('❌ Invalid selection - design not found in current pair');
+			return false;
+		}
+
+		// Record the selection
+		const selectionRecord = {
+			timestamp: new Date().toISOString(),
+			selectedId: selectedDesign.id,
+			rejectedId: rejectedDesign.id,
+			roundNumber: appState.currentRound + 1,
+			timeToDecision: null // Will be set by timer if available
+		};
+
+		appState.selections.push(selectionRecord);
+		appState.currentRound++;
+		appState.totalRounds++;
+
+		if (appState.config.enableLogging) {
+			console.log(`✅ Selection recorded: ${selectedDesign.id} chosen over ${rejectedDesign.id}`);
+		}
+
+		// Update progress display
+		updateProgressDisplay();
+
+		// Check if we should show results or continue
+		if (shouldShowResults()) {
+			showResultsPrompt();
+		} else {
+			// Load next pair
+			setTimeout(() => {
+				loadNextPair();
+			}, 500); // Small delay for better UX
+		}
+
+		return true;
+
+	} catch (error) {
+		handleAppError(error, 'handleSelection');
+		return false;
+	}
+}
+
+/**
+ * Updates the progress display in the UI
+ */
+function updateProgressDisplay() {
+	const progressText = document.getElementById('progress-text');
+	const progressBar = document.getElementById('progress-bar');
+
+	if (progressText) {
+		const remaining = Math.max(0, appState.minChoicesRequired - appState.totalRounds);
+		if (remaining > 0) {
+			progressText.textContent = `Choice ${appState.totalRounds} of ${appState.minChoicesRequired}+ (${remaining} more needed)`;
+		} else {
+			progressText.textContent = `Choice ${appState.totalRounds} - Results available!`;
+		}
+	}
+
+	if (progressBar) {
+		const percentage = Math.min(100, (appState.totalRounds / appState.minChoicesRequired) * 100);
+		progressBar.style.setProperty('--progress', `${percentage}%`);
+	}
+}
+
+/**
+ * Determines if results should be shown based on current progress
+ * @returns {boolean} - True if results should be shown
+ */
+function shouldShowResults() {
+	return appState.totalRounds >= appState.minChoicesRequired &&
+		(appState.currentRound % appState.maxRoundsPerSession === 0 ||
+			appState.currentSession >= appState.maxSessions);
+}
+
+/**
+ * Shows the results prompt or continues to next session
+ */
+function showResultsPrompt() {
+	// This will be implemented when results functionality is added
+	// For now, just continue loading pairs
+	if (appState.totalRounds < appState.minChoicesRequired * appState.maxSessions) {
+		setTimeout(() => {
+			loadNextPair();
+		}, 1000);
+	}
+}
+
+/**
+ * Shows the selection section and hides loading section
+ */
+function showSelectionSection() {
+	const selectionSection = document.getElementById('selection-section');
+	const loadingSection = document.getElementById('loading-section');
+
+	if (selectionSection) {
+		selectionSection.style.display = 'block';
+	}
+
+	if (loadingSection) {
+		loadingSection.style.display = 'none';
+	}
+}
+
+/**
+ * Shows the loading section and hides selection section
+ */
+function showLoadingSection() {
+	const selectionSection = document.getElementById('selection-section');
+	const loadingSection = document.getElementById('loading-section');
+
+	if (selectionSection) {
+		selectionSection.style.display = 'none';
+	}
+
+	if (loadingSection) {
+		loadingSection.style.display = 'block';
+	}
+}
+
+/**
+ * Sets up click handlers for image selection
+ */
+function setupImageClickHandlers() {
+	const option1 = document.getElementById('image-option-1');
+	const option2 = document.getElementById('image-option-2');
+
+	if (option1) {
+		option1.addEventListener('click', (event) => {
+			event.preventDefault();
+			const designId = option1.dataset.designId;
+			if (designId) {
+				handleSelection(designId);
+			}
+		});
+	}
+
+	if (option2) {
+		option2.addEventListener('click', (event) => {
+			event.preventDefault();
+			const designId = option2.dataset.designId;
+			if (designId) {
+				handleSelection(designId);
+			}
+		});
+	}
+
+	if (appState.config.enableLogging) {
+		console.log('✅ Image click handlers set up');
+	}
+}
+
+/**
+ * Initializes the image pair selection system
+ * Should be called after app initialization
+ */
+function initializeImagePairSystem() {
+	try {
+		if (!isAppReady()) {
+			throw new Error('App not ready for image pair system initialization');
+		}
+
+		// Set up click handlers
+		setupImageClickHandlers();
+
+		// Load first pair
+		showLoadingSection();
+		const success = loadNextPair();
+
+		if (!success) {
+			throw new Error('Failed to load initial image pair');
+		}
+
+		if (appState.config.enableLogging) {
+			console.log('🎉 Image pair selection system initialized');
+		}
+
+		return true;
+
+	} catch (error) {
+		handleAppError(error, 'initializeImagePairSystem');
+		return false;
+	}
+}
+
 // Export functions for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
 	module.exports = {
@@ -280,7 +628,10 @@ if (typeof module !== 'undefined' && module.exports) {
 		getAppStatus,
 		validateDependencies,
 		handleAppError,
-		clearAppError
+		clearAppError,
+		loadNextPair,
+		handleSelection,
+		initializeImagePairSystem
 	};
 }
 
@@ -295,4 +646,7 @@ if (typeof window !== 'undefined') {
 	window.validateDependencies = validateDependencies;
 	window.handleAppError = handleAppError;
 	window.clearAppError = clearAppError;
+	window.loadNextPair = loadNextPair;
+	window.handleSelection = handleSelection;
+	window.initializeImagePairSystem = initializeImagePairSystem;
 }

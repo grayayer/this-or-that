@@ -139,10 +139,59 @@
 	</footer>
 
 	<!-- Scripts -->
+	<script src="js/data-validator.js"></script>
+	<script src="js/app-data-loader.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/timer.js"></script>
 	<script src="js/results.js"></script>
 	<script src="js/email.js"></script>
+
+	<!-- Initialize Application -->
+	<script>
+		// Initialize the application when DOM is loaded
+		document.addEventListener('DOMContentLoaded', async function () {
+			try {
+				console.log('🚀 Starting This or That application...');
+
+				// Initialize the app with sample data
+				await initializeApp({
+					dataPath: 'data/designs.json',
+					fallbackDataPath: 'data/sample-designs.json',
+					enableLogging: true
+				});
+
+				// Initialize the image pair selection system
+				initializeImagePairSystem();
+
+			} catch (error) {
+				console.error('❌ Failed to initialize application:', error);
+
+				// Show error section
+				const errorSection = document.getElementById('error-section');
+				const errorMessage = document.getElementById('error-message');
+				const loadingSection = document.getElementById('loading-section');
+
+				if (errorSection && errorMessage) {
+					errorMessage.textContent = error.message || 'Failed to load the application. Please try again.';
+					errorSection.style.display = 'block';
+				}
+
+				if (loadingSection) {
+					loadingSection.style.display = 'none';
+				}
+			}
+		});
+
+		// Set up retry button
+		document.addEventListener('DOMContentLoaded', function () {
+			const retryBtn = document.getElementById('retry-btn');
+			if (retryBtn) {
+				retryBtn.addEventListener('click', function () {
+					location.reload();
+				});
+			}
+		});
+	</script>
 </body>
 
 </html>
