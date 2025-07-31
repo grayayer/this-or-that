@@ -57,7 +57,7 @@
   - Implement error handling for JSON loading failures
   - _Requirements: 6.1, 6.3_
 
-- [ ] 5. Set up basic HTML foundation and styling
+- [x] 5. Set up basic HTML foundation and styling
   - Build index.html with semantic structure for image pairs, timer, and results sections
   - Implement basic CSS reset and system font typography with white background
   - Create responsive layout structure for mobile and desktop

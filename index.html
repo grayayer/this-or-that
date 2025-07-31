@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>This or That? - Design Preference Discovery</title>
+	<meta name="description"
+		content="Discover your design preferences through quick binary choices between web design screenshots">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+	<!-- Main Application Container -->
+	<main class="app-container">
+
+		<!-- Header Section -->
+		<header class="app-header">
+			<h1>This or That?</h1>
+			<p class="app-description">Choose your preferred design in each pair to discover your aesthetic preferences
+			</p>
+		</header>
+
+		<!-- Timer Section -->
+		<section class="timer-section" id="timer-section">
+			<div class="timer-container">
+				<div class="timer-progress-bar" id="timer-progress-bar"></div>
+				<div class="timer-display" id="timer-display">30</div>
+			</div>
+		</section>
+
+		<!-- Progress Section -->
+		<section class="progress-section" id="progress-section">
+			<div class="progress-container">
+				<div class="progress-text" id="progress-text">Choice 1 of 20+</div>
+				<div class="progress-bar-container">
+					<div class="progress-bar" id="progress-bar"></div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Image Pair Selection Section -->
+		<section class="selection-section" id="selection-section">
+			<div class="image-pair-container">
+				<div class="image-option" id="image-option-1">
+					<img src="" alt="Design option 1" id="image-1" class="design-image">
+					<div class="image-overlay">
+						<span class="choice-label">Choose This</span>
+					</div>
+				</div>
+
+				<div class="vs-divider">
+					<span>or</span>
+				</div>
+
+				<div class="image-option" id="image-option-2">
+					<img src="" alt="Design option 2" id="image-2" class="design-image">
+					<div class="image-overlay">
+						<span class="choice-label">Choose This</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Loading Section -->
+		<section class="loading-section" id="loading-section">
+			<div class="loading-container">
+				<div class="loading-spinner"></div>
+				<p class="loading-text">Loading design options...</p>
+			</div>
+		</section>
+
+		<!-- Results Section -->
+		<section class="results-section" id="results-section" style="display: none;">
+			<div class="results-container">
+				<header class="results-header">
+					<h2>Your Design Preferences</h2>
+					<p class="results-description">Based on your choices, here's your design preference profile</p>
+				</header>
+
+				<div class="results-content">
+					<div class="preference-categories" id="preference-categories">
+						<!-- Dynamic content will be inserted here -->
+					</div>
+
+					<div class="results-actions">
+						<button class="btn btn-primary" id="email-results-btn">Email Results</button>
+						<button class="btn btn-secondary" id="start-over-btn">Start Over</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Email Form Section -->
+		<section class="email-section" id="email-section" style="display: none;">
+			<div class="email-container">
+				<header class="email-header">
+					<h3>Share Your Results</h3>
+					<p>Send your design preference profile via email</p>
+				</header>
+
+				<form class="email-form" id="email-form">
+					<div class="form-group">
+						<label for="user-email">Your Email Address</label>
+						<input type="email" id="user-email" name="userEmail" required placeholder="your@email.com">
+					</div>
+
+					<div class="form-group">
+						<label for="designer-email">Designer's Email (Optional)</label>
+						<input type="email" id="designer-email" name="designerEmail" placeholder="designer@email.com">
+					</div>
+
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Send Results</button>
+						<button type="button" class="btn btn-secondary" id="cancel-email-btn">Cancel</button>
+					</div>
+				</form>
+
+				<div class="email-status" id="email-status"></div>
+			</div>
+		</section>
+
+		<!-- Error Section -->
+		<section class="error-section" id="error-section" style="display: none;">
+			<div class="error-container">
+				<h3>Oops! Something went wrong</h3>
+				<p class="error-message" id="error-message"></p>
+				<button class="btn btn-primary" id="retry-btn">Try Again</button>
+			</div>
+		</section>
+
+	</main>
+
+	<!-- Footer -->
+	<footer class="app-footer">
+		<p>Design images courtesy of <a href="https://land-book.com" target="_blank" rel="noopener">Land-book.com</a>
+		</p>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="js/app.js"></script>
+	<script src="js/timer.js"></script>
+	<script src="js/results.js"></script>
+	<script src="js/email.js"></script>
+</body>
+
+</html>

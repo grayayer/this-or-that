@@ -1,0 +1,349 @@
+/* Responsive Design Styles */
+
+/* Mobile First Approach - Base styles are for mobile */
+
+/* Small Mobile Devices (320px and up) */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 16px;
+    }
+
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
+    .app-description {
+        font-size: 1rem;
+    }
+
+    /* Timer adjustments for small screens */
+    .timer-container {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .timer-progress-bar {
+        order: 2;
+        width: 100%;
+    }
+
+    .timer-display {
+        order: 1;
+        font-size: 1.25rem;
+    }
+
+    /* Image pair layout for mobile */
+    .image-pair-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto 1fr;
+        gap: 20px;
+        max-width: 100%;
+    }
+
+    .vs-divider {
+        order: 2;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .image-option {
+        min-height: 180px;
+    }
+
+    .design-image {
+        min-height: 180px;
+    }
+
+    /* Adjust button sizes for mobile */
+    .btn {
+        padding: 14px 20px;
+        font-size: 1rem;
+        min-width: 100px;
+    }
+
+    .results-actions,
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .results-actions .btn,
+    .form-actions .btn {
+        width: 100%;
+    }
+
+    /* Email form adjustments */
+    .email-container {
+        padding: 20px;
+        margin: 0 16px;
+    }
+}
+
+/* Large Mobile Devices (481px to 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .app-container {
+        padding: 20px;
+    }
+
+    .image-pair-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto 1fr;
+        gap: 24px;
+        max-width: 500px;
+    }
+
+    .image-option {
+        min-height: 200px;
+    }
+
+    .design-image {
+        min-height: 200px;
+    }
+
+    .vs-divider {
+        order: 2;
+        padding: 16px;
+    }
+}
+
+/* Tablet Devices (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .app-container {
+        padding: 30px;
+    }
+
+    .app-header h1 {
+        font-size: 2.25rem;
+    }
+
+    /* Restore horizontal layout for tablets */
+    .image-pair-container {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 24px;
+        max-width: 700px;
+    }
+
+    .image-option {
+        min-height: 220px;
+    }
+
+    .design-image {
+        min-height: 220px;
+    }
+
+    .vs-divider {
+        padding: 16px;
+    }
+
+    /* Timer layout for tablets */
+    .timer-container {
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .timer-progress-bar {
+        order: 1;
+    }
+
+    .timer-display {
+        order: 2;
+        font-size: 1.5rem;
+    }
+}
+
+/* Desktop Devices (1024px and up) */
+@media (min-width: 1024px) {
+    .app-container {
+        padding: 40px;
+    }
+
+    .app-header {
+        margin-bottom: 50px;
+    }
+
+    .app-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .app-description {
+        font-size: 1.125rem;
+    }
+
+    /* Full desktop layout */
+    .image-pair-container {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 40px;
+        max-width: 900px;
+    }
+
+    .image-option {
+        min-height: 250px;
+    }
+
+    .design-image {
+        min-height: 250px;
+    }
+
+    .vs-divider {
+        padding: 20px;
+        font-size: 1.25rem;
+    }
+
+    /* Enhanced hover effects for desktop */
+    .image-option:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Button layout for desktop */
+    .results-actions,
+    .form-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .results-actions .btn,
+    .form-actions .btn {
+        width: auto;
+        min-width: 140px;
+    }
+}
+
+/* Large Desktop Devices (1200px and up) */
+@media (min-width: 1200px) {
+    .app-container {
+        padding: 50px;
+    }
+
+    .image-pair-container {
+        gap: 50px;
+        max-width: 1000px;
+    }
+
+    .image-option {
+        min-height: 280px;
+    }
+
+    .design-image {
+        min-height: 280px;
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .loading-spinner {
+        border-width: 2px;
+    }
+
+    .timer-progress-bar {
+        height: 6px;
+    }
+
+    .progress-bar-container {
+        height: 4px;
+    }
+}
+
+/* Landscape Orientation on Mobile */
+@media (max-width: 767px) and (orientation: landscape) {
+    .app-header {
+        margin-bottom: 20px;
+    }
+
+    .app-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .timer-section,
+    .progress-section {
+        margin-bottom: 20px;
+    }
+
+    .image-pair-container {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 16px;
+        max-width: 100%;
+    }
+
+    .image-option {
+        min-height: 140px;
+    }
+
+    .design-image {
+        min-height: 140px;
+    }
+
+    .vs-divider {
+        padding: 8px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Accessibility and Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .loading-spinner {
+        animation: none;
+        border-top-color: transparent;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .image-option {
+        border: 2px solid #000000;
+    }
+
+    .timer-container,
+    .email-container {
+        border: 2px solid #000000;
+    }
+
+    .btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Dark Mode Support (if needed in future) */
+@media (prefers-color-scheme: dark) {
+    /* Currently maintaining white background as per design requirements */
+    /* This media query is prepared for future dark mode implementation */
+}
+
+/* Print Styles */
+@media print {
+    .timer-section,
+    .selection-section,
+    .loading-section,
+    .email-section,
+    .error-section {
+        display: none !important;
+    }
+
+    .results-section {
+        display: block !important;
+    }
+
+    .app-container {
+        max-width: none;
+        padding: 0;
+    }
+
+    .results-actions {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+}
