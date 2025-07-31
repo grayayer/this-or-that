@@ -1,0 +1,154 @@
+{
+  "metadata": {
+    "generatedAt": "2025-07-31T02:23:10.675Z",
+    "totalDesigns": 3,
+    "source": "Land-book.com",
+    "scraper": "LandBookScraper v1.0",
+    "formatErrors": 0
+  },
+  "designs": [
+    {
+      "id": "design_seriant-advancing-cu_0_1753928590674_lm9hb41hf",
+      "image": "https://cdn.land-book.com/website/82056/c41a3bb8bc0f1430-seriant-org.webp",
+      "tags": {
+        "style": [
+          "Background Image",
+          "Big Footer",
+          "Parallax",
+          "People",
+          ",",
+          "Background Image, Big Footer, Parallax, People",
+          "Claim this website"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech",
+          ",",
+          "Health & Fitness, Medical, Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Service"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#143243",
+          "#ECECEF",
+          "#322D2E",
+          "#1E191A",
+          "#385162",
+          "#445492",
+          "#3F69BE",
+          "#3A72AE",
+          "#3E5CAD",
+          "#2772BC"
+        ]
+      },
+      "title": "Seriant | Advancing Cutting-Edge Science for Real-World Therapies | Seriant"
+    },
+    {
+      "id": "design_silna-health_1_1753928590675_dtfd15zfs",
+      "image": "https://cdn.land-book.com/website/80985/afe7054642cbad19-www-silnahealth-com.webp",
+      "tags": {
+        "style": [
+          "Gradient",
+          "Pastel Colors",
+          ",",
+          "Gradient, Pastel Colors",
+          "Together",
+          "PRO"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech",
+          ",",
+          "Health & Fitness, Medical, Tech"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Software",
+          "Web App",
+          ",",
+          "Software, Web App"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#F7F5F7",
+          "#CECBCF",
+          "#9C979D",
+          "#F5DCED",
+          "#827F83",
+          "#3B2843",
+          "#E4CBDD",
+          "#1C141F",
+          "#433C47",
+          "#AD9EB5"
+        ]
+      },
+      "title": "Silna Health"
+    },
+    {
+      "id": "design_everon-uk_2_1753928590675_6fnnl4w07",
+      "image": "https://cdn.land-book.com/website/80224/a949edace000710d-everon-net.webp",
+      "tags": {
+        "style": [
+          "3D",
+          "Background Video",
+          ",",
+          "3D, Background Video",
+          "nephew"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Travel",
+          ",",
+          "Health & Fitness, Medical, Travel"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product",
+          "Software",
+          "Web App",
+          ",",
+          "Physical Product, Software, Web App"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "WordPress"
+        ],
+        "colors": [
+          "#ECE7E9",
+          "#46331F",
+          "#544E49",
+          "#3C3430",
+          "#624F3E",
+          "#A59E9B",
+          "#76726F",
+          "#7E6B59",
+          "#281C18",
+          "#4A2F1B"
+        ]
+      },
+      "title": "Everon UK"
+    }
+  ]
+}

@@ -385,19 +385,24 @@ class LandBookScraper {
 						if (item.tagName === 'A' && item.href) {
 							detailUrl = item.href;
 						} else {
-							// Look for links within the item
-							const linkSelectors = [
-								'a[href*="/website/"]',
-								'a[href*="/design/"]',
-								'a',
-								'[data-href]'
-							];
+							// PRIORITY 1: Look for specific website detail pages (these have rich taxonomy data)
+							const websiteLink = item.querySelector('a[href*="/websites/"]');
+							if (websiteLink && websiteLink.href) {
+								detailUrl = websiteLink.href;
+							} else {
+								// PRIORITY 2: Look for other Land-book links as fallback
+								const linkSelectors = [
+									'a[href*="/website/"]',  // Alternative website URL pattern
+									'a[href*="/design/"]',   // Generic category pages (less data)
+									'a'                      // Any link as last resort
+								];
 
-							for (const linkSelector of linkSelectors) {
-								const link = item.querySelector(linkSelector);
-								if (link && link.href && (link.href.includes('/website/') || link.href.includes('/design/'))) {
-									detailUrl = link.href;
-									break;
+								for (const linkSelector of linkSelectors) {
+									const link = item.querySelector(linkSelector);
+									if (link && link.href && (link.href.includes('/website/') || link.href.includes('/design/') || link.href.includes('/websites/'))) {
+										detailUrl = link.href;
+										break;
+									}
 								}
 							}
 						}
