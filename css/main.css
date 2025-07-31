@@ -169,6 +169,14 @@ a:hover {
 /* Progress Section */
 .progress-section {
     margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.progress-section.results-available {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    padding: 16px;
 }
 
 .progress-container {
@@ -179,6 +187,12 @@ a:hover {
     font-size: 1rem;
     color: #666666;
     margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.progress-section.results-available .progress-text {
+    color: #155724;
+    font-weight: 500;
 }
 
 .progress-bar-container {
@@ -194,8 +208,22 @@ a:hover {
     height: 100%;
     background-color: #0066cc;
     border-radius: 3px;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease, background-color 0.3s ease;
     width: var(--progress, 0%);
+}
+
+.progress-bar.threshold-reached {
+    background-color: #28a745;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+    }
+    to {
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.8);
+    }
 }
 
 /* Image Pair Selection */
@@ -334,6 +362,77 @@ a:hover {
 .loading-text {
     font-size: 1.125rem;
     color: #666666;
+}
+
+/* Continue Section */
+.continue-section {
+    margin-bottom: 40px;
+}
+
+.continue-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.continue-header {
+    margin-bottom: 30px;
+}
+
+.continue-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+}
+
+.choices-completed-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #28a745;
+    margin-bottom: 16px;
+}
+
+.continue-prompt-text {
+    font-size: 1.125rem;
+    color: #666666;
+    line-height: 1.6;
+}
+
+.continue-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.continue-info {
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.session-info {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.results-placeholder {
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.results-placeholder p {
+    color: #666666;
+    margin-bottom: 12px;
 }
 
 /* Results Section */

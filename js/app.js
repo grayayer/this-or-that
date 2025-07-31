@@ -477,46 +477,256 @@ function handleSelection(selectedDesignId) {
 
 /**
  * Updates the progress display in the UI
+ * Implements requirements 3.1, 3.2, 3.3, 3.4
  */
 function updateProgressDisplay() {
 	const progressText = document.getElementById('progress-text');
 	const progressBar = document.getElementById('progress-bar');
+	const progressContainer = document.getElementById('progress-section');
 
 	if (progressText) {
+		// Requirement 3.1 & 3.2: Display progress indicator showing current choice number and total completed
 		const remaining = Math.max(0, appState.minChoicesRequired - appState.totalRounds);
-		if (remaining > 0) {
-			progressText.textContent = `Choice ${appState.totalRounds} of ${appState.minChoicesRequired}+ (${remaining} more needed)`;
+
+		if (appState.totalRounds < appState.minChoicesRequired) {
+			// Still working toward minimum threshold
+			progressText.textContent = `Choice ${appState.totalRounds} of ${appState.minChoicesRequired} (${remaining} more needed for results)`;
 		} else {
-			progressText.textContent = `Choice ${appState.totalRounds} - Results available!`;
+			// Minimum threshold reached - results available
+			// Requirement 3.3: Indicate when results will be available
+			progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
 		}
 	}
 
 	if (progressBar) {
+		// Visual progress bar - fill to 100% when minimum reached, then continue beyond
 		const percentage = Math.min(100, (appState.totalRounds / appState.minChoicesRequired) * 100);
 		progressBar.style.setProperty('--progress', `${percentage}%`);
+
+		// Add visual indicator when minimum threshold is reached
+		if (appState.totalRounds >= appState.minChoicesRequired) {
+			progressBar.classList.add('threshold-reached');
+		} else {
+			progressBar.classList.remove('threshold-reached');
+		}
+	}
+
+	// Add visual emphasis when minimum threshold is reached
+	if (progressContainer) {
+		if (appState.totalRounds >= appState.minChoicesRequired) {
+			progressContainer.classList.add('results-available');
+		} else {
+			progressContainer.classList.remove('results-available');
+		}
+	}
+
+	// Log progress for debugging
+	if (appState.config.enableLogging) {
+		console.log(`📊 Progress: ${appState.totalRounds}/${appState.minChoicesRequired} choices completed`);
 	}
 }
 
 /**
- * Determines if results should be shown based on current progress
- * @returns {boolean} - True if results should be shown
+ * Determines if we should show the continue/results prompt
+ * Implements requirement 3.4: Ask user after 20 choices if they want to continue
+ * @returns {boolean} - True if we should show the prompt
  */
 function shouldShowResults() {
+	// Show prompt when we reach minimum threshold or multiples of 20
 	return appState.totalRounds >= appState.minChoicesRequired &&
-		(appState.currentRound % appState.maxRoundsPerSession === 0 ||
-			appState.currentSession >= appState.maxSessions);
+		appState.totalRounds % 20 === 0 &&
+		appState.currentSession <= appState.maxSessions;
 }
 
 /**
- * Shows the results prompt or continues to next session
+ * Shows the results prompt asking user if they want to continue or see results
+ * Implements requirement 3.4: When 20 choices completed, ask if user wants another 20
  */
 function showResultsPrompt() {
-	// This will be implemented when results functionality is added
-	// For now, just continue loading pairs
-	if (appState.totalRounds < appState.minChoicesRequired * appState.maxSessions) {
-		setTimeout(() => {
-			loadNextPair();
-		}, 1000);
+	if (appState.config.enableLogging) {
+		console.log(`🎯 Showing results prompt after ${appState.totalRounds} choices`);
+	}
+
+	// Hide selection section
+	const selectionSection = document.getElementById('selection-section');
+	if (selectionSection) {
+		selectionSection.style.display = 'none';
+	}
+
+	// Show continue prompt
+	showContinuePrompt();
+}
+
+/**
+ * Shows the continue prompt UI asking user if they want more choices or results
+ * Implements requirement 3.4
+ */
+function showContinuePrompt() {
+	// Create or show continue prompt section
+	let continueSection = document.getElementById('continue-section');
+
+	if (!continueSection) {
+		continueSection = createContinuePromptSection();
+		const appContainer = document.querySelector('.app-container');
+		const resultsSection = document.getElementById('results-section');
+		appContainer.insertBefore(continueSection, resultsSection);
+	}
+
+	// Update prompt text based on current session
+	const promptText = continueSection.querySelector('.continue-prompt-text');
+	const choicesText = continueSection.querySelector('.choices-completed-text');
+
+	if (promptText && choicesText) {
+		choicesText.textContent = `You've completed ${appState.totalRounds} choices!`;
+
+		if (appState.currentSession < appState.maxSessions) {
+			promptText.textContent = `Would you like to make 20 more choices for better results, or see your current preferences?`;
+		} else {
+			promptText.textContent = `You've reached the maximum of ${appState.totalRounds} choices. Ready to see your results?`;
+		}
+	}
+
+	// Show/hide continue button based on session limit
+	const continueBtn = continueSection.querySelector('#continue-choices-btn');
+	if (continueBtn) {
+		continueBtn.style.display = appState.currentSession < appState.maxSessions ? 'inline-flex' : 'none';
+	}
+
+	continueSection.style.display = 'block';
+}
+
+/**
+ * Creates the continue prompt section HTML
+ * @returns {HTMLElement} - The continue prompt section element
+ */
+function createContinuePromptSection() {
+	const section = document.createElement('section');
+	section.className = 'continue-section';
+	section.id = 'continue-section';
+	section.style.display = 'none';
+
+	section.innerHTML = `
+		<div class="continue-container">
+			<div class="continue-header">
+				<h2>Great Progress!</h2>
+				<p class="choices-completed-text">You've completed ${appState.totalRounds} choices!</p>
+				<p class="continue-prompt-text">Would you like to make 20 more choices for better results, or see your current preferences?</p>
+			</div>
+
+			<div class="continue-actions">
+				<button class="btn btn-primary" id="continue-choices-btn">Continue with 20 More</button>
+				<button class="btn btn-secondary" id="show-results-btn">Show My Results</button>
+			</div>
+
+			<div class="continue-info">
+				<p class="session-info">Session ${appState.currentSession} of ${appState.maxSessions}</p>
+			</div>
+		</div>
+	`;
+
+	// Add event listeners
+	const continueBtn = section.querySelector('#continue-choices-btn');
+	const resultsBtn = section.querySelector('#show-results-btn');
+
+	if (continueBtn) {
+		continueBtn.addEventListener('click', handleContinueChoices);
+	}
+
+	if (resultsBtn) {
+		resultsBtn.addEventListener('click', handleShowResults);
+	}
+
+	return section;
+}
+
+/**
+ * Handles user choosing to continue with more choices
+ * Implements requirement 3.4: Allow up to 2 more sessions (3 total)
+ */
+function handleContinueChoices() {
+	if (appState.currentSession >= appState.maxSessions) {
+		console.warn('⚠️ Maximum sessions reached, cannot continue');
+		return;
+	}
+
+	// Increment session
+	appState.currentSession++;
+	appState.currentRound = 0; // Reset round counter for new session
+
+	if (appState.config.enableLogging) {
+		console.log(`🔄 Starting session ${appState.currentSession} of ${appState.maxSessions}`);
+	}
+
+	// Hide continue prompt
+	const continueSection = document.getElementById('continue-section');
+	if (continueSection) {
+		continueSection.style.display = 'none';
+	}
+
+	// Update progress display
+	updateProgressDisplay();
+
+	// Load next pair
+	setTimeout(() => {
+		loadNextPair();
+	}, 500);
+}
+
+/**
+ * Handles user choosing to see results
+ */
+function handleShowResults() {
+	if (appState.config.enableLogging) {
+		console.log('📊 User chose to see results');
+	}
+
+	// Mark as complete
+	appState.isComplete = true;
+
+	// Hide continue prompt
+	const continueSection = document.getElementById('continue-section');
+	if (continueSection) {
+		continueSection.style.display = 'none';
+	}
+
+	// Show results (this will be implemented in a future task)
+	// For now, just show a placeholder
+	showResultsPlaceholder();
+}
+
+/**
+ * Shows a placeholder for results (temporary until results task is implemented)
+ */
+function showResultsPlaceholder() {
+	const resultsSection = document.getElementById('results-section');
+	if (resultsSection) {
+		const resultsContainer = resultsSection.querySelector('.results-container');
+		if (resultsContainer) {
+			resultsContainer.innerHTML = `
+				<header class="results-header">
+					<h2>Your Design Preferences</h2>
+					<p class="results-description">Based on your ${appState.totalRounds} choices, here's your design preference profile</p>
+				</header>
+				<div class="results-content">
+					<div class="results-placeholder">
+						<p>Results analysis will be implemented in the next task.</p>
+						<p>You completed ${appState.totalRounds} choices across ${appState.currentSession} session(s).</p>
+					</div>
+					<div class="results-actions">
+						<button class="btn btn-secondary" id="start-over-btn">Start Over</button>
+					</div>
+				</div>
+			`;
+
+			// Add start over functionality
+			const startOverBtn = resultsContainer.querySelector('#start-over-btn');
+			if (startOverBtn) {
+				startOverBtn.addEventListener('click', () => {
+					location.reload();
+				});
+			}
+		}
+		resultsSection.style.display = 'block';
 	}
 }
 
@@ -596,6 +806,9 @@ function initializeImagePairSystem() {
 
 		// Set up click handlers
 		setupImageClickHandlers();
+
+		// Initialize progress display
+		updateProgressDisplay();
 
 		// Load first pair
 		showLoadingSection();
