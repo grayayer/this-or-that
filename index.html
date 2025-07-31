@@ -26,7 +26,7 @@
 		<section class="timer-section" id="timer-section">
 			<div class="timer-container">
 				<div class="timer-progress-bar" id="timer-progress-bar"></div>
-				<div class="timer-display" id="timer-display">30</div>
+				<div class="timer-display" id="timer-display">15</div>
 			</div>
 		</section>
 
@@ -159,6 +159,9 @@
 					fallbackDataPath: 'data/sample-designs.json',
 					enableLogging: true
 				});
+
+				// Initialize the timer component
+				setupTimerIntegration();
 
 				// Initialize the image pair selection system
 				initializeImagePairSystem();

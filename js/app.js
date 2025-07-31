@@ -35,7 +35,7 @@ const appState = {
 	config: {
 		dataPath: 'data/designs.json',     // Primary data source
 		fallbackDataPath: 'data/sample-designs.json',  // Fallback for development
-		timerDuration: 30,                  // Timer duration in seconds
+		timerDuration: 15,                  // Timer duration in seconds
 		enableLogging: true                 // Enable console logging
 	}
 };
