@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2025-07-31T01:57:37.707Z",
+    "generatedAt": "2025-07-31T02:02:01.639Z",
     "totalDesigns": 3,
     "source": "Land-book.com",
     "scraper": "LandBookScraper v1.0",
@@ -8,93 +8,55 @@
   },
   "designs": [
     {
-      "id": "design_modern-portfolio_0_1753927057707_el8rx4d6e",
-      "image": "https://cdn.land-book.com/screenshot1.webp",
+      "id": "design_the-best-landing-pag_0_1753927321638_y2h3scngi",
+      "image": "https://cdn.land-book.com/website/82185/2ec8a294fa48df43-www-latitude-sh.webp",
       "tags": {
         "style": [
-          "Minimalist",
-          "Clean",
-          "Modern",
-          "Bold Typography",
-          "Grid Layout"
-        ],
-        "industry": [
-          "Design",
-          "Creative"
-        ],
-        "typography": [],
-        "type": [
-          "Personal"
-        ],
-        "category": [
-          "Portfolio",
-          "Personal"
-        ],
-        "platform": [
-          "Webflow"
-        ],
-        "colors": [
-          "#FFFFFF",
-          "#000000",
-          "#F5F5F5"
-        ]
-      },
-      "title": "Modern Portfolio"
-    },
-    {
-      "id": "design_health-app-landing_1_1753927057707_zfgo7hvsp",
-      "image": "https://cdn.land-book.com/screenshot2.webp",
-      "tags": {
-        "style": [
-          "Colorful",
-          "Gradient",
-          "Mobile First",
-          "Responsive"
-        ],
-        "industry": [
-          "Health & Fitness",
-          "Technology"
-        ],
-        "typography": [
-          "Sans-serif"
-        ],
-        "type": [
-          "Service",
-          "Commercial"
-        ],
-        "category": [
-          "Landing Page"
-        ],
-        "platform": [
-          "React"
-        ],
-        "colors": [
-          "#4A90E2",
-          "#7ED321",
-          "#FFFFFF"
-        ]
-      },
-      "title": "Health App Landing"
-    },
-    {
-      "id": "design_incomplete-design_2_1753927057707_ygqqplogc",
-      "image": "https://cdn.land-book.com/thumb3.webp",
-      "tags": {
-        "style": [
-          "Minimal",
-          "Valid Tag",
-          "Another Tag"
+          "PRO",
+          "0"
         ],
         "industry": [],
         "typography": [],
         "type": [],
         "category": [],
         "platform": [],
-        "colors": [
-          "#FF0000"
-        ]
+        "colors": []
       },
-      "title": "Incomplete Design"
+      "title": "The best landing page website design inspiration"
+    },
+    {
+      "id": "design_the-best-landing-pag_1_1753927321639_s1gdzblzj",
+      "image": "https://cdn.land-book.com/website/82185/2ec8a294fa48df43-www-latitude-sh.webp",
+      "tags": {
+        "style": [
+          "PRO",
+          "0"
+        ],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": []
+      },
+      "title": "The best landing page website design inspiration"
+    },
+    {
+      "id": "design_the-best-landing-pag_2_1753927321639_s7c1jhrlk",
+      "image": "https://cdn.land-book.com/website/82185/2ec8a294fa48df43-www-latitude-sh.webp",
+      "tags": {
+        "style": [
+          "PRO",
+          "0"
+        ],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": []
+      },
+      "title": "The best landing page website design inspiration"
     }
   ]
 }
