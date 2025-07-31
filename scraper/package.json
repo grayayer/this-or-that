@@ -1,0 +1,29 @@
+{
+	"name": "landbook-scraper",
+	"version": "1.0.0",
+	"description": "Scraper tool to collect design data from Land-book.com",
+	"main": "scraper.js",
+	"scripts": {
+		"start": "node scraper.js",
+		"scrape": "node scraper.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"scraper",
+		"landbook",
+		"web-design",
+		"data-collection"
+	],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"puppeteer": "^21.0.0",
+		"playwright": "^1.40.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.0.0"
+	},
+	"engines": {
+		"node": ">=16.0.0"
+	}
+}

@@ -1,0 +1,88 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Design Object Schema",
+	"description": "Schema for design objects used in the This or That application",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"description": "Unique identifier for the design"
+		},
+		"image": {
+			"type": "string",
+			"format": "uri",
+			"description": "URL to the design screenshot image"
+		},
+		"title": {
+			"type": "string",
+			"description": "Website name (optional)"
+		},
+		"author": {
+			"type": "string",
+			"description": "Designer name (optional)"
+		},
+		"tags": {
+			"type": "object",
+			"properties": {
+				"style": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Style tags like 'Big Type', 'Parallax', 'Pastel Colors'"
+				},
+				"industry": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Industry tags like 'Education', 'Health & Fitness'"
+				},
+				"typography": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Typography tags like 'Serif', 'Sans-serif'"
+				},
+				"type": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Type tags like 'Personal', 'Service'"
+				},
+				"category": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Category tags like 'Portfolio'"
+				},
+				"platform": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Platform tags like 'Framer'"
+				},
+				"colors": {
+					"type": "array",
+					"items": {
+						"type": "string",
+						"pattern": "^#[0-9A-Fa-f]{6}$"
+					},
+					"description": "Hex color codes extracted from the design"
+				}
+			},
+			"required": [],
+			"additionalProperties": false
+		}
+	},
+	"required": [
+		"id",
+		"image",
+		"tags"
+	],
+	"additionalProperties": false
+}
