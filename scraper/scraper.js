@@ -63,12 +63,21 @@ class LandBookScraper {
 		console.log(`🔍 Navigating to category: ${category} with filters: ${filters.join(', ')}`);
 
 		try {
-			// Build URL with category and filters
-			let url = `https://land-book.com/gallery/${category}`;
+			// Build URL with correct query parameters
+			let url = 'https://land-book.com/';
+			const params = new URLSearchParams();
+
+			// Add industry parameter (what was previously called category)
+			params.append('industry', category);
+
+			// Add style filters
 			if (filters && filters.length > 0) {
-				url += `?${filters.map(filter => `filters[]=${filter}`).join('&')}`;
+				filters.forEach(filter => {
+					params.append('style', filter);
+				});
 			}
 
+			url += '?' + params.toString();
 			console.log(`📍 URL: ${url}`);
 
 			// Navigate to the category page
@@ -77,15 +86,75 @@ class LandBookScraper {
 				timeout: this.options.timeout
 			});
 
-			// Wait for the websites grid to load
-			await this.page.waitForSelector('#websites.websites', {
-				timeout: this.options.timeout
-			});
+			// Wait a moment for page to load
+			await new Promise(resolve => setTimeout(resolve, 3000));
+
+			// Try multiple possible selectors for the websites grid
+			const possibleSelectors = [
+				'#websites.websites',
+				'#websites',
+				'.websites',
+				'.gallery-grid',
+				'.website-grid',
+				'[data-websites]',
+				'.grid-container'
+			];
+
+			let gridFound = false;
+			for (const selector of possibleSelectors) {
+				try {
+					await this.page.waitForSelector(selector, { timeout: 5000 });
+					console.log(`✅ Found websites grid with selector: ${selector}`);
+					gridFound = true;
+					break;
+				} catch (e) {
+					// Try next selector
+					continue;
+				}
+			}
+
+			if (!gridFound) {
+				// Let's see what's actually on the page
+				console.log('🔍 Grid not found, analyzing page structure...');
+				const pageInfo = await this.page.evaluate(() => {
+					const title = document.title;
+					const bodyClasses = document.body.className;
+					const mainContent = document.querySelector('main, .main, #main, .content');
+					const grids = document.querySelectorAll('[class*="grid"], [class*="website"], [id*="website"]');
+
+					return {
+						title,
+						bodyClasses,
+						hasMainContent: !!mainContent,
+						gridElements: Array.from(grids).map(el => ({
+							tagName: el.tagName,
+							id: el.id,
+							className: el.className,
+							children: el.children.length
+						})).slice(0, 10) // Limit to first 10
+					};
+				});
+
+				console.log('📋 Page analysis:', JSON.stringify(pageInfo, null, 2));
+
+				// Try to find any container with website items
+				const websiteItems = await this.page.evaluate(() => {
+					const items = document.querySelectorAll('[class*="website"], [data-website], a[href*="/website/"]');
+					return items.length;
+				});
+
+				if (websiteItems > 0) {
+					console.log(`✅ Found ${websiteItems} website items without specific grid container`);
+					gridFound = true;
+				} else {
+					throw new Error('No website grid or items found on page');
+				}
+			}
 
 			console.log('✅ Successfully navigated to category page');
 
 			// Check if we're on a free account with limited results
-			const limitNotice = await this.page.$('.limit-notice, .upgrade-notice');
+			const limitNotice = await this.page.$('.limit-notice, .upgrade-notice, .premium-notice');
 			if (limitNotice) {
 				console.log('⚠️  Free account detected - limited to 20 items per page');
 			}
@@ -142,14 +211,40 @@ class LandBookScraper {
 
 		try {
 			// Wait a moment for dynamic content to load
-			await this.page.waitForTimeout(2000);
+			await new Promise(resolve => setTimeout(resolve, 2000));
 
-			// Count website items in the grid
+			// Count website items using multiple possible selectors
 			const itemCount = await this.page.evaluate(() => {
-				const grid = document.querySelector('#websites.websites');
-				if (!grid) return 0;
+				// Try different grid containers
+				const possibleGrids = [
+					'#websites.websites',
+					'#websites',
+					'.websites',
+					'.gallery-grid',
+					'.website-grid',
+					'[data-websites]',
+					'.grid-container',
+					'main',
+					'.main'
+				];
 
-				const items = grid.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id]');
+				let items = [];
+				for (const gridSelector of possibleGrids) {
+					const grid = document.querySelector(gridSelector);
+					if (grid) {
+						const foundItems = grid.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id], [class*="website"], a[href*="/website/"]');
+						if (foundItems.length > 0) {
+							items = Array.from(foundItems);
+							break;
+						}
+					}
+				}
+
+				// If no grid found, search the entire document
+				if (items.length === 0) {
+					items = Array.from(document.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id], [class*="website"], a[href*="/website/"]'));
+				}
+
 				return items.length;
 			});
 
@@ -175,6 +270,189 @@ class LandBookScraper {
 		if (this.browser) {
 			await this.browser.close();
 			console.log('✅ Browser closed successfully');
+		}
+	}
+
+	async scrapeGridPage() {
+		console.log('🕷️  Starting grid page scraping...');
+
+		try {
+			// Wait for content to be fully loaded
+			await new Promise(resolve => setTimeout(resolve, 2000));
+
+			// Extract website items from the grid
+			const websiteData = await this.page.evaluate(() => {
+				// Find the websites grid container
+				const possibleGrids = [
+					'#websites.websites',
+					'#websites',
+					'.websites',
+					'.gallery-grid',
+					'.website-grid',
+					'[data-websites]',
+					'.grid-container'
+				];
+
+				let grid = null;
+				for (const selector of possibleGrids) {
+					grid = document.querySelector(selector);
+					if (grid) break;
+				}
+
+				if (!grid) {
+					// Fallback to document body if no specific grid found
+					grid = document.body;
+				}
+
+				// Find website item wrappers
+				const itemSelectors = [
+					'.website-item-wrapper',
+					'.website-item',
+					'[data-website-id]',
+					'[class*="website"]',
+					'a[href*="/website/"]'
+				];
+
+				let items = [];
+				for (const selector of itemSelectors) {
+					items = Array.from(grid.querySelectorAll(selector));
+					if (items.length > 0) break;
+				}
+
+				console.log(`Found ${items.length} website items`);
+
+				return items.map((item, index) => {
+					try {
+						// Extract thumbnail image URL
+						let thumbnailUrl = null;
+						const imgSelectors = [
+							'img',
+							'.thumbnail img',
+							'.website-thumbnail img',
+							'[data-src]',
+							'[style*="background-image"]'
+						];
+
+						for (const imgSelector of imgSelectors) {
+							const img = item.querySelector(imgSelector);
+							if (img) {
+								thumbnailUrl = img.src || img.dataset.src || img.getAttribute('data-src');
+								if (!thumbnailUrl && img.style.backgroundImage) {
+									const match = img.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
+									if (match) thumbnailUrl = match[1];
+								}
+								if (thumbnailUrl) break;
+							}
+						}
+
+						// Extract detail page link
+						let detailUrl = null;
+						const linkSelectors = [
+							'a[href*="/website/"]',
+							'a',
+							'[data-href]',
+							'[href]'
+						];
+
+						for (const linkSelector of linkSelectors) {
+							const link = item.querySelector(linkSelector);
+							if (link && link.href && link.href.includes('/website/')) {
+								detailUrl = link.href;
+								break;
+							}
+						}
+
+						// If item itself is a link
+						if (!detailUrl && item.tagName === 'A' && item.href && item.href.includes('/website/')) {
+							detailUrl = item.href;
+						}
+
+						// Extract any visible text/title
+						let title = null;
+						const titleSelectors = [
+							'.title',
+							'.website-title',
+							'h1', 'h2', 'h3',
+							'.name',
+							'[data-title]'
+						];
+
+						for (const titleSelector of titleSelectors) {
+							const titleEl = item.querySelector(titleSelector);
+							if (titleEl && titleEl.textContent.trim()) {
+								title = titleEl.textContent.trim();
+								break;
+							}
+						}
+
+						return {
+							index,
+							thumbnailUrl,
+							detailUrl,
+							title,
+							element: {
+								tagName: item.tagName,
+								className: item.className,
+								id: item.id
+							}
+						};
+					} catch (error) {
+						console.error(`Error processing item ${index}:`, error);
+						return {
+							index,
+							error: error.message,
+							element: {
+								tagName: item.tagName,
+								className: item.className,
+								id: item.id
+							}
+						};
+					}
+				});
+			});
+
+			// Filter out items with errors or missing data
+			const validItems = websiteData.filter(item =>
+				!item.error &&
+				item.thumbnailUrl &&
+				item.detailUrl &&
+				item.detailUrl.startsWith('http') // Ensure it's a full URL
+			);
+
+			// Limit to maxItems for free accounts
+			const limitedItems = validItems.slice(0, this.options.maxItems);
+
+			console.log(`✅ Successfully scraped ${limitedItems.length} valid items from ${websiteData.length} total items`);
+
+			if (websiteData.length > limitedItems.length) {
+				console.log(`⚠️  Limited to ${limitedItems.length} items due to free account restrictions`);
+			}
+
+			// Log any items with errors for debugging
+			const errorItems = websiteData.filter(item => item.error);
+			if (errorItems.length > 0) {
+				console.log(`⚠️  ${errorItems.length} items had errors during processing`);
+			}
+
+			return {
+				success: true,
+				items: limitedItems,
+				totalFound: websiteData.length,
+				validItems: validItems.length,
+				errorItems: errorItems.length
+			};
+
+		} catch (error) {
+			console.error('❌ Failed to scrape grid page:', error.message);
+			this.errors.push({
+				type: 'grid-scraping',
+				error: error.message
+			});
+			return {
+				success: false,
+				items: [],
+				error: error.message
+			};
 		}
 	}
 
@@ -217,11 +495,33 @@ if (require.main === module) {
 			const items = await scraper.getAvailableItems();
 			console.log('Available items:', items);
 
-			console.log('\n🎉 Basic scraper setup completed successfully!');
+			// Test grid scraping
+			const gridResults = await scraper.scrapeGridPage();
+			console.log('Grid scraping results:', {
+				success: gridResults.success,
+				itemsScraped: gridResults.items?.length || 0,
+				totalFound: gridResults.totalFound,
+				validItems: gridResults.validItems,
+				errorItems: gridResults.errorItems
+			});
+
+			// Show sample of scraped data
+			if (gridResults.success && gridResults.items.length > 0) {
+				console.log('\n📋 Sample scraped items:');
+				gridResults.items.slice(0, 3).forEach((item, index) => {
+					console.log(`   ${index + 1}. ${item.title || 'No title'}`);
+					console.log(`      Thumbnail: ${item.thumbnailUrl?.substring(0, 60)}...`);
+					console.log(`      Detail URL: ${item.detailUrl?.substring(0, 60)}...`);
+				});
+			}
+
+			console.log('\n🎉 Grid scraping test completed!');
 			console.log('📋 Summary:');
 			console.log(`   - Browser initialized: ✅`);
 			console.log(`   - Navigation successful: ✅`);
 			console.log(`   - Items found: ${items.available}/${items.total}`);
+			console.log(`   - Grid scraping: ${gridResults.success ? '✅' : '❌'}`);
+			console.log(`   - Items scraped: ${gridResults.items?.length || 0}`);
 			console.log(`   - Errors: ${scraper.getErrors().length}`);
 
 			if (scraper.hasErrors()) {

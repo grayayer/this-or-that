@@ -7,13 +7,13 @@
   - _Requirements: 6.1, 6.2_
 
 - [-] 2. Build Land-book scraper tool for data collection
-- [-] 2.1 Create basic scraper setup and navigation
+- [x] 2.1 Create basic scraper setup and navigation
   - Set up Puppeteer/Playwright with proper browser configuration
   - Implement navigation to Land-book category pages (e.g., health-and-fitness + light-colors)
   - Add logic to handle the 20-item limit per page for free accounts
   - _Requirements: 7.1, 10.5_
 
-- [ ] 2.2 Implement grid page scraping
+- [-] 2.2 Implement grid page scraping
   - Target websites grid with ID="websites" class="websites"
   - Extract website-item-wrapper elements from the grid
   - Collect thumbnail image URLs and detail page links from each item
