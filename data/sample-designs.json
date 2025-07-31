@@ -1,0 +1,532 @@
+{
+	"metadata": {
+		"generatedAt": "2025-01-30T10:00:00.000Z",
+		"totalDesigns": 15,
+		"source": "Sample data for development",
+		"version": "1.0"
+	},
+	"designs": [
+		{
+			"id": "design_001",
+			"image": "https://cdn.land-book.com/website/sample1.webp",
+			"title": "Modern Portfolio Site",
+			"author": "Jane Designer",
+			"tags": {
+				"style": [
+					"Minimalist",
+					"Clean",
+					"Modern"
+				],
+				"industry": [
+					"Design",
+					"Portfolio"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Personal",
+					"Portfolio"
+				],
+				"category": [
+					"Portfolio"
+				],
+				"platform": [
+					"Webflow"
+				],
+				"colors": [
+					"#FFFFFF",
+					"#000000",
+					"#F5F5F5"
+				]
+			}
+		},
+		{
+			"id": "design_002",
+			"image": "https://cdn.land-book.com/website/sample2.webp",
+			"title": "Health Tech Startup",
+			"tags": {
+				"style": [
+					"Gradient",
+					"Modern",
+					"Clean"
+				],
+				"industry": [
+					"Health & Fitness",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [
+					"React"
+				],
+				"colors": [
+					"#4A90E2",
+					"#FFFFFF",
+					"#F8F9FA"
+				]
+			}
+		},
+		{
+			"id": "design_003",
+			"image": "https://cdn.land-book.com/website/sample3.webp",
+			"title": "Creative Agency",
+			"author": "Creative Studio",
+			"tags": {
+				"style": [
+					"Bold",
+					"Colorful",
+					"Animation"
+				],
+				"industry": [
+					"Design",
+					"Marketing"
+				],
+				"typography": [
+					"Serif",
+					"Sans Serif"
+				],
+				"type": [
+					"Agency",
+					"Service"
+				],
+				"category": [
+					"Agency"
+				],
+				"platform": [
+					"Framer"
+				],
+				"colors": [
+					"#FF6B6B",
+					"#4ECDC4",
+					"#45B7D1"
+				]
+			}
+		},
+		{
+			"id": "design_004",
+			"image": "https://cdn.land-book.com/website/sample4.webp",
+			"title": "E-commerce Fashion",
+			"tags": {
+				"style": [
+					"Clean",
+					"Product Focus",
+					"Grid"
+				],
+				"industry": [
+					"Fashion",
+					"Ecommerce"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Physical Product",
+					"Ecommerce"
+				],
+				"category": [
+					"Ecommerce"
+				],
+				"platform": [
+					"Shopify"
+				],
+				"colors": [
+					"#2C3E50",
+					"#ECF0F1",
+					"#E74C3C"
+				]
+			}
+		},
+		{
+			"id": "design_005",
+			"image": "https://cdn.land-book.com/website/sample5.webp",
+			"title": "Restaurant Landing",
+			"author": "Food Studio",
+			"tags": {
+				"style": [
+					"Warm",
+					"Inviting",
+					"Photography"
+				],
+				"industry": [
+					"Food & Drinks",
+					"Restaurant"
+				],
+				"typography": [
+					"Serif"
+				],
+				"type": [
+					"Service",
+					"Local Business"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [
+					"WordPress"
+				],
+				"colors": [
+					"#8B4513",
+					"#F4A460",
+					"#FFFAF0"
+				]
+			}
+		},
+		{
+			"id": "design_006",
+			"image": "https://cdn.land-book.com/website/sample6.webp",
+			"title": "Fitness App",
+			"tags": {
+				"style": [
+					"Dark Theme",
+					"Modern",
+					"Mobile First"
+				],
+				"industry": [
+					"Health & Fitness",
+					"Sport"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Mobile App",
+					"Software"
+				],
+				"category": [
+					"App"
+				],
+				"platform": [
+					"React Native"
+				],
+				"colors": [
+					"#1A1A1A",
+					"#00FF88",
+					"#FFFFFF"
+				]
+			}
+		},
+		{
+			"id": "design_007",
+			"image": "https://cdn.land-book.com/website/sample7.webp",
+			"title": "Educational Platform",
+			"author": "EduTech Inc",
+			"tags": {
+				"style": [
+					"Clean",
+					"Accessible",
+					"Structured"
+				],
+				"industry": [
+					"Education",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Web App",
+					"Service"
+				],
+				"category": [
+					"Platform"
+				],
+				"platform": [
+					"Vue.js"
+				],
+				"colors": [
+					"#3498DB",
+					"#2ECC71",
+					"#F39C12"
+				]
+			}
+		},
+		{
+			"id": "design_008",
+			"image": "https://cdn.land-book.com/website/sample8.webp",
+			"title": "Travel Blog",
+			"tags": {
+				"style": [
+					"Photography Heavy",
+					"Story Telling",
+					"Parallax"
+				],
+				"industry": [
+					"Travel",
+					"Blog"
+				],
+				"typography": [
+					"Serif",
+					"Script"
+				],
+				"type": [
+					"Personal",
+					"Blog"
+				],
+				"category": [
+					"Blog"
+				],
+				"platform": [
+					"Ghost"
+				],
+				"colors": [
+					"#16A085",
+					"#F39C12",
+					"#E8F6F3"
+				]
+			}
+		},
+		{
+			"id": "design_009",
+			"image": "https://cdn.land-book.com/website/sample9.webp",
+			"title": "SaaS Dashboard",
+			"author": "DataViz Team",
+			"tags": {
+				"style": [
+					"Data Visualization",
+					"Clean",
+					"Professional"
+				],
+				"industry": [
+					"Tech",
+					"Analytics"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Dashboard"
+				],
+				"platform": [
+					"Angular"
+				],
+				"colors": [
+					"#2C3E50",
+					"#3498DB",
+					"#ECF0F1"
+				]
+			}
+		},
+		{
+			"id": "design_010",
+			"image": "https://cdn.land-book.com/website/sample10.webp",
+			"title": "Luxury Hotel",
+			"tags": {
+				"style": [
+					"Elegant",
+					"Luxury",
+					"Full Screen"
+				],
+				"industry": [
+					"Hospitality",
+					"Travel"
+				],
+				"typography": [
+					"Serif"
+				],
+				"type": [
+					"Service",
+					"Hospitality"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [
+					"Custom"
+				],
+				"colors": [
+					"#2C2C2C",
+					"#D4AF37",
+					"#FFFFFF"
+				]
+			}
+		},
+		{
+			"id": "design_011",
+			"image": "https://cdn.land-book.com/website/sample11.webp",
+			"title": "Startup Landing",
+			"author": "Innovation Labs",
+			"tags": {
+				"style": [
+					"Modern",
+					"Gradient",
+					"CTA Focused"
+				],
+				"industry": [
+					"Tech",
+					"Startup"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Software",
+					"Service"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [
+					"Next.js"
+				],
+				"colors": [
+					"#667EEA",
+					"#764BA2",
+					"#FFFFFF"
+				]
+			}
+		},
+		{
+			"id": "design_012",
+			"image": "https://cdn.land-book.com/website/sample12.webp",
+			"title": "Art Gallery",
+			"tags": {
+				"style": [
+					"Minimal",
+					"Gallery",
+					"White Space"
+				],
+				"industry": [
+					"Art",
+					"Culture"
+				],
+				"typography": [
+					"Serif"
+				],
+				"type": [
+					"Gallery",
+					"Cultural"
+				],
+				"category": [
+					"Gallery"
+				],
+				"platform": [
+					"Webflow"
+				],
+				"colors": [
+					"#FFFFFF",
+					"#000000",
+					"#F5F5F5"
+				]
+			}
+		},
+		{
+			"id": "design_013",
+			"image": "https://cdn.land-book.com/website/sample13.webp",
+			"title": "Music Producer",
+			"author": "Beat Maker",
+			"tags": {
+				"style": [
+					"Dark",
+					"Audio Visual",
+					"Interactive"
+				],
+				"industry": [
+					"Music",
+					"Entertainment"
+				],
+				"typography": [
+					"Sans Serif",
+					"Display"
+				],
+				"type": [
+					"Personal",
+					"Creative"
+				],
+				"category": [
+					"Portfolio"
+				],
+				"platform": [
+					"Three.js"
+				],
+				"colors": [
+					"#0F0F0F",
+					"#FF0080",
+					"#00FFFF"
+				]
+			}
+		},
+		{
+			"id": "design_014",
+			"image": "https://cdn.land-book.com/website/sample14.webp",
+			"title": "Consulting Firm",
+			"tags": {
+				"style": [
+					"Professional",
+					"Corporate",
+					"Trust Building"
+				],
+				"industry": [
+					"Business",
+					"Consulting"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Service",
+					"B2B"
+				],
+				"category": [
+					"Corporate"
+				],
+				"platform": [
+					"WordPress"
+				],
+				"colors": [
+					"#34495E",
+					"#3498DB",
+					"#BDC3C7"
+				]
+			}
+		},
+		{
+			"id": "design_015",
+			"image": "https://cdn.land-book.com/website/sample15.webp",
+			"title": "Gaming Community",
+			"author": "GameDev Collective",
+			"tags": {
+				"style": [
+					"Gaming",
+					"Neon",
+					"Interactive"
+				],
+				"industry": [
+					"Gaming",
+					"Entertainment"
+				],
+				"typography": [
+					"Display",
+					"Sans Serif"
+				],
+				"type": [
+					"Community",
+					"Platform"
+				],
+				"category": [
+					"Community"
+				],
+				"platform": [
+					"Unity WebGL"
+				],
+				"colors": [
+					"#1A1A2E",
+					"#16213E",
+					"#0F3460"
+				]
+			}
+		}
+	]
+}

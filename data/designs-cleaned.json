@@ -1,0 +1,860 @@
+{
+  "metadata": {
+    "generatedAt": "2025-07-31T02:47:26.117Z",
+    "totalDesigns": 20,
+    "source": "Land-book.com",
+    "scraper": "LandBookScraper v1.0",
+    "formatErrors": 0,
+    "validationErrors": 0,
+    "validationWarnings": 0
+  },
+  "designs": [
+    {
+      "id": "design_seriant-advancing-cu_0_1753930046116_4pqxvgb11",
+      "image": "https://cdn.land-book.com/website/82056/c41a3bb8bc0f1430-seriant-org.webp",
+      "title": "Seriant | Advancing Cutting-Edge Science for Real-World Therapies | Seriant",
+      "tags": {
+        "style": [
+          "Background Image",
+          "Big Footer",
+          "Parallax",
+          "People"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Service"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#143243",
+          "#ECECEF",
+          "#322D2E",
+          "#1E191A",
+          "#385162",
+          "#445492",
+          "#3F69BE",
+          "#3A72AE",
+          "#3E5CAD",
+          "#2772BC"
+        ]
+      }
+    },
+    {
+      "id": "design_silna-health_1_1753930046116_ncv8xs2m5",
+      "image": "https://cdn.land-book.com/website/80985/afe7054642cbad19-www-silnahealth-com.webp",
+      "title": "Silna Health",
+      "tags": {
+        "style": [
+          "Gradient",
+          "Pastel Colors",
+          "Together"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Software",
+          "Web App"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#F7F5F7",
+          "#CECBCF",
+          "#9C979D",
+          "#F5DCED",
+          "#827F83",
+          "#3B2843",
+          "#E4CBDD",
+          "#1C141F",
+          "#433C47",
+          "#AD9EB5"
+        ]
+      }
+    },
+    {
+      "id": "design_everon-uk_2_1753930046116_f8iqde2mr",
+      "image": "https://cdn.land-book.com/website/80224/a949edace000710d-everon-net.webp",
+      "title": "Everon UK",
+      "tags": {
+        "style": [
+          "3D",
+          "Background Video",
+          "nephew"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Travel"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product",
+          "Software",
+          "Web App"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "WordPress"
+        ],
+        "colors": [
+          "#ECE7E9",
+          "#46331F",
+          "#544E49",
+          "#3C3430",
+          "#624F3E",
+          "#A59E9B",
+          "#76726F",
+          "#7E6B59",
+          "#281C18",
+          "#4A2F1B"
+        ]
+      }
+    },
+    {
+      "id": "design_tennis-love-webflow-_3_1753930046116_1xn35hpr1",
+      "image": "https://cdn.land-book.com/website/57111/1179d12ef12e3f82-tennis-love-webflow-io.webp",
+      "title": "Tennis Love - Webflow Ecommerce website template",
+      "tags": {
+        "style": [
+          "Parallax",
+          "Big Footer",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Tech",
+          "Sport",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Web App",
+          "Service",
+          "Software"
+        ],
+        "category": [
+          "Template"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#84BEFD",
+          "#ADD3F8",
+          "#54A5FD",
+          "#3394FF",
+          "#67B1F2",
+          "#71B4FF",
+          "#34312D",
+          "#9B1313",
+          "#7E312A",
+          "#44829B"
+        ]
+      }
+    },
+    {
+      "id": "design_myhealthprac-predict_4_1753930046116_3x06lu8to",
+      "image": "https://cdn.land-book.com/website/79991/ba8f8d5b55f99fa9-www-myhealthprac-com.webp",
+      "title": "MyHealthPrac — Predictive, Personalised Health Powered by Functional Medicine",
+      "tags": {
+        "style": [
+          "Animation",
+          "Background Video",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "People",
+          "Artemii Lebedev"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Agency",
+          "Service",
+          "Software",
+          "Web App",
+          "Beta"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#D2CAC7",
+          "#492415",
+          "#B29B83",
+          "#34170D",
+          "#190F0A",
+          "#6C4833",
+          "#A59F98",
+          "#CCB7A3",
+          "#E2DCD9",
+          "#8E775C"
+        ]
+      }
+    },
+    {
+      "id": "design_the-new-quechua-coll_5_1753930046116_xl45he2ap",
+      "image": "https://cdn.land-book.com/website/78095/77ea6587d25b8199-quechua-lookbook-com.webp",
+      "title": "The New Quechua Collection - SS25 Lookbook",
+      "tags": {
+        "style": [
+          "Background Video",
+          "Cards",
+          "Parallax",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [
+          "Ecommerce",
+          "Fashion",
+          "Health & Fitness",
+          "Sport"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Other"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#F0EDE8",
+          "#747357",
+          "#A1D2E4",
+          "#55563A",
+          "#4C5735",
+          "#6C7551",
+          "#CAC8C7",
+          "#37371F",
+          "#2D3A1B",
+          "#8E3F26"
+        ]
+      }
+    },
+    {
+      "id": "design_sereniti-webflow-eco_6_1753930046117_66gqiqbcu",
+      "image": "https://cdn.land-book.com/website/79418/7b1e021db1a7862e-sereniti-temlis-webflow-io.webp",
+      "title": "Sereniti – Webflow Ecommerce website template",
+      "tags": {
+        "style": [
+          "Cards",
+          "Pastel Colors",
+          "People",
+          "Temlis"
+        ],
+        "industry": [
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Agency",
+          "Personal",
+          "Service"
+        ],
+        "category": [
+          "Template"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#EFEDED",
+          "#675A47",
+          "#C8C5C4",
+          "#7B6C59",
+          "#AF9D87",
+          "#F9DAF9",
+          "#645B51",
+          "#CBB69F",
+          "#F7E1F4",
+          "#DBBCDB"
+        ]
+      }
+    },
+    {
+      "id": "design_journa-health_7_1753930046117_k304w79q2",
+      "image": "https://cdn.land-book.com/website/79571/86a0adc2f59c6e65-www-journahealth-com.webp",
+      "title": "Journa Health",
+      "tags": {
+        "style": [
+          "Animation",
+          "Background Image",
+          "People"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#EFEDF2",
+          "#C6C4C9",
+          "#9E9DA3",
+          "#999B39",
+          "#79777C",
+          "#141115",
+          "#42566B",
+          "#283345",
+          "#7B7D1E",
+          "#7C7C36"
+        ]
+      }
+    },
+    {
+      "id": "design_tiempo_8_1753930046117_w4189bslt",
+      "image": "https://cdn.land-book.com/website/75433/aaf3d2e676bb71fa-www-tiempo-fitness.webp",
+      "title": "Tiempo",
+      "tags": {
+        "style": [
+          "3D",
+          "Animation",
+          "Parallax"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Sport",
+          "Tech"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Framer"
+        ],
+        "colors": [
+          "#181515",
+          "#383434",
+          "#545051",
+          "#73706D",
+          "#575E25",
+          "#96938F",
+          "#DEEB83",
+          "#DFF458",
+          "#A2AC48",
+          "#525834"
+        ]
+      }
+    },
+    {
+      "id": "design_trait-train-uncommon_9_1753930046117_9hd1t8d4h",
+      "image": "https://cdn.land-book.com/website/78458/fba57cb8651c1c81-www-trait-club.webp",
+      "title": "Trait. Train uncommon.",
+      "tags": {
+        "style": [
+          "Background Image",
+          "Cards",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Sport",
+          "Tech"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#E5E2E3",
+          "#090606",
+          "#B8ACF2",
+          "#A59BDB",
+          "#60523A",
+          "#D04F15",
+          "#F65B12",
+          "#140F32",
+          "#86320F",
+          "#E9A1B6"
+        ]
+      }
+    },
+    {
+      "id": "design_athleats-fuel-your-b_10_1753930046117_x2f1q6hgb",
+      "image": "https://cdn.land-book.com/website/77036/6447febb8f838b91-weareathleats-com.webp",
+      "title": "Athleats | Fuel Your Body with Easy & Healthy Recipes",
+      "tags": {
+        "style": [
+          "Animation",
+          "Cards",
+          "Fourth Floor Design Studio"
+        ],
+        "industry": [
+          "Food & Drinks",
+          "Health & Fitness",
+          "Sport",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Software",
+          "Web App"
+        ],
+        "category": [
+          "Other"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#7A4A1C",
+          "#7EAEA8",
+          "#9F6D3F",
+          "#8E743F",
+          "#95C3C1",
+          "#B89960",
+          "#C59160",
+          "#D3B97F",
+          "#5EA4AE",
+          "#173E3F"
+        ]
+      }
+    },
+    {
+      "id": "design_oura-ring-smart-ring_11_1753930046117_0yxwetkw7",
+      "image": "https://cdn.land-book.com/website/77177/2dd9cec83d02c5e2-ouraring-com.webp",
+      "title": "Oura Ring. Smart Ring for Fitness, Stress, Sleep & Health.",
+      "tags": {
+        "style": [
+          "Background Video",
+          "Cards",
+          "Gradient",
+          "Pastel Colors",
+          "Big Footer"
+        ],
+        "industry": [
+          "Ecommerce",
+          "Health & Fitness",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif",
+          "Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#EFE3DB",
+          "#AA927D",
+          "#917762",
+          "#665140",
+          "#84756D",
+          "#94715E",
+          "#704B3C",
+          "#B5917A",
+          "#4B2B1E",
+          "#483528"
+        ]
+      }
+    },
+    {
+      "id": "design_milamend-hormone-car_12_1753930046117_6x2bu5g77",
+      "image": "https://cdn.land-book.com/website/76519/875aed8ae6f1c6e7-www-milamend-com.webp",
+      "title": "Milamend | Hormone Care Made Simple",
+      "tags": {
+        "style": [
+          "Big Footer",
+          "Big Type in Footer",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [
+          "Ecommerce",
+          "Food & Drinks",
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Shopify"
+        ],
+        "colors": [
+          "#F5F5ED",
+          "#A2A499",
+          "#F4E9CE",
+          "#D3C2A3",
+          "#BEC4B7",
+          "#645717",
+          "#A49C81",
+          "#1C1F06",
+          "#87795C",
+          "#7C6F33"
+        ]
+      }
+    },
+    {
+      "id": "design_luminous-labs_13_1753930046117_qjjbn6sy2",
+      "image": "https://cdn.land-book.com/website/76526/70c27649684bc64d-www-luminouslabs-health.webp",
+      "title": "Luminous Labs",
+      "tags": {
+        "style": [
+          "Animation",
+          "Background Image",
+          "Big Footer",
+          "Cards",
+          "People"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Physical Product",
+          "Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Shopify"
+        ],
+        "colors": [
+          "#FBF6EE",
+          "#42301A",
+          "#4C2B18",
+          "#F4F0DC",
+          "#F6737E",
+          "#62503D",
+          "#2B1B0A",
+          "#32130A",
+          "#AE997E",
+          "#FB586F"
+        ]
+      }
+    },
+    {
+      "id": "design_nationwide-lab-testi_14_1753930046117_vrhqrdvm6",
+      "image": "https://cdn.land-book.com/website/76457/df926d98a4fa96ae-www-junction-com.webp",
+      "title": "Nationwide Lab Testing & Data From 500+ Health Devices",
+      "tags": {
+        "style": [
+          "Animation"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "OS App",
+          "Software",
+          "Web App"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#E0E2EA",
+          "#482744",
+          "#C4C5CE",
+          "#9B9BA6",
+          "#684766",
+          "#896F90",
+          "#C2B5DF",
+          "#B3C7DF",
+          "#99A3C6",
+          "#47469E"
+        ]
+      }
+    },
+    {
+      "id": "design_keikku-meet-the-next_15_1753930046117_0avcd4fpb",
+      "image": "https://cdn.land-book.com/website/75616/db60ce8f0ec9fc36-keikku-health.webp",
+      "title": "Keikku — Meet the Next-Gen Digital Stethoscope",
+      "tags": {
+        "style": [
+          "3D",
+          "Animation",
+          "Big Footer",
+          "Parallax"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Medical",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Physical Product",
+          "Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#BEC2C9",
+          "#9998A1",
+          "#B8C0DC",
+          "#4E5776",
+          "#D4F3C4",
+          "#354881",
+          "#667E5D",
+          "#253311",
+          "#ADB4F4",
+          "#2741A7"
+        ]
+      }
+    },
+    {
+      "id": "design_telehealth-for-a-hea_16_1753930046117_dbdmo3g7e",
+      "image": "https://cdn.land-book.com/website/76192/67700ac521548763-www-hims-com.webp",
+      "title": "Telehealth for a healthy, handsome you | hims",
+      "tags": {
+        "style": [
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "Big Type in Footer",
+          "People"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Physical Product",
+          "Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#A36E2B",
+          "#F8F7F4",
+          "#9E6E34",
+          "#B9853E",
+          "#BE8D52",
+          "#D2B79A",
+          "#946C57",
+          "#B8935C",
+          "#764C3C",
+          "#4F2A17"
+        ]
+      }
+    },
+    {
+      "id": "design_hers-for-women-s-hea_17_1753930046117_l3z0tygtc",
+      "image": "https://cdn.land-book.com/website/76191/0599ea33220753e7-www-forhers-com.webp",
+      "title": "Hers for Women's Health | hers",
+      "tags": {
+        "style": [
+          "People",
+          "Big Footer",
+          "Cards",
+          "Big Type in Footer"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Tech",
+          "Ecommerce",
+          "Medical"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Physical Product",
+          "Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#EFF4F0",
+          "#7E7D63",
+          "#7B8864",
+          "#767A6D",
+          "#C7C4BD",
+          "#9A9880",
+          "#83926C",
+          "#180F07",
+          "#9B6A55",
+          "#714431"
+        ]
+      }
+    },
+    {
+      "id": "design_ariel-childs-coachin_18_1753930046117_zqc143p5s",
+      "image": "https://cdn.land-book.com/website/75839/26858d8ff28e8d1d-www-arielchilds-com.webp",
+      "title": "Ariel Childs Coaching",
+      "tags": {
+        "style": [
+          "Big Type",
+          "Parallax",
+          "Pastel Colors",
+          "People",
+          "Off The Wall"
+        ],
+        "industry": [
+          "Education",
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Personal",
+          "Service"
+        ],
+        "category": [
+          "Portfolio"
+        ],
+        "platform": [
+          "Framer"
+        ],
+        "colors": [
+          "#F8F2F0",
+          "#161416",
+          "#CEC8C5",
+          "#A39F9E",
+          "#373435",
+          "#5A5755",
+          "#7A7774"
+        ]
+      }
+    },
+    {
+      "id": "design_joi-planner_19_1753930046117_48uuizsdv",
+      "image": "https://cdn.land-book.com/website/75319/d4da7d3a71a8074c-joi-software.webp",
+      "title": "Joi Planner",
+      "tags": {
+        "style": [
+          "3D",
+          "Black & White",
+          "Parallax"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Tech"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Software"
+        ],
+        "category": [
+          "Other"
+        ],
+        "platform": [],
+        "colors": [
+          "#110E0F",
+          "#F9F7F9",
+          "#807C7C",
+          "#3A3435",
+          "#585353",
+          "#A29EA0",
+          "#C6C3C5",
+          "#2C1414",
+          "#492E2F",
+          "#B09192"
+        ]
+      }
+    }
+  ]
+}
