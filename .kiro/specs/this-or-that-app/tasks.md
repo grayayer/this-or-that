@@ -20,7 +20,7 @@
   - Add error handling for missing elements or failed page loads
   - _Requirements: 7.1, 7.2_
 
-- [-] 2.3 Build detail page data extraction
+- [x] 2.3 Build detail page data extraction
   - Navigate to individual website detail pages from collected links
   - Target div.website-content-sidebar for all taxonomy data extraction
   - Extract website name from H1 element within the sidebar
@@ -31,7 +31,7 @@
   - Implement rate limiting and respectful crawling practices
   - _Requirements: 7.2, 7.3, 10.5_
 
-- [ ] 2.4 Create JSON output generation
+- [-] 2.4 Create JSON output generation
   - Generate unique IDs for each scraped design
   - Format extracted data into the specified JSON structure
   - Implement data validation and cleanup for malformed tags

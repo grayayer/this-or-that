@@ -531,95 +531,212 @@ class LandBookScraper {
 				timeout: this.options.timeout
 			});
 
-			// Wait for content to load
-			await new Promise(resolve => setTimeout(resolve, 2000));
+			// Wait for content to load and any dynamic elements
+			await new Promise(resolve => setTimeout(resolve, 3000));
 
 			// Extract detailed data from the page
 			const detailData = await this.page.evaluate(() => {
 				const result = {
 					websiteName: null,
 					websiteUrl: null,
-					category: null,
-					style: null,
-					industry: null,
-					type: null,
+					category: [],
+					style: [],
+					industry: [],
+					type: [],
+					platform: [],
 					colors: [],
 					screenshotUrl: null,
 					tags: []
 				};
 
-				// Target div.website-content-sidebar for taxonomy data
+				// Debug: Log page structure
+				console.log('Page title:', document.title);
+				console.log('Sidebar exists:', !!document.querySelector('div.website-content-sidebar'));
+
+				// Target div.website-content-sidebar for taxonomy data extraction
 				const sidebar = document.querySelector('div.website-content-sidebar');
 
 				if (sidebar) {
+					console.log('Found sidebar, extracting data...');
+
 					// Extract website name from H1 element within the sidebar
 					const h1 = sidebar.querySelector('h1');
 					if (h1) {
 						result.websiteName = h1.textContent.trim();
+						console.log('Found website name:', result.websiteName);
 					}
 
 					// Extract website URL from anchor with "?ref=land-book.com" query parameter
 					const refLink = sidebar.querySelector('a[href*="?ref=land-book.com"]');
 					if (refLink) {
 						result.websiteUrl = refLink.href;
+						console.log('Found website URL:', result.websiteUrl);
 					}
 
-					// Parse taxonomy sections (Category, Style, Industry, Type) from row elements with text-muted labels
-					const taxonomyRows = sidebar.querySelectorAll('.row, [class*="row"]');
-					taxonomyRows.forEach(row => {
-						const label = row.querySelector('.text-muted, [class*="text-muted"], .label, [class*="label"]');
+					// Parse taxonomy sections from row elements with text-muted labels
+					// Look for various row structures that might contain taxonomy data
+					const possibleRowSelectors = [
+						'.row',
+						'[class*="row"]',
+						'.taxonomy-row',
+						'.info-row',
+						'.detail-row',
+						'div[class*="flex"]',
+						'div[class*="grid"]'
+					];
+
+					let taxonomyRows = [];
+					for (const selector of possibleRowSelectors) {
+						const rows = sidebar.querySelectorAll(selector);
+						if (rows.length > 0) {
+							taxonomyRows = Array.from(rows);
+							console.log(`Found ${rows.length} rows with selector: ${selector}`);
+							break;
+						}
+					}
+
+					// If no rows found, look for any elements with text-muted labels
+					if (taxonomyRows.length === 0) {
+						const labelElements = sidebar.querySelectorAll('.text-muted, [class*="text-muted"], .label, [class*="label"]');
+						taxonomyRows = Array.from(labelElements).map(el => el.closest('div') || el.parentElement).filter(Boolean);
+						console.log(`Found ${taxonomyRows.length} elements with labels`);
+					}
+
+					taxonomyRows.forEach((row, index) => {
+						const labelSelectors = [
+							'.text-muted',
+							'[class*="text-muted"]',
+							'.label',
+							'[class*="label"]',
+							'span[class*="gray"]',
+							'span[class*="secondary"]',
+							'small'
+						];
+
+						let label = null;
+						for (const labelSelector of labelSelectors) {
+							label = row.querySelector(labelSelector);
+							if (label) break;
+						}
+
 						if (label) {
 							const labelText = label.textContent.trim().toLowerCase();
-							const valueElement = row.querySelector('a, span, div');
+							console.log(`Row ${index}: Label "${labelText}"`);
 
-							if (valueElement && valueElement !== label) {
-								const value = valueElement.textContent.trim();
+							// Look for value elements (links, spans, divs) that are not the label
+							const valueSelectors = ['a', 'span', 'div', 'p'];
+							let values = [];
 
-								if (labelText.includes('category')) {
-									result.category = value;
-								} else if (labelText.includes('style')) {
-									result.style = value;
-								} else if (labelText.includes('industry')) {
-									result.industry = value;
-								} else if (labelText.includes('type')) {
-									result.type = value;
+							for (const valueSelector of valueSelectors) {
+								const elements = row.querySelectorAll(valueSelector);
+								elements.forEach(el => {
+									if (el !== label && el.textContent.trim() && !el.contains(label)) {
+										values.push(el.textContent.trim());
+									}
+								});
+							}
+
+							// Remove duplicates and filter out the label text
+							values = [...new Set(values)].filter(v => v.toLowerCase() !== labelText);
+
+							if (values.length > 0) {
+								console.log(`   Values: ${values.join(', ')}`);
+
+								// Categorize based on label text
+								if (labelText.includes('category') || labelText.includes('categories')) {
+									result.category.push(...values);
+								} else if (labelText.includes('style') || labelText.includes('styles')) {
+									result.style.push(...values);
+								} else if (labelText.includes('industry') || labelText.includes('industries')) {
+									result.industry.push(...values);
+								} else if (labelText.includes('type') || labelText.includes('types')) {
+									result.type.push(...values);
+								} else if (labelText.includes('platform') || labelText.includes('platforms')) {
+									result.platform.push(...values);
+								} else {
+									// Add to general tags if we can't categorize
+									result.tags.push(...values);
 								}
 							}
 						}
 					});
 
 					// Extract color hex codes from website-colors-item elements' background-color styles
-					const colorItems = sidebar.querySelectorAll('.website-colors-item, [class*="color"]');
-					colorItems.forEach(colorItem => {
-						const bgColor = colorItem.style.backgroundColor;
-						if (bgColor) {
-							// Convert RGB to hex if needed
-							const rgbMatch = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-							if (rgbMatch) {
-								const r = parseInt(rgbMatch[1]);
-								const g = parseInt(rgbMatch[2]);
-								const b = parseInt(rgbMatch[3]);
-								const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-								result.colors.push(hex.toUpperCase());
-							}
-						}
+					const colorSelectors = [
+						'.website-colors-item',
+						'[class*="color-item"]',
+						'[class*="color-swatch"]',
+						'.color',
+						'[class*="palette"]'
+					];
 
-						// Also check for direct hex color in data attributes or text
-						const hexColor = colorItem.getAttribute('data-color') ||
-							colorItem.textContent.match(/#[0-9A-Fa-f]{6}/);
-						if (hexColor) {
-							result.colors.push(typeof hexColor === 'string' ? hexColor : hexColor[0]);
-						}
-					});
+					for (const colorSelector of colorSelectors) {
+						const colorItems = sidebar.querySelectorAll(colorSelector);
+						console.log(`Found ${colorItems.length} color items with selector: ${colorSelector}`);
+
+						colorItems.forEach(colorItem => {
+							// Extract from background-color style
+							const bgColor = colorItem.style.backgroundColor;
+							if (bgColor) {
+								// Convert RGB to hex if needed
+								const rgbMatch = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+								if (rgbMatch) {
+									const r = parseInt(rgbMatch[1]);
+									const g = parseInt(rgbMatch[2]);
+									const b = parseInt(rgbMatch[3]);
+									const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+									result.colors.push(hex.toUpperCase());
+									console.log('Found color from background:', hex);
+								}
+							}
+
+							// Check for direct hex color in data attributes or text content
+							const hexColor = colorItem.getAttribute('data-color') ||
+								colorItem.getAttribute('data-hex') ||
+								colorItem.textContent.match(/#[0-9A-Fa-f]{6}/);
+							if (hexColor) {
+								const color = typeof hexColor === 'string' ? hexColor : hexColor[0];
+								result.colors.push(color.toUpperCase());
+								console.log('Found color from data/text:', color);
+							}
+
+							// Check for CSS custom properties or other color formats
+							const computedStyle = window.getComputedStyle(colorItem);
+							if (computedStyle.backgroundColor && computedStyle.backgroundColor !== 'rgba(0, 0, 0, 0)') {
+								const bgColor = computedStyle.backgroundColor;
+								const rgbMatch = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+								if (rgbMatch) {
+									const r = parseInt(rgbMatch[1]);
+									const g = parseInt(rgbMatch[2]);
+									const b = parseInt(rgbMatch[3]);
+									const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+									result.colors.push(hex.toUpperCase());
+									console.log('Found color from computed style:', hex);
+								}
+							}
+						});
+
+						if (colorItems.length > 0) break; // Use first selector that finds items
+					}
+				} else {
+					console.log('No sidebar found, trying alternative selectors...');
 				}
 
-				// If sidebar approach doesn't work, try alternative selectors
+				// If sidebar approach doesn't work, try alternative selectors for all data
 				if (!result.websiteName) {
-					const altNameSelectors = ['h1', '.website-title', '.title', '[data-title]'];
+					const altNameSelectors = [
+						'h1',
+						'.website-title',
+						'.title',
+						'[data-title]',
+						'.page-title',
+						'.design-title'
+					];
 					for (const selector of altNameSelectors) {
 						const nameEl = document.querySelector(selector);
 						if (nameEl && nameEl.textContent.trim()) {
 							result.websiteName = nameEl.textContent.trim();
+							console.log('Found website name (alt):', result.websiteName);
 							break;
 						}
 					}
@@ -627,15 +744,18 @@ class LandBookScraper {
 
 				if (!result.websiteUrl) {
 					const altUrlSelectors = [
+						'a[href*="?ref=land-book.com"]',
 						'a[href*="?ref="]',
 						'a[target="_blank"]',
 						'.website-link a',
-						'[data-url]'
+						'[data-url]',
+						'.external-link'
 					];
 					for (const selector of altUrlSelectors) {
 						const urlEl = document.querySelector(selector);
 						if (urlEl && urlEl.href) {
 							result.websiteUrl = urlEl.href;
+							console.log('Found website URL (alt):', result.websiteUrl);
 							break;
 						}
 					}
@@ -648,13 +768,17 @@ class LandBookScraper {
 					'.main-image img',
 					'img[src*="screenshot"]',
 					'img[src*="preview"]',
-					'.website-image img'
+					'.website-image img',
+					'.hero-image img',
+					'main img',
+					'.content img'
 				];
 
 				for (const selector of screenshotSelectors) {
 					const img = document.querySelector(selector);
-					if (img && img.src && !img.src.includes('thumbnail')) {
+					if (img && img.src && !img.src.includes('thumbnail') && img.src.startsWith('http')) {
 						result.screenshotUrl = img.src;
+						console.log('Found screenshot URL:', result.screenshotUrl);
 						break;
 					}
 				}
@@ -664,26 +788,37 @@ class LandBookScraper {
 					'.tags a',
 					'.categories a',
 					'.labels span',
-					'[data-tags]'
+					'[data-tags]',
+					'.tag',
+					'.badge',
+					'.chip'
 				];
 
 				tagSelectors.forEach(selector => {
 					const tagElements = document.querySelectorAll(selector);
 					tagElements.forEach(tag => {
 						const tagText = tag.textContent.trim();
-						if (tagText && !result.tags.includes(tagText)) {
+						if (tagText && tagText.length > 0 && !result.tags.includes(tagText)) {
 							result.tags.push(tagText);
 						}
 					});
 				});
 
-				// Add taxonomy data to tags if not already present
-				[result.category, result.style, result.industry, result.type].forEach(item => {
+				// Flatten and deduplicate taxonomy arrays
+				result.category = [...new Set(result.category.flat())];
+				result.style = [...new Set(result.style.flat())];
+				result.industry = [...new Set(result.industry.flat())];
+				result.type = [...new Set(result.type.flat())];
+				result.platform = [...new Set(result.platform.flat())];
+
+				// Add taxonomy data to general tags if not already present
+				[...result.category, ...result.style, ...result.industry, ...result.type, ...result.platform].forEach(item => {
 					if (item && !result.tags.includes(item)) {
 						result.tags.push(item);
 					}
 				});
 
+				console.log('Final result:', result);
 				return result;
 			});
 
@@ -691,10 +826,11 @@ class LandBookScraper {
 			const cleanedData = {
 				websiteName: detailData.websiteName || 'Untitled',
 				websiteUrl: detailData.websiteUrl || null,
-				category: detailData.category || null,
-				style: detailData.style || null,
-				industry: detailData.industry || null,
-				type: detailData.type || null,
+				category: detailData.category || [],
+				style: detailData.style || [],
+				industry: detailData.industry || [],
+				type: detailData.type || [],
+				platform: detailData.platform || [],
 				colors: [...new Set(detailData.colors)], // Remove duplicates
 				screenshotUrl: detailData.screenshotUrl || null,
 				tags: [...new Set(detailData.tags.filter(tag => tag && tag.length > 0))], // Remove duplicates and empty tags
@@ -702,6 +838,9 @@ class LandBookScraper {
 			};
 
 			console.log(`✅ Successfully scraped detail page for: ${cleanedData.websiteName}`);
+
+			// Add rate limiting to be respectful
+			await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 500));
 
 			return {
 				success: true,
@@ -726,6 +865,7 @@ class LandBookScraper {
 
 	async scrapeAllDetailPages(gridItems) {
 		console.log(`🕷️  Starting detail page scraping for ${gridItems.length} items...`);
+		console.log(`⏱️  Implementing respectful crawling with rate limiting...`);
 
 		const results = [];
 		const errors = [];
@@ -738,9 +878,12 @@ class LandBookScraper {
 				const detailResult = await this.scrapeDetailPage(item.detailUrl);
 
 				if (detailResult.success) {
+					// Generate unique ID for each design
+					const uniqueId = `design_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
 					// Combine grid data with detail data
 					const combinedData = {
-						id: `design_${Date.now()}_${i}`, // Generate unique ID
+						id: uniqueId,
 						...detailResult.data,
 						thumbnailUrl: item.thumbnailUrl,
 						gridTitle: item.title,
@@ -748,13 +891,18 @@ class LandBookScraper {
 					};
 
 					results.push(combinedData);
+					console.log(`   ✅ Successfully processed: ${combinedData.websiteName}`);
 				} else {
 					errors.push(detailResult);
+					console.log(`   ❌ Failed to process: ${detailResult.error}`);
 				}
 
-				// Add delay between requests to be respectful
+				// Implement respectful crawling practices with rate limiting
+				// Add delay between requests to avoid overwhelming the server
 				if (i < gridItems.length - 1) {
-					await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+					const delay = 1500 + Math.random() * 1000; // 1.5-2.5 seconds
+					console.log(`   ⏳ Waiting ${Math.round(delay)}ms before next request...`);
+					await new Promise(resolve => setTimeout(resolve, delay));
 				}
 
 			} catch (error) {
@@ -771,6 +919,16 @@ class LandBookScraper {
 		console.log(`\n✅ Detail scraping completed!`);
 		console.log(`   Successfully scraped: ${results.length}/${gridItems.length} items`);
 		console.log(`   Errors: ${errors.length}`);
+
+		if (errors.length > 0) {
+			console.log(`\n⚠️  Error summary:`);
+			errors.slice(0, 3).forEach((error, index) => {
+				console.log(`   ${index + 1}. ${error.url || 'Unknown URL'}: ${error.error}`);
+			});
+			if (errors.length > 3) {
+				console.log(`   ... and ${errors.length - 3} more errors`);
+			}
+		}
 
 		return {
 			success: true,
