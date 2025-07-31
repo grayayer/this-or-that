@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const path = require('path');
+const readline = require('readline');
 
 class LandBookScraper {
 	constructor(options = {}) {
@@ -55,33 +56,22 @@ class LandBookScraper {
 		}
 	}
 
-	async navigateToCategory(category = 'health-and-fitness', filters = ['light-colors']) {
+	async navigateToUrl(urlInfo) {
 		if (!this.page) {
 			throw new Error('Browser not initialized. Call initialize() first.');
 		}
 
-		console.log(`🔍 Navigating to category: ${category} with filters: ${filters.join(', ')}`);
+		console.log(`🔍 Navigating to Land-book page...`);
+		console.log(`   Page type: ${urlInfo.pageType}`);
+		if (Object.keys(urlInfo.params).length > 0) {
+			console.log(`   Parameters: ${JSON.stringify(urlInfo.params)}`);
+		}
 
 		try {
-			// Build URL with correct query parameters
-			let url = 'https://land-book.com/';
-			const params = new URLSearchParams();
+			console.log(`📍 URL: ${urlInfo.originalUrl}`);
 
-			// Add industry parameter (what was previously called category)
-			params.append('industry', category);
-
-			// Add style filters
-			if (filters && filters.length > 0) {
-				filters.forEach(filter => {
-					params.append('style', filter);
-				});
-			}
-
-			url += '?' + params.toString();
-			console.log(`📍 URL: ${url}`);
-
-			// Navigate to the category page
-			await this.page.goto(url, {
+			// Navigate to the page
+			await this.page.goto(urlInfo.originalUrl, {
 				waitUntil: 'networkidle2',
 				timeout: this.options.timeout
 			});
@@ -97,7 +87,9 @@ class LandBookScraper {
 				'.gallery-grid',
 				'.website-grid',
 				'[data-websites]',
-				'.grid-container'
+				'.grid-container',
+				'.results-grid',
+				'.designs-grid'
 			];
 
 			let gridFound = false;
@@ -120,7 +112,7 @@ class LandBookScraper {
 					const title = document.title;
 					const bodyClasses = document.body.className;
 					const mainContent = document.querySelector('main, .main, #main, .content');
-					const grids = document.querySelectorAll('[class*="grid"], [class*="website"], [id*="website"]');
+					const grids = document.querySelectorAll('[class*="grid"], [class*="website"], [id*="website"], [class*="result"], [class*="design"]');
 
 					return {
 						title,
@@ -465,64 +457,191 @@ class LandBookScraper {
 	}
 }
 
+// Helper function to prompt user for input
+function promptUser(question) {
+	const rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
+
+	return new Promise((resolve) => {
+		rl.question(question, (answer) => {
+			rl.close();
+			resolve(answer.trim());
+		});
+	});
+}
+
+// Helper function to parse Land-book URL and extract parameters
+function parseLandBookUrl(url) {
+	try {
+		const urlObj = new URL(url);
+
+		// Check if it's a Land-book URL
+		if (!urlObj.hostname.includes('land-book.com')) {
+			throw new Error('URL must be from land-book.com');
+		}
+
+		const searchParams = urlObj.searchParams;
+		const pathParts = urlObj.pathname.split('/').filter(part => part);
+
+		// Extract all query parameters
+		const params = {};
+		for (const [key, value] of searchParams.entries()) {
+			params[key] = value;
+		}
+
+		// Determine the type of page
+		let pageType = 'gallery'; // default
+		if (pathParts.length > 0) {
+			if (pathParts[0] === 'design') {
+				pageType = 'design';
+			}
+		}
+
+		return {
+			pageType,
+			params,
+			originalUrl: url,
+			// For backwards compatibility, extract common parameters
+			industry: params.industry || null,
+			style: params.style || null,
+			type: params.type || null,
+			color: params.color || null,
+			colorSensitiveness: params.colorSensitiveness || null,
+			platform: params.platform || null
+		};
+	} catch (error) {
+		throw new Error(`Invalid URL: ${error.message}`);
+	}
+}
+
 // Export for use as module
 module.exports = LandBookScraper;
 
 // CLI usage when run directly
 if (require.main === module) {
 	async function main() {
-		const scraper = new LandBookScraper({
-			headless: false, // Show browser for debugging
-			slowMo: 200
-		});
+		console.log('🎨 Welcome to the Land-book Design Scraper!');
+		console.log('This tool helps you collect design inspiration from Land-book.com\n');
 
 		try {
-			const initialized = await scraper.initialize();
-			if (!initialized) {
-				console.error('Failed to initialize scraper');
+			// Get URL from user
+			console.log('📝 Please provide the Land-book URL you want to scrape:');
+			console.log('   Example: https://land-book.com/?industry=health-and-fitness&style=light-colors');
+			console.log('   Example: https://land-book.com/?industry=health-and-fitness&colorSensitiveness=4&color=FFFFFF&type=personal');
+			console.log('   Example: https://land-book.com/?type=personal');
+			console.log('   Example: https://land-book.com/design/about-us-page');
+			console.log('   Example: https://land-book.com/design/case-study\n');
+
+			const userUrl = await promptUser('🔗 Enter Land-book URL: ');
+
+			if (!userUrl) {
+				console.log('❌ No URL provided. Exiting...');
 				process.exit(1);
 			}
 
-			const navigated = await scraper.navigateToCategory('health-and-fitness', ['light-colors']);
+			// Parse the URL
+			let urlInfo;
+			try {
+				urlInfo = parseLandBookUrl(userUrl);
+				console.log(`\n✅ URL parsed successfully:`);
+				console.log(`   Page type: ${urlInfo.pageType}`);
+				if (urlInfo.industry) console.log(`   Industry: ${urlInfo.industry}`);
+				if (urlInfo.style) console.log(`   Style: ${urlInfo.style}`);
+				if (urlInfo.type) console.log(`   Type: ${urlInfo.type}`);
+				if (urlInfo.color) console.log(`   Color: #${urlInfo.color}`);
+				if (urlInfo.colorSensitiveness) console.log(`   Color sensitivity: ${urlInfo.colorSensitiveness}`);
+				if (urlInfo.platform) console.log(`   Platform: ${urlInfo.platform}`);
+				if (Object.keys(urlInfo.params).length === 0) {
+					console.log(`   Parameters: none (browsing all designs)`);
+				}
+			} catch (error) {
+				console.error(`❌ ${error.message}`);
+				console.log('\n💡 Make sure you copy the URL from your browser while viewing the Land-book page.');
+				process.exit(1);
+			}
+
+			// Ask about browser visibility
+			console.log('\n🖥️  Browser options:');
+			const showBrowser = await promptUser('Show browser window while scraping? (y/n) [default: n]: ');
+			const headless = !['y', 'yes', 'true', '1'].includes(showBrowser.toLowerCase());
+
+			// Ask about item limit
+			console.log('\n📊 Scraping options:');
+			const maxItemsInput = await promptUser('Maximum items to scrape (default: 20): ');
+			const maxItems = parseInt(maxItemsInput) || 20;
+
+			console.log(`\n🚀 Starting scraper with:`);
+			console.log(`   URL: ${urlInfo.originalUrl}`);
+			console.log(`   Browser: ${headless ? 'Hidden' : 'Visible'}`);
+			console.log(`   Max items: ${maxItems}`);
+			console.log(`\n⏳ Please wait while we scrape the designs...\n`);
+
+			const scraper = new LandBookScraper({
+				headless: headless,
+				slowMo: headless ? 50 : 200, // Faster when headless
+				maxItems: maxItems
+			});
+
+			const initialized = await scraper.initialize();
+			if (!initialized) {
+				console.error('❌ Failed to initialize scraper');
+				process.exit(1);
+			}
+
+			const navigated = await scraper.navigateToUrl(urlInfo);
 			if (!navigated) {
-				console.error('Failed to navigate to category');
+				console.error('❌ Failed to navigate to the specified page');
+				console.log('💡 Please check that the URL is correct and the page is accessible.');
 				process.exit(1);
 			}
 
 			const limits = await scraper.handleFreeAccountLimits();
-			console.log('Account limits:', limits);
+			if (limits.hasLimits) {
+				console.log(`⚠️  Free account limitations detected (${limits.type})`);
+			}
 
 			const items = await scraper.getAvailableItems();
-			console.log('Available items:', items);
+			console.log(`📈 Found ${items.total} items on the page`);
+
+			if (items.available === 0) {
+				console.log('❌ No items found to scrape. Please check the URL and try again.');
+				process.exit(1);
+			}
 
 			// Test grid scraping
+			console.log('🕷️  Scraping website thumbnails and links...');
 			const gridResults = await scraper.scrapeGridPage();
-			console.log('Grid scraping results:', {
-				success: gridResults.success,
-				itemsScraped: gridResults.items?.length || 0,
-				totalFound: gridResults.totalFound,
-				validItems: gridResults.validItems,
-				errorItems: gridResults.errorItems
-			});
+
+			if (!gridResults.success) {
+				console.error('❌ Failed to scrape the grid page');
+				process.exit(1);
+			}
 
 			// Show sample of scraped data
-			if (gridResults.success && gridResults.items.length > 0) {
+			if (gridResults.items.length > 0) {
+				console.log(`\n✅ Successfully scraped ${gridResults.items.length} designs!`);
 				console.log('\n📋 Sample scraped items:');
 				gridResults.items.slice(0, 3).forEach((item, index) => {
-					console.log(`   ${index + 1}. ${item.title || 'No title'}`);
+					console.log(`   ${index + 1}. ${item.title || 'Untitled'}`);
 					console.log(`      Thumbnail: ${item.thumbnailUrl?.substring(0, 60)}...`);
 					console.log(`      Detail URL: ${item.detailUrl?.substring(0, 60)}...`);
 				});
+
+				if (gridResults.items.length > 3) {
+					console.log(`   ... and ${gridResults.items.length - 3} more items`);
+				}
 			}
 
-			console.log('\n🎉 Grid scraping test completed!');
+			console.log('\n🎉 Basic scraper setup and grid scraping completed successfully!');
 			console.log('📋 Summary:');
-			console.log(`   - Browser initialized: ✅`);
-			console.log(`   - Navigation successful: ✅`);
-			console.log(`   - Items found: ${items.available}/${items.total}`);
-			console.log(`   - Grid scraping: ${gridResults.success ? '✅' : '❌'}`);
-			console.log(`   - Items scraped: ${gridResults.items?.length || 0}`);
-			console.log(`   - Errors: ${scraper.getErrors().length}`);
+			console.log(`   ✅ Browser initialized`);
+			console.log(`   ✅ Navigation successful`);
+			console.log(`   ✅ Grid scraping successful`);
+			console.log(`   📊 Items found: ${items.available}/${items.total}`);
+			console.log(`   📊 Items scraped: ${gridResults.items.length}`);
+			console.log(`   ⚠️  Errors: ${scraper.getErrors().length}`);
 
 			if (scraper.hasErrors()) {
 				console.log('\n❌ Errors encountered:');
@@ -530,6 +649,9 @@ if (require.main === module) {
 					console.log(`   ${index + 1}. ${error.type}: ${error.error}`);
 				});
 			}
+
+			console.log('\n✨ Ready to proceed with detail page scraping!');
+			console.log('💡 This completes the basic setup and grid scraping. Next steps will implement detail page data extraction.');
 
 		} catch (error) {
 			console.error('❌ Scraper failed:', error.message);
