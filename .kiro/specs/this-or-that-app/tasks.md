@@ -38,7 +38,7 @@
   - Output designs.json file ready for use by the web application
   - _Requirements: 7.4, 7.5_
 
-- [ ] 2.5 Add scraper configuration and documentation
+- [x] 2.5 Add scraper configuration and documentation
   - Create configuration options for different Land-book categories and filters
   - Add command-line interface for running scraper with different parameters
   - Write comprehensive README with usage instructions

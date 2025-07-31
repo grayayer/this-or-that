@@ -16,6 +16,16 @@ class LandBookScraper {
 		};
 		this.scraped = [];
 		this.errors = [];
+
+		// Initialize logger if provided
+		this.logger = options.logger || {
+			debug: () => { },
+			info: () => { },
+			warn: () => { },
+			error: () => { },
+			success: () => { },
+			updateProgress: () => { }
+		};
 	}
 
 	async initialize() {

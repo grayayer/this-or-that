@@ -4,9 +4,16 @@
 	"description": "Scraper tool to collect design data from Land-book.com",
 	"main": "scraper.js",
 	"scripts": {
-		"start": "node scraper.js",
-		"scrape": "node scraper.js",
+		"start": "node cli.js scrape",
+		"scrape": "node cli.js scrape",
+		"scrape:preset": "node cli.js scrape --preset",
+		"list": "node cli.js list",
+		"validate-url": "node cli.js validate-url",
+		"init-config": "node cli.js init-config",
 		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"bin": {
+		"landbook-scraper": "./cli.js"
 	},
 	"keywords": [
 		"scraper",
@@ -17,8 +24,9 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"puppeteer": "^23.0.0",
-		"playwright": "^1.48.0"
+		"commander": "^12.1.0",
+		"playwright": "^1.48.0",
+		"puppeteer": "^23.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^9.0.0"
