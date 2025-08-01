@@ -125,6 +125,80 @@
         width: 100%;
         max-width: none;
     }
+
+    /* Results section mobile */
+    .results-container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .results-header h2 {
+        font-size: 1.75rem;
+    }
+
+    .results-summary,
+    .recommendations-section,
+    .insights-section {
+        margin: 0 -16px 24px -16px;
+        padding: 20px 16px;
+        border-radius: 0;
+    }
+
+    .preference-category {
+        margin: 0 -16px 20px -16px;
+        padding: 20px 16px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+
+    .category-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .category-title {
+        font-size: 1.125rem;
+    }
+
+    .category-strength {
+        order: 3;
+        flex-basis: 100%;
+        margin-left: 0;
+        margin-top: 8px;
+        align-self: flex-start;
+        width: fit-content;
+    }
+
+    .preference-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .preference-stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .preference-bar {
+        width: 60px;
+    }
+
+    .insight-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .color-preference-item {
+        gap: 8px;
+    }
+
+    .color-swatch {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 /* Large Mobile Devices (481px to 767px) */
@@ -172,6 +246,28 @@
     .continue-actions .btn {
         width: auto;
         min-width: 140px;
+    }
+
+    /* Results section tablet */
+    .results-container {
+        max-width: 700px;
+    }
+
+    .insight-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .preference-item {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .preference-stats {
+        width: auto;
+    }
+
+    .preference-bar {
+        width: 80px;
     }
 }
 
@@ -284,6 +380,30 @@
     .form-actions .btn {
         width: auto;
         min-width: 140px;
+    }
+
+    /* Results section desktop */
+    .results-container {
+        max-width: 800px;
+    }
+
+    .insight-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .preference-bar {
+        width: 100px;
+    }
+
+    .category-header {
+        flex-wrap: nowrap;
+    }
+
+    .category-strength {
+        order: initial;
+        flex-basis: auto;
+        margin-left: auto;
+        margin-top: 0;
     }
 }
 

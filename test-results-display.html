@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test Results Display</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<style>
+		body {
+			padding: 20px;
+		}
+
+		.test-controls {
+			margin-bottom: 30px;
+			padding: 20px;
+			background: #f8f9fa;
+			border-radius: 8px;
+		}
+
+		.test-controls button {
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-controls">
+		<h2>Results Display Test</h2>
+		<p>Click the button below to test the results display functionality:</p>
+		<button class="btn btn-primary" onclick="testResultsDisplay()">Generate Test Results</button>
+		<button class="btn btn-secondary" onclick="clearResults()">Clear Results</button>
+	</div>
+
+	<!-- Results Section (same as in main app) -->
+	<section class="results-section" id="results-section" style="display: none;">
+		<div class="results-container">
+			<header class="results-header">
+				<h2>Your Design Preferences</h2>
+				<p class="results-description">Based on your choices, here's your design preference profile</p>
+			</header>
+
+			<div class="results-content">
+				<div class="preference-categories" id="preference-categories">
+					<!-- Dynamic content will be inserted here -->
+				</div>
+
+				<div class="results-actions">
+					<button class="btn btn-primary" id="email-results-btn">Email Results</button>
+					<button class="btn btn-secondary" id="start-over-btn">Start Over</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Load the results.js file -->
+	<script src="js/results.js"></script>
+
+	<script>
+		// Mock data for testing
+		const mockDesigns = [
+			{
+				id: "design_001",
+				image: "https://example.com/image1.jpg",
+				title: "Modern Portfolio",
+				tags: {
+					style: ["Minimalist", "Clean", "Modern"],
+					industry: ["Design", "Portfolio"],
+					typography: ["Sans Serif"],
+					type: ["Personal", "Portfolio"],
+					category: ["Portfolio"],
+					platform: ["Webflow"],
+					colors: ["#FFFFFF", "#000000", "#F5F5F5"]
+				}
+			},
+			{
+				id: "design_002",
+				image: "https://example.com/image2.jpg",
+				title: "Health Tech Startup",
+				tags: {
+					style: ["Gradient", "Modern", "Clean"],
+					industry: ["Health & Fitness", "Tech"],
+					typography: ["Sans Serif"],
+					type: ["Software", "Web App"],
+					category: ["Landing"],
+					platform: ["React"],
+					colors: ["#4A90E2", "#FFFFFF", "#F8F9FA"]
+				}
+			},
+			{
+				id: "design_003",
+				image: "https://example.com/image3.jpg",
+				title: "Creative Agency",
+				tags: {
+					style: ["Bold", "Colorful", "Animation"],
+					industry: ["Design", "Marketing"],
+					typography: ["Serif", "Sans Serif"],
+					type: ["Agency", "Service"],
+					category: ["Agency"],
+					platform: ["Framer"],
+					colors: ["#FF6B6B", "#4ECDC4", "#45B7D1"]
+				}
+			},
+			{
+				id: "design_004",
+				image: "https://example.com/image4.jpg",
+				title: "E-commerce Store",
+				tags: {
+					style: ["Clean", "Modern", "Grid"],
+					industry: ["E-commerce", "Retail"],
+					typography: ["Sans Serif"],
+					type: ["E-commerce", "Store"],
+					category: ["E-commerce"],
+					platform: ["Shopify"],
+					colors: ["#2C3E50", "#E74C3C", "#FFFFFF"]
+				}
+			},
+			{
+				id: "design_005",
+				image: "https://example.com/image5.jpg",
+				title: "Tech Blog",
+				tags: {
+					style: ["Minimalist", "Typography-focused"],
+					industry: ["Tech", "Media"],
+					typography: ["Serif"],
+					type: ["Blog", "Content"],
+					category: ["Blog"],
+					platform: ["WordPress"],
+					colors: ["#1A1A1A", "#FFFFFF", "#666666"]
+				}
+			}
+		];
+
+		// Mock selections (user chose designs 1, 2, 1, 3, 2, 1, 4, 2, 5, 1)
+		const mockSelections = [
+			{ selectedId: "design_001", rejectedId: "design_002", timestamp: "2025-01-30T10:00:00Z", timeToDecision: 5.2, roundNumber: 1 },
+			{ selectedId: "design_002", rejectedId: "design_003", timestamp: "2025-01-30T10:00:30Z", timeToDecision: 3.8, roundNumber: 2 },
+			{ selectedId: "design_001", rejectedId: "design_004", timestamp: "2025-01-30T10:01:00Z", timeToDecision: 2.1, roundNumber: 3 },
+			{ selectedId: "design_003", rejectedId: "design_005", timestamp: "2025-01-30T10:01:30Z", timeToDecision: 4.5, roundNumber: 4 },
+			{ selectedId: "design_002", rejectedId: "design_001", timestamp: "2025-01-30T10:02:00Z", timeToDecision: 6.2, roundNumber: 5 },
+			{ selectedId: "design_001", rejectedId: "design_003", timestamp: "2025-01-30T10:02:30Z", timeToDecision: 1.9, roundNumber: 6 },
+			{ selectedId: "design_004", rejectedId: "design_005", timestamp: "2025-01-30T10:03:00Z", timeToDecision: 3.3, roundNumber: 7 },
+			{ selectedId: "design_002", rejectedId: "design_004", timestamp: "2025-01-30T10:03:30Z", timeToDecision: 4.1, roundNumber: 8 },
+			{ selectedId: "design_005", rejectedId: "design_003", timestamp: "2025-01-30T10:04:00Z", timeToDecision: 2.7, roundNumber: 9 },
+			{ selectedId: "design_001", rejectedId: "design_005", timestamp: "2025-01-30T10:04:30Z", timeToDecision: 1.5, roundNumber: 10 }
+		];
+
+		function testResultsDisplay() {
+			try {
+				console.log('🧪 Testing results display...');
+
+				// Use the displayResults function from results.js
+				displayResults(mockSelections, mockDesigns);
+
+				console.log('✅ Results display test completed');
+			} catch (error) {
+				console.error('❌ Results display test failed:', error);
+				alert('Test failed: ' + error.message);
+			}
+		}
+
+		function clearResults() {
+			const resultsSection = document.getElementById('results-section');
+			const preferenceCategoriesContainer = document.getElementById('preference-categories');
+
+			if (resultsSection) {
+				resultsSection.style.display = 'none';
+			}
+
+			if (preferenceCategoriesContainer) {
+				preferenceCategoriesContainer.innerHTML = '';
+			}
+
+			console.log('🧹 Results cleared');
+		}
+
+		// Set up button handlers
+		document.addEventListener('DOMContentLoaded', function () {
+			const emailBtn = document.getElementById('email-results-btn');
+			const startOverBtn = document.getElementById('start-over-btn');
+
+			if (emailBtn) {
+				emailBtn.addEventListener('click', () => {
+					alert('Email functionality will be implemented in the next task.');
+				});
+			}
+
+			if (startOverBtn) {
+				startOverBtn.addEventListener('click', () => {
+					clearResults();
+				});
+			}
+		});
+	</script>
+</body>
+
+</html>
+<script src="verify-results-implementation.js"></script>

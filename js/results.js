@@ -551,6 +551,211 @@ if (typeof module !== 'undefined' && module.exports) {
 	};
 }
 
+/**
+ * Generates HTML content for displaying results in the UI
+ * Implements requirements 4.3, 4.4, 4.5: Display ranked tag lists and design profile
+ * @param {Object} formattedResults - Results from formatResults function
+ * @returns {string} - HTML string ready for insertion into DOM
+ */
+function generateResultsHTML(formattedResults) {
+	try {
+		if (!formattedResults || !formattedResults.categories) {
+			throw new Error('Invalid formatted results provided');
+		}
+
+		const { header, categories, recommendations, insights, statistics } = formattedResults;
+
+		// Generate summary section
+		const summaryHTML = `
+			<div class="results-summary">
+				<h3>Your Design Profile Summary</h3>
+				<p>${header.summary}</p>
+				<p><strong>Analysis completed:</strong> ${header.completedAt} • <strong>Total choices:</strong> ${statistics.totalChoices}</p>
+			</div>
+		`;
+
+		// Generate recommendations section
+		const recommendationsHTML = `
+			<div class="recommendations-section">
+				<h3>${recommendations.title}</h3>
+				<ul class="recommendation-list">
+					${recommendations.items.map(item => `
+						<li class="recommendation-item">${item}</li>
+					`).join('')}
+				</ul>
+			</div>
+		`;
+
+		// Generate preference categories
+		const categoriesHTML = categories.map(category => {
+			if (category.topItems.length === 0) {
+				return ''; // Skip categories with no preferences
+			}
+
+			const strengthClass = `strength-${category.strength.strength.replace(' ', '-')}`;
+
+			return `
+				<div class="preference-category">
+					<div class="category-header">
+						<span class="category-icon">${category.icon}</span>
+						<h3 class="category-title">${category.displayName}</h3>
+						<span class="category-strength ${strengthClass}">
+							${category.strength.strength} (${category.strength.score}%)
+						</span>
+					</div>
+					<div class="preference-items">
+						${category.topItems.map(item => {
+				// Special handling for colors
+				if (category.name === 'colors' && item.tag.startsWith('#')) {
+					return `
+									<div class="preference-item">
+										<div class="color-preference-item">
+											<div class="color-swatch" style="background-color: ${item.tag}"></div>
+											<span class="preference-tag">${item.displayTag}</span>
+										</div>
+										<div class="preference-stats">
+											<span class="preference-percentage">${item.percentage}%</span>
+											<div class="preference-bar">
+												<div class="preference-bar-fill" style="width: ${item.barWidth}"></div>
+											</div>
+										</div>
+									</div>
+								`;
+				} else {
+					return `
+									<div class="preference-item">
+										<span class="preference-tag">${item.displayTag}</span>
+										<div class="preference-stats">
+											<span class="preference-percentage">${item.percentage}%</span>
+											<div class="preference-bar">
+												<div class="preference-bar-fill" style="width: ${item.barWidth}"></div>
+											</div>
+										</div>
+									</div>
+								`;
+				}
+			}).join('')}
+					</div>
+				</div>
+			`;
+		}).filter(html => html !== '').join('');
+
+		// Generate insights section
+		const insightsHTML = `
+			<div class="insights-section">
+				<h3>${insights.title}</h3>
+				<div class="insight-grid">
+					<div class="insight-card">
+						<h4>Consistency Level</h4>
+						<p>${insights.consistency.overallConsistency.charAt(0).toUpperCase() + insights.consistency.overallConsistency.slice(1)} consistency across preferences</p>
+					</div>
+					<div class="insight-card">
+						<h4>Diversity Score</h4>
+						<p>${statistics.diversityScore.charAt(0).toUpperCase() + statistics.diversityScore.slice(1)} variety in design choices</p>
+					</div>
+					<div class="insight-card">
+						<h4>Strongest Preference</h4>
+						<p>${statistics.strongestCategory.topChoice} in ${formatCategoryName(statistics.strongestCategory.category)}</p>
+					</div>
+				</div>
+				${insights.patterns.length > 0 ? `
+					<div style="margin-top: 20px;">
+						<h4>Key Patterns</h4>
+						<ul style="margin: 8px 0 0 20px; color: #666666;">
+							${insights.patterns.map(pattern => `<li>${pattern}</li>`).join('')}
+						</ul>
+					</div>
+				` : ''}
+			</div>
+		`;
+
+		// Combine all sections
+		const fullHTML = summaryHTML + recommendationsHTML + categoriesHTML + insightsHTML;
+
+		console.log('✅ Results HTML generated successfully');
+		return fullHTML;
+
+	} catch (error) {
+		console.error('❌ Failed to generate results HTML:', error.message);
+		return `
+			<div class="error-container">
+				<h3>Unable to Display Results</h3>
+				<p>There was an error generating your design preference profile. Please try again.</p>
+			</div>
+		`;
+	}
+}
+
+/**
+ * Displays the results in the UI by replacing placeholder content
+ * Implements requirement 4.5: Replace placeholder results section with actual analysis display
+ * @param {Array} selections - User selections from app state
+ * @param {Array} designs - All design objects
+ */
+function displayResults(selections, designs) {
+	try {
+		console.log('🎨 Displaying results in UI...');
+
+		// Get formatted results
+		const formattedResults = getFormattedResults(selections, designs);
+
+		// Generate HTML content
+		const resultsHTML = generateResultsHTML(formattedResults);
+
+		// Find the results section and preference categories container
+		const resultsSection = document.getElementById('results-section');
+		const preferenceCategoriesContainer = document.getElementById('preference-categories');
+
+		if (!resultsSection || !preferenceCategoriesContainer) {
+			throw new Error('Results section elements not found in DOM');
+		}
+
+		// Update the header with actual data
+		const resultsHeader = resultsSection.querySelector('.results-header');
+		if (resultsHeader) {
+			const description = resultsHeader.querySelector('.results-description');
+			if (description) {
+				description.textContent = `Based on your ${formattedResults.statistics.totalChoices} choices, here's your design preference profile`;
+			}
+		}
+
+		// Insert the generated HTML
+		preferenceCategoriesContainer.innerHTML = resultsHTML;
+
+		// Show the results section
+		resultsSection.style.display = 'block';
+
+		// Animate the preference bars
+		setTimeout(() => {
+			const bars = resultsSection.querySelectorAll('.preference-bar-fill');
+			bars.forEach(bar => {
+				const width = bar.style.width;
+				bar.style.width = '0%';
+				setTimeout(() => {
+					bar.style.width = width;
+				}, 100);
+			});
+		}, 200);
+
+		console.log('✅ Results displayed successfully');
+
+	} catch (error) {
+		console.error('❌ Failed to display results:', error.message);
+
+		// Show error in results section
+		const preferenceCategoriesContainer = document.getElementById('preference-categories');
+		if (preferenceCategoriesContainer) {
+			preferenceCategoriesContainer.innerHTML = `
+				<div class="error-container">
+					<h3>Unable to Display Results</h3>
+					<p>There was an error generating your design preference profile: ${error.message}</p>
+					<p>Please try refreshing the page and completing the choices again.</p>
+				</div>
+			`;
+		}
+	}
+}
+
 // Make functions available globally for browser use
 if (typeof window !== 'undefined') {
 	window.analyzeSelections = analyzeSelections;
@@ -558,4 +763,6 @@ if (typeof window !== 'undefined') {
 	window.generateProfile = generateProfile;
 	window.formatResults = formatResults;
 	window.getFormattedResults = getFormattedResults;
+	window.generateResultsHTML = generateResultsHTML;
+	window.displayResults = displayResults;
 }

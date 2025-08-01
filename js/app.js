@@ -718,44 +718,121 @@ function handleShowResults() {
 		continueSection.style.display = 'none';
 	}
 
-	// Show results (this will be implemented in a future task)
-	// For now, just show a placeholder
-	showResultsPlaceholder();
+	// Show the actual results analysis
+	showResults();
 }
 
 /**
- * Shows a placeholder for results (temporary until results task is implemented)
+ * Shows the actual results analysis and design preference profile
+ * Implements requirements 4.3, 4.4, 4.5: Display ranked tag lists and design profile
  */
-function showResultsPlaceholder() {
-	const resultsSection = document.getElementById('results-section');
-	if (resultsSection) {
-		const resultsContainer = resultsSection.querySelector('.results-container');
-		if (resultsContainer) {
-			resultsContainer.innerHTML = `
-				<header class="results-header">
-					<h2>Your Design Preferences</h2>
-					<p class="results-description">Based on your ${appState.totalRounds} choices, here's your design preference profile</p>
-				</header>
-				<div class="results-content">
-					<div class="results-placeholder">
-						<p>Results analysis will be implemented in the next task.</p>
-						<p>You completed ${appState.totalRounds} choices across ${appState.currentSession} session(s).</p>
-					</div>
-					<div class="results-actions">
-						<button class="btn btn-secondary" id="start-over-btn">Start Over</button>
-					</div>
-				</div>
-			`;
-
-			// Add start over functionality
-			const startOverBtn = resultsContainer.querySelector('#start-over-btn');
-			if (startOverBtn) {
-				startOverBtn.addEventListener('click', () => {
-					location.reload();
-				});
-			}
+function showResults() {
+	try {
+		if (appState.config.enableLogging) {
+			console.log(`🎨 Displaying results for ${appState.totalRounds} selections`);
 		}
-		resultsSection.style.display = 'block';
+
+		// Ensure we have the required data
+		if (!appState.selections || appState.selections.length === 0) {
+			throw new Error('No selections available for analysis');
+		}
+
+		if (!appState.designs || appState.designs.length === 0) {
+			throw new Error('No design data available for analysis');
+		}
+
+		// Use the displayResults function from results.js
+		displayResults(appState.selections, appState.designs);
+
+		// Set up the action buttons
+		setupResultsActions();
+
+		// Hide other sections
+		hideOtherSections();
+
+		if (appState.config.enableLogging) {
+			console.log('✅ Results displayed successfully');
+		}
+
+	} catch (error) {
+		console.error('❌ Failed to show results:', error.message);
+
+		// Fallback to show error message
+		const resultsSection = document.getElementById('results-section');
+		if (resultsSection) {
+			const preferenceCategoriesContainer = document.getElementById('preference-categories');
+			if (preferenceCategoriesContainer) {
+				preferenceCategoriesContainer.innerHTML = `
+					<div class="error-container">
+						<h3>Unable to Display Results</h3>
+						<p>There was an error generating your design preference profile: ${error.message}</p>
+						<p>You completed ${appState.totalRounds} choices. Please try refreshing the page.</p>
+					</div>
+				`;
+			}
+			resultsSection.style.display = 'block';
+		}
+	}
+}
+
+/**
+ * Sets up event listeners for results action buttons
+ */
+function setupResultsActions() {
+	// Set up start over button
+	const startOverBtn = document.getElementById('start-over-btn');
+	if (startOverBtn) {
+		// Remove existing listeners
+		startOverBtn.replaceWith(startOverBtn.cloneNode(true));
+		const newStartOverBtn = document.getElementById('start-over-btn');
+
+		newStartOverBtn.addEventListener('click', () => {
+			if (appState.config.enableLogging) {
+				console.log('🔄 User chose to start over');
+			}
+			location.reload();
+		});
+	}
+
+	// Set up email results button
+	const emailResultsBtn = document.getElementById('email-results-btn');
+	if (emailResultsBtn) {
+		// Remove existing listeners
+		emailResultsBtn.replaceWith(emailResultsBtn.cloneNode(true));
+		const newEmailResultsBtn = document.getElementById('email-results-btn');
+
+		newEmailResultsBtn.addEventListener('click', () => {
+			if (appState.config.enableLogging) {
+				console.log('📧 User chose to email results');
+			}
+			// This will be implemented in the email functionality task
+			alert('Email functionality will be implemented in the next task.');
+		});
+	}
+}
+
+/**
+ * Hides other sections when showing results
+ */
+function hideOtherSections() {
+	const sectionsToHide = [
+		'timer-section',
+		'progress-section',
+		'selection-section',
+		'loading-section'
+	];
+
+	sectionsToHide.forEach(sectionId => {
+		const section = document.getElementById(sectionId);
+		if (section) {
+			section.style.display = 'none';
+		}
+	});
+
+	// Also hide any continue prompt sections
+	const continueSection = document.querySelector('.continue-section');
+	if (continueSection) {
+		continueSection.style.display = 'none';
 	}
 }
 
