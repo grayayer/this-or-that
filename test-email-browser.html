@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Email Functionality Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<style>
+		.test-container {
+			max-width: 800px;
+			margin: 40px auto;
+			padding: 20px;
+		}
+
+		.test-section {
+			background: #f8f9fa;
+			padding: 20px;
+			margin: 20px 0;
+			border-radius: 8px;
+			border-left: 4px solid #0066cc;
+		}
+
+		.test-results {
+			background: #ffffff;
+			padding: 15px;
+			margin: 10px 0;
+			border-radius: 4px;
+			font-family: monospace;
+			font-size: 14px;
+			white-space: pre-wrap;
+			border: 1px solid #e1e5e9;
+		}
+
+		.test-button {
+			background: #0066cc;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin: 5px;
+		}
+
+		.test-button:hover {
+			background: #0052a3;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-container">
+		<h1>Email Functionality Test</h1>
+		<p>This page tests the email functionality for the This or That application.</p>
+
+		<div class="test-section">
+			<h2>Email Form Test</h2>
+			<p>Test the email form UI and validation:</p>
+
+			<!-- Email Form Section (copied from main app) -->
+			<section class="email-section" id="email-section">
+				<div class="email-container">
+					<header class="email-header">
+						<h3>Share Your Results</h3>
+						<p>Send your design preference profile via email</p>
+					</header>
+
+					<form class="email-form" id="email-form">
+						<div class="form-group">
+							<label for="user-email">Your Email Address</label>
+							<input type="email" id="user-email" name="userEmail" required placeholder="your@email.com">
+						</div>
+
+						<div class="form-group">
+							<label for="designer-email">Designer's Email (Optional)</label>
+							<input type="email" id="designer-email" name="designerEmail"
+								placeholder="designer@example.com">
+						</div>
+
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary">Send Results</button>
+							<button type="button" class="btn btn-secondary" id="cancel-email-btn">Cancel</button>
+						</div>
+					</form>
+
+					<div class="email-status" id="email-status"></div>
+				</div>
+			</section>
+		</div>
+
+		<div class="test-section">
+			<h2>Automated Tests</h2>
+			<p>Run automated tests for email functionality:</p>
+
+			<button class="test-button" onclick="runIndividualTest('validation')">Test Email Validation</button>
+			<button class="test-button" onclick="runIndividualTest('formatting')">Test Content Formatting</button>
+			<button class="test-button" onclick="runIndividualTest('sending')">Test Email Sending</button>
+			<button class="test-button" onclick="runAllTests()">Run All Tests</button>
+
+			<div class="test-results" id="test-results">
+				Click a test button to see results...
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>Sample Email Preview</h2>
+			<p>Preview what the email content looks like:</p>
+
+			<button class="test-button" onclick="showEmailPreview()">Generate Email Preview</button>
+
+			<div class="test-results" id="email-preview" style="max-height: 400px; overflow-y: auto;">
+				Click "Generate Email Preview" to see sample email content...
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+	<script src="js/data-validator.js"></script>
+	<script src="js/app-data-loader.js"></script>
+	<script src="js/results.js"></script>
+	<script src="js/email.js"></script>
+	<script src="test-email-functionality.js"></script>
+
+	<script>
+		// Test runner functions
+		function runIndividualTest(testType) {
+			const resultsDiv = document.getElementById('test-results');
+			resultsDiv.textContent = 'Running test...\n';
+
+			// Capture console output
+			const originalLog = console.log;
+			const originalError = console.error;
+			let output = '';
+
+			console.log = (...args) => {
+				output += args.join(' ') + '\n';
+				originalLog(...args);
+			};
+
+			console.error = (...args) => {
+				output += 'ERROR: ' + args.join(' ') + '\n';
+				originalError(...args);
+			};
+
+			try {
+				switch (testType) {
+					case 'validation':
+						testEmailValidation();
+						break;
+					case 'formatting':
+						testEmailContentFormatting();
+						break;
+					case 'sending':
+						testEmailSending().then(() => {
+							resultsDiv.textContent = output;
+						});
+						return; // Async function
+					default:
+						output += 'Unknown test type: ' + testType;
+				}
+
+				resultsDiv.textContent = output;
+
+			} catch (error) {
+				output += 'Test failed: ' + error.message;
+				resultsDiv.textContent = output;
+			} finally {
+				console.log = originalLog;
+				console.error = originalError;
+			}
+		}
+
+		async function runAllTests() {
+			const resultsDiv = document.getElementById('test-results');
+			resultsDiv.textContent = 'Running all tests...\n';
+
+			// Capture console output
+			const originalLog = console.log;
+			const originalError = console.error;
+			let output = '';
+
+			console.log = (...args) => {
+				output += args.join(' ') + '\n';
+				originalLog(...args);
+			};
+
+			console.error = (...args) => {
+				output += 'ERROR: ' + args.join(' ') + '\n';
+				originalError(...args);
+			};
+
+			try {
+				await runEmailTests();
+				resultsDiv.textContent = output;
+			} catch (error) {
+				output += 'Tests failed: ' + error.message;
+				resultsDiv.textContent = output;
+			} finally {
+				console.log = originalLog;
+				console.error = originalError;
+			}
+		}
+
+		function showEmailPreview() {
+			const previewDiv = document.getElementById('email-preview');
+
+			try {
+				// Get mock results data
+				const resultsData = getCurrentResultsData();
+
+				if (!resultsData) {
+					previewDiv.textContent = 'No results data available. Mock data will be used.';
+					return;
+				}
+
+				// Generate email content
+				const emailContent = formatEmailContent(resultsData);
+
+				// Show HTML preview
+				previewDiv.innerHTML = `
+                    <h4>HTML Email Content:</h4>
+                    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; max-height: 200px; overflow-y: auto;">
+                        ${emailContent.html}
+                    </div>
+
+                    <h4>Plain Text Email Content:</h4>
+                    <pre style="background: #f5f5f5; padding: 10px; margin: 10px 0; max-height: 200px; overflow-y: auto; white-space: pre-wrap;">${emailContent.text}</pre>
+                `;
+
+			} catch (error) {
+				previewDiv.textContent = 'Failed to generate email preview: ' + error.message;
+			}
+		}
+
+		// Initialize when page loads
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('🧪 Email test page loaded');
+
+			// Initialize email service
+			if (typeof initializeEmailService === 'function') {
+				initializeEmailService();
+			}
+		});
+	</script>
+</body>
+
+</html>

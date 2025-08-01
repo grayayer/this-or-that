@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Print Functionality Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="css/print.css">
+	<style>
+		.test-container {
+			max-width: 800px;
+			margin: 40px auto;
+			padding: 20px;
+		}
+
+		.test-section {
+			background: #f8f9fa;
+			padding: 20px;
+			margin: 20px 0;
+			border-radius: 8px;
+			border-left: 4px solid #0066cc;
+		}
+
+		.test-results {
+			background: #ffffff;
+			padding: 15px;
+			margin: 10px 0;
+			border-radius: 4px;
+			font-family: monospace;
+			font-size: 14px;
+			white-space: pre-wrap;
+			border: 1px solid #e1e5e9;
+		}
+
+		.test-button {
+			background: #0066cc;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			margin: 5px;
+		}
+
+		.test-button:hover {
+			background: #0052a3;
+		}
+
+		.mock-results {
+			border: 2px dashed #ccc;
+			padding: 20px;
+			margin: 20px 0;
+			border-radius: 8px;
+			background: #f9f9f9;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-container">
+		<h1>Print Functionality Test</h1>
+		<p>This page tests the print functionality for the This or That application.</p>
+
+		<div class="test-section">
+			<h2>Print Button Test</h2>
+			<p>Test the print button functionality:</p>
+
+			<button class="test-button" onclick="testPrintButton()">Test Print Button</button>
+			<button class="test-button" onclick="generateMockResults()">Generate Mock Results</button>
+			<button class="test-button" onclick="testPrintSummary()">Test Print Summary</button>
+			<button class="test-button" onclick="testCopyToClipboard()">Test Copy to Clipboard</button>
+
+			<div class="test-results" id="test-results">
+				Click a test button to see results...
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>Mock Results Preview</h2>
+			<p>This shows how the results will look when printed:</p>
+
+			<div class="mock-results">
+				<!-- Mock Results Section (copy from main app structure) -->
+				<section class="results-section" id="mock-results-section" style="display: block;">
+					<div class="results-container">
+						<!-- Print-only header -->
+						<header class="print-header print-only">
+							<h1 class="print-title">This or That?</h1>
+							<p class="print-subtitle">Design Preference Discovery Report</p>
+							<p class="print-date" id="mock-print-date">January 30, 2025 at 2:30 PM</p>
+						</header>
+
+						<header class="results-header">
+							<h2>Your Design Preferences</h2>
+							<p class="results-description">Based on your choices, here's your design preference profile
+							</p>
+						</header>
+
+						<div class="results-content">
+							<!-- Mock Summary -->
+							<div class="results-summary">
+								<h3>Summary</h3>
+								<p>Based on your 25 choices, you show a strong preference for clean, minimalist designs
+									with modern typography. You favor neutral color palettes with strategic use of
+									accent colors, and prefer portfolio-style layouts that emphasize content over
+									decoration.</p>
+							</div>
+
+							<!-- Mock Recommendations -->
+							<div class="recommendations-section">
+								<h3>Design Direction Recommendations</h3>
+								<ul class="recommendation-list">
+									<li class="recommendation-item">Focus on clean, minimalist layouts with plenty of
+										white space</li>
+									<li class="recommendation-item">Use modern sans-serif typography for better
+										readability</li>
+									<li class="recommendation-item">Implement neutral color schemes with strategic
+										accent colors</li>
+									<li class="recommendation-item">Prioritize content hierarchy and clear navigation
+									</li>
+								</ul>
+							</div>
+
+							<!-- Mock Preference Categories -->
+							<div class="preference-categories" id="mock-preference-categories">
+								<div class="preference-category">
+									<div class="category-header">
+										<span class="category-icon">🎨</span>
+										<h3 class="category-title">Visual Style</h3>
+										<span class="category-strength strength-very-strong">Very Strong</span>
+									</div>
+									<div class="preference-items">
+										<div class="preference-item">
+											<span class="preference-tag">Minimalist</span>
+											<div class="preference-stats">
+												<span class="preference-percentage">85%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 85%"></div>
+												</div>
+											</div>
+										</div>
+										<div class="preference-item">
+											<span class="preference-tag">Clean</span>
+											<div class="preference-stats">
+												<span class="preference-percentage">72%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 72%"></div>
+												</div>
+											</div>
+										</div>
+										<div class="preference-item">
+											<span class="preference-tag">Modern</span>
+											<div class="preference-stats">
+												<span class="preference-percentage">68%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 68%"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="preference-category">
+									<div class="category-header">
+										<span class="category-icon">📝</span>
+										<h3 class="category-title">Typography</h3>
+										<span class="category-strength strength-strong">Strong</span>
+									</div>
+									<div class="preference-items">
+										<div class="preference-item">
+											<span class="preference-tag">Sans Serif</span>
+											<div class="preference-stats">
+												<span class="preference-percentage">78%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 78%"></div>
+												</div>
+											</div>
+										</div>
+										<div class="preference-item">
+											<span class="preference-tag">Modern</span>
+											<div class="preference-stats">
+												<span class="preference-percentage">65%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 65%"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="preference-category">
+									<div class="category-header">
+										<span class="category-icon">🌈</span>
+										<h3 class="category-title">Color Preferences</h3>
+										<span class="category-strength strength-moderate">Moderate</span>
+									</div>
+									<div class="preference-items">
+										<div class="preference-item">
+											<div class="color-preference-item">
+												<div class="color-swatch"
+													style="background-color: #FFFFFF; border: 1px solid #ccc;"></div>
+												<span class="preference-tag">#FFFFFF</span>
+											</div>
+											<div class="preference-stats">
+												<span class="preference-percentage">82%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 82%"></div>
+												</div>
+											</div>
+										</div>
+										<div class="preference-item">
+											<div class="color-preference-item">
+												<div class="color-swatch" style="background-color: #333333;"></div>
+												<span class="preference-tag">#333333</span>
+											</div>
+											<div class="preference-stats">
+												<span class="preference-percentage">75%</span>
+												<div class="preference-bar">
+													<div class="preference-bar-fill" style="width: 75%"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="results-actions">
+								<button class="btn btn-primary" id="mock-print-results-btn">Print / Save as PDF</button>
+								<button class="btn btn-secondary">Start Over</button>
+							</div>
+
+							<div class="print-instructions screen-only"
+								style="text-align: center; margin-top: 20px; padding: 16px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+								<p style="margin: 0; color: #666; font-size: 14px;">
+									<strong>💡 Sharing Tip:</strong> Click "Print / Save as PDF" to create a shareable
+									file of your design preferences.
+									In the print dialog, choose "Save as PDF" as your destination.
+								</p>
+							</div>
+						</div>
+
+						<!-- Print-only footer -->
+						<footer class="print-footer print-only">
+							<p><strong>Generated by This or That? - Design Preference Discovery Tool</strong></p>
+							<p>Design images courtesy of <a href="https://land-book.com">Land-book.com</a></p>
+							<p>Report generated on <span id="mock-print-footer-date">January 30, 2025 at 2:30 PM</span>
+							</p>
+						</footer>
+					</div>
+				</section>
+			</div>
+
+			<p><strong>Instructions:</strong> Click "Print Results" above or use Ctrl+P (Cmd+P on Mac) to see the print
+				preview. The print version will hide buttons and show only the formatted results.</p>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="js/data-validator.js"></script>
+	<script src="js/app-data-loader.js"></script>
+	<script src="js/results.js"></script>
+	<script src="js/print.js"></script>
+
+	<script>
+		// Mock app state for testing
+		window.appState = {
+			selections: [
+				{ selectedId: 'design-1', rejectedId: 'design-2', timestamp: '2025-01-30T10:30:00Z' },
+				{ selectedId: 'design-3', rejectedId: 'design-4', timestamp: '2025-01-30T10:31:00Z' },
+				{ selectedId: 'design-5', rejectedId: 'design-6', timestamp: '2025-01-30T10:32:00Z' }
+			],
+			designs: [
+				{
+					id: 'design-1',
+					image: 'https://example.com/image1.jpg',
+					tags: {
+						style: ['Minimalist', 'Clean'],
+						typography: ['Sans Serif'],
+						colors: ['#FFFFFF', '#333333']
+					}
+				},
+				{
+					id: 'design-3',
+					image: 'https://example.com/image3.jpg',
+					tags: {
+						style: ['Modern', 'Minimalist'],
+						typography: ['Sans Serif'],
+						colors: ['#F8F9FA', '#333333']
+					}
+				},
+				{
+					id: 'design-5',
+					image: 'https://example.com/image5.jpg',
+					tags: {
+						style: ['Clean', 'Modern'],
+						typography: ['Modern'],
+						colors: ['#FFFFFF', '#666666']
+					}
+				}
+			]
+		};
+
+		// Test functions
+		function testPrintButton() {
+			const resultsDiv = document.getElementById('test-results');
+			resultsDiv.textContent = 'Testing print button functionality...\n';
+
+			try {
+				// Test if print functions are available
+				if (typeof handlePrintResults === 'function') {
+					resultsDiv.textContent += '✅ handlePrintResults function available\n';
+				} else {
+					resultsDiv.textContent += '❌ handlePrintResults function missing\n';
+				}
+
+				if (typeof isResultsAvailable === 'function') {
+					resultsDiv.textContent += '✅ isResultsAvailable function available\n';
+				} else {
+					resultsDiv.textContent += '❌ isResultsAvailable function missing\n';
+				}
+
+				// Test print button click
+				const printBtn = document.getElementById('mock-print-results-btn');
+				if (printBtn) {
+					resultsDiv.textContent += '✅ Print button found\n';
+
+					// Add click handler
+					printBtn.onclick = function () {
+						resultsDiv.textContent += '🖨️ Print button clicked - print dialog should open\n';
+
+						// Prepare mock results for printing
+						const mockSection = document.getElementById('mock-results-section');
+						if (mockSection) {
+							mockSection.style.display = 'block';
+
+							// Trigger print
+							setTimeout(() => {
+								window.print();
+							}, 100);
+						}
+					};
+
+					resultsDiv.textContent += '✅ Print button handler attached\n';
+				} else {
+					resultsDiv.textContent += '❌ Print button not found\n';
+				}
+
+				resultsDiv.textContent += '\n✅ Print button test completed!\n';
+				resultsDiv.textContent += 'Click the "Print Results" button in the mock results to test printing.\n';
+
+			} catch (error) {
+				resultsDiv.textContent += '❌ Print button test failed: ' + error.message + '\n';
+			}
+		}
+
+		function generateMockResults() {
+			const resultsDiv = document.getElementById('test-results');
+			resultsDiv.textContent = 'Generating mock results...\n';
+
+			try {
+				// Show the mock results section
+				const mockSection = document.getElementById('mock-results-section');
+				if (mockSection) {
+					mockSection.style.display = 'block';
+					resultsDiv.textContent += '✅ Mock results section displayed\n';
+				}
+
+				// Update print dates
+				const currentDate = new Date().toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric',
+					hour: '2-digit',
+					minute: '2-digit'
+				});
+
+				const printDateElement = document.getElementById('mock-print-date');
+				const printFooterDateElement = document.getElementById('mock-print-footer-date');
+
+				if (printDateElement) {
+					printDateElement.textContent = currentDate;
+					resultsDiv.textContent += '✅ Print date updated\n';
+				}
+
+				if (printFooterDateElement) {
+					printFooterDateElement.textContent = currentDate;
+					resultsDiv.textContent += '✅ Print footer date updated\n';
+				}
+
+				resultsDiv.textContent += '\n✅ Mock results generated successfully!\n';
+				resultsDiv.textContent += 'Scroll down to see the mock results section.\n';
+
+			} catch (error) {
+				resultsDiv.textContent += '❌ Mock results generation failed: ' + error.message + '\n';
+			}
+		}
+
+		function testPrintSummary() {
+			const resultsDiv = document.getElementById('test-results');
+			resultsDiv.textContent = 'Testing print summary generation...\n';
+
+			try {
+				if (typeof generatePrintableSummary === 'function') {
+					const summary = generatePrintableSummary();
+					resultsDiv.textContent += '✅ Print summary generated\n';
+					resultsDiv.textContent += '📄 Summary length: ' + summary.length + ' characters\n';
+					resultsDiv.textContent += '\nSample summary:\n';
+					resultsDiv.textContent += summary.substring(0, 300) + '...\n';
+				} else {
+					resultsDiv.textContent += '❌ generatePrintableSummary function not available\n';
+				}
+
+			} catch (error) {
+				resultsDiv.textContent += '❌ Print summary test failed: ' + error.message + '\n';
+			}
+		}
+
+		function testCopyToClipboard() {
+			const resultsDiv = document.getElementById('test-results');
+			resultsDiv.textContent = 'Testing copy to clipboard functionality...\n';
+
+			try {
+				if (typeof copyResultsToClipboard === 'function') {
+					resultsDiv.textContent += '✅ copyResultsToClipboard function available\n';
+					resultsDiv.textContent += '📋 Click the button below to test clipboard copy:\n';
+
+					// Create test button
+					const testBtn = document.createElement('button');
+					testBtn.textContent = 'Copy Results to Clipboard';
+					testBtn.className = 'test-button';
+					testBtn.onclick = async function () {
+						try {
+							await copyResultsToClipboard();
+							resultsDiv.textContent += '✅ Copy to clipboard executed\n';
+						} catch (error) {
+							resultsDiv.textContent += '❌ Copy failed: ' + error.message + '\n';
+						}
+					};
+
+					resultsDiv.appendChild(testBtn);
+				} else {
+					resultsDiv.textContent += '❌ copyResultsToClipboard function not available\n';
+				}
+
+			} catch (error) {
+				resultsDiv.textContent += '❌ Copy to clipboard test failed: ' + error.message + '\n';
+			}
+		}
+
+		// Initialize when page loads
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('🧪 Print test page loaded');
+
+			// Initialize print functionality
+			if (typeof initializePrintFunctionality === 'function') {
+				initializePrintFunctionality();
+				console.log('✅ Print functionality initialized');
+			}
+		});
+	</script>
+</body>
+
+</html>

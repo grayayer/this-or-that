@@ -805,8 +805,13 @@ function setupResultsActions() {
 			if (appState.config.enableLogging) {
 				console.log('📧 User chose to email results');
 			}
-			// This will be implemented in the email functionality task
-			alert('Email functionality will be implemented in the next task.');
+			// Show email form using the email.js functionality
+			if (typeof showEmailForm === 'function') {
+				showEmailForm();
+			} else {
+				console.error('❌ Email functionality not available');
+				alert('Email functionality is not available. Please ensure email.js is loaded.');
+			}
 		});
 	}
 }
