@@ -312,6 +312,13 @@ function loadNextPair() {
 		// Preload next images in background
 		preloadNextImages();
 
+		// Start timer for the new pair (requirement 2.1)
+		if (typeof startTimer === 'function') {
+			setTimeout(() => {
+				startTimer();
+			}, 500); // Small delay to let images load
+		}
+
 		if (appState.config.enableLogging) {
 			console.log(`✅ Loaded pair: ${appState.currentPair[0].id} vs ${appState.currentPair[1].id}`);
 		}
@@ -420,6 +427,7 @@ function preloadNextImages() {
 
 /**
  * Handles user selection of an image
+ * Implements requirements 2.4 (record selection and advance) and 3.1 (progress tracking)
  * @param {string} selectedDesignId - ID of the selected design
  */
 function handleSelection(selectedDesignId) {
@@ -437,34 +445,55 @@ function handleSelection(selectedDesignId) {
 			return false;
 		}
 
-		// Record the selection
+		// Calculate time to decision from timer if available
+		let timeToDecision = null;
+		if (typeof getTimerState === 'function') {
+			const timerState = getTimerState();
+			if (timerState && timerState.duration && timerState.currentTime !== undefined) {
+				timeToDecision = Number((timerState.duration - timerState.currentTime).toFixed(2));
+			}
+		}
+
+		// Record the selection with complete metadata
 		const selectionRecord = {
 			timestamp: new Date().toISOString(),
 			selectedId: selectedDesign.id,
 			rejectedId: rejectedDesign.id,
 			roundNumber: appState.currentRound + 1,
-			timeToDecision: null // Will be set by timer if available
+			timeToDecision: timeToDecision,
+			selectedTags: selectedDesign.tags || {},
+			rejectedTags: rejectedDesign.tags || {}
 		};
 
 		appState.selections.push(selectionRecord);
 		appState.currentRound++;
 		appState.totalRounds++;
 
+		// Mark the current pair as used to prevent duplicates
+		const pairKey = `${appState.currentPair[0].id}|${appState.currentPair[1].id}`;
+		appState.usedPairs.add(pairKey);
+
 		if (appState.config.enableLogging) {
-			console.log(`✅ Selection recorded: ${selectedDesign.id} chosen over ${rejectedDesign.id}`);
+			const timeText = timeToDecision ? ` in ${timeToDecision}s` : '';
+			console.log(`✅ Selection recorded: ${selectedDesign.id} chosen over ${rejectedDesign.id}${timeText}`);
 		}
 
-		// Update progress display
+		// Stop timer immediately when selection is made (requirement 2.4)
+		if (typeof stopTimer === 'function') {
+			stopTimer();
+		}
+
+		// Update progress display (requirement 3.1)
 		updateProgressDisplay();
 
 		// Check if we should show results or continue
 		if (shouldShowResults()) {
 			showResultsPrompt();
 		} else {
-			// Load next pair
+			// Load next pair with small delay for better UX
 			setTimeout(() => {
 				loadNextPair();
-			}, 500); // Small delay for better UX
+			}, 500);
 		}
 
 		return true;

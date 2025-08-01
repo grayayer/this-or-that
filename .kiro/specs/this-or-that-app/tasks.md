@@ -83,7 +83,7 @@
   - Display when minimum threshold (20 choices) is reached
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-- [ ] 9. Build selection handling and data recording
+- [x] 9. Build selection handling and data recording
   - Create handleSelection() function to process user choices
   - Implement selection recording with timestamps and metadata
   - Add logic to advance to next pair after selection
@@ -98,32 +98,32 @@
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
 - [ ] 11. Create results display interface
-  - Build HTML structure for results summary page
+  - Build dynamic results content generation in results.js
   - Implement CSS styling for ranked tag lists and design profile
-  - Add navigation between selection interface and results
-  - Include Land-book.com credit link as required
+  - Replace placeholder results section with actual analysis display
+  - Add visual charts or graphs for preference breakdown
   - _Requirements: 4.3, 4.4, 4.5, 10.3_
 
 - [ ] 12. Implement email functionality for results sharing
   - Set up EmailJS or Formspree integration for client-side email sending
   - Create email.js with sendResults() and formatEmailContent() methods
-  - Build email form with user and designer email inputs
+  - Connect email form handlers to actual email service
   - Implement professional email template formatting
   - Add success/error feedback for email sending
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7_
 
-- [ ] 13. Add mobile responsiveness and touch interactions
-  - Implement responsive CSS for mobile devices
-  - Add touch event handlers for image selection
-  - Optimize timer visibility on small screens
-  - Test and refine mobile user experience
+- [ ] 13. Enhance mobile responsiveness and touch interactions
+  - Review and improve responsive CSS for mobile devices
+  - Add touch event handlers for better mobile image selection
+  - Optimize timer and progress display for small screens
+  - Test and refine mobile user experience across devices
   - _Requirements: 9.1, 9.4_
 
-- [ ] 14. Implement error handling and loading states
-  - Add loading states for JSON data and image loading
-  - Implement fallback mechanisms for broken images
-  - Create user-friendly error messages for network issues
+- [ ] 14. Enhance error handling and loading states
+  - Improve loading states for JSON data and image loading (already partially implemented)
   - Add retry logic for failed operations
+  - Enhance user-friendly error messages for network issues
+  - Add graceful degradation for offline scenarios
   - _Requirements: 1.4, 6.3_
 
 - [ ] 15. Add performance optimizations
@@ -134,7 +134,7 @@
   - _Requirements: 9.2, 9.3_
 
 - [ ] 16. Create comprehensive test suite
-  - Write unit tests for timer functionality and edge cases
+  - Expand existing test files to cover edge cases
   - Test results analysis algorithms with various data sets
   - Create integration tests for end-to-end user flow
   - Test email functionality and error scenarios
