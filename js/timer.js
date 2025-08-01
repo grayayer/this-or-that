@@ -276,17 +276,32 @@ function timerTick() {
 			return;
 		}
 
+		// Check if DOM elements still exist
+		if (!timerState.progressBarElement || !timerState.displayElement) {
+			console.warn('⚠️ Timer DOM elements missing, stopping timer');
+			stopTimer();
+			return;
+		}
+
 		// Calculate elapsed time for accuracy
 		const elapsed = (Date.now() - timerState.startTimestamp) / 1000;
 		timerState.currentTime = Math.max(0, timerState.duration - elapsed);
 
-		// Update display
-		updateTimerDisplay();
-		updateProgressBar();
+		// Update display with error handling
+		try {
+			updateTimerDisplay();
+			updateProgressBar();
+		} catch (displayError) {
+			console.warn('⚠️ Timer display update failed:', displayError.message);
+		}
 
-		// Call tick callback
+		// Call tick callback with error handling
 		if (timerState.onTick) {
-			timerState.onTick(timerState.currentTime);
+			try {
+				timerState.onTick(timerState.currentTime);
+			} catch (callbackError) {
+				console.warn('⚠️ Timer tick callback failed:', callbackError.message);
+			}
 		}
 
 		// Check if timer expired
@@ -323,42 +338,56 @@ function handleTimeout() {
 }
 
 /**
- * Updates the timer display element
+ * Updates the timer display element with error handling
  */
 function updateTimerDisplay() {
-	if (!timerState.displayElement) return;
+	if (!timerState.displayElement) {
+		console.warn('⚠️ Timer display element not found');
+		return;
+	}
 
-	const seconds = Math.ceil(timerState.currentTime);
-	timerState.displayElement.textContent = seconds.toString();
+	try {
+		const seconds = Math.ceil(timerState.currentTime);
+		timerState.displayElement.textContent = seconds.toString();
 
-	// Add visual feedback based on remaining time
-	const element = timerState.displayElement;
-	element.classList.remove('timer-warning', 'timer-critical');
+		// Add visual feedback based on remaining time
+		const element = timerState.displayElement;
+		element.classList.remove('timer-warning', 'timer-critical');
 
-	if (seconds <= 5) {
-		element.classList.add('timer-critical');
-	} else if (seconds <= 10) {
-		element.classList.add('timer-warning');
+		if (seconds <= 5) {
+			element.classList.add('timer-critical');
+		} else if (seconds <= 10) {
+			element.classList.add('timer-warning');
+		}
+	} catch (error) {
+		console.warn('⚠️ Failed to update timer display:', error.message);
 	}
 }
 
 /**
- * Updates the progress bar visual
+ * Updates the progress bar visual with error handling
  */
 function updateProgressBar() {
-	if (!timerState.progressBarElement) return;
+	if (!timerState.progressBarElement) {
+		console.warn('⚠️ Timer progress bar element not found');
+		return;
+	}
 
-	const percentage = (timerState.currentTime / timerState.duration) * 100;
-	timerState.progressBarElement.style.setProperty('--progress', `${percentage}%`);
+	try {
+		const percentage = (timerState.currentTime / timerState.duration) * 100;
+		timerState.progressBarElement.style.setProperty('--progress', `${percentage}%`);
 
-	// Add visual feedback classes
-	const element = timerState.progressBarElement;
-	element.classList.remove('timer-warning', 'timer-critical');
+		// Add visual feedback classes
+		const element = timerState.progressBarElement;
+		element.classList.remove('timer-warning', 'timer-critical');
 
-	if (percentage <= 33.33) { // Last 5 seconds of 15
-		element.classList.add('timer-critical');
-	} else if (percentage <= 66.67) { // Last 10 seconds of 15
-		element.classList.add('timer-warning');
+		if (percentage <= 33.33) { // Last 5 seconds of 15
+			element.classList.add('timer-critical');
+		} else if (percentage <= 66.67) { // Last 10 seconds of 15
+			element.classList.add('timer-warning');
+		}
+	} catch (error) {
+		console.warn('⚠️ Failed to update progress bar:', error.message);
 	}
 }
 

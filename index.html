@@ -248,21 +248,66 @@
 				// Initialize the image pair selection system
 				initializeImagePairSystem();
 
+				// Set up network monitoring
+				setupNetworkMonitoring();
+
 			} catch (error) {
 				console.error('❌ Failed to initialize application:', error);
 
-				// Show error section
-				const errorSection = document.getElementById('error-section');
-				const errorMessage = document.getElementById('error-message');
-				const loadingSection = document.getElementById('loading-section');
-
-				if (errorSection && errorMessage) {
-					errorMessage.textContent = error.message || 'Failed to load the application. Please try again.';
-					errorSection.style.display = 'block';
+				// Hide loading state
+				if (typeof hideLoadingState === 'function') {
+					hideLoadingState();
 				}
 
-				if (loadingSection) {
-					loadingSection.style.display = 'none';
+				// Determine error type and show appropriate message
+				const isOffline = typeof navigator !== 'undefined' && !navigator.onLine;
+				const errorMessage = error.message || 'Failed to load the application. Please try again.';
+
+				if (typeof showEnhancedErrorState === 'function') {
+					showEnhancedErrorState(errorMessage, {
+						showRetryButton: true,
+						showRefreshButton: true,
+						showOfflineMessage: isOffline,
+						retryCallback: async () => {
+							try {
+								if (typeof hideErrorState === 'function') {
+									hideErrorState();
+								}
+
+								await initializeApp({
+									dataPath: 'data/designs.json',
+									fallbackDataPath: 'data/sample-designs.json',
+									enableLogging: true
+								});
+
+								// Re-initialize components if successful
+								setupTimerIntegration();
+								initializeImagePairSystem();
+
+							} catch (retryError) {
+								if (typeof showEnhancedErrorState === 'function') {
+									showEnhancedErrorState(
+										retryError.message || 'Retry failed. Please refresh the page.',
+										{ showRetryButton: false, showRefreshButton: true }
+									);
+								}
+							}
+						}
+					});
+				} else {
+					// Fallback to basic error display
+					const errorSection = document.getElementById('error-section');
+					const errorMessageElement = document.getElementById('error-message');
+					const loadingSection = document.getElementById('loading-section');
+
+					if (errorSection && errorMessageElement) {
+						errorMessageElement.textContent = errorMessage;
+						errorSection.style.display = 'block';
+					}
+
+					if (loadingSection) {
+						loadingSection.style.display = 'none';
+					}
 				}
 			}
 		});

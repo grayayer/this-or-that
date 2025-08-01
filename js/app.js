@@ -70,10 +70,33 @@ async function initializeApp(options = {}) {
 
 		appState.dataLoader = new AppDataLoader();
 
-		// Try to load primary data source, fall back to sample data if needed
+		// Show loading state
+		showLoadingState('Initializing application...');
+
+		// Set up progress callback for loading feedback
+		const onProgress = (progressInfo) => {
+			if (progressInfo.stage === 'loading') {
+				showLoadingState(`Loading design data... (${progressInfo.attempt}/${progressInfo.maxRetries})`);
+			} else if (progressInfo.stage === 'parsing') {
+				showLoadingState('Validating design data...');
+			} else if (progressInfo.stage === 'error') {
+				showLoadingState(`Retry ${progressInfo.attempt}: ${progressInfo.message}`);
+			} else if (progressInfo.stage === 'cache') {
+				showLoadingState('Loading from offline cache...');
+			}
+		};
+
+		// Try to load primary data source with enhanced error handling
 		let loadedData = null;
 		try {
-			loadedData = await appState.dataLoader.loadDesigns(appState.config.dataPath);
+			loadedData = await appState.dataLoader.loadDesignsWithOfflineSupport(
+				appState.config.dataPath,
+				{
+					maxRetries: 3,
+					retryDelay: 1000,
+					onProgress
+				}
+			);
 			if (appState.config.enableLogging) {
 				console.log(`✅ Loaded data from ${appState.config.dataPath}`);
 			}
@@ -82,13 +105,31 @@ async function initializeApp(options = {}) {
 				console.warn(`⚠️ Failed to load ${appState.config.dataPath}, trying fallback...`);
 			}
 
+			showLoadingState('Trying fallback data source...');
+
 			try {
-				loadedData = await appState.dataLoader.loadDesigns(appState.config.fallbackDataPath);
+				loadedData = await appState.dataLoader.loadDesignsWithOfflineSupport(
+					appState.config.fallbackDataPath,
+					{
+						maxRetries: 2,
+						retryDelay: 500,
+						onProgress
+					}
+				);
 				if (appState.config.enableLogging) {
 					console.log(`✅ Loaded fallback data from ${appState.config.fallbackDataPath}`);
 				}
 			} catch (fallbackError) {
-				throw new Error(`Failed to load both primary and fallback data sources: ${primaryError.message}, ${fallbackError.message}`);
+				// Create comprehensive error message
+				const errorDetails = {
+					primaryError: primaryError.message,
+					fallbackError: fallbackError.message,
+					isOffline: typeof navigator !== 'undefined' && !navigator.onLine,
+					timestamp: new Date().toISOString()
+				};
+
+				const userFriendlyMessage = this.createUserFriendlyErrorMessage(errorDetails);
+				throw new Error(userFriendlyMessage);
 			}
 		}
 
@@ -270,6 +311,174 @@ function clearAppError() {
 }
 
 /**
+ * Creates user-friendly error messages based on error details
+ * @param {Object} errorDetails - Details about the error
+ * @returns {string} - User-friendly error message
+ */
+function createUserFriendlyErrorMessage(errorDetails) {
+	const { primaryError, fallbackError, isOffline } = errorDetails;
+
+	if (isOffline) {
+		return 'You appear to be offline. Please check your internet connection and try again. If you\'ve used this app before, some data may be available from cache.';
+	}
+
+	// Check for common error patterns
+	if (primaryError.includes('404') || fallbackError.includes('404')) {
+		return 'The design data files could not be found. This might be a temporary issue with the server. Please try refreshing the page in a few minutes.';
+	}
+
+	if (primaryError.includes('timeout') || fallbackError.includes('timeout')) {
+		return 'The request timed out while loading design data. This might be due to a slow connection. Please check your internet connection and try again.';
+	}
+
+	if (primaryError.includes('validation failed') || fallbackError.includes('validation failed')) {
+		return 'There was an issue with the design data format. Please try refreshing the page. If the problem persists, this may be a temporary server issue.';
+	}
+
+	if (primaryError.includes('server error') || fallbackError.includes('server error')) {
+		return 'The server is experiencing issues. Please try again in a few minutes. If the problem persists, you can try refreshing the page.';
+	}
+
+	// Generic network error
+	return 'Unable to load design data due to a network issue. Please check your internet connection and try refreshing the page. If you\'ve used this app before, some data may be available offline.';
+}
+
+/**
+ * Shows loading state with custom message
+ * @param {string} message - Loading message to display
+ */
+function showLoadingState(message = 'Loading...') {
+	const loadingSection = document.getElementById('loading-section');
+	const loadingText = document.querySelector('.loading-text');
+	const selectionSection = document.getElementById('selection-section');
+	const errorSection = document.getElementById('error-section');
+
+	if (loadingSection) {
+		loadingSection.style.display = 'block';
+	}
+
+	if (loadingText) {
+		loadingText.textContent = message;
+	}
+
+	if (selectionSection) {
+		selectionSection.style.display = 'none';
+	}
+
+	if (errorSection) {
+		errorSection.style.display = 'none';
+	}
+}
+
+/**
+ * Hides loading state
+ */
+function hideLoadingState() {
+	const loadingSection = document.getElementById('loading-section');
+	if (loadingSection) {
+		loadingSection.style.display = 'none';
+	}
+}
+
+/**
+ * Shows enhanced error state with retry options
+ * @param {string} errorMessage - Error message to display
+ * @param {Object} options - Error display options
+ */
+function showEnhancedErrorState(errorMessage, options = {}) {
+	const {
+		showRetryButton = true,
+		showRefreshButton = true,
+		showOfflineMessage = false,
+		retryCallback = null
+	} = options;
+
+	const errorSection = document.getElementById('error-section');
+	const errorMessageElement = document.getElementById('error-message');
+	const loadingSection = document.getElementById('loading-section');
+	const selectionSection = document.getElementById('selection-section');
+
+	if (!errorSection || !errorMessageElement) {
+		console.error('❌ Error section elements not found');
+		return;
+	}
+
+	// Hide other sections
+	if (loadingSection) loadingSection.style.display = 'none';
+	if (selectionSection) selectionSection.style.display = 'none';
+
+	// Update error message
+	errorMessageElement.textContent = errorMessage;
+
+	// Create enhanced error content
+	let errorHTML = `
+		<div class="error-container">
+			<h3>Oops! Something went wrong</h3>
+			<p class="error-message">${errorMessage}</p>
+	`;
+
+	if (showOfflineMessage) {
+		errorHTML += `
+			<div class="offline-notice">
+				<p><strong>💡 Offline Mode:</strong> You can still use cached data if available.</p>
+			</div>
+		`;
+	}
+
+	errorHTML += '<div class="error-actions">';
+
+	if (showRetryButton) {
+		errorHTML += '<button class="btn btn-primary" id="retry-btn">Try Again</button>';
+	}
+
+	if (showRefreshButton) {
+		errorHTML += '<button class="btn btn-secondary" id="refresh-btn">Refresh Page</button>';
+	}
+
+	errorHTML += `
+			</div>
+			<div class="error-details">
+				<details>
+					<summary>Technical Details</summary>
+					<p>If this problem persists, you can:</p>
+					<ul>
+						<li>Check your internet connection</li>
+						<li>Try refreshing the page</li>
+						<li>Clear your browser cache</li>
+						<li>Try again in a few minutes</li>
+					</ul>
+				</details>
+			</div>
+		</div>
+	`;
+
+	errorSection.innerHTML = errorHTML;
+
+	// Set up event listeners
+	const retryBtn = errorSection.querySelector('#retry-btn');
+	const refreshBtn = errorSection.querySelector('#refresh-btn');
+
+	if (retryBtn) {
+		retryBtn.addEventListener('click', () => {
+			if (retryCallback) {
+				retryCallback();
+			} else {
+				location.reload();
+			}
+		});
+	}
+
+	if (refreshBtn) {
+		refreshBtn.addEventListener('click', () => {
+			location.reload();
+		});
+	}
+
+	// Show error section
+	errorSection.style.display = 'block';
+}
+
+/**
  * Loads the next pair of images for user selection
  * Implements duplicate prevention logic and ensures variety
  * @returns {boolean} - True if pair loaded successfully, false otherwise
@@ -362,7 +571,7 @@ function displayImagePair(pair) {
 }
 
 /**
- * Sets up an individual image element with loading states and error handling
+ * Sets up an individual image element with enhanced loading states and error handling
  * @param {HTMLImageElement} imgElement - The image element
  * @param {Object} design - The design object
  * @param {HTMLElement} containerElement - The container element
@@ -373,31 +582,136 @@ function setupImageElement(imgElement, design, containerElement) {
 
 	// Add loading class
 	containerElement.classList.add('loading');
+	containerElement.classList.remove('loaded', 'error');
 
-	// Set up image load handlers
-	imgElement.onload = () => {
-		containerElement.classList.remove('loading');
-		containerElement.classList.add('loaded');
-
-		if (appState.config.enableLogging) {
-			console.log(`✅ Image loaded: ${design.id}`);
+	// Create loading timeout
+	const loadingTimeout = setTimeout(() => {
+		if (containerElement.classList.contains('loading')) {
+			console.warn(`⚠️ Image loading timeout for: ${design.id}`);
+			handleImageError(imgElement, design, containerElement, 'Loading timeout');
 		}
+	}, 15000); // 15 second timeout
+
+	// Set up image load handlers with retry logic
+	let retryCount = 0;
+	const maxRetries = 2;
+
+	const attemptLoad = (imageUrl, attempt = 1) => {
+		if (appState.config.enableLogging && attempt > 1) {
+			console.log(`🔄 Retrying image load: ${design.id} (attempt ${attempt})`);
+		}
+
+		imgElement.onload = () => {
+			clearTimeout(loadingTimeout);
+			containerElement.classList.remove('loading');
+			containerElement.classList.add('loaded');
+
+			if (appState.config.enableLogging) {
+				console.log(`✅ Image loaded: ${design.id}${attempt > 1 ? ` (after ${attempt} attempts)` : ''}`);
+			}
+		};
+
+		imgElement.onerror = () => {
+			clearTimeout(loadingTimeout);
+
+			if (attempt < maxRetries) {
+				// Try again with cache-busting parameter
+				const retryUrl = imageUrl + (imageUrl.includes('?') ? '&' : '?') + `retry=${attempt}&t=${Date.now()}`;
+				setTimeout(() => {
+					attemptLoad(retryUrl, attempt + 1);
+				}, 1000 * attempt); // Exponential backoff
+			} else {
+				handleImageError(imgElement, design, containerElement, 'Failed to load after retries');
+			}
+		};
+
+		// Set image source
+		imgElement.src = imageUrl;
 	};
 
-	imgElement.onerror = () => {
-		containerElement.classList.remove('loading');
-		containerElement.classList.add('error');
+	// Start loading attempt
+	attemptLoad(design.image);
 
-		// Set fallback image or placeholder
-		imgElement.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY2NjY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIFVuYXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';
-		imgElement.alt = `Design ${design.id} - Image unavailable`;
-
-		console.warn(`⚠️ Failed to load image: ${design.id}`);
-	};
-
-	// Set image source and alt text
-	imgElement.src = design.image;
+	// Set alt text
 	imgElement.alt = design.title || `Design option ${design.id}`;
+}
+
+/**
+ * Handles image loading errors with fallback options
+ * @param {HTMLImageElement} imgElement - The image element
+ * @param {Object} design - The design object
+ * @param {HTMLElement} containerElement - The container element
+ * @param {string} errorReason - Reason for the error
+ */
+function handleImageError(imgElement, design, containerElement, errorReason) {
+	containerElement.classList.remove('loading');
+	containerElement.classList.add('error');
+
+	// Create a more informative placeholder
+	const placeholderSvg = createImagePlaceholder(design.id, errorReason);
+	imgElement.src = placeholderSvg;
+	imgElement.alt = `Design ${design.id} - Image unavailable (${errorReason})`;
+
+	// Add retry button to container
+	addImageRetryButton(containerElement, design, imgElement);
+
+	console.warn(`⚠️ Image error for ${design.id}: ${errorReason}`);
+}
+
+/**
+ * Creates an SVG placeholder for failed images
+ * @param {string} designId - Design ID
+ * @param {string} errorReason - Error reason
+ * @returns {string} - Data URL for SVG placeholder
+ */
+function createImagePlaceholder(designId, errorReason) {
+	const svg = `
+		<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+			<rect width="100%" height="100%" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2"/>
+			<text x="50%" y="40%" font-family="Arial, sans-serif" font-size="16" fill="#666666" text-anchor="middle" dy=".3em">
+				Image Unavailable
+			</text>
+			<text x="50%" y="55%" font-family="Arial, sans-serif" font-size="12" fill="#999999" text-anchor="middle" dy=".3em">
+				Design: ${designId}
+			</text>
+			<text x="50%" y="70%" font-family="Arial, sans-serif" font-size="10" fill="#999999" text-anchor="middle" dy=".3em">
+				${errorReason}
+			</text>
+			<circle cx="200" cy="120" r="20" fill="none" stroke="#ccc" stroke-width="2"/>
+			<path d="M190 120 L200 130 L210 110" stroke="#ccc" stroke-width="2" fill="none"/>
+		</svg>
+	`;
+
+	return 'data:image/svg+xml;base64,' + btoa(svg);
+}
+
+/**
+ * Adds a retry button to failed image containers
+ * @param {HTMLElement} containerElement - The container element
+ * @param {Object} design - The design object
+ * @param {HTMLImageElement} imgElement - The image element
+ */
+function addImageRetryButton(containerElement, design, imgElement) {
+	// Remove existing retry button if present
+	const existingButton = containerElement.querySelector('.image-retry-btn');
+	if (existingButton) {
+		existingButton.remove();
+	}
+
+	// Create retry button
+	const retryButton = document.createElement('button');
+	retryButton.className = 'image-retry-btn';
+	retryButton.innerHTML = '🔄 Retry';
+	retryButton.title = 'Click to retry loading this image';
+
+	retryButton.addEventListener('click', (e) => {
+		e.stopPropagation(); // Prevent image selection
+		retryButton.remove();
+		setupImageElement(imgElement, design, containerElement);
+	});
+
+	// Add button to container
+	containerElement.appendChild(retryButton);
 }
 
 /**
@@ -1382,4 +1696,157 @@ if (typeof window !== 'undefined') {
 	window.loadNextPair = loadNextPair;
 	window.handleSelection = handleSelection;
 	window.initializeImagePairSystem = initializeImagePairSystem;
+}
+/*
+*
+ * Hides the error state
+ */
+function hideErrorState() {
+	const errorSection = document.getElementById('error-section');
+	if (errorSection) {
+		errorSection.style.display = 'none';
+	}
+}
+
+/**
+ * Sets up network status monitoring
+ */
+function setupNetworkMonitoring() {
+	if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+		return; // Not in browser environment
+	}
+
+	// Create network status indicator
+	const networkStatus = document.createElement('div');
+	networkStatus.id = 'network-status';
+	networkStatus.className = 'network-status';
+	document.body.appendChild(networkStatus);
+
+	// Update network status display
+	const updateNetworkStatus = () => {
+		const isOnline = navigator.onLine;
+		networkStatus.className = `network-status ${isOnline ? 'online' : 'offline'}`;
+		networkStatus.textContent = isOnline ? '🟢 Online' : '🔴 Offline';
+
+		if (!isOnline) {
+			networkStatus.title = 'You are offline. Some features may not work properly.';
+		} else {
+			networkStatus.title = 'Connected to the internet';
+		}
+
+		// Auto-hide online status after 3 seconds
+		if (isOnline) {
+			setTimeout(() => {
+				if (navigator.onLine) {
+					networkStatus.style.opacity = '0';
+					setTimeout(() => {
+						if (navigator.onLine) {
+							networkStatus.style.display = 'none';
+						}
+					}, 300);
+				}
+			}, 3000);
+		} else {
+			networkStatus.style.display = 'block';
+			networkStatus.style.opacity = '1';
+		}
+	};
+
+	// Listen for network status changes
+	window.addEventListener('online', () => {
+		console.log('🟢 Network connection restored');
+		updateNetworkStatus();
+
+		// Try to reload failed images
+		retryFailedImages();
+	});
+
+	window.addEventListener('offline', () => {
+		console.log('🔴 Network connection lost');
+		updateNetworkStatus();
+	});
+
+	// Initial status check
+	updateNetworkStatus();
+}
+
+/**
+ * Retries loading failed images when network is restored
+ */
+function retryFailedImages() {
+	const failedImages = document.querySelectorAll('.image-option.error');
+
+	failedImages.forEach(container => {
+		const img = container.querySelector('.design-image');
+		const designId = container.dataset.designId;
+
+		if (img && designId && appState.designs) {
+			const design = appState.designs.find(d => d.id === designId);
+			if (design) {
+				console.log(`🔄 Retrying failed image: ${designId}`);
+				setupImageElement(img, design, container);
+			}
+		}
+	});
+}
+
+/**
+ * Checks if the application can function offline
+ * @returns {boolean} - True if offline functionality is available
+ */
+function canWorkOffline() {
+	try {
+		// Check if we have cached data
+		if (typeof localStorage !== 'undefined') {
+			const cacheKeys = Object.keys(localStorage).filter(key =>
+				key.startsWith('this-or-that-data-')
+			);
+			return cacheKeys.length > 0;
+		}
+		return false;
+	} catch (error) {
+		return false;
+	}
+}
+
+/**
+ * Shows offline mode notification
+ */
+function showOfflineNotification() {
+	const notification = document.createElement('div');
+	notification.className = 'offline-notification';
+	notification.innerHTML = `
+		<div class="offline-notification-content">
+			<h4>🔴 You're offline</h4>
+			<p>Using cached data. Some features may be limited.</p>
+			<button class="btn btn-secondary" onclick="this.parentElement.parentElement.remove()">
+				Dismiss
+			</button>
+		</div>
+	`;
+
+	// Add styles
+	notification.style.cssText = `
+		position: fixed;
+		top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: #fff3cd;
+		border: 1px solid #ffeaa7;
+		border-radius: 8px;
+		padding: 16px;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+		z-index: 1000;
+		max-width: 400px;
+		text-align: center;
+	`;
+
+	document.body.appendChild(notification);
+
+	// Auto-remove after 10 seconds
+	setTimeout(() => {
+		if (notification.parentElement) {
+			notification.remove();
+		}
+	}, 10000);
 }
