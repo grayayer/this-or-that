@@ -32,13 +32,18 @@ A web application that helps users discover their design preferences through bin
 
 The application includes comprehensive performance optimizations for fast loading and smooth user experience:
 
-### 1. Service Worker Caching (`sw.js`)
+### 1. Service Worker Caching (DISABLED)
 
-- **Cache First Strategy**: Static assets (CSS, JS, HTML) served from cache
-- **Network First Strategy**: Dynamic content and images with cache fallback
-- **Stale While Revalidate**: JSON data served from cache while updating in background
-- **Offline Fallbacks**: Custom offline pages and image placeholders
-- **Automatic Cache Management**: Old caches cleaned up automatically
+**Note**: Service worker functionality has been disabled due to development complexity and image loading issues. While the service worker implementation (`sw.js`) remains available for reference, it is not active by default.
+
+**Reasons for disabling**:
+
+- Caused image loading problems during development
+- Added significant debugging complexity
+- Cache management became problematic for iterative development
+- Performance benefits didn't outweigh development overhead
+
+**Alternative caching**: The application now relies on standard browser caching and the image optimizer for performance improvements.
 
 ### 2. Image Optimization (`js/image-optimizer.js`)
 
@@ -111,13 +116,12 @@ The application includes comprehensive performance optimizations for fast loadin
 
 ### Common Cache Issues
 
-The application uses aggressive caching for performance, which can sometimes interfere with development:
+**Note**: With service worker disabled, cache issues are significantly reduced. However, standard browser caching can still occasionally cause problems:
 
 #### Symptoms
 
-- Changes not appearing after refresh
+- Changes not appearing after refresh (rare with service worker disabled)
 - Old JavaScript code still running
-- "Something went wrong" errors after updates
 - Outdated design data loading
 
 #### Solutions

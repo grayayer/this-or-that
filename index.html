@@ -249,8 +249,8 @@
 			try {
 				console.log('🚀 Starting This or That application...');
 
-				// Register service worker for performance optimizations
-				await registerServiceWorker();
+				// Service worker disabled - caused image loading issues during development
+				// Performance optimizations now focus on image optimization and smooth animations
 
 				// Initialize performance monitoring
 				initializePerformanceMonitoring();
@@ -342,28 +342,9 @@
 			}
 		});
 
-		// Service Worker Registration
-		async function registerServiceWorker() {
-			if ('serviceWorker' in navigator) {
-				try {
-					const registration = await navigator.serviceWorker.register('/sw.js');
-					console.log('✅ Service Worker registered:', registration.scope);
-
-					// Handle service worker updates
-					registration.addEventListener('updatefound', () => {
-						const newWorker = registration.installing;
-						newWorker.addEventListener('statechange', () => {
-							if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-								// New version available
-								showUpdateNotification();
-							}
-						});
-					});
-				} catch (error) {
-					console.warn('⚠️ Service Worker registration failed:', error);
-				}
-			}
-		}
+		// Service Worker Registration - DISABLED
+		// Service worker caused image loading issues and development complexity
+		// Performance optimizations now focus on image optimization and CSS animations
 
 		// Performance Monitoring
 		function initializePerformanceMonitoring() {
@@ -404,31 +385,7 @@
 			}
 		}
 
-		// Show update notification
-		function showUpdateNotification() {
-			const notification = document.createElement('div');
-			notification.className = 'update-notification';
-			notification.innerHTML = `
-				<div class="update-content">
-					<span>🔄 New version available!</span>
-					<button onclick="location.reload()" class="btn btn-primary">Update</button>
-					<button onclick="this.parentElement.parentElement.remove()" class="btn btn-secondary">Later</button>
-				</div>
-			`;
-			notification.style.cssText = `
-				position: fixed;
-				top: 20px;
-				right: 20px;
-				background: white;
-				border: 1px solid #e9ecef;
-				border-radius: 8px;
-				padding: 16px;
-				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-				z-index: 1000;
-				animation: slideIn 0.3s ease;
-			`;
-			document.body.appendChild(notification);
-		}
+		// Update notification function removed - no longer needed without service worker
 
 		// Set up retry button
 		document.addEventListener('DOMContentLoaded', function () {
