@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Performance Optimizations Test - This or That</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<style>
+		.test-container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.test-section {
+			margin-bottom: 40px;
+			padding: 20px;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+		}
+
+		.test-result {
+			padding: 10px;
+			margin: 10px 0;
+			border-radius: 4px;
+			font-family: monospace;
+		}
+
+		.test-pass {
+			background-color: #d4edda;
+			color: #155724;
+		}
+
+		.test-fail {
+			background-color: #f8d7da;
+			color: #721c24;
+		}
+
+		.test-info {
+			background-color: #e3f2fd;
+			color: #1565c0;
+		}
+
+		.performance-metrics {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			gap: 16px;
+			margin-top: 20px;
+		}
+
+		.metric-card {
+			padding: 16px;
+			background-color: #f8f9fa;
+			border-radius: 8px;
+			text-align: center;
+		}
+
+		.metric-value {
+			font-size: 24px;
+			font-weight: bold;
+			color: #0066cc;
+		}
+
+		.metric-label {
+			font-size: 14px;
+			color: #666;
+			margin-top: 4px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-container">
+		<h1>Performance Optimizations Test</h1>
+		<p>This page tests the performance optimizations implemented for the This or That application.</p>
+
+		<div class="test-section">
+			<h2>🔧 Service Worker Test</h2>
+			<div id="sw-test-results"></div>
+			<button onclick="testServiceWorker()" class="btn btn-primary">Test Service Worker</button>
+		</div>
+
+		<div class="test-section">
+			<h2>🖼️ Image Optimization Test</h2>
+			<div id="image-test-results"></div>
+			<button onclick="testImageOptimization()" class="btn btn-primary">Test Image Optimization</button>
+
+			<div style="margin-top: 20px;">
+				<h3>Sample Optimized Images</h3>
+				<div class="image-pair-container">
+					<div class="image-option" id="test-image-1">
+						<img src="https://cdn.land-book.com/images/websites/1234/screenshot.jpg" alt="Test image 1"
+							class="design-image">
+					</div>
+					<div class="vs-divider"><span>vs</span></div>
+					<div class="image-option" id="test-image-2">
+						<img src="https://cdn.land-book.com/images/websites/5678/screenshot.jpg" alt="Test image 2"
+							class="design-image">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>⚡ Performance Metrics</h2>
+			<div id="performance-results"></div>
+			<button onclick="measurePerformance()" class="btn btn-primary">Measure Performance</button>
+
+			<div class="performance-metrics" id="metrics-display" style="display: none;">
+				<div class="metric-card">
+					<div class="metric-value" id="load-time">--</div>
+					<div class="metric-label">Load Time (ms)</div>
+				</div>
+				<div class="metric-card">
+					<div class="metric-value" id="dom-ready">--</div>
+					<div class="metric-label">DOM Ready (ms)</div>
+				</div>
+				<div class="metric-card">
+					<div class="metric-value" id="memory-usage">--</div>
+					<div class="metric-label">Memory Usage (MB)</div>
+				</div>
+				<div class="metric-card">
+					<div class="metric-value" id="cache-hits">--</div>
+					<div class="metric-label">Cache Hits</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>🎨 Animation Performance Test</h2>
+			<div id="animation-test-results"></div>
+			<button onclick="testAnimations()" class="btn btn-primary">Test Animations</button>
+
+			<div style="margin-top: 20px;">
+				<div class="image-option composite-layer" id="animation-test-element">
+					<div
+						style="padding: 40px; text-align: center; background: linear-gradient(45deg, #f0f0f0, #e0e0e0);">
+						Animation Test Element
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="test-section">
+			<h2>📱 Responsive Performance Test</h2>
+			<div id="responsive-test-results"></div>
+			<button onclick="testResponsivePerformance()" class="btn btn-primary">Test Responsive Performance</button>
+		</div>
+	</div>
+
+	<!-- Load required scripts -->
+	<script src="js/image-optimizer.js"></script>
+
+	<script>
+		// Test Service Worker functionality
+		async function testServiceWorker() {
+			const resultsDiv = document.getElementById('sw-test-results');
+			resultsDiv.innerHTML = '<div class="test-info">Testing Service Worker...</div>';
+
+			try {
+				if ('serviceWorker' in navigator) {
+					const registration = await navigator.serviceWorker.register('/sw.js');
+					resultsDiv.innerHTML += '<div class="test-pass">✅ Service Worker registration successful</div>';
+
+					// Test cache functionality
+					const cacheNames = await caches.keys();
+					resultsDiv.innerHTML += `<div class="test-info">📦 Found ${cacheNames.length} cache(s): ${cacheNames.join(', ')}</div>`;
+
+					// Test cache storage
+					if (cacheNames.length > 0) {
+						const cache = await caches.open(cacheNames[0]);
+						const cachedRequests = await cache.keys();
+						resultsDiv.innerHTML += `<div class="test-info">🗃️ Cache contains ${cachedRequests.length} items</div>`;
+					}
+
+				} else {
+					resultsDiv.innerHTML += '<div class="test-fail">❌ Service Worker not supported</div>';
+				}
+			} catch (error) {
+				resultsDiv.innerHTML += `<div class="test-fail">❌ Service Worker test failed: ${error.message}</div>`;
+			}
+		}
+
+		// Test Image Optimization
+		async function testImageOptimization() {
+			const resultsDiv = document.getElementById('image-test-results');
+			resultsDiv.innerHTML = '<div class="test-info">Testing Image Optimization...</div>';
+
+			try {
+				if (typeof imageOptimizer !== 'undefined') {
+					await imageOptimizer.init();
+					const stats = imageOptimizer.getStats();
+
+					resultsDiv.innerHTML += '<div class="test-pass">✅ Image Optimizer loaded successfully</div>';
+					resultsDiv.innerHTML += `<div class="test-info">🖼️ WebP Support: ${stats.webpSupported ? 'Yes' : 'No'}</div>`;
+					resultsDiv.innerHTML += `<div class="test-info">🗜️ Compression Support: ${stats.compressionSupported ? 'Yes' : 'No'}</div>`;
+					resultsDiv.innerHTML += `<div class="test-info">📱 Lazy Loading: ${stats.features.lazyLoading ? 'Yes' : 'No'}</div>`;
+
+					// Test URL optimization
+					const testUrl = 'https://cdn.land-book.com/images/websites/1234/screenshot.jpg';
+					const optimizedUrl = imageOptimizer.optimizeImageUrl(testUrl, {
+						width: 800,
+						quality: 0.8,
+						format: 'auto'
+					});
+
+					resultsDiv.innerHTML += `<div class="test-info">🔗 Original URL: ${testUrl}</div>`;
+					resultsDiv.innerHTML += `<div class="test-info">⚡ Optimized URL: ${optimizedUrl}</div>`;
+
+					// Apply optimization to test images
+					const testImages = document.querySelectorAll('#test-image-1 img, #test-image-2 img');
+					testImages.forEach((img, index) => {
+						const originalSrc = img.src;
+						const optimizedSrc = imageOptimizer.optimizeImageUrl(originalSrc, {
+							width: 400,
+							quality: 0.85,
+							format: 'auto'
+						});
+						img.src = optimizedSrc;
+						img.classList.add('optimized-image');
+					});
+
+					resultsDiv.innerHTML += '<div class="test-pass">✅ Test images optimized</div>';
+
+				} else {
+					resultsDiv.innerHTML += '<div class="test-fail">❌ Image Optimizer not loaded</div>';
+				}
+			} catch (error) {
+				resultsDiv.innerHTML += `<div class="test-fail">❌ Image optimization test failed: ${error.message}</div>`;
+			}
+		}
+
+		// Measure Performance
+		async function measurePerformance() {
+			const resultsDiv = document.getElementById('performance-results');
+			const metricsDiv = document.getElementById('metrics-display');
+
+			resultsDiv.innerHTML = '<div class="test-info">Measuring Performance...</div>';
+
+			try {
+				// Navigation timing
+				const navigation = performance.getEntriesByType('navigation')[0];
+				const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
+				const domReady = navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart;
+
+				document.getElementById('load-time').textContent = Math.round(loadTime);
+				document.getElementById('dom-ready').textContent = Math.round(domReady);
+
+				// Memory usage
+				if ('memory' in performance) {
+					const memoryMB = Math.round(performance.memory.usedJSHeapSize / 1024 / 1024);
+					document.getElementById('memory-usage').textContent = memoryMB;
+				} else {
+					document.getElementById('memory-usage').textContent = 'N/A';
+				}
+
+				// Cache hits (simulated)
+				const cacheNames = await caches.keys();
+				let totalCacheItems = 0;
+				for (const cacheName of cacheNames) {
+					const cache = await caches.open(cacheName);
+					const items = await cache.keys();
+					totalCacheItems += items.length;
+				}
+				document.getElementById('cache-hits').textContent = totalCacheItems;
+
+				metricsDiv.style.display = 'grid';
+				resultsDiv.innerHTML += '<div class="test-pass">✅ Performance metrics collected</div>';
+
+				// Performance score
+				let score = 100;
+				if (loadTime > 1000) score -= 20;
+				if (domReady > 500) score -= 15;
+				if (performance.memory && performance.memory.usedJSHeapSize > 50 * 1024 * 1024) score -= 10;
+
+				resultsDiv.innerHTML += `<div class="test-info">📊 Performance Score: ${score}/100</div>`;
+
+			} catch (error) {
+				resultsDiv.innerHTML += `<div class="test-fail">❌ Performance measurement failed: ${error.message}</div>`;
+			}
+		}
+
+		// Test Animations
+		function testAnimations() {
+			const resultsDiv = document.getElementById('animation-test-results');
+			const testElement = document.getElementById('animation-test-element');
+
+			resultsDiv.innerHTML = '<div class="test-info">Testing Animation Performance...</div>';
+
+			try {
+				// Test CSS transitions
+				testElement.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+				testElement.style.transform = 'translateY(-10px) scale(1.05)';
+				testElement.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.15)';
+
+				setTimeout(() => {
+					testElement.style.transform = 'translateY(0) scale(1)';
+					testElement.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+				}, 1000);
+
+				resultsDiv.innerHTML += '<div class="test-pass">✅ CSS transitions working</div>';
+
+				// Test GPU acceleration
+				const computedStyle = getComputedStyle(testElement);
+				const hasTransform = computedStyle.transform !== 'none';
+				const hasWillChange = computedStyle.willChange !== 'auto';
+
+				resultsDiv.innerHTML += `<div class="test-info">🎮 GPU Acceleration: ${hasTransform || hasWillChange ? 'Active' : 'Inactive'}</div>`;
+
+				// Test animation performance
+				let frameCount = 0;
+				const startTime = performance.now();
+
+				function countFrames() {
+					frameCount++;
+					if (performance.now() - startTime < 1000) {
+						requestAnimationFrame(countFrames);
+					} else {
+						resultsDiv.innerHTML += `<div class="test-info">🎬 Frame Rate: ~${frameCount} FPS</div>`;
+
+						if (frameCount >= 55) {
+							resultsDiv.innerHTML += '<div class="test-pass">✅ Smooth animation performance</div>';
+						} else if (frameCount >= 30) {
+							resultsDiv.innerHTML += '<div class="test-info">⚠️ Moderate animation performance</div>';
+						} else {
+							resultsDiv.innerHTML += '<div class="test-fail">❌ Poor animation performance</div>';
+						}
+					}
+				}
+
+				requestAnimationFrame(countFrames);
+
+			} catch (error) {
+				resultsDiv.innerHTML += `<div class="test-fail">❌ Animation test failed: ${error.message}</div>`;
+			}
+		}
+
+		// Test Responsive Performance
+		function testResponsivePerformance() {
+			const resultsDiv = document.getElementById('responsive-test-results');
+			resultsDiv.innerHTML = '<div class="test-info">Testing Responsive Performance...</div>';
+
+			try {
+				// Test viewport meta tag
+				const viewportMeta = document.querySelector('meta[name="viewport"]');
+				if (viewportMeta) {
+					resultsDiv.innerHTML += '<div class="test-pass">✅ Viewport meta tag present</div>';
+				} else {
+					resultsDiv.innerHTML += '<div class="test-fail">❌ Viewport meta tag missing</div>';
+				}
+
+				// Test responsive images
+				const images = document.querySelectorAll('img');
+				let responsiveImages = 0;
+				images.forEach(img => {
+					if (img.style.maxWidth === '100%' || getComputedStyle(img).maxWidth === '100%') {
+						responsiveImages++;
+					}
+				});
+
+				resultsDiv.innerHTML += `<div class="test-info">📱 Responsive Images: ${responsiveImages}/${images.length}</div>`;
+
+				// Test CSS media queries
+				const stylesheets = Array.from(document.styleSheets);
+				let mediaQueryCount = 0;
+
+				try {
+					stylesheets.forEach(sheet => {
+						if (sheet.cssRules) {
+							Array.from(sheet.cssRules).forEach(rule => {
+								if (rule.type === CSSRule.MEDIA_RULE) {
+									mediaQueryCount++;
+								}
+							});
+						}
+					});
+					resultsDiv.innerHTML += `<div class="test-info">📐 Media Queries Found: ${mediaQueryCount}</div>`;
+				} catch (e) {
+					resultsDiv.innerHTML += '<div class="test-info">📐 Media Queries: Unable to count (CORS)</div>';
+				}
+
+				// Test touch support
+				const touchSupported = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+				resultsDiv.innerHTML += `<div class="test-info">👆 Touch Support: ${touchSupported ? 'Yes' : 'No'}</div>`;
+
+				resultsDiv.innerHTML += '<div class="test-pass">✅ Responsive performance test completed</div>';
+
+			} catch (error) {
+				resultsDiv.innerHTML += `<div class="test-fail">❌ Responsive test failed: ${error.message}</div>`;
+			}
+		}
+
+		// Auto-run basic tests on load
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('🧪 Performance test page loaded');
+
+			// Show loading performance
+			const loadTime = performance.now();
+			console.log(`⚡ Page load time: ${loadTime.toFixed(2)}ms`);
+
+			// Test critical features
+			setTimeout(() => {
+				if (typeof imageOptimizer !== 'undefined') {
+					console.log('✅ Image optimizer loaded');
+				} else {
+					console.warn('⚠️ Image optimizer not loaded');
+				}
+			}, 100);
+		});
+	</script>
+</body>
+
+</html>

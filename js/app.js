@@ -63,12 +63,30 @@ async function initializeApp(options = {}) {
 			console.log('🚀 Initializing This or That application...');
 		}
 
-		// Initialize data loader
+		// Initialize data loader with fallback approach
 		if (typeof AppDataLoader === 'undefined') {
 			throw new Error('AppDataLoader not available. Make sure app-data-loader.js is loaded first.');
 		}
 
+		console.log('🔧 Creating AppDataLoader instance...');
 		appState.dataLoader = new AppDataLoader();
+
+		// Debug: Check available methods
+		const availableMethods = Object.getOwnPropertyNames(Object.getPrototypeOf(appState.dataLoader));
+		console.log('Available AppDataLoader methods:', availableMethods);
+
+		// Check if the method exists, if not use fallback
+		const hasOfflineSupport = typeof appState.dataLoader.loadDesignsWithOfflineSupport === 'function';
+		const hasBasicLoad = typeof appState.dataLoader.loadDesigns === 'function';
+
+		console.log('loadDesignsWithOfflineSupport available:', hasOfflineSupport);
+		console.log('loadDesigns available:', hasBasicLoad);
+
+		if (!hasOfflineSupport && !hasBasicLoad) {
+			throw new Error('No data loading methods available in AppDataLoader');
+		}
+
+		console.log('✅ AppDataLoader instance created successfully');
 
 		// Show loading state
 		showLoadingState('Initializing application...');
@@ -86,10 +104,18 @@ async function initializeApp(options = {}) {
 			}
 		};
 
-		// Try to load primary data source with enhanced error handling
+		// Try to load primary data source with fallback method support
 		let loadedData = null;
+
+		// Choose the appropriate loading method
+		const loadMethod = typeof appState.dataLoader.loadDesignsWithOfflineSupport === 'function'
+			? 'loadDesignsWithOfflineSupport'
+			: 'loadDesigns';
+
+		console.log(`🔄 Using ${loadMethod} method for data loading`);
+
 		try {
-			loadedData = await appState.dataLoader.loadDesignsWithOfflineSupport(
+			loadedData = await appState.dataLoader[loadMethod](
 				appState.config.dataPath,
 				{
 					maxRetries: 3,
@@ -108,7 +134,7 @@ async function initializeApp(options = {}) {
 			showLoadingState('Trying fallback data source...');
 
 			try {
-				loadedData = await appState.dataLoader.loadDesignsWithOfflineSupport(
+				loadedData = await appState.dataLoader[loadMethod](
 					appState.config.fallbackDataPath,
 					{
 						maxRetries: 2,
@@ -128,7 +154,7 @@ async function initializeApp(options = {}) {
 					timestamp: new Date().toISOString()
 				};
 
-				const userFriendlyMessage = this.createUserFriendlyErrorMessage(errorDetails);
+				const userFriendlyMessage = createUserFriendlyErrorMessage(errorDetails);
 				throw new Error(userFriendlyMessage);
 			}
 		}
@@ -381,6 +407,84 @@ function hideLoadingState() {
 }
 
 /**
+ * Hides error state and clears error messages
+ */
+function hideErrorState() {
+	const errorSection = document.getElementById('error-section');
+	if (errorSection) {
+		errorSection.style.display = 'none';
+		errorSection.innerHTML = ''; // Clear any previous error content
+	}
+
+	// Clear app error state
+	clearAppError();
+}
+
+/**
+ * Shows the selection section when app is ready
+ */
+function showSelectionSection() {
+	const selectionSection = document.getElementById('selection-section');
+	const loadingSection = document.getElementById('loading-section');
+	const errorSection = document.getElementById('error-section');
+	const instructionsSection = document.getElementById('instructions-section');
+
+	// Hide other sections
+	if (loadingSection) loadingSection.style.display = 'none';
+	if (errorSection) errorSection.style.display = 'none';
+	if (instructionsSection) instructionsSection.style.display = 'none';
+
+	// Show selection section
+	if (selectionSection) {
+		selectionSection.style.display = 'block';
+		selectionSection.classList.remove('hidden', 'loading');
+	}
+}
+
+/**
+ * Clears all UI states and resets to initial state
+ */
+function clearAllUIStates() {
+	// Hide all sections initially
+	const sections = [
+		'loading-section',
+		'error-section',
+		'selection-section',
+		'results-section',
+		'email-section',
+		'continue-section'
+	];
+
+	sections.forEach(sectionId => {
+		const section = document.getElementById(sectionId);
+		if (section) {
+			section.style.display = 'none';
+			// Clear any dynamic content but preserve original structure
+			if (sectionId === 'error-section') {
+				section.innerHTML = `
+					<div class="error-container">
+						<h3>Oops! Something went wrong</h3>
+						<p class="error-message" id="error-message"></p>
+						<button class="btn btn-primary" id="retry-btn">Try Again</button>
+					</div>
+				`;
+			}
+		}
+	});
+
+	// Show instructions section by default
+	const instructionsSection = document.getElementById('instructions-section');
+	if (instructionsSection) {
+		instructionsSection.style.display = 'block';
+	}
+
+	// Clear any error messages
+	clearAppError();
+
+	console.log('🧹 All UI states cleared');
+}
+
+/**
  * Shows enhanced error state with retry options
  * @param {string} errorMessage - Error message to display
  * @param {Object} options - Error display options
@@ -407,10 +511,7 @@ function showEnhancedErrorState(errorMessage, options = {}) {
 	if (loadingSection) loadingSection.style.display = 'none';
 	if (selectionSection) selectionSection.style.display = 'none';
 
-	// Update error message
-	errorMessageElement.textContent = errorMessage;
-
-	// Create enhanced error content
+	// Create enhanced error content (don't duplicate the message)
 	let errorHTML = `
 		<div class="error-container">
 			<h3>Oops! Something went wrong</h3>
@@ -580,9 +681,10 @@ function setupImageElement(imgElement, design, containerElement) {
 	// Store design ID on container for click handling
 	containerElement.dataset.designId = design.id;
 
-	// Add loading class
+	// Add loading class with smooth transition
 	containerElement.classList.add('loading');
 	containerElement.classList.remove('loaded', 'error');
+	imgElement.classList.add('loading');
 
 	// Create loading timeout
 	const loadingTimeout = setTimeout(() => {
@@ -603,8 +705,12 @@ function setupImageElement(imgElement, design, containerElement) {
 
 		imgElement.onload = () => {
 			clearTimeout(loadingTimeout);
+
+			// Smooth loading transition
 			containerElement.classList.remove('loading');
 			containerElement.classList.add('loaded');
+			imgElement.classList.remove('loading');
+			imgElement.classList.add('loaded');
 
 			if (appState.config.enableLogging) {
 				console.log(`✅ Image loaded: ${design.id}${attempt > 1 ? ` (after ${attempt} attempts)` : ''}`);
@@ -625,8 +731,18 @@ function setupImageElement(imgElement, design, containerElement) {
 			}
 		};
 
+		// Optimize image URL using image optimizer if available
+		let optimizedUrl = imageUrl;
+		if (typeof imageOptimizer !== 'undefined') {
+			optimizedUrl = imageOptimizer.optimizeImageUrl(imageUrl, {
+				width: 800,
+				quality: 0.85,
+				format: 'auto'
+			});
+		}
+
 		// Set image source
-		imgElement.src = imageUrl;
+		imgElement.src = optimizedUrl;
 	};
 
 	// Start loading attempt
@@ -722,16 +838,31 @@ function preloadNextImages() {
 		// Get next potential pairs for preloading
 		const nextPairs = appState.dataLoader.getRandomPairs(2, appState.usedPairs);
 
-		nextPairs.forEach(pair => {
-			pair.forEach(design => {
-				const img = new Image();
-				img.src = design.image;
-				// Images will be cached by browser for faster loading
+		// Use image optimizer for preloading if available
+		if (typeof imageOptimizer !== 'undefined') {
+			const imageUrls = nextPairs.flat().map(design => design.image);
+			imageOptimizer.preloadImages(imageUrls, {
+				priority: 'low',
+				timeout: 8000
+			}).then(results => {
+				const successful = results.filter(result => result.status === 'fulfilled').length;
+				if (appState.config.enableLogging && successful > 0) {
+					console.log(`🔄 Preloaded ${successful} optimized images`);
+				}
 			});
-		});
+		} else {
+			// Fallback to basic preloading
+			nextPairs.forEach(pair => {
+				pair.forEach(design => {
+					const img = new Image();
+					img.src = design.image;
+					// Images will be cached by browser for faster loading
+				});
+			});
 
-		if (appState.config.enableLogging && nextPairs.length > 0) {
-			console.log(`🔄 Preloaded ${nextPairs.length * 2} images`);
+			if (appState.config.enableLogging && nextPairs.length > 0) {
+				console.log(`🔄 Preloaded ${nextPairs.length * 2} images`);
+			}
 		}
 	} catch (error) {
 		// Preloading failure shouldn't break the app
@@ -1693,19 +1824,12 @@ if (typeof window !== 'undefined') {
 	window.validateDependencies = validateDependencies;
 	window.handleAppError = handleAppError;
 	window.clearAppError = clearAppError;
+	window.hideErrorState = hideErrorState;
+	window.showSelectionSection = showSelectionSection;
+	window.clearAllUIStates = clearAllUIStates;
 	window.loadNextPair = loadNextPair;
 	window.handleSelection = handleSelection;
 	window.initializeImagePairSystem = initializeImagePairSystem;
-}
-/*
-*
- * Hides the error state
- */
-function hideErrorState() {
-	const errorSection = document.getElementById('error-section');
-	if (errorSection) {
-		errorSection.style.display = 'none';
-	}
 }
 
 /**

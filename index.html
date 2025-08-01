@@ -220,13 +220,27 @@
 	<!-- EmailJS CDN for email functionality -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-	<script src="js/data-validator.js"></script>
-	<script src="js/app-data-loader.js"></script>
-	<script src="js/results.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/timer.js"></script>
-	<script src="js/email.js"></script>
-	<script src="js/print.js"></script>
+	<!-- Performance optimizations -->
+	<script src="js/image-optimizer.js?v=1"></script>
+	<script src="js/data-validator.js?v=1"></script>
+	<script src="js/app-data-loader.js?v=1"></script>
+	<script src="js/results.js?v=1"></script>
+	<script src="js/app.js?v=1"></script>
+	<script src="js/timer.js?v=1"></script>
+	<script src="js/email.js?v=1"></script>
+	<script src="js/print.js?v=1"></script>
+
+	<!-- Clear any cached error states immediately -->
+	<script>
+		// Clear error states immediately on page load
+		document.addEventListener('DOMContentLoaded', function () {
+			const errorSection = document.getElementById('error-section');
+			if (errorSection) {
+				errorSection.style.display = 'none';
+				errorSection.innerHTML = '';
+			}
+		});
+	</script>
 
 	<!-- Initialize Application -->
 	<script>
@@ -235,12 +249,28 @@
 			try {
 				console.log('🚀 Starting This or That application...');
 
+				// Register service worker for performance optimizations (disabled for debugging)
+				// await registerServiceWorker();
+
+				// Initialize performance monitoring
+				initializePerformanceMonitoring();
+
+				// Clear any previous UI states first
+				if (typeof clearAllUIStates === 'function') {
+					clearAllUIStates();
+				}
+
 				// Initialize the app with sample data
 				await initializeApp({
 					dataPath: 'data/designs.json',
 					fallbackDataPath: 'data/sample-designs.json',
 					enableLogging: true
 				});
+
+				// Hide any previous error states on successful initialization
+				if (typeof hideErrorState === 'function') {
+					hideErrorState();
+				}
 
 				// Initialize the timer component
 				setupTimerIntegration();
@@ -311,6 +341,94 @@
 				}
 			}
 		});
+
+		// Service Worker Registration
+		async function registerServiceWorker() {
+			if ('serviceWorker' in navigator) {
+				try {
+					const registration = await navigator.serviceWorker.register('/sw.js');
+					console.log('✅ Service Worker registered:', registration.scope);
+
+					// Handle service worker updates
+					registration.addEventListener('updatefound', () => {
+						const newWorker = registration.installing;
+						newWorker.addEventListener('statechange', () => {
+							if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+								// New version available
+								showUpdateNotification();
+							}
+						});
+					});
+				} catch (error) {
+					console.warn('⚠️ Service Worker registration failed:', error);
+				}
+			}
+		}
+
+		// Performance Monitoring
+		function initializePerformanceMonitoring() {
+			// Monitor Core Web Vitals
+			if ('web-vital' in window) {
+				// This would require web-vitals library, but we'll implement basic monitoring
+				console.log('📊 Performance monitoring initialized');
+			}
+
+			// Monitor resource loading
+			if ('PerformanceObserver' in window) {
+				const observer = new PerformanceObserver((list) => {
+					for (const entry of list.getEntries()) {
+						if (entry.entryType === 'navigation') {
+							console.log('📈 Navigation timing:', {
+								domContentLoaded: entry.domContentLoadedEventEnd - entry.domContentLoadedEventStart,
+								loadComplete: entry.loadEventEnd - entry.loadEventStart
+							});
+						}
+					}
+				});
+
+				try {
+					observer.observe({ entryTypes: ['navigation', 'resource'] });
+				} catch (error) {
+					console.warn('⚠️ Performance observer not supported:', error);
+				}
+			}
+
+			// Monitor memory usage if available
+			if ('memory' in performance) {
+				setInterval(() => {
+					const memory = performance.memory;
+					if (memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.9) {
+						console.warn('⚠️ High memory usage detected');
+					}
+				}, 30000); // Check every 30 seconds
+			}
+		}
+
+		// Show update notification
+		function showUpdateNotification() {
+			const notification = document.createElement('div');
+			notification.className = 'update-notification';
+			notification.innerHTML = `
+				<div class="update-content">
+					<span>🔄 New version available!</span>
+					<button onclick="location.reload()" class="btn btn-primary">Update</button>
+					<button onclick="this.parentElement.parentElement.remove()" class="btn btn-secondary">Later</button>
+				</div>
+			`;
+			notification.style.cssText = `
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				background: white;
+				border: 1px solid #e9ecef;
+				border-radius: 8px;
+				padding: 16px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+				z-index: 1000;
+				animation: slideIn 0.3s ease;
+			`;
+			document.body.appendChild(notification);
+		}
 
 		// Set up retry button
 		document.addEventListener('DOMContentLoaded', function () {

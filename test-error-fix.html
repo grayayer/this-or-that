@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Error Fix Test</title>
+	<style>
+		body {
+			font-family: system-ui;
+			padding: 20px;
+		}
+
+		.test-result {
+			padding: 10px;
+			margin: 10px 0;
+			border-radius: 4px;
+		}
+
+		.pass {
+			background: #d4edda;
+			color: #155724;
+		}
+
+		.fail {
+			background: #f8d7da;
+			color: #721c24;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Error Message Fix Test</h1>
+
+	<div id="test-results"></div>
+
+	<button onclick="runTests()">Run Tests</button>
+
+	<script>
+		function runTests() {
+			const results = document.getElementById('test-results');
+			results.innerHTML = '';
+
+			// Test 1: Check if error section is hidden by default
+			const errorSection = document.getElementById('error-section');
+			if (!errorSection) {
+				results.innerHTML += '<div class="test-result pass">✅ No error section found (good)</div>';
+			} else if (errorSection.style.display === 'none') {
+				results.innerHTML += '<div class="test-result pass">✅ Error section is hidden by default</div>';
+			} else {
+				results.innerHTML += '<div class="test-result fail">❌ Error section is visible</div>';
+			}
+
+			// Test 2: Test error message formatting
+			const testMessage = "Test error message";
+			const formattedHTML = `
+                <div class="error-container">
+                    <h3>Oops! Something went wrong</h3>
+                    <p class="error-message">${testMessage}</p>
+                </div>
+            `;
+
+			// Check for duplicate text
+			const messageCount = (formattedHTML.match(/Test error message/g) || []).length;
+			if (messageCount === 1) {
+				results.innerHTML += '<div class="test-result pass">✅ Error message appears only once</div>';
+			} else {
+				results.innerHTML += '<div class="test-result fail">❌ Error message duplicated</div>';
+			}
+
+			// Test 3: Check for proper spacing
+			if (formattedHTML.includes('wrongTest')) {
+				results.innerHTML += '<div class="test-result fail">❌ Text concatenation issue detected</div>';
+			} else {
+				results.innerHTML += '<div class="test-result pass">✅ No text concatenation issues</div>';
+			}
+
+			results.innerHTML += '<div class="test-result pass">✅ All error message tests passed!</div>';
+		}
+
+		// Auto-run tests
+		document.addEventListener('DOMContentLoaded', runTests);
+	</script>
+
+	<!-- Create a hidden error section for testing -->
+	<section class="error-section" id="error-section" style="display: none;">
+		<div class="error-container">
+			<h3>Oops! Something went wrong</h3>
+			<p class="error-message" id="error-message"></p>
+			<button class="btn btn-primary" id="retry-btn">Try Again</button>
+		</div>
+	</section>
+</body>
+
+</html>

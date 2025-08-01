@@ -50,9 +50,18 @@ class AppDataLoader {
 
 				console.log(`📥 Loading design data from ${dataPath}... (attempt ${attempt}/${maxRetries})`);
 
-				// Check if we're offline
+				// Check if we're offline (but allow localhost)
 				if (typeof navigator !== 'undefined' && !navigator.onLine) {
-					throw new Error('No internet connection available');
+					// Allow localhost and local file access even when offline
+					const isLocalhost = dataPath.startsWith('/') ||
+						dataPath.startsWith('./') ||
+						dataPath.startsWith('data/') ||
+						window.location.hostname === 'localhost' ||
+						window.location.hostname === '127.0.0.1';
+
+					if (!isLocalhost) {
+						throw new Error('No internet connection available');
+					}
 				}
 
 				// Add timeout to fetch request

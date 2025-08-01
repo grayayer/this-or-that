@@ -62,6 +62,8 @@ a:hover {
     margin: 0 auto;
     padding: 20px;
     width: 100%;
+    /* Smooth transitions for layout changes */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Header Styles */
@@ -346,6 +348,21 @@ a:hover {
 /* Image Pair Selection */
 .selection-section {
     margin-bottom: 40px;
+    /* Smooth section transitions */
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.selection-section.loading {
+    opacity: 0.7;
+    transform: translateY(10px);
+}
+
+.selection-section.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
 }
 
 .image-pair-container {
@@ -362,7 +379,8 @@ a:hover {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* Enhanced smooth transitions with easing */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     background-color: #f8f9fa;
     /* Enhanced touch target size for mobile */
@@ -376,6 +394,10 @@ a:hover {
     -webkit-touch-callout: none;
     /* Prevent tap highlight on mobile */
     -webkit-tap-highlight-color: transparent;
+    /* Performance optimizations */
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .image-option:hover,
@@ -453,7 +475,40 @@ a:hover {
     min-height: 200px;
     object-fit: cover;
     display: block;
-    transition: opacity 0.3s ease;
+    /* Enhanced image transitions */
+    transition: opacity 0.4s ease, transform 0.3s ease, filter 0.3s ease;
+    /* Performance optimizations */
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+}
+
+/* Image hover effects */
+.image-option:hover .design-image {
+    transform: scale(1.02);
+    filter: brightness(1.05);
+}
+
+/* Smooth image loading animation */
+.design-image.loading {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.design-image.loaded {
+    opacity: 1;
+    transform: scale(1);
+    animation: imageLoadIn 0.5s ease-out;
+}
+
+@keyframes imageLoadIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .image-overlay {
@@ -1184,10 +1239,37 @@ a:hover {
     font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.2s ease;
+    /* Enhanced button transitions */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: 1px solid transparent;
     min-width: 120px;
+    /* Performance optimizations */
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Enhanced button hover effects */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+    transition-duration: 0.1s;
+}
+
+/* Button press animation */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.btn.pressed {
+    animation: buttonPress 0.2s ease;
 }
 
 .btn-primary {
@@ -1505,5 +1587,407 @@ Section Styles */
     .email-status.sending::before {
         transition: none;
         animation: none;
+    }
+}
+/*
+ Performance Optimizations */
+
+/* GPU acceleration for frequently animated elements */
+.image-option,
+.btn,
+.timer-progress-bar,
+.progress-bar,
+.loading-spinner {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Smooth page transitions */
+.page-transition {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.page-transition.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.page-transition.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Optimized loading animations */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+    /* Use transform instead of changing properties */
+    will-change: transform;
+}
+
+/* Smooth progress bar animations */
+.progress-bar,
+.timer-progress-bar::after {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
+}
+
+/* Optimized shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.image-option.loading {
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    /* Optimize for animation */
+    will-change: background-position;
+}
+
+/* Smooth section transitions */
+.section-transition {
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
+    will-change: opacity, transform, max-height;
+}
+
+.section-transition.slide-up {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.section-transition.slide-down {
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+/* Enhanced focus animations */
+.form-group input:focus {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transform: scale(1.02);
+}
+
+/* Micro-interactions for better UX */
+.preference-item {
+    transition: all 0.2s ease;
+    will-change: transform, box-shadow;
+}
+
+.preference-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Optimized color swatch animations */
+.color-swatch {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Smooth results reveal animation */
+.results-section {
+    animation: resultsReveal 0.6s ease-out;
+}
+
+@keyframes resultsReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(10px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Staggered animation for preference categories */
+.preference-category {
+    animation: categorySlideIn 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.preference-category:nth-child(1) { animation-delay: 0.1s; }
+.preference-category:nth-child(2) { animation-delay: 0.2s; }
+.preference-category:nth-child(3) { animation-delay: 0.3s; }
+.preference-category:nth-child(4) { animation-delay: 0.4s; }
+.preference-category:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes categorySlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Optimized preference bar animations */
+.preference-bar-fill {
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
+    animation: barGrow 0.8s ease-out;
+}
+
+@keyframes barGrow {
+    0% {
+        width: 0%;
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Smooth error state transitions */
+.error-section {
+    animation: errorSlideIn 0.4s ease-out;
+}
+
+@keyframes errorSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Performance optimizations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Keep essential loading indicators */
+    .loading-spinner {
+        animation: none;
+        border-top-color: transparent;
+    }
+
+    .loading-spinner::after {
+        content: '⏳';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+    }
+}
+
+/* High performance mode for older devices */
+@media (max-width: 768px) and (max-resolution: 150dpi) {
+    /* Reduce animations on lower-end mobile devices */
+    .image-option,
+    .btn,
+    .preference-item {
+        transition-duration: 0.1s;
+    }
+
+    /* Disable complex animations */
+    .image-option.loading {
+        animation: none;
+        background: #f0f0f0;
+    }
+
+    /* Simplify hover effects */
+    .image-option:hover {
+        transform: none;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* Critical rendering path optimizations */
+.above-fold {
+    /* Prioritize above-fold content */
+    contain: layout style paint;
+}
+
+.below-fold {
+    /* Optimize below-fold content */
+    contain: layout style;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 500px;
+}
+
+/* Optimize for paint performance */
+.paint-optimized {
+    contain: paint;
+    isolation: isolate;
+}
+
+/* Layout optimization for dynamic content */
+.layout-optimized {
+    contain: layout;
+}
+
+/* Composite layer promotion for smooth animations */
+.composite-layer {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}/*
+Update notification styles */
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.update-notification {
+    animation: slideIn 0.3s ease;
+}
+
+.update-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.update-content .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-width: auto;
+}
+
+/* Performance optimization classes */
+.optimized-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Lazy loading optimization */
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+/* Critical resource hints */
+.preload-hint {
+    /* This class can be used to mark elements that should be preloaded */
+    contain: layout style paint;
+}
+
+/* Bundle size optimization - hide non-critical elements initially */
+.non-critical {
+    display: none;
+}
+
+.non-critical.loaded {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Memory optimization for large lists */
+.virtual-scroll {
+    contain: strict;
+    overflow: auto;
+}
+
+/* Optimize repaints for frequently changing elements */
+.frequent-updates {
+    contain: layout style paint;
+    will-change: contents;
+}
+
+/* Optimize for smooth scrolling */
+.smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Performance-optimized focus styles */
+.focus-optimized:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+    /* Use outline instead of box-shadow for better performance */
+}
+
+/* Optimize text rendering */
+.optimized-text {
+    text-rendering: optimizeSpeed;
+    font-smooth: never;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+}
+
+/* High DPI optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .high-dpi-optimized {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Connection-aware optimizations */
+@media (prefers-reduced-data: reduce) {
+    /* Reduce animations and effects for users on slow connections */
+    .image-option.loading {
+        animation: none;
+        background: #f0f0f0;
+    }
+
+    .design-image {
+        transition: none;
+    }
+
+    /* Disable non-essential animations */
+    .preference-category {
+        animation: none;
+    }
+
+    .results-section {
+        animation: none;
+    }
+}
+
+/* Battery optimization */
+@media (prefers-reduced-motion: reduce) {
+    /* Already handled above, but ensure battery-conscious users get minimal animations */
+    .composite-layer {
+        will-change: auto;
     }
 }
