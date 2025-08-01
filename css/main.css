@@ -84,6 +84,94 @@ a:hover {
     margin: 0 auto;
 }
 
+/* Instructions Section */
+.instructions-section {
+    margin-bottom: 40px;
+}
+
+.instructions-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.instructions-container h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.instruction-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.instruction-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    border: 2px solid #e9ecef;
+}
+
+.instruction-content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.instruction-content p {
+    font-size: 0.95rem;
+    color: #666666;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.instruction-content kbd {
+    background-color: #e9ecef;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.875rem;
+    font-family: monospace;
+    color: #333333;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.instructions-actions .btn {
+    min-width: 140px;
+}
+
 /* Timer Section */
 .timer-section {
     margin-bottom: 30px;
@@ -98,6 +186,35 @@ a:hover {
     background-color: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #e9ecef;
+}
+
+.keyboard-hints {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 12px;
+    padding: 8px;
+}
+
+.keyboard-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: #666666;
+}
+
+.keyboard-hint kbd {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #333333;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    min-width: 24px;
+    text-align: center;
 }
 
 .timer-progress-bar {
@@ -248,11 +365,57 @@ a:hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     background-color: #f8f9fa;
+    /* Enhanced touch target size for mobile */
+    min-height: 200px;
+    /* Prevent text selection during touch */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Prevent callout on iOS */
+    -webkit-touch-callout: none;
+    /* Prevent tap highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
 }
 
-.image-option:hover {
+.image-option:hover,
+.image-option.hover-active {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Touch-specific states for mobile feedback */
+.image-option.touch-active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Enhanced overlay for better mobile visibility */
+.image-option.touch-active .image-overlay {
+    opacity: 1;
+    background: rgba(0, 102, 204, 0.95);
+}
+
+/* Keyboard selection feedback */
+.image-option.keyboard-selected {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.5);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.image-option.keyboard-selected .image-overlay {
+    opacity: 1;
+    background: rgba(0, 102, 204, 0.9);
+}
+
+/* Skip feedback for vs-divider */
+.vs-divider.skip-feedback {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 2px solid #ffc107;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
 }
 
 .image-option.loading {

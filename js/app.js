@@ -779,6 +779,21 @@ function showResults() {
  * Sets up event listeners for results action buttons
  */
 function setupResultsActions() {
+	// Set up refine preferences button
+	const refineBtn = document.getElementById('refine-preferences-btn');
+	if (refineBtn) {
+		// Remove existing listeners
+		refineBtn.replaceWith(refineBtn.cloneNode(true));
+		const newRefineBtn = document.getElementById('refine-preferences-btn');
+
+		newRefineBtn.addEventListener('click', () => {
+			if (appState.config.enableLogging) {
+				console.log('🔄 User chose to refine preferences');
+			}
+			handleRefinePreferences();
+		});
+	}
+
 	// Set up start over button
 	const startOverBtn = document.getElementById('start-over-btn');
 	if (startOverBtn) {
@@ -874,34 +889,287 @@ function showLoadingSection() {
 }
 
 /**
- * Sets up click handlers for image selection
+ * Sets up click, touch, and keyboard handlers for image selection
+ * Enhanced for mobile touch interactions and keyboard navigation
  */
 function setupImageClickHandlers() {
 	const option1 = document.getElementById('image-option-1');
 	const option2 = document.getElementById('image-option-2');
 
-	if (option1) {
-		option1.addEventListener('click', (event) => {
-			event.preventDefault();
-			const designId = option1.dataset.designId;
-			if (designId) {
-				handleSelection(designId);
-			}
-		});
-	}
+	// Set up handlers for both options
+	setupImageOptionHandlers(option1, 'option-1');
+	setupImageOptionHandlers(option2, 'option-2');
 
-	if (option2) {
-		option2.addEventListener('click', (event) => {
-			event.preventDefault();
-			const designId = option2.dataset.designId;
-			if (designId) {
-				handleSelection(designId);
-			}
-		});
-	}
+	// Set up keyboard navigation
+	setupKeyboardNavigation();
 
 	if (appState.config.enableLogging) {
-		console.log('✅ Image click handlers set up');
+		console.log('✅ Image click, touch, and keyboard handlers set up');
+	}
+}
+
+/**
+ * Sets up comprehensive event handlers for an image option
+ * Includes touch events for better mobile experience
+ * @param {HTMLElement} element - The image option element
+ * @param {string} optionName - Name for logging purposes
+ */
+function setupImageOptionHandlers(element, optionName) {
+	if (!element) return;
+
+	let touchStartTime = 0;
+	let touchStartX = 0;
+	let touchStartY = 0;
+	let isTouch = false;
+
+	// Touch start handler
+	element.addEventListener('touchstart', (event) => {
+		isTouch = true;
+		touchStartTime = Date.now();
+
+		const touch = event.touches[0];
+		touchStartX = touch.clientX;
+		touchStartY = touch.clientY;
+
+		// Add visual feedback for touch
+		element.classList.add('touch-active');
+
+		// Prevent default to avoid double-tap zoom and scrolling issues
+		event.preventDefault();
+
+		if (appState.config.enableLogging) {
+			console.log(`👆 Touch start on ${optionName}`);
+		}
+	}, { passive: false });
+
+	// Touch end handler
+	element.addEventListener('touchend', (event) => {
+		const touchEndTime = Date.now();
+		const touchDuration = touchEndTime - touchStartTime;
+
+		// Remove visual feedback
+		element.classList.remove('touch-active');
+
+		// Only process if it was a quick tap (not a long press or drag)
+		if (touchDuration < 500) {
+			const designId = element.dataset.designId;
+			if (designId) {
+				handleSelection(designId);
+
+				if (appState.config.enableLogging) {
+					console.log(`✅ Touch selection: ${designId} (${touchDuration}ms)`);
+				}
+			}
+		}
+
+		// Prevent default to avoid click event firing
+		event.preventDefault();
+		isTouch = false;
+	}, { passive: false });
+
+	// Touch move handler to detect dragging
+	element.addEventListener('touchmove', (event) => {
+		const touch = event.touches[0];
+		const deltaX = Math.abs(touch.clientX - touchStartX);
+		const deltaY = Math.abs(touch.clientY - touchStartY);
+
+		// If user is dragging significantly, remove active state
+		if (deltaX > 10 || deltaY > 10) {
+			element.classList.remove('touch-active');
+		}
+
+		// Allow scrolling if moving vertically
+		if (deltaY > deltaX) {
+			return;
+		}
+
+		// Prevent horizontal scrolling during image interaction
+		event.preventDefault();
+	}, { passive: false });
+
+	// Touch cancel handler
+	element.addEventListener('touchcancel', (event) => {
+		element.classList.remove('touch-active');
+		isTouch = false;
+		event.preventDefault();
+	});
+
+	// Click handler for mouse/desktop interactions
+	element.addEventListener('click', (event) => {
+		// Prevent click if this was a touch interaction
+		if (isTouch) {
+			event.preventDefault();
+			return;
+		}
+
+		event.preventDefault();
+		const designId = element.dataset.designId;
+		if (designId) {
+			handleSelection(designId);
+
+			if (appState.config.enableLogging) {
+				console.log(`🖱️ Click selection: ${designId}`);
+			}
+		}
+	});
+
+	// Mouse enter/leave for desktop hover effects
+	element.addEventListener('mouseenter', () => {
+		if (!isTouch) {
+			element.classList.add('hover-active');
+		}
+	});
+
+	element.addEventListener('mouseleave', () => {
+		element.classList.remove('hover-active');
+	});
+
+	// Prevent context menu on long press
+	element.addEventListener('contextmenu', (event) => {
+		event.preventDefault();
+	});
+}
+
+/**
+ * Sets up keyboard navigation for image selection and skipping
+ * Supports: 1 key (select first option), 2 key (select second option), spacebar (skip)
+ */
+function setupKeyboardNavigation() {
+	// Remove any existing keyboard listeners to prevent duplicates
+	document.removeEventListener('keydown', handleKeyboardNavigation);
+
+	// Add keyboard event listener
+	document.addEventListener('keydown', handleKeyboardNavigation);
+
+	if (appState.config.enableLogging) {
+		console.log('⌨️ Keyboard navigation set up (1, 2, spacebar)');
+	}
+}
+
+/**
+ * Handles keyboard navigation events
+ * @param {KeyboardEvent} event - The keyboard event
+ */
+function handleKeyboardNavigation(event) {
+	// Only handle keyboard navigation during selection phase
+	const selectionSection = document.getElementById('selection-section');
+	if (!selectionSection || selectionSection.style.display === 'none') {
+		return;
+	}
+
+	// Don't interfere with form inputs
+	if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+		return;
+	}
+
+	const key = event.key;
+	let handled = false;
+
+	switch (key) {
+		case '1':
+			// Select first option with visual feedback
+			const option1 = document.getElementById('image-option-1');
+			if (option1 && option1.dataset.designId) {
+				// Add visual feedback
+				option1.classList.add('keyboard-selected');
+				setTimeout(() => option1.classList.remove('keyboard-selected'), 200);
+
+				handleSelection(option1.dataset.designId);
+				handled = true;
+
+				if (appState.config.enableLogging) {
+					console.log('⌨️ Keyboard selection: Option 1');
+				}
+			}
+			break;
+
+		case '2':
+			// Select second option with visual feedback
+			const option2 = document.getElementById('image-option-2');
+			if (option2 && option2.dataset.designId) {
+				// Add visual feedback
+				option2.classList.add('keyboard-selected');
+				setTimeout(() => option2.classList.remove('keyboard-selected'), 200);
+
+				handleSelection(option2.dataset.designId);
+				handled = true;
+
+				if (appState.config.enableLogging) {
+					console.log('⌨️ Keyboard selection: Option 2');
+				}
+			}
+			break;
+
+		case ' ':
+		case 'Spacebar':
+			// Skip current pair with visual feedback
+			showSkipFeedback();
+			handleSkipPair();
+			handled = true;
+
+			if (appState.config.enableLogging) {
+				console.log('⌨️ Keyboard skip: Spacebar');
+			}
+			break;
+	}
+
+	if (handled) {
+		event.preventDefault();
+		event.stopPropagation();
+	}
+}
+
+/**
+ * Shows visual feedback when user skips a pair
+ */
+function showSkipFeedback() {
+	const vsDivider = document.querySelector('.vs-divider');
+	if (vsDivider) {
+		const originalText = vsDivider.textContent;
+		vsDivider.textContent = 'Skipped';
+		vsDivider.classList.add('skip-feedback');
+
+		setTimeout(() => {
+			vsDivider.textContent = originalText;
+			vsDivider.classList.remove('skip-feedback');
+		}, 500);
+	}
+}
+
+/**
+ * Handles skipping the current pair without making a selection
+ * Loads the next pair without recording a choice
+ */
+function handleSkipPair() {
+	try {
+		if (!appState.currentPair || appState.currentPair.length !== 2) {
+			console.warn('⚠️ No current pair available to skip');
+			return false;
+		}
+
+		// Mark the current pair as used to prevent it from showing again
+		const pairKey = `${appState.currentPair[0].id}|${appState.currentPair[1].id}`;
+		appState.usedPairs.add(pairKey);
+
+		// Stop timer if running
+		if (typeof stopTimer === 'function') {
+			stopTimer();
+		}
+
+		// Load next pair with small delay for better UX
+		setTimeout(() => {
+			loadNextPair();
+		}, 300);
+
+		if (appState.config.enableLogging) {
+			console.log(`⏭️ Skipped pair: ${appState.currentPair[0].id} vs ${appState.currentPair[1].id}`);
+		}
+
+		return true;
+
+	} catch (error) {
+		handleAppError(error, 'handleSkipPair');
+		return false;
 	}
 }
 
@@ -915,22 +1183,20 @@ function initializeImagePairSystem() {
 			throw new Error('App not ready for image pair system initialization');
 		}
 
+		// Set up instructions section handlers
+		setupInstructionsHandlers();
+
 		// Set up click handlers
 		setupImageClickHandlers();
 
 		// Initialize progress display
 		updateProgressDisplay();
 
-		// Load first pair
-		showLoadingSection();
-		const success = loadNextPair();
-
-		if (!success) {
-			throw new Error('Failed to load initial image pair');
-		}
+		// Show instructions first, then load first pair when user is ready
+		showInstructionsSection();
 
 		if (appState.config.enableLogging) {
-			console.log('🎉 Image pair selection system initialized');
+			console.log('🎉 Image pair selection system initialized with instructions');
 		}
 
 		return true;
@@ -938,6 +1204,149 @@ function initializeImagePairSystem() {
 	} catch (error) {
 		handleAppError(error, 'initializeImagePairSystem');
 		return false;
+	}
+}
+
+/**
+ * Sets up event handlers for the instructions section
+ */
+function setupInstructionsHandlers() {
+	const startBtn = document.getElementById('start-app-btn');
+	const skipBtn = document.getElementById('skip-instructions-btn');
+
+	if (startBtn) {
+		startBtn.addEventListener('click', () => {
+			hideInstructionsSection();
+			startImageSelection();
+		});
+	}
+
+	if (skipBtn) {
+		skipBtn.addEventListener('click', () => {
+			hideInstructionsSection();
+			startImageSelection();
+		});
+	}
+
+	if (appState.config.enableLogging) {
+		console.log('✅ Instructions handlers set up');
+	}
+}
+
+/**
+ * Shows the instructions section and hides other sections
+ */
+function showInstructionsSection() {
+	const instructionsSection = document.getElementById('instructions-section');
+	const timerSection = document.getElementById('timer-section');
+	const progressSection = document.getElementById('progress-section');
+	const selectionSection = document.getElementById('selection-section');
+	const loadingSection = document.getElementById('loading-section');
+
+	if (instructionsSection) {
+		instructionsSection.style.display = 'block';
+	}
+
+	// Hide other sections
+	[timerSection, progressSection, selectionSection, loadingSection].forEach(section => {
+		if (section) {
+			section.style.display = 'none';
+		}
+	});
+}
+
+/**
+ * Hides the instructions section
+ */
+function hideInstructionsSection() {
+	const instructionsSection = document.getElementById('instructions-section');
+	if (instructionsSection) {
+		instructionsSection.style.display = 'none';
+	}
+
+	// Show timer and progress sections
+	const timerSection = document.getElementById('timer-section');
+	const progressSection = document.getElementById('progress-section');
+
+	if (timerSection) {
+		timerSection.style.display = 'block';
+	}
+
+	if (progressSection) {
+		progressSection.style.display = 'block';
+	}
+}
+
+/**
+ * Starts the image selection process after instructions
+ */
+function startImageSelection() {
+	showLoadingSection();
+
+	// Small delay to show loading state
+	setTimeout(() => {
+		const success = loadNextPair();
+		if (!success) {
+			handleAppError(new Error('Failed to load initial image pair'), 'startImageSelection');
+		}
+	}, 500);
+
+	if (appState.config.enableLogging) {
+		console.log('🚀 Started image selection process');
+	}
+}
+
+/**
+ * Handles the user's request to refine their preferences
+ * Hides results and continues with more image selections
+ */
+function handleRefinePreferences() {
+	try {
+		if (appState.config.enableLogging) {
+			console.log('🔄 Starting preference refinement process');
+		}
+
+		// Hide results section
+		const resultsSection = document.getElementById('results-section');
+		if (resultsSection) {
+			resultsSection.style.display = 'none';
+		}
+
+		// Show timer and progress sections
+		const timerSection = document.getElementById('timer-section');
+		const progressSection = document.getElementById('progress-section');
+
+		if (timerSection) {
+			timerSection.style.display = 'block';
+		}
+
+		if (progressSection) {
+			progressSection.style.display = 'block';
+		}
+
+		// Reset current round counter but keep total rounds and selections
+		appState.currentRound = 0;
+		appState.isComplete = false;
+
+		// Update progress display to reflect current state
+		updateProgressDisplay();
+
+		// Show loading and then load next pair
+		showLoadingSection();
+
+		setTimeout(() => {
+			const success = loadNextPair();
+			if (!success) {
+				handleAppError(new Error('Failed to load pair for refinement'), 'handleRefinePreferences');
+			}
+		}, 500);
+
+		if (appState.config.enableLogging) {
+			console.log(`✅ Preference refinement started. Current total: ${appState.totalRounds} choices`);
+		}
+
+	} catch (error) {
+		handleAppError(error, 'handleRefinePreferences');
 	}
 }
 

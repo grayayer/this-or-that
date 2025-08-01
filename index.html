@@ -23,11 +23,58 @@
 			</p>
 		</header>
 
+		<!-- Instructions Section -->
+		<section class="instructions-section" id="instructions-section">
+			<div class="instructions-container">
+				<h2>How to Use</h2>
+				<div class="instructions-grid">
+					<div class="instruction-item">
+						<div class="instruction-icon">👆</div>
+						<div class="instruction-content">
+							<h3>Click or Tap</h3>
+							<p>Click or tap on your preferred design from each pair</p>
+						</div>
+					</div>
+					<div class="instruction-item">
+						<div class="instruction-icon">⌨️</div>
+						<div class="instruction-content">
+							<h3>Keyboard Shortcuts</h3>
+							<p>Press <kbd>1</kbd> for left option, <kbd>2</kbd> for right option, or <kbd>Spacebar</kbd>
+								to skip</p>
+						</div>
+					</div>
+					<div class="instruction-item">
+						<div class="instruction-icon">⏱️</div>
+						<div class="instruction-content">
+							<h3>Quick Decisions</h3>
+							<p>You have 15 seconds per choice - trust your instincts!</p>
+						</div>
+					</div>
+					<div class="instruction-item">
+						<div class="instruction-icon">📊</div>
+						<div class="instruction-content">
+							<h3>Get Results</h3>
+							<p>Complete 20+ choices to see your design preference profile</p>
+						</div>
+					</div>
+				</div>
+				<div class="instructions-actions">
+					<button class="btn btn-primary" id="start-app-btn">Start Discovering</button>
+					<button class="btn btn-secondary" id="skip-instructions-btn">Skip Instructions</button>
+				</div>
+			</div>
+		</section>
+
 		<!-- Timer Section -->
 		<section class="timer-section" id="timer-section">
 			<div class="timer-container">
 				<div class="timer-progress-bar" id="timer-progress-bar"></div>
 				<div class="timer-display" id="timer-display">15</div>
+			</div>
+			<div class="keyboard-hints">
+				<span class="keyboard-hint"><kbd>1</kbd> Left</span>
+				<span class="keyboard-hint"><kbd>2</kbd> Right</span>
+				<span class="keyboard-hint"><kbd>Space</kbd> Skip</span>
 			</div>
 		</section>
 
@@ -94,6 +141,7 @@
 
 					<div class="results-actions">
 						<button class="btn btn-primary" id="print-results-btn">Print / Save as PDF</button>
+						<button class="btn btn-secondary" id="refine-preferences-btn">Refine Preferences</button>
 						<button class="btn btn-secondary" id="start-over-btn">Start Over</button>
 						<!-- Email functionality hidden for now -->
 						<button class="btn btn-primary" id="email-results-btn" style="display: none;">Email
