@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cache Manager - This or That</title>
+	<style>
+		body {
+			font-family: system-ui;
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.section {
+			margin: 30px 0;
+			padding: 20px;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+		}
+
+		.btn {
+			padding: 10px 20px;
+			margin: 5px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+
+		.btn-primary {
+			background: #0066cc;
+			color: white;
+		}
+
+		.btn-danger {
+			background: #dc3545;
+			color: white;
+		}
+
+		.btn-success {
+			background: #28a745;
+			color: white;
+		}
+
+		.btn-info {
+			background: #17a2b8;
+			color: white;
+		}
+
+		.status {
+			padding: 10px;
+			margin: 10px 0;
+			border-radius: 4px;
+			font-family: monospace;
+		}
+
+		.success {
+			background: #d4edda;
+			color: #155724;
+		}
+
+		.error {
+			background: #f8d7da;
+			color: #721c24;
+		}
+
+		.info {
+			background: #e3f2fd;
+			color: #1565c0;
+		}
+
+		.cache-list {
+			background: #f8f9fa;
+			padding: 15px;
+			border-radius: 5px;
+			margin: 10px 0;
+		}
+
+		.cache-item {
+			padding: 5px 0;
+			border-bottom: 1px solid #e9ecef;
+		}
+
+		.cache-item:last-child {
+			border-bottom: none;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>🗂️ Cache Manager</h1>
+	<p>Manage caches and storage for the This or That application during development.</p>
+
+	<div class="section">
+		<h2>🔧 Service Worker</h2>
+		<div id="sw-status"></div>
+		<button class="btn btn-info" onclick="checkServiceWorker()">Check Status</button>
+		<button class="btn btn-danger" onclick="unregisterServiceWorker()">Unregister SW</button>
+		<button class="btn btn-primary" onclick="registerServiceWorker()">Register SW</button>
+	</div>
+
+	<div class="section">
+		<h2>🗃️ Cache Storage</h2>
+		<div id="cache-status"></div>
+		<button class="btn btn-info" onclick="listCaches()">List Caches</button>
+		<button class="btn btn-danger" onclick="clearAllCaches()">Clear All Caches</button>
+	</div>
+
+	<div class="section">
+		<h2>💾 Local Storage</h2>
+		<div id="storage-status"></div>
+		<button class="btn btn-info" onclick="listLocalStorage()">List Items</button>
+		<button class="btn btn-danger" onclick="clearLocalStorage()">Clear Local Storage</button>
+	</div>
+
+	<div class="section">
+		<h2>🍪 Session Storage</h2>
+		<div id="session-status"></div>
+		<button class="btn btn-info" onclick="listSessionStorage()">List Items</button>
+		<button class="btn btn-danger" onclick="clearSessionStorage()">Clear Session Storage</button>
+	</div>
+
+	<div class="section">
+		<h2>🧹 Complete Reset</h2>
+		<p>This will clear everything and force a fresh start:</p>
+		<button class="btn btn-danger" onclick="completeReset()">🚨 Complete Reset</button>
+	</div>
+
+	<div class="section">
+		<h2>🚀 Quick Actions</h2>
+		<button class="btn btn-success" onclick="openApp()">Open App</button>
+		<button class="btn btn-info" onclick="openAppNewTab()">Open App (New Tab)</button>
+		<button class="btn btn-primary" onclick="location.reload()">Refresh This Page</button>
+	</div>
+
+	<script>
+		function log(message, type = 'info') {
+			console.log(message);
+		}
+
+		function showStatus(elementId, message, type = 'info') {
+			const element = document.getElementById(elementId);
+			element.innerHTML = `<div class="status ${type}">${message}</div>`;
+		}
+
+		// Service Worker Management
+		async function checkServiceWorker() {
+			try {
+				if ('serviceWorker' in navigator) {
+					const registration = await navigator.serviceWorker.getRegistration();
+					if (registration) {
+						showStatus('sw-status', `✅ Service Worker registered at: ${registration.scope}`, 'success');
+					} else {
+						showStatus('sw-status', '❌ No Service Worker registered', 'error');
+					}
+				} else {
+					showStatus('sw-status', '❌ Service Worker not supported', 'error');
+				}
+			} catch (error) {
+				showStatus('sw-status', `❌ Error: ${error.message}`, 'error');
+			}
+		}
+
+		async function registerServiceWorker() {
+			try {
+				if ('serviceWorker' in navigator) {
+					const registration = await navigator.serviceWorker.register('/sw.js');
+					showStatus('sw-status', `✅ Service Worker registered: ${registration.scope}`, 'success');
+				} else {
+					showStatus('sw-status', '❌ Service Worker not supported', 'error');
+				}
+			} catch (error) {
+				showStatus('sw-status', `❌ Registration failed: ${error.message}`, 'error');
+			}
+		}
+
+		async function unregisterServiceWorker() {
+			try {
+				if ('serviceWorker' in navigator) {
+					const registration = await navigator.serviceWorker.getRegistration();
+					if (registration) {
+						await registration.unregister();
+						showStatus('sw-status', '✅ Service Worker unregistered', 'success');
+					} else {
+						showStatus('sw-status', '❌ No Service Worker to unregister', 'error');
+					}
+				} else {
+					showStatus('sw-status', '❌ Service Worker not supported', 'error');
+				}
+			} catch (error) {
+				showStatus('sw-status', `❌ Unregistration failed: ${error.message}`, 'error');
+			}
+		}
+
+		// Cache Management
+		async function listCaches() {
+			try {
+				const cacheNames = await caches.keys();
+				if (cacheNames.length === 0) {
+					showStatus('cache-status', '📭 No caches found', 'info');
+					return;
+				}
+
+				let cacheInfo = `<div class="cache-list"><strong>Found ${cacheNames.length} cache(s):</strong><br>`;
+
+				for (const cacheName of cacheNames) {
+					const cache = await caches.open(cacheName);
+					const keys = await cache.keys();
+					cacheInfo += `<div class="cache-item">📦 ${cacheName} (${keys.length} items)</div>`;
+				}
+
+				cacheInfo += '</div>';
+				showStatus('cache-status', cacheInfo, 'info');
+
+			} catch (error) {
+				showStatus('cache-status', `❌ Error listing caches: ${error.message}`, 'error');
+			}
+		}
+
+		async function clearAllCaches() {
+			try {
+				const cacheNames = await caches.keys();
+				const deletePromises = cacheNames.map(cacheName => caches.delete(cacheName));
+				await Promise.all(deletePromises);
+				showStatus('cache-status', `✅ Cleared ${cacheNames.length} cache(s)`, 'success');
+			} catch (error) {
+				showStatus('cache-status', `❌ Error clearing caches: ${error.message}`, 'error');
+			}
+		}
+
+		// Local Storage Management
+		function listLocalStorage() {
+			try {
+				const items = Object.keys(localStorage);
+				if (items.length === 0) {
+					showStatus('storage-status', '📭 Local Storage is empty', 'info');
+					return;
+				}
+
+				let storageInfo = `<div class="cache-list"><strong>Local Storage (${items.length} items):</strong><br>`;
+				items.forEach(key => {
+					const value = localStorage.getItem(key);
+					const preview = value.length > 50 ? value.substring(0, 50) + '...' : value;
+					storageInfo += `<div class="cache-item">🔑 ${key}: ${preview}</div>`;
+				});
+				storageInfo += '</div>';
+
+				showStatus('storage-status', storageInfo, 'info');
+			} catch (error) {
+				showStatus('storage-status', `❌ Error reading Local Storage: ${error.message}`, 'error');
+			}
+		}
+
+		function clearLocalStorage() {
+			try {
+				const itemCount = localStorage.length;
+				localStorage.clear();
+				showStatus('storage-status', `✅ Cleared ${itemCount} Local Storage item(s)`, 'success');
+			} catch (error) {
+				showStatus('storage-status', `❌ Error clearing Local Storage: ${error.message}`, 'error');
+			}
+		}
+
+		// Session Storage Management
+		function listSessionStorage() {
+			try {
+				const items = Object.keys(sessionStorage);
+				if (items.length === 0) {
+					showStatus('session-status', '📭 Session Storage is empty', 'info');
+					return;
+				}
+
+				let storageInfo = `<div class="cache-list"><strong>Session Storage (${items.length} items):</strong><br>`;
+				items.forEach(key => {
+					const value = sessionStorage.getItem(key);
+					const preview = value.length > 50 ? value.substring(0, 50) + '...' : value;
+					storageInfo += `<div class="cache-item">🔑 ${key}: ${preview}</div>`;
+				});
+				storageInfo += '</div>';
+
+				showStatus('session-status', storageInfo, 'info');
+			} catch (error) {
+				showStatus('session-status', `❌ Error reading Session Storage: ${error.message}`, 'error');
+			}
+		}
+
+		function clearSessionStorage() {
+			try {
+				const itemCount = sessionStorage.length;
+				sessionStorage.clear();
+				showStatus('session-status', `✅ Cleared ${itemCount} Session Storage item(s)`, 'success');
+			} catch (error) {
+				showStatus('session-status', `❌ Error clearing Session Storage: ${error.message}`, 'error');
+			}
+		}
+
+		// Complete Reset
+		async function completeReset() {
+			if (!confirm('⚠️ This will clear ALL caches, storage, and unregister the service worker. Continue?')) {
+				return;
+			}
+
+			try {
+				// Clear all caches
+				const cacheNames = await caches.keys();
+				await Promise.all(cacheNames.map(name => caches.delete(name)));
+
+				// Clear storage
+				localStorage.clear();
+				sessionStorage.clear();
+
+				// Unregister service worker
+				if ('serviceWorker' in navigator) {
+					const registration = await navigator.serviceWorker.getRegistration();
+					if (registration) {
+						await registration.unregister();
+					}
+				}
+
+				// Clear IndexedDB if any
+				if ('indexedDB' in window) {
+					// This is a basic clear - in production you'd want to be more specific
+					try {
+						const databases = await indexedDB.databases();
+						await Promise.all(databases.map(db => {
+							return new Promise((resolve, reject) => {
+								const deleteReq = indexedDB.deleteDatabase(db.name);
+								deleteReq.onsuccess = () => resolve();
+								deleteReq.onerror = () => reject(deleteReq.error);
+							});
+						}));
+					} catch (e) {
+						console.warn('Could not clear IndexedDB:', e);
+					}
+				}
+
+				alert('✅ Complete reset successful! The page will reload.');
+				location.reload();
+
+			} catch (error) {
+				alert(`❌ Reset failed: ${error.message}`);
+			}
+		}
+
+		// Quick Actions
+		function openApp() {
+			window.location.href = '/index.html';
+		}
+
+		function openAppNewTab() {
+			window.open('/index.html', '_blank');
+		}
+
+		// Auto-check status on load
+		document.addEventListener('DOMContentLoaded', function () {
+			checkServiceWorker();
+			listCaches();
+			listLocalStorage();
+			listSessionStorage();
+		});
+	</script>
+</body>
+
+</html>
