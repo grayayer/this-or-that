@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Results Analysis Test</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			line-height: 1.6;
+		}
+
+		.test-output {
+			background: #f5f5f5;
+			padding: 20px;
+			border-radius: 8px;
+			font-family: 'Monaco', 'Menlo', monospace;
+			font-size: 14px;
+			white-space: pre-wrap;
+			margin-top: 20px;
+		}
+
+		.run-tests {
+			background: #007AFF;
+			color: white;
+			border: none;
+			padding: 12px 24px;
+			border-radius: 6px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.run-tests:hover {
+			background: #0056CC;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Results Analysis Engine Test</h1>
+	<p>This page tests the results.js implementation to ensure all functions work correctly.</p>
+
+	<button class="run-tests" onclick="runTests()">Run Tests</button>
+
+	<div id="output" class="test-output">Click "Run Tests" to start testing...</div>
+
+	<script src="js/results.js"></script>
+	<script src="test-results-analysis.js"></script>
+
+	<script>
+		function runTests() {
+			const output = document.getElementById('output');
+
+			// Capture console output
+			const originalLog = console.log;
+			const originalError = console.error;
+			const originalWarn = console.warn;
+
+			let capturedOutput = '';
+
+			console.log = (...args) => {
+				capturedOutput += args.join(' ') + '\n';
+				originalLog(...args);
+			};
+
+			console.error = (...args) => {
+				capturedOutput += 'ERROR: ' + args.join(' ') + '\n';
+				originalError(...args);
+			};
+
+			console.warn = (...args) => {
+				capturedOutput += 'WARN: ' + args.join(' ') + '\n';
+				originalWarn(...args);
+			};
+
+			// Run the tests
+			try {
+				runAllTests();
+			} catch (error) {
+				capturedOutput += 'FATAL ERROR: ' + error.message + '\n';
+			}
+
+			// Restore console
+			console.log = originalLog;
+			console.error = originalError;
+			console.warn = originalWarn;
+
+			// Display output
+			output.textContent = capturedOutput;
+		}
+	</script>
+</body>
+
+</html>
