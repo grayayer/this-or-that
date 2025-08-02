@@ -985,28 +985,49 @@ function updateProgressDisplay() {
 			// Still working toward minimum threshold
 			progressText.textContent = `Choice ${appState.totalRounds} of ${appState.minChoicesRequired} (${remaining} more needed for results)`;
 		} else {
-			// Minimum threshold reached - results available
-			// Requirement 3.3: Indicate when results will be available
-			progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
+			// Minimum threshold reached - but handle multiple sessions
+			const currentSessionTarget = appState.currentSession * 20;
+			const isAtSessionEnd = appState.totalRounds % 20 === 0;
+
+			if (appState.currentSession === 1 && isAtSessionEnd) {
+				// First session complete - results available
+				progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
+			} else if (appState.currentSession > 1 && appState.totalRounds < currentSessionTarget) {
+				// In a later session, working toward next milestone
+				const remaining = currentSessionTarget - appState.totalRounds;
+				progressText.textContent = `Choice ${appState.totalRounds} of ${currentSessionTarget} (${remaining} more for next milestone)`;
+			} else if (appState.currentSession > 1 && isAtSessionEnd) {
+				// Later session complete - results available
+				progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
+			} else {
+				// Default case
+				progressText.textContent = `Choice ${appState.totalRounds} completed`;
+			}
 		}
 	}
 
 	if (progressBar) {
-		// Visual progress bar - fill to 100% when minimum reached, then continue beyond
-		const percentage = Math.min(100, (appState.totalRounds / appState.minChoicesRequired) * 100);
+		// Calculate progress based on current session target
+		const currentSessionTarget = appState.currentSession * 20;
+		const sessionStart = (appState.currentSession - 1) * 20;
+		const sessionProgress = appState.totalRounds - sessionStart;
+		const percentage = Math.min(100, (sessionProgress / 20) * 100);
+
 		progressBar.style.setProperty('--progress', `${percentage}%`);
 
-		// Add visual indicator when minimum threshold is reached
-		if (appState.totalRounds >= appState.minChoicesRequired) {
+		// Add visual indicator when session milestone is reached
+		const isAtSessionEnd = appState.totalRounds % 20 === 0 && appState.totalRounds >= appState.minChoicesRequired;
+		if (isAtSessionEnd) {
 			progressBar.classList.add('threshold-reached');
 		} else {
 			progressBar.classList.remove('threshold-reached');
 		}
 	}
 
-	// Add visual emphasis when minimum threshold is reached
+	// Add visual emphasis when session milestone is reached
 	if (progressContainer) {
-		if (appState.totalRounds >= appState.minChoicesRequired) {
+		const isAtSessionEnd = appState.totalRounds % 20 === 0 && appState.totalRounds >= appState.minChoicesRequired;
+		if (isAtSessionEnd) {
 			progressContainer.classList.add('results-available');
 		} else {
 			progressContainer.classList.remove('results-available');
@@ -1064,6 +1085,12 @@ function showResultsPrompt() {
 	const timerSection = document.getElementById('timer-section');
 	if (timerSection) {
 		timerSection.style.display = 'none';
+	}
+
+	// Hide progress section during continue prompt
+	const progressSection = document.getElementById('progress-section');
+	if (progressSection) {
+		progressSection.style.display = 'none';
 	}
 
 	// Hide selection section
@@ -1189,6 +1216,12 @@ function handleContinueChoices() {
 	const timerSection = document.getElementById('timer-section');
 	if (timerSection) {
 		timerSection.style.display = 'block';
+	}
+
+	// Show progress section again
+	const progressSection = document.getElementById('progress-section');
+	if (progressSection) {
+		progressSection.style.display = 'block';
 	}
 
 	// Reset timer for new session
