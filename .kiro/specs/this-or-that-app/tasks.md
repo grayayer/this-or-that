@@ -1,5 +1,43 @@
 # Implementation Plan
 
+## Version Control Guidelines
+
+**IMPORTANT**: Every change to the application must include version control updates:
+
+### 1. Update Version Number
+
+- Update the version in `index.html` footer: `This or That v1.0.0`
+- Follow Semantic Versioning (SemVer): `MAJOR.MINOR.PATCH`
+
+### 2. Update Changelog
+
+- Add entry to `CHANGELOG.md` with:
+  - Version number and date
+  - Category of changes (Added, Changed, Fixed, etc.)
+  - Clear description of what was modified
+
+### 3. Version Increment Rules
+
+- **PATCH** (1.0.0 → 1.0.1): Bug fixes, small improvements
+- **MINOR** (1.0.0 → 1.1.0): New features, enhancements
+- **MAJOR** (1.0.0 → 2.0.0): Breaking changes, major overhauls
+
+### 4. Example Workflow
+
+```
+1. Fix timer pause bug
+2. Update footer: v1.0.0 → v1.0.1
+3. Add to CHANGELOG.md:
+   ## [1.0.1] - 2025-08-02
+   ### Fixed
+   - Fixed timer not pausing during continue prompt
+4. Commit with message: "fix: resolve timer pause issue (v1.0.1)"
+```
+
+---
+
+# Implementation Plan
+
 - [x] 1. Set up project structure and define data schema
   - Create directory structure with css/, js/, data/, scraper/, and assets/ folders
   - Define the design object schema with id, image, and tags structure

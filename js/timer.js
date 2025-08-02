@@ -180,6 +180,14 @@ function resetTimer(autoStart = false) {
 		timerState.isActive = false;
 		timerState.isPaused = false;
 
+		// Remove all timer styling classes
+		if (timerState.progressBarElement) {
+			timerState.progressBarElement.classList.remove('timer-paused', 'timer-warning', 'timer-critical');
+		}
+		if (timerState.displayElement) {
+			timerState.displayElement.classList.remove('timer-paused', 'timer-warning', 'timer-critical');
+		}
+
 		// Update display
 		updateTimerDisplay();
 		updateProgressBar();
@@ -224,6 +232,14 @@ function pauseTimer() {
 
 		timerState.isPaused = true;
 
+		// Add visual pause styling
+		if (timerState.progressBarElement) {
+			timerState.progressBarElement.classList.add('timer-paused');
+		}
+		if (timerState.displayElement) {
+			timerState.displayElement.classList.add('timer-paused');
+		}
+
 		if (timerState.enableLogging) {
 			console.log('⏸️ Timer paused');
 		}
@@ -253,6 +269,14 @@ function resumeTimer() {
 
 		timerState.isPaused = false;
 		timerState.startTimestamp = Date.now() - ((timerState.duration - timerState.currentTime) * 1000);
+
+		// Remove visual pause styling
+		if (timerState.progressBarElement) {
+			timerState.progressBarElement.classList.remove('timer-paused');
+		}
+		if (timerState.displayElement) {
+			timerState.displayElement.classList.remove('timer-paused');
+		}
 
 		if (timerState.enableLogging) {
 			console.log('▶️ Timer resumed');
@@ -396,6 +420,19 @@ function updateProgressBar() {
  */
 function defaultTimeoutHandler() {
 	try {
+		// Check if we're in continue prompt state
+		if (typeof appState !== 'undefined' && appState.isShowingContinuePrompt) {
+			console.log('⏸️ Timer expired but continue prompt state is active - not auto-advancing');
+			return;
+		}
+
+		// Check if we're showing a continue prompt - if so, don't auto-advance
+		const continueSection = document.getElementById('continue-section');
+		if (continueSection && continueSection.style.display !== 'none') {
+			console.log('⏸️ Timer expired but continue prompt is showing - not auto-advancing');
+			return;
+		}
+
 		// Check if loadNextPair function is available
 		if (typeof loadNextPair === 'function') {
 			loadNextPair();
@@ -459,6 +496,20 @@ function setupTimerIntegration() {
 					// Start new timer for next pair (with small delay)
 					setTimeout(() => {
 						if (getTimerState && !getTimerState().isActive) {
+							// Check if we're in continue prompt state before starting timer
+							if (typeof appState !== 'undefined' && appState.isShowingContinuePrompt) {
+								console.log('⏸️ TIMER.JS SELECTION BLOCKED: Continue prompt state active - not starting timer');
+								return;
+							}
+
+							// Double-check that continue prompt is not showing
+							const continueSection = document.getElementById('continue-section');
+							if (continueSection && continueSection.style.display !== 'none') {
+								console.log('⏸️ TIMER.JS SELECTION BLOCKED: Continue prompt is showing - not starting timer');
+								return;
+							}
+
+							console.log('▶️ TIMER.JS SELECTION STARTING TIMER - no blocks detected');
 							startTimer();
 						}
 					}, 1000);
@@ -477,6 +528,20 @@ function setupTimerIntegration() {
 					// Start timer if pair loaded successfully
 					if (result) {
 						setTimeout(() => {
+							// Check if we're in continue prompt state before starting timer
+							if (typeof appState !== 'undefined' && appState.isShowingContinuePrompt) {
+								console.log('⏸️ TIMER.JS BLOCKED: Continue prompt state active - not starting timer');
+								return;
+							}
+
+							// Double-check that continue prompt is not showing
+							const continueSection = document.getElementById('continue-section');
+							if (continueSection && continueSection.style.display !== 'none') {
+								console.log('⏸️ TIMER.JS BLOCKED: Continue prompt is showing - not starting timer');
+								return;
+							}
+
+							console.log('▶️ TIMER.JS STARTING TIMER - no blocks detected');
 							startTimer();
 						}, 500); // Small delay to let images load
 					}

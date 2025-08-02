@@ -27,6 +27,7 @@ const appState = {
 	isComplete: false,             // Whether minimum choices reached and results available
 	isLoading: false,              // Loading state for UI feedback
 	error: null,                   // Current error state, if any
+	isShowingContinuePrompt: false, // Whether continue prompt is currently showing
 
 	// Data loader instance
 	dataLoader: null,              // AppDataLoader instance
@@ -623,8 +624,23 @@ function loadNextPair() {
 		preloadNextImages();
 
 		// Start timer for the new pair (requirement 2.1)
+		// But only if we're not showing a continue prompt
 		if (typeof startTimer === 'function') {
 			setTimeout(() => {
+				// Check if we're in continue prompt state
+				if (appState.isShowingContinuePrompt) {
+					console.log('⏸️ BLOCKED: Continue prompt state active - not starting timer');
+					return;
+				}
+
+				// Double-check that continue prompt is not showing before starting timer
+				const continueSection = document.getElementById('continue-section');
+				if (continueSection && continueSection.style.display !== 'none') {
+					console.log('⏸️ BLOCKED: Continue prompt is showing - not starting timer');
+					return;
+				}
+
+				console.log('▶️ STARTING TIMER - no blocks detected');
 				startTimer();
 			}, 500); // Small delay to let images load
 		}
@@ -933,10 +949,13 @@ function handleSelection(selectedDesignId) {
 
 		// Check if we should show results or continue
 		if (shouldShowResults()) {
+			console.log('🎯 SHOULD SHOW RESULTS - calling showResultsPrompt()');
 			showResultsPrompt();
 		} else {
+			console.log('➡️ NOT showing results - will load next pair');
 			// Load next pair with small delay for better UX
 			setTimeout(() => {
+				console.log('⏰ setTimeout fired - about to call loadNextPair()');
 				loadNextPair();
 			}, 500);
 		}
@@ -966,28 +985,49 @@ function updateProgressDisplay() {
 			// Still working toward minimum threshold
 			progressText.textContent = `Choice ${appState.totalRounds} of ${appState.minChoicesRequired} (${remaining} more needed for results)`;
 		} else {
-			// Minimum threshold reached - results available
-			// Requirement 3.3: Indicate when results will be available
-			progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
+			// Minimum threshold reached - but handle multiple sessions
+			const currentSessionTarget = appState.currentSession * 20;
+			const isAtSessionEnd = appState.totalRounds % 20 === 0;
+
+			if (appState.currentSession === 1 && isAtSessionEnd) {
+				// First session complete - results available
+				progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
+			} else if (appState.currentSession > 1 && appState.totalRounds < currentSessionTarget) {
+				// In a later session, working toward next milestone
+				const remaining = currentSessionTarget - appState.totalRounds;
+				progressText.textContent = `Choice ${appState.totalRounds} of ${currentSessionTarget} (${remaining} more for next milestone)`;
+			} else if (appState.currentSession > 1 && isAtSessionEnd) {
+				// Later session complete - results available
+				progressText.textContent = `Choice ${appState.totalRounds} completed - Results available!`;
+			} else {
+				// Default case
+				progressText.textContent = `Choice ${appState.totalRounds} completed`;
+			}
 		}
 	}
 
 	if (progressBar) {
-		// Visual progress bar - fill to 100% when minimum reached, then continue beyond
-		const percentage = Math.min(100, (appState.totalRounds / appState.minChoicesRequired) * 100);
+		// Calculate progress based on current session target
+		const currentSessionTarget = appState.currentSession * 20;
+		const sessionStart = (appState.currentSession - 1) * 20;
+		const sessionProgress = appState.totalRounds - sessionStart;
+		const percentage = Math.min(100, (sessionProgress / 20) * 100);
+
 		progressBar.style.setProperty('--progress', `${percentage}%`);
 
-		// Add visual indicator when minimum threshold is reached
-		if (appState.totalRounds >= appState.minChoicesRequired) {
+		// Add visual indicator when session milestone is reached
+		const isAtSessionEnd = appState.totalRounds % 20 === 0 && appState.totalRounds >= appState.minChoicesRequired;
+		if (isAtSessionEnd) {
 			progressBar.classList.add('threshold-reached');
 		} else {
 			progressBar.classList.remove('threshold-reached');
 		}
 	}
 
-	// Add visual emphasis when minimum threshold is reached
+	// Add visual emphasis when session milestone is reached
 	if (progressContainer) {
-		if (appState.totalRounds >= appState.minChoicesRequired) {
+		const isAtSessionEnd = appState.totalRounds % 20 === 0 && appState.totalRounds >= appState.minChoicesRequired;
+		if (isAtSessionEnd) {
 			progressContainer.classList.add('results-available');
 		} else {
 			progressContainer.classList.remove('results-available');
@@ -1007,9 +1047,20 @@ function updateProgressDisplay() {
  */
 function shouldShowResults() {
 	// Show prompt when we reach minimum threshold or multiples of 20
-	return appState.totalRounds >= appState.minChoicesRequired &&
+	const shouldShow = appState.totalRounds >= appState.minChoicesRequired &&
 		appState.totalRounds % 20 === 0 &&
 		appState.currentSession <= appState.maxSessions;
+
+	console.log(`🤔 shouldShowResults check:`, {
+		totalRounds: appState.totalRounds,
+		minRequired: appState.minChoicesRequired,
+		mod20: appState.totalRounds % 20,
+		currentSession: appState.currentSession,
+		maxSessions: appState.maxSessions,
+		result: shouldShow
+	});
+
+	return shouldShow;
 }
 
 /**
@@ -1019,6 +1070,27 @@ function shouldShowResults() {
 function showResultsPrompt() {
 	if (appState.config.enableLogging) {
 		console.log(`🎯 Showing results prompt after ${appState.totalRounds} choices`);
+	}
+
+	// Set flag to prevent timer from starting
+	appState.isShowingContinuePrompt = true;
+	console.log('🚩 FLAG SET: isShowingContinuePrompt = true');
+
+	// Pause and hide timer when showing continue prompt
+	if (typeof pauseTimer === 'function') {
+		pauseTimer();
+	}
+
+	// Hide timer section during continue prompt
+	const timerSection = document.getElementById('timer-section');
+	if (timerSection) {
+		timerSection.style.display = 'none';
+	}
+
+	// Hide progress section during continue prompt
+	const progressSection = document.getElementById('progress-section');
+	if (progressSection) {
+		progressSection.style.display = 'none';
 	}
 
 	// Hide selection section
@@ -1123,6 +1195,9 @@ function handleContinueChoices() {
 		return;
 	}
 
+	// Clear continue prompt flag
+	appState.isShowingContinuePrompt = false;
+
 	// Increment session
 	appState.currentSession++;
 	appState.currentRound = 0; // Reset round counter for new session
@@ -1135,6 +1210,23 @@ function handleContinueChoices() {
 	const continueSection = document.getElementById('continue-section');
 	if (continueSection) {
 		continueSection.style.display = 'none';
+	}
+
+	// Show timer section again
+	const timerSection = document.getElementById('timer-section');
+	if (timerSection) {
+		timerSection.style.display = 'block';
+	}
+
+	// Show progress section again
+	const progressSection = document.getElementById('progress-section');
+	if (progressSection) {
+		progressSection.style.display = 'block';
+	}
+
+	// Reset timer for new session
+	if (typeof resetTimer === 'function') {
+		resetTimer();
 	}
 
 	// Update progress display
@@ -1154,6 +1246,9 @@ function handleShowResults() {
 		console.log('📊 User chose to see results');
 	}
 
+	// Clear continue prompt flag
+	appState.isShowingContinuePrompt = false;
+
 	// Mark as complete
 	appState.isComplete = true;
 
@@ -1161,6 +1256,17 @@ function handleShowResults() {
 	const continueSection = document.getElementById('continue-section');
 	if (continueSection) {
 		continueSection.style.display = 'none';
+	}
+
+	// Hide timer section when showing results
+	const timerSection = document.getElementById('timer-section');
+	if (timerSection) {
+		timerSection.style.display = 'none';
+	}
+
+	// Stop timer completely when showing results
+	if (typeof stopTimer === 'function') {
+		stopTimer();
 	}
 
 	// Show the actual results analysis

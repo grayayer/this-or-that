@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Timer Pause Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<style>
+		body {
+			padding: 20px;
+			font-family: system-ui;
+		}
+
+		.test-section {
+			margin: 20px 0;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+		}
+
+		.btn {
+			margin: 5px;
+			padding: 10px 15px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.btn-primary {
+			background: #0066cc;
+			color: white;
+		}
+
+		.btn-secondary {
+			background: #6c757d;
+			color: white;
+		}
+
+		.status {
+			padding: 10px;
+			margin: 10px 0;
+			border-radius: 4px;
+		}
+
+		.success {
+			background: #d4edda;
+			color: #155724;
+		}
+
+		.info {
+			background: #e3f2fd;
+			color: #1565c0;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Timer Pause Test</h1>
+	<p>This page tests the timer pause functionality when continue prompt is shown.</p>
+
+	<div class="test-section">
+		<h2>Timer Controls</h2>
+		<button class="btn btn-primary" onclick="startTimer()">Start Timer</button>
+		<button class="btn btn-secondary" onclick="pauseTimer()">Pause Timer</button>
+		<button class="btn btn-secondary" onclick="resumeTimer()">Resume Timer</button>
+		<button class="btn btn-secondary" onclick="resetTimer()">Reset Timer</button>
+		<button class="btn btn-secondary" onclick="stopTimer()">Stop Timer</button>
+	</div>
+
+	<div class="test-section">
+		<h2>Timer Display</h2>
+		<!-- Timer Section -->
+		<section class="timer-section" id="timer-section">
+			<div class="timer-container">
+				<div class="timer-progress-bar" id="timer-progress-bar"></div>
+				<div class="timer-display" id="timer-display">15</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="test-section">
+		<h2>Continue Prompt Simulation</h2>
+		<button class="btn btn-primary" onclick="showContinuePrompt()">Show Continue Prompt</button>
+		<button class="btn btn-secondary" onclick="hideContinuePrompt()">Hide Continue Prompt</button>
+
+		<!-- Continue Section (hidden by default) -->
+		<section id="continue-section"
+			style="display: none; margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+			<h3>Great Progress!</h3>
+			<p>You've completed 20 choices! Would you like to make 20 more choices for better results, or see your
+				current preferences?</p>
+			<div>
+				<button class="btn btn-primary" onclick="handleContinue()">Continue with 20 More</button>
+				<button class="btn btn-secondary" onclick="handleShowResults()">Show My Results</button>
+			</div>
+		</section>
+	</div>
+
+	<div class="test-section">
+		<h2>Test Status</h2>
+		<div id="status"></div>
+	</div>
+
+	<script src="js/timer.js"></script>
+
+	<script>
+		let testResults = [];
+
+		function log(message, type = 'info') {
+			const statusDiv = document.getElementById('status');
+			const div = document.createElement('div');
+			div.className = `status ${type}`;
+			div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+			statusDiv.appendChild(div);
+			console.log(message);
+		}
+
+		function showContinuePrompt() {
+			log('Showing continue prompt - timer should pause', 'info');
+
+			// Simulate the app behavior
+			if (typeof pauseTimer === 'function') {
+				pauseTimer();
+			}
+
+			// Hide timer section
+			const timerSection = document.getElementById('timer-section');
+			if (timerSection) {
+				timerSection.style.display = 'none';
+			}
+
+			// Show continue section
+			const continueSection = document.getElementById('continue-section');
+			if (continueSection) {
+				continueSection.style.display = 'block';
+			}
+
+			log('✅ Continue prompt shown, timer paused', 'success');
+		}
+
+		function hideContinuePrompt() {
+			log('Hiding continue prompt', 'info');
+
+			const continueSection = document.getElementById('continue-section');
+			if (continueSection) {
+				continueSection.style.display = 'none';
+			}
+
+			log('✅ Continue prompt hidden', 'success');
+		}
+
+		function handleContinue() {
+			log('User chose to continue - resuming timer', 'info');
+
+			// Hide continue prompt
+			hideContinuePrompt();
+
+			// Show timer section again
+			const timerSection = document.getElementById('timer-section');
+			if (timerSection) {
+				timerSection.style.display = 'block';
+			}
+
+			// Reset timer for new session
+			if (typeof resetTimer === 'function') {
+				resetTimer(true); // Auto-start
+			}
+
+			log('✅ Timer resumed for new session', 'success');
+		}
+
+		function handleShowResults() {
+			log('User chose to see results - stopping timer', 'info');
+
+			// Hide continue prompt
+			hideContinuePrompt();
+
+			// Hide timer section
+			const timerSection = document.getElementById('timer-section');
+			if (timerSection) {
+				timerSection.style.display = 'none';
+			}
+
+			// Stop timer completely
+			if (typeof stopTimer === 'function') {
+				stopTimer();
+			}
+
+			log('✅ Timer stopped, showing results', 'success');
+		}
+
+		// Initialize timer when page loads
+		document.addEventListener('DOMContentLoaded', function () {
+			log('Initializing timer...', 'info');
+
+			if (typeof initializeTimer === 'function') {
+				initializeTimer({
+					duration: 15,
+					enableLogging: true,
+					onTimeout: () => {
+						log('⏰ Timer expired!', 'info');
+
+						// Check if continue prompt is showing
+						const continueSection = document.getElementById('continue-section');
+						if (continueSection && continueSection.style.display !== 'none') {
+							log('⏸️ Continue prompt is showing - not auto-advancing', 'info');
+						} else {
+							log('➡️ Would advance to next pair', 'info');
+						}
+					}
+				});
+				log('✅ Timer initialized', 'success');
+			} else {
+				log('❌ Timer initialization failed', 'error');
+			}
+		});
+	</script>
+</body>
+
+</html>

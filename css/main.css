@@ -276,6 +276,16 @@ a:hover {
     animation: pulse 1s infinite;
 }
 
+.timer-display.timer-paused {
+    color: #6c757d;
+    opacity: 0.6;
+}
+
+.timer-progress-bar.timer-paused::after {
+    background: #6c757d;
+    opacity: 0.6;
+}
+
 @keyframes pulse {
     0%, 100% {
         opacity: 1;
