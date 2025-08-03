@@ -103,21 +103,10 @@ a:hover {
 
 /* Stage 2: Header transformation (happens after 200ms delay) */
 .app-header.compact {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid #e9ecef;
-    padding: 12px 20px;
-    margin-bottom: 0;
-    text-align: center;
+    /* Keep header in normal flow, just reduce margins */
+    margin-bottom: 10px;
     /* Header container transforms smoothly */
-    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: margin-bottom 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app-header.compact h1 {
@@ -137,36 +126,20 @@ a:hover {
 
 /* Adjust main container when header is compact */
 .app-container.header-compact {
-    padding-top: 80px;
+    padding-top: 10px;
     transition: padding-top 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Mobile responsive adjustments for compact header */
 @media (max-width: 768px) {
-    .app-header.compact {
-        padding: 10px 16px;
-    }
-
     .app-header.compact h1 {
         font-size: 1.125rem;
-    }
-
-    .app-container.header-compact {
-        padding-top: 70px;
     }
 }
 
 @media (max-width: 480px) {
-    .app-header.compact {
-        padding: 8px 12px;
-    }
-
     .app-header.compact h1 {
         font-size: 1rem;
-    }
-
-    .app-container.header-compact {
-        padding-top: 60px;
     }
 }
 

@@ -3,9 +3,9 @@
  * Provides offline caching and performance optimizations
  */
 
-const CACHE_NAME = 'this-or-that-v1.0.2';
-const STATIC_CACHE_NAME = 'this-or-that-static-v1.0.2';
-const DYNAMIC_CACHE_NAME = 'this-or-that-dynamic-v1.0.2';
+const CACHE_NAME = 'this-or-that-v1.0.3';
+const STATIC_CACHE_NAME = 'this-or-that-static-v1.0.3';
+const DYNAMIC_CACHE_NAME = 'this-or-that-dynamic-v1.0.3';
 
 // Static assets to cache immediately
 const STATIC_ASSETS = [
