@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Header Transformation Test - This or That</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<style>
+		.test-container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.test-section {
+			margin-bottom: 40px;
+			padding: 20px;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+		}
+
+		.test-controls {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+			margin-bottom: 20px;
+		}
+
+		.test-info {
+			background-color: #f8f9fa;
+			padding: 16px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.demo-content {
+			height: 800px;
+			background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+			color: #666;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Main Application Container -->
+	<main class="app-container">
+
+		<!-- Header Section -->
+		<header class="app-header">
+			<h1>This or That?</h1>
+			<p class="app-description">Choose your preferred web design in each pair to discover your aesthetic
+				preferences.
+			</p>
+		</header>
+
+		<!-- Test Controls -->
+		<div class="test-container">
+			<div class="test-section">
+				<h2>Header Transformation Test</h2>
+				<div class="test-info">
+					<p><strong>Test Instructions:</strong></p>
+					<ul>
+						<li>Click "Transform to Compact" to simulate clicking "Start Discovering"</li>
+						<li>Click "Restore Original" to simulate going back to instructions</li>
+						<li>Scroll down to see how the compact header behaves with content</li>
+					</ul>
+				</div>
+
+				<div class="test-controls">
+					<button class="btn btn-primary" onclick="transformToCompact()">Transform to Compact</button>
+					<button class="btn btn-secondary" onclick="restoreOriginal()">Restore Original</button>
+					<button class="btn btn-secondary" onclick="toggleInstructions()">Toggle Instructions
+						Section</button>
+				</div>
+
+				<div id="status" class="test-info">
+					<strong>Status:</strong> Original header state
+				</div>
+			</div>
+
+			<!-- Instructions Section (for testing) -->
+			<section class="instructions-section" id="instructions-section">
+				<div class="instructions-container">
+					<h2>How to Use</h2>
+					<div class="instructions-grid">
+						<div class="instruction-item">
+							<div class="instruction-icon">⌨️</div>
+							<div class="instruction-content">
+								<h3>Keyboard Shortcuts</h3>
+								<p>Press <kbd>1</kbd> for left option, <kbd>2</kbd> for right option</p>
+							</div>
+						</div>
+						<div class="instruction-item">
+							<div class="instruction-icon">👆</div>
+							<div class="instruction-content">
+								<h3>Click or Tap</h3>
+								<p>Click or tap on your preferred design from each pair</p>
+							</div>
+						</div>
+					</div>
+					<div class="instructions-actions">
+						<button class="btn btn-primary" onclick="simulateStartDiscovering()">Start Discovering</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- Demo Content -->
+			<div class="test-section">
+				<h3>Demo Content Area</h3>
+				<p>This content demonstrates how the page behaves with the compact header. When the header is in compact
+					mode, it should be fixed at the top and the content should have proper spacing.</p>
+
+				<div class="demo-content">
+					<div>
+						<h4>Scroll Test Area</h4>
+						<p>This area helps test the fixed header behavior</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+
+	<script>
+		function updateStatus(message) {
+			document.getElementById('status').innerHTML = `<strong>Status:</strong> ${message}`;
+		}
+
+		function transformToCompact() {
+			const appHeader = document.querySelector('.app-header');
+			const appContainer = document.querySelector('.app-container');
+
+			if (appHeader && appContainer) {
+				// Stage 1: Start description fade out (200ms)
+				appHeader.classList.add('stage-1');
+				updateStatus('Stage 1: Description fading out (200ms)...');
+
+				// Stage 2: After 200ms, transform header to compact mode
+				setTimeout(() => {
+					appHeader.classList.add('compact');
+					appContainer.classList.add('header-compact');
+					updateStatus('Stage 2: Header transforming to compact mode (300ms)...');
+
+					// Clean up stage-1 class after transformation is complete
+					setTimeout(() => {
+						appHeader.classList.remove('stage-1');
+						updateStatus('Header transformation complete - compact mode active');
+					}, 300);
+				}, 200);
+			}
+		}
+
+		function restoreOriginal() {
+			const appHeader = document.querySelector('.app-header');
+			const appContainer = document.querySelector('.app-container');
+
+			if (appHeader) {
+				appHeader.classList.remove('compact', 'stage-1');
+			}
+
+			if (appContainer) {
+				appContainer.classList.remove('header-compact');
+			}
+
+			updateStatus('Header restored to original state');
+		}
+
+		function toggleInstructions() {
+			const instructionsSection = document.getElementById('instructions-section');
+			if (instructionsSection.style.display === 'none') {
+				instructionsSection.style.display = 'block';
+				updateStatus('Instructions section shown');
+			} else {
+				instructionsSection.style.display = 'none';
+				updateStatus('Instructions section hidden');
+			}
+		}
+
+		function simulateStartDiscovering() {
+			// Hide instructions
+			const instructionsSection = document.getElementById('instructions-section');
+			if (instructionsSection) {
+				instructionsSection.style.display = 'none';
+			}
+
+			// Transform header with staged animation
+			transformToCompact();
+		}
+
+		// Initialize
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('🧪 Header transformation test loaded');
+			updateStatus('Original header state - Ready for testing');
+		});
+	</script>
+</body>
+
+</html>

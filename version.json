@@ -1,5 +1,5 @@
 {
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"name": "This or That - Design Preference Discovery",
 	"author": "Gray Ayer",
 	"website": "https://studiok40.com",
@@ -7,7 +7,7 @@
 	"description": "A web application for discovering design preferences through binary choices",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/your-username/this-or-that"
+		"url": "https://github.com/grayayer/this-or-that"
 	},
 	"changelog": "CHANGELOG.md",
 	"license": "MIT"
