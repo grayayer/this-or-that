@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const path = require('path');
 const readline = require('readline');
+const https = require('https');
+const http = require('http');
 
 class LandBookScraper {
 	constructor(options = {}) {
@@ -12,6 +14,7 @@ class LandBookScraper {
 			slowMo: options.slowMo || 100, // Add delay between actions
 			timeout: options.timeout || 30000,
 			maxItems: options.maxItems || 20, // Free account limit
+			downloadImages: options.downloadImages || false, // Download images locally
 			...options
 		};
 		this.scraped = [];
@@ -58,12 +61,123 @@ class LandBookScraper {
 			this.page.setDefaultTimeout(this.options.timeout);
 
 			console.log('✅ Browser initialized successfully');
+
+			// Ensure images directory exists
+			await this.ensureImagesDirectory();
+
 			return true;
 		} catch (error) {
 			console.error('❌ Failed to initialize browser:', error.message);
 			this.errors.push({ type: 'initialization', error: error.message });
 			return false;
 		}
+	}
+
+	/**
+	 * Ensures the images directory exists
+	 */
+	async ensureImagesDirectory() {
+		const imagesDir = path.join(__dirname, '..', 'data', 'images');
+		try {
+			await fs.access(imagesDir);
+		} catch (error) {
+			// Directory doesn't exist, create it
+			await fs.mkdir(imagesDir, { recursive: true });
+			console.log('📁 Created images directory:', imagesDir);
+		}
+	}
+
+	/**
+	 * Downloads an image from a URL and saves it locally
+	 * @param {string} imageUrl - The URL of the image to download
+	 * @param {string} designId - The design ID for naming the file
+	 * @returns {Promise<string|null>} - The local path or null if failed
+	 */
+	async downloadImage(imageUrl, designId) {
+		if (!imageUrl || !imageUrl.startsWith('http')) {
+			return null;
+		}
+
+		try {
+			// Extract filename from URL or create one
+			const urlParts = new URL(imageUrl);
+			let filename = path.basename(urlParts.pathname);
+
+			// If no filename or extension, create one
+			if (!filename || !filename.includes('.')) {
+				filename = `${designId}.webp`;
+			}
+
+			// Ensure we have a web-friendly extension
+			if (!filename.match(/\.(webp|jpg|jpeg|png)$/i)) {
+				filename = filename.replace(/\.[^.]*$/, '.webp');
+			}
+
+			const localPath = `/data/images/${filename}`;
+			const fullPath = path.join(__dirname, '..', 'data', 'images', filename);
+
+			// Check if file already exists
+			try {
+				await fs.access(fullPath);
+				console.log(`   📷 Image already exists: ${filename}`);
+				return localPath;
+			} catch (error) {
+				// File doesn't exist, proceed with download
+			}
+
+			// Download the image
+			const imageBuffer = await this.fetchImageBuffer(imageUrl);
+			if (!imageBuffer) {
+				return null;
+			}
+
+			// Save the image
+			await fs.writeFile(fullPath, imageBuffer);
+			console.log(`   📷 Downloaded image: ${filename}`);
+
+			return localPath;
+		} catch (error) {
+			console.error(`   ❌ Failed to download image ${imageUrl}:`, error.message);
+			return null;
+		}
+	}
+
+	/**
+	 * Fetches an image as a buffer
+	 * @param {string} url - The image URL
+	 * @returns {Promise<Buffer|null>} - The image buffer or null if failed
+	 */
+	async fetchImageBuffer(url) {
+		return new Promise((resolve) => {
+			const client = url.startsWith('https:') ? https : http;
+
+			const request = client.get(url, (response) => {
+				if (response.statusCode !== 200) {
+					console.error(`   ❌ HTTP ${response.statusCode} for ${url}`);
+					resolve(null);
+					return;
+				}
+
+				const chunks = [];
+				response.on('data', (chunk) => chunks.push(chunk));
+				response.on('end', () => {
+					const buffer = Buffer.concat(chunks);
+					resolve(buffer);
+				});
+			});
+
+			request.on('error', (error) => {
+				console.error(`   ❌ Request error for ${url}:`, error.message);
+				resolve(null);
+			});
+
+			// Set timeout
+			request.setTimeout(10000, () => {
+				request.destroy();
+				console.error(`   ❌ Timeout downloading ${url}`);
+				resolve(null);
+			});
+		});
 	}
 
 	async navigateToUrl(urlInfo) {
@@ -1062,10 +1176,24 @@ class LandBookScraper {
 			const id = this.generateUniqueId(rawData.websiteName, index);
 
 			// Use screenshot URL if available, fallback to thumbnail
-			const imageUrl = rawData.screenshotUrl || rawData.thumbnailUrl;
+			const originalImageUrl = rawData.screenshotUrl || rawData.thumbnailUrl;
 
-			if (!imageUrl) {
+			if (!originalImageUrl) {
 				throw new Error('No image URL available');
+			}
+
+			let finalImagePath = originalImageUrl;
+
+			// Download image locally if option is enabled
+			if (this.options.downloadImages) {
+				console.log(`   🔄 Downloading image for ${id}...`);
+				const localImagePath = await this.downloadImage(originalImageUrl, id);
+
+				if (localImagePath) {
+					finalImagePath = localImagePath;
+				} else {
+					console.log(`   ⚠️ Failed to download image, using original URL: ${originalImageUrl}`);
+				}
 			}
 
 			// Prepare tags object from scraped data
@@ -1111,7 +1239,7 @@ class LandBookScraper {
 			// Format according to schema
 			const formattedDesign = {
 				id: id,
-				image: imageUrl,
+				image: finalImagePath,
 				tags: cleanedTags
 			};
 

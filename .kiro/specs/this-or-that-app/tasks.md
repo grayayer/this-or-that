@@ -177,7 +177,14 @@
   - Create integration tests for end-to-end user flow
   - _Requirements: All requirements validation_
 
-- [ ] 17. Final integration and deployment preparation
+- [ ] 17. Expand the data set for the app
+  - Create larger data.json file, with at least 200 entries
+  - use the file data/2220-land-book-web-designs.html as the reference for this, with images likely already downloaded to the folder landingpage-full/Landbook - website design inspiration gallery_files/
+  - scrape the links for each entry so that the tags (such as color, typography, style, industry, etc) are also saved to the data.json file.
+  - if image files aren't already downloaded, download them so that the app loads the images locally rather than from land-book.com, which could violate CORS
+  - _Requirements: All requirements validation_
+
+- [ ] 18. Final integration and deployment preparation
   - Integrate all components and test complete user flow
   - Optimize for static site hosting (Netlify/Vercel/GitHub Pages)
   - Configure Content Security Policy and security headers

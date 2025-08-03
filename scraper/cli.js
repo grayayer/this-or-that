@@ -42,6 +42,7 @@ program
 	.option('--headless <boolean>', 'Run browser in headless mode', 'true')
 	.option('--timeout <number>', 'Request timeout in milliseconds', parseInt, 30000)
 	.option('--delay <number>', 'Delay between requests in milliseconds', parseInt, 1500)
+	.option('--download-images', 'Download images locally to /data/images/ directory')
 	.option('--log-level <level>', 'Logging level (debug, info, warn, error)', 'info')
 	.option('--log-file <path>', 'Log to file')
 	.option('--config <path>', 'Path to configuration file')
@@ -117,6 +118,7 @@ async function runScrapeCommand(options) {
 	if (options.headless !== undefined) config.browser.headless = options.headless === 'true';
 	if (options.timeout) config.browser.timeout = options.timeout;
 	if (options.delay) config.limits.requestDelay = options.delay;
+	if (options.downloadImages) config.downloadImages = true;
 	if (options.logLevel) config.logging.level = options.logLevel;
 	if (options.logFile) {
 		config.logging.logToFile = true;
@@ -183,6 +185,7 @@ async function runScrapeCommand(options) {
 	const scraper = new LandBookScraper({
 		...config.browser,
 		maxItems: config.limits.maxItems,
+		downloadImages: config.downloadImages || false,
 		logger: logger
 	});
 

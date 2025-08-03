@@ -5,6 +5,24 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-08-02
+
+### Added
+
+- **Local Image Download**: Enhanced scraper to download images locally to `/data/images/` directory
+- **Self-contained Application**: Eliminates external dependencies on Land-book CDN
+- **Image Download CLI Option**: Added `--download-images` flag to scraper CLI
+- **Automatic Directory Creation**: Scraper automatically creates images directory structure
+- **Fallback Support**: Uses original URLs if local download fails
+
+### Technical
+
+- Added `downloadImage()` and `fetchImageBuffer()` methods to scraper
+- Enhanced CLI with `--download-images` option
+- Updated image path processing to use local paths when available
+- Added comprehensive documentation and examples for image download feature
+- Created test script for image download functionality
+
 ## [1.0.3] - 2025-08-02
 
 ### Fixed

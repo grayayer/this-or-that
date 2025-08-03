@@ -12,6 +12,7 @@ A powerful and respectful web scraper for collecting design data from [Land-book
 - 📝 **Rich Metadata**: Extracts comprehensive design taxonomy and color palettes
 - 🔧 **Error Handling**: Robust error handling with detailed error reporting
 - 📦 **JSON Output**: Generates clean, validated JSON data ready for use
+- 📷 **Local Image Download**: Download images locally to eliminate external dependencies
 
 ## Installation
 
@@ -78,6 +79,7 @@ node cli.js scrape [options]
 - `-p, --platforms <platforms>` - Comma-separated list of platforms
 - `--colors <colors>` - Comma-separated list of color schemes
 - `-m, --max-items <number>` - Maximum items to scrape (default: 20)
+- `--download-images` - Download images locally to `/data/images/` directory
 - `-o, --output <path>` - Output file path (default: designs.json)
 - `--headless <boolean>` - Run browser in headless mode (default: true)
 - `--timeout <number>` - Request timeout in milliseconds (default: 30000)
@@ -262,6 +264,12 @@ Custom filter combination:
 npm run scrape -- --categories e-commerce,fashion --styles minimalist --colors light-colors --max-items 25
 ```
 
+Scrape with local image download:
+
+```bash
+npm run scrape -- --preset minimal-portfolios --download-images --max-items 10
+```
+
 ### Advanced Examples
 
 Scrape with custom configuration and logging:
@@ -281,6 +289,47 @@ Generate URL for manual inspection:
 ```bash
 npm run validate-url -- --categories portfolio --styles minimalist,bold-typography
 ```
+
+## Image Download Feature
+
+By default, the scraper uses external URLs from Land-book's CDN:
+
+```json
+{
+  "id": "design_001",
+  "image": "https://cdn.land-book.com/website/81953/dbee8d92079439b2-www-hyperbolic-ai.webp?w=800&q=85&f=webp",
+  "tags": { ... }
+}
+```
+
+With the `--download-images` flag, images are downloaded locally:
+
+```json
+{
+  "id": "design_001",
+  "image": "/data/images/dbee8d92079439b2-www-hyperbolic-ai.webp",
+  "tags": { ... }
+}
+```
+
+### Benefits of Local Images
+
+- **Self-contained**: No external dependencies
+- **Faster loading**: Local file access
+- **Offline support**: Works without internet
+- **Consistent availability**: Images won't disappear if external URLs change
+
+### Usage
+
+```bash
+# Download images locally
+npm run scrape -- --download-images --max-items 20
+
+# Test image download functionality
+node test-image-download.js
+```
+
+Images are saved to `/data/images/` directory and automatically organized by filename.
 
 ## Output Format
 
