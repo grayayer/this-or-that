@@ -70,7 +70,7 @@ a:hover {
 .app-header {
     text-align: center;
     margin-bottom: 40px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* No transition on the container itself - we'll control individual elements */
 }
 
 .app-header h1 {
@@ -78,7 +78,8 @@ a:hover {
     font-weight: 700;
     margin-bottom: 12px;
     color: #1a1a1a;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* H1 transitions will be controlled by animation states */
+    transition: none;
 }
 
 .app-description {
@@ -86,10 +87,21 @@ a:hover {
     color: #666666;
     max-width: 600px;
     margin: 0 auto;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    height: auto;
+    overflow: hidden;
+    /* Description fades out first - 200ms */
+    transition: opacity 200ms ease-out, height 200ms ease-out, margin 200ms ease-out;
 }
 
-/* Compact Header State - After Start Discovering */
+/* Stage 1: Description fade out (happens immediately) */
+.app-header.stage-1 .app-description {
+    opacity: 0;
+    height: 0;
+    margin: 0 auto;
+}
+
+/* Stage 2: Header transformation (happens after 200ms delay) */
 .app-header.compact {
     position: fixed;
     top: 0;
@@ -102,7 +114,9 @@ a:hover {
     border-bottom: 1px solid #e9ecef;
     padding: 12px 20px;
     margin-bottom: 0;
-    text-align: left;
+    text-align: center;
+    /* Header container transforms smoothly */
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -111,6 +125,10 @@ a:hover {
     font-weight: 600;
     margin-bottom: 0;
     color: #333333;
+    /* H1 transforms with delay and smooth easing */
+    transition: font-size 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                margin 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app-header.compact .app-description {
@@ -120,6 +138,7 @@ a:hover {
 /* Adjust main container when header is compact */
 .app-container.header-compact {
     padding-top: 80px;
+    transition: padding-top 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Mobile responsive adjustments for compact header */

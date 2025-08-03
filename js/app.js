@@ -1803,7 +1803,7 @@ function showInstructionsSection() {
 	const appContainer = document.querySelector('.app-container');
 
 	if (appHeader) {
-		appHeader.classList.remove('compact');
+		appHeader.classList.remove('compact', 'stage-1');
 	}
 
 	if (appContainer) {
@@ -1819,7 +1819,7 @@ function showInstructionsSection() {
 }
 
 /**
- * Hides the instructions section and transforms header to compact mode
+ * Hides the instructions section and transforms header to compact mode with staged animation
  */
 function hideInstructionsSection() {
 	const instructionsSection = document.getElementById('instructions-section');
@@ -1827,16 +1827,24 @@ function hideInstructionsSection() {
 		instructionsSection.style.display = 'none';
 	}
 
-	// Transform header to compact mode
+	// Get header elements
 	const appHeader = document.querySelector('.app-header');
 	const appContainer = document.querySelector('.app-container');
 
-	if (appHeader) {
-		appHeader.classList.add('compact');
-	}
+	if (appHeader && appContainer) {
+		// Stage 1: Start description fade out (200ms)
+		appHeader.classList.add('stage-1');
 
-	if (appContainer) {
-		appContainer.classList.add('header-compact');
+		// Stage 2: After 200ms, transform header to compact mode
+		setTimeout(() => {
+			appHeader.classList.add('compact');
+			appContainer.classList.add('header-compact');
+
+			// Clean up stage-1 class after transformation is complete
+			setTimeout(() => {
+				appHeader.classList.remove('stage-1');
+			}, 300);
+		}, 200);
 	}
 
 	// Show timer and progress sections

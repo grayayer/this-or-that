@@ -137,15 +137,24 @@
 			const appHeader = document.querySelector('.app-header');
 			const appContainer = document.querySelector('.app-container');
 
-			if (appHeader) {
-				appHeader.classList.add('compact');
-			}
+			if (appHeader && appContainer) {
+				// Stage 1: Start description fade out (200ms)
+				appHeader.classList.add('stage-1');
+				updateStatus('Stage 1: Description fading out (200ms)...');
 
-			if (appContainer) {
-				appContainer.classList.add('header-compact');
-			}
+				// Stage 2: After 200ms, transform header to compact mode
+				setTimeout(() => {
+					appHeader.classList.add('compact');
+					appContainer.classList.add('header-compact');
+					updateStatus('Stage 2: Header transforming to compact mode (300ms)...');
 
-			updateStatus('Header transformed to compact mode (fixed at top)');
+					// Clean up stage-1 class after transformation is complete
+					setTimeout(() => {
+						appHeader.classList.remove('stage-1');
+						updateStatus('Header transformation complete - compact mode active');
+					}, 300);
+				}, 200);
+			}
 		}
 
 		function restoreOriginal() {
@@ -153,7 +162,7 @@
 			const appContainer = document.querySelector('.app-container');
 
 			if (appHeader) {
-				appHeader.classList.remove('compact');
+				appHeader.classList.remove('compact', 'stage-1');
 			}
 
 			if (appContainer) {
@@ -181,10 +190,8 @@
 				instructionsSection.style.display = 'none';
 			}
 
-			// Transform header
+			// Transform header with staged animation
 			transformToCompact();
-
-			updateStatus('Simulated "Start Discovering" - Instructions hidden, header compact');
 		}
 
 		// Initialize
