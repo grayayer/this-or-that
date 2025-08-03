@@ -1798,6 +1798,18 @@ function showInstructionsSection() {
 		instructionsSection.style.display = 'block';
 	}
 
+	// Restore header to original state
+	const appHeader = document.querySelector('.app-header');
+	const appContainer = document.querySelector('.app-container');
+
+	if (appHeader) {
+		appHeader.classList.remove('compact');
+	}
+
+	if (appContainer) {
+		appContainer.classList.remove('header-compact');
+	}
+
 	// Hide other sections
 	[timerSection, progressSection, selectionSection, loadingSection].forEach(section => {
 		if (section) {
@@ -1807,12 +1819,24 @@ function showInstructionsSection() {
 }
 
 /**
- * Hides the instructions section
+ * Hides the instructions section and transforms header to compact mode
  */
 function hideInstructionsSection() {
 	const instructionsSection = document.getElementById('instructions-section');
 	if (instructionsSection) {
 		instructionsSection.style.display = 'none';
+	}
+
+	// Transform header to compact mode
+	const appHeader = document.querySelector('.app-header');
+	const appContainer = document.querySelector('.app-container');
+
+	if (appHeader) {
+		appHeader.classList.add('compact');
+	}
+
+	if (appContainer) {
+		appContainer.classList.add('header-compact');
 	}
 
 	// Show timer and progress sections

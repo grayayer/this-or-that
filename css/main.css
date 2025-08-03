@@ -70,6 +70,7 @@ a:hover {
 .app-header {
     text-align: center;
     margin-bottom: 40px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app-header h1 {
@@ -77,6 +78,7 @@ a:hover {
     font-weight: 700;
     margin-bottom: 12px;
     color: #1a1a1a;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .app-description {
@@ -84,6 +86,69 @@ a:hover {
     color: #666666;
     max-width: 600px;
     margin: 0 auto;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Compact Header State - After Start Discovering */
+.app-header.compact {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px 20px;
+    margin-bottom: 0;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-header.compact h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #333333;
+}
+
+.app-header.compact .app-description {
+    display: none;
+}
+
+/* Adjust main container when header is compact */
+.app-container.header-compact {
+    padding-top: 80px;
+}
+
+/* Mobile responsive adjustments for compact header */
+@media (max-width: 768px) {
+    .app-header.compact {
+        padding: 10px 16px;
+    }
+
+    .app-header.compact h1 {
+        font-size: 1.125rem;
+    }
+
+    .app-container.header-compact {
+        padding-top: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-header.compact {
+        padding: 8px 12px;
+    }
+
+    .app-header.compact h1 {
+        font-size: 1rem;
+    }
+
+    .app-container.header-compact {
+        padding-top: 60px;
+    }
 }
 
 /* Instructions Section */
