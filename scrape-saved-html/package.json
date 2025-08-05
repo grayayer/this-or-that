@@ -1,0 +1,22 @@
+{
+	"name": "html-website-extractor",
+	"version": "1.0.0",
+	"description": "Extract website data from saved Land-book HTML files",
+	"main": "extract-websites.js",
+	"scripts": {
+		"extract": "node extract-websites.js",
+		"test": "node extract-websites.js health-coach.html test-output.json"
+	},
+	"dependencies": {
+		"jsdom": "^23.0.0",
+		"puppeteer": "^22.8.2"
+	},
+	"keywords": [
+		"html",
+		"scraping",
+		"landbook",
+		"extraction"
+	],
+	"author": "Gray Ayer",
+	"license": "MIT"
+}

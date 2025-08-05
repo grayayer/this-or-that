@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2025-08-01T17:34:37.003Z",
+    "generatedAt": "2025-08-03T21:46:29.526Z",
     "totalDesigns": 20,
     "source": "Land-book.com",
     "scraper": "LandBookScraper v1.0",
@@ -8,644 +8,25 @@
   },
   "designs": [
     {
-      "id": "design_runway-tools-for-hum_0_1754069677000_t0ap58i9w",
-      "image": "https://cdn.land-book.com/website/81886/e1520e8b019a339c-runwayml-com.webp",
+      "id": "design_douze-put-life-on-ic_0_1754257589524_0tp5gvu4i",
+      "image": "https://cdn.land-book.com/website/79574/0e67f40a99aebde6-drinkdouze-com.webp",
       "tags": {
         "style": [
-          "Cards",
-          "Claim this website"
-        ],
-        "industry": [
-          "AI",
-          "Design",
-          "Movie",
-          "Photography",
-          "Tech",
-          ",",
-          "AI, Design, Movie, Photography, Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#EDEEEF",
-          "#97A3BC",
-          "#6E798E",
-          "#979BA6",
-          "#525660",
-          "#BCC0CA",
-          "#AAB6CF",
-          "#727681",
-          "#111119",
-          "#525A6C"
-        ]
-      },
-      "title": "Runway | Tools for human imagination."
-    },
-    {
-      "id": "design_hoff-tienda-online-o_1_1754069677001_2w61zt78n",
-      "image": "https://cdn.land-book.com/website/81193/cba94c6e22096130-thehoffbrand-com.webp",
-      "tags": {
-        "style": [
+          "Animation",
           "Background Image",
           "Cards",
+          "Pastel Colors",
+          "People",
+          "Visible Borders",
           ",",
-          "Background Image, Cards",
-          "Claim this website"
+          "Claim this website",
+          "PRO"
         ],
         "industry": [
           "Ecommerce",
-          "Fashion",
-          ",",
-          "Ecommerce, Fashion"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Physical Product"
-        ],
-        "category": [
-          "Ecommerce"
-        ],
-        "platform": [
-          "Shopify"
-        ],
-        "colors": [
-          "#ECEBE8",
-          "#AC9780",
-          "#C68C5D",
-          "#4B2B1B",
-          "#A56D40",
-          "#7C3F55",
-          "#3C526B",
-          "#318460",
-          "#2B5947",
-          "#995117"
-        ]
-      },
-      "title": "HOFF | Tienda Online Oficial"
-    },
-    {
-      "id": "design_entrez-dans-un-nouve_2_1754069677001_b7vl9xbr6",
-      "image": "https://cdn.land-book.com/website/82337/63de221c571f04e9-www-monpetitplacement-fr.webp",
-      "tags": {
-        "style": [
-          "Big Footer",
-          "Bright Colors",
-          "Cards",
-          ",",
-          "Big Footer, Bright Colors, Cards",
-          "Claim this website",
-          "PRO"
-        ],
-        "industry": [
-          "Finance",
-          "Tech",
-          ",",
-          "Finance, Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Mobile App",
-          "Software",
-          "Web App",
-          ",",
-          "Mobile App, Software, Web App"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#EFF0ED",
-          "#93F56E",
-          "#BDF9A8",
-          "#CCF5C4",
-          "#7D9CB7",
-          "#4A5D35",
-          "#9A6C54",
-          "#2B6219",
-          "#903D22",
-          "#B59B3C"
-        ]
-      },
-      "title": "Entrez dans un nouveau monde de l’épargne ! | Mon Petit Placement"
-    },
-    {
-      "id": "design_hurry-up-have-fun-ev_3_1754069677001_uq2399ltw",
-      "image": "https://cdn.land-book.com/website/82192/8c0506891e275723-www-hurryupandhavefun-com.webp",
-      "tags": {
-        "style": [
-          "Big Type",
-          "Bright Colors",
-          "Pastel Colors",
-          ",",
-          "Big Type, Bright Colors, Pastel Colors",
-          "Claim this website",
-          "PRO"
-        ],
-        "industry": [
-          "Event"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Agency",
-          "Service",
-          ",",
-          "Agency, Service"
-        ],
-        "category": [
-          "Portfolio"
-        ],
-        "platform": [
-          "Webflow"
-        ],
-        "colors": [
-          "#FAF8F5",
-          "#D8C656",
-          "#6C92EB",
-          "#FB67A6",
-          "#7295D2",
-          "#492113",
-          "#ACC3E8",
-          "#6E8D08",
-          "#ECA8C5",
-          "#97A694"
-        ]
-      },
-      "title": "Hurry Up & Have Fun — Event Planning NYC"
-    },
-    {
-      "id": "design_miter-payroll-hr-exp_4_1754069677001_r923b1724",
-      "image": "https://cdn.land-book.com/website/81436/fdee41287046a87b-www-miter-com.webp",
-      "tags": {
-        "style": [
-          "Big Footer",
-          "Together"
-        ],
-        "industry": [
-          "HR",
-          "Tech",
-          ",",
-          "HR, Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [
-          "Webflow"
-        ],
-        "colors": [
-          "#FAF9F9",
-          "#C8C5C6",
-          "#621A1F",
-          "#A19C9D",
-          "#7E7A7B",
-          "#FDE4F3",
-          "#7A4F53",
-          "#F5DFFD",
-          "#7B1218",
-          "#6D1210"
-        ]
-      },
-      "title": "Miter | Payroll, HR, Expenses & Field Ops Software"
-    },
-    {
-      "id": "design_stack-asset-manageme_5_1754069677001_fjceao79g",
-      "image": "https://cdn.land-book.com/website/82097/4084f9d0a3850190-www-stack-vc.webp",
-      "tags": {
-        "style": [
-          "Animation",
-          "Parallax",
-          ",",
-          "Animation, Parallax",
-          "Claim this website"
-        ],
-        "industry": [
-          "Finance",
-          "Tech",
-          ",",
-          "Finance, Tech"
-        ],
-        "typography": [
-          "Serif"
-        ],
-        "type": [
-          "Agency",
-          "Service",
-          ",",
-          "Agency, Service"
-        ],
-        "category": [
-          "Portfolio"
-        ],
-        "platform": [
-          "Webflow"
-        ],
-        "colors": [
-          "#366077",
-          "#346176",
-          "#577C90",
-          "#779CB0",
-          "#547D90",
-          "#88C3DE",
-          "#99C3DD",
-          "#73A0B6",
-          "#DCE2F6",
-          "#79A8D9"
-        ]
-      },
-      "title": "Stack Asset Management"
-    },
-    {
-      "id": "design_cyphr-shaping-the-fu_6_1754069677001_uzeu7yksy",
-      "image": "https://cdn.land-book.com/website/82385/13432effcad3b682-www-cyphr-studio.webp",
-      "tags": {
-        "style": [
-          "Animation",
-          "Background Image",
-          "Parallax",
-          ",",
-          "Animation, Background Image, Parallax",
-          "Claim this website",
-          "PRO"
-        ],
-        "industry": [
-          "Music",
-          "Sport",
-          ",",
-          "Music, Sport"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Service"
-        ],
-        "category": [
-          "Other"
-        ],
-        "platform": [
-          "Webflow"
-        ],
-        "colors": [
-          "#E4E7E8",
-          "#0D0F11",
-          "#C4CCCD",
-          "#417A92",
-          "#4C7894",
-          "#7F9FB4",
-          "#2C5C5C",
-          "#DA8485",
-          "#893334",
-          "#9E2729"
-        ]
-      },
-      "title": "Cyphr — Shaping the future of fan experience"
-    },
-    {
-      "id": "design_streamline-modern-ne_7_1754069677001_l8425joaw",
-      "image": "https://cdn.land-book.com/website/82440/2f6404808c53fd0e-www-shadcnblocks-com.webp",
-      "tags": {
-        "style": [
-          "Pastel Colors",
-          "Shadcnblocks",
-          "Next.js",
-          "Tailwind",
-          "Next.js, Tailwind",
-          "PRO"
-        ],
-        "industry": [
-          "Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
-        ],
-        "category": [
-          "Template"
-        ],
-        "platform": [],
-        "colors": [
-          "#E6E6E5",
-          "#C5C4C3",
-          "#9F9F9E",
-          "#787A7A",
-          "#5D5E5E",
-          "#2F3332",
-          "#030200"
-        ]
-      },
-      "title": "Streamline - Modern Next.js Template"
-    },
-    {
-      "id": "design_latitude-sh-the-glob_8_1754069677001_bl731py3b",
-      "image": "https://cdn.land-book.com/website/82185/2ec8a294fa48df43-www-latitude-sh.webp",
-      "tags": {
-        "style": [
-          "Big Footer",
-          "Claim this website",
-          "PRO"
-        ],
-        "industry": [
-          "Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#F5F5F7",
-          "#131215",
-          "#302F32",
-          "#B9B8BB",
-          "#524F53",
-          "#787479",
-          "#131022",
-          "#C7D875",
-          "#879346",
-          "#5C6438"
-        ]
-      },
-      "title": "Latitude.sh | The global platform for bare metal - Latitude.sh"
-    },
-    {
-      "id": "design_hyperbolic-the-open-_9_1754069677002_6m032u5tp",
-      "image": "https://cdn.land-book.com/website/81953/dbee8d92079439b2-www-hyperbolic-ai.webp",
-      "tags": {
-        "style": [
-          "Animation",
-          "Illustration",
-          ",",
-          "Animation, Illustration",
-          "Claim this website"
-        ],
-        "industry": [
-          "AI",
-          "Tech",
-          ",",
-          "AI, Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#EBE7EA",
-          "#C7C2C8",
-          "#A39CA4",
-          "#7F7A81",
-          "#A09FB5",
-          "#5841A7",
-          "#5837B9",
-          "#262122",
-          "#C7987F",
-          "#5B78CD"
-        ]
-      },
-      "title": "Hyperbolic – The Open-Access AI Cloud"
-    },
-    {
-      "id": "design_tux-creative-house-p_10_1754069677002_78pk5c27w",
-      "image": "https://cdn.land-book.com/website/82177/9478931c6fbca178-tux-co.webp",
-      "tags": {
-        "style": [
-          "Background Video",
-          "Cards",
-          "Parallax",
-          "People",
-          ",",
-          "Background Video, Cards, Parallax, People",
-          "Claim this website",
-          "PRO"
-        ],
-        "industry": [
-          "Advertising",
-          "Design",
-          "Tech",
-          ",",
-          "Advertising, Design, Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Agency",
-          "Service",
-          ",",
-          "Agency, Service"
-        ],
-        "category": [
-          "Portfolio"
-        ],
-        "platform": [],
-        "colors": [
-          "#F6F5F5",
-          "#B9BBAE",
-          "#180F0B",
-          "#4A2A1D",
-          "#B59286",
-          "#293B52",
-          "#9E1F1B",
-          "#690905",
-          "#FFE47D",
-          "#FCB763"
-        ]
-      },
-      "title": "TUX CREATIVE HOUSE â¢ Plan / Make / Launch"
-    },
-    {
-      "id": "design_nitex_11_1754069677002_e5vy0ei9r",
-      "image": "https://cdn.land-book.com/website/82194/cdea5ed05739e86d-nitex-com.webp",
-      "tags": {
-        "style": [
-          "Background Image",
-          "Parallax",
-          "People",
-          ",",
-          "Background Image, Parallax, People",
-          "Claim this website"
-        ],
-        "industry": [
-          "Design",
-          "Fashion",
-          ",",
-          "Design, Fashion"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Service"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#FCFCFC",
-          "#0F1012",
-          "#1E4E69",
-          "#184057",
-          "#D8F81D",
-          "#4E2B18",
-          "#8AA4B3",
-          "#356319",
-          "#A5D58B",
-          "#071841"
-        ]
-      },
-      "title": "nitex"
-    },
-    {
-      "id": "design_turn-your-metal-wast_12_1754069677002_902iiqt5u",
-      "image": "https://cdn.land-book.com/website/82048/7cb9b1cd183adc05-sunmetalon-com.webp",
-      "tags": {
-        "style": [
-          "Big Footer",
-          "Big Type",
-          "Big Type in Footer",
-          ",",
-          "Big Footer, Big Type, Big Type in Footer",
-          "Milkshake",
-          "PRO"
-        ],
-        "industry": [
-          "Tech"
-        ],
-        "typography": [
-          "Display",
-          "Serif",
-          "Display, Serif"
-        ],
-        "type": [
-          "Service"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#1D1711",
-          "#39312A",
-          "#5A534D",
-          "#F4E9E2",
-          "#79716B",
-          "#CFC5BE",
-          "#A79D96",
-          "#8A7263",
-          "#BF967B",
-          "#9E765E"
-        ]
-      },
-      "title": "Turn your metal waste into revenue – Sun Metalon"
-    },
-    {
-      "id": "design_maison-luxury-lifest_13_1754069677002_fudesmvzc",
-      "image": "https://cdn.land-book.com/website/81987/33430483d0a431cf-maison-e-com.webp",
-      "tags": {
-        "style": [
-          "Big Footer",
-          "Big Type",
-          "Big Type in Footer",
-          "Black & White",
-          ",",
-          "Big Footer, Big Type, Big Type in Footer, Black & White",
-          "Claim this website"
-        ],
-        "industry": [
-          "Design",
-          "Fashion",
           "Food & Drinks",
           ",",
-          "Design, Fashion, Food & Drinks"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Resource"
-        ],
-        "category": [
-          "Blog"
-        ],
-        "platform": [],
-        "colors": [
-          "#FBFBFA",
-          "#373419",
-          "#9A9A9B",
-          "#C4C6C9",
-          "#525031",
-          "#524F1C",
-          "#221F0A",
-          "#413E0D",
-          "#681E1F",
-          "#941B1E"
-        ]
-      },
-      "title": "MAISON Ë: Luxury Lifestyle Magazine ▷ Culinary, Travel, Fashion"
-    },
-    {
-      "id": "design_reframe-beauty_14_1754069677002_v5i9ivm72",
-      "image": "https://cdn.land-book.com/website/82193/0874ae12b0699a87-reframebeauty-com.webp",
-      "tags": {
-        "style": [
-          "Cards",
-          "Claim this website",
-          "PRO"
-        ],
-        "industry": [
-          "Beauty",
-          "Ecommerce",
-          ",",
-          "Beauty, Ecommerce"
+          "Ecommerce, Food & Drinks"
         ],
         "typography": [
           "Serif"
@@ -660,38 +41,38 @@
           "Shopify"
         ],
         "colors": [
-          "#F9F7F6",
-          "#D0C2A8",
-          "#8DCABE",
-          "#120A0E",
-          "#9794D7",
-          "#714D3B",
-          "#D42856",
-          "#853F58",
-          "#94391D",
-          "#AD1E05"
+          "#F4EFEA",
+          "#121008",
+          "#3A3016",
+          "#C8C6BE",
+          "#241C07",
+          "#5B5136",
+          "#5E4E15",
+          "#483707",
+          "#80755B",
+          "#472813"
         ]
       },
-      "title": "Reframe Beauty"
+      "title": "Douze | Put Life on Ice"
     },
     {
-      "id": "design_accent-portfolio-tem_15_1754069677002_0lgspkrad",
-      "image": "https://cdn.land-book.com/website/82334/4da3c1252867bbe7-accent-template-framer-website.webp",
+      "id": "design_the-uncommon-founder_1_1754257589524_ho4dfi4sn",
+      "image": "https://cdn.land-book.com/website/78867/051655ce785a406f-www-theuncommonfounder-com.webp",
       "tags": {
         "style": [
-          "Cards",
-          "Pastel Colors",
+          "Animation",
+          "Big Footer",
+          "Big Type in Footer",
           ",",
-          "Cards, Pastel Colors",
+          "Animation, Big Footer, Big Type in Footer",
           "Bryn Taylor",
           "PRO"
         ],
         "industry": [
-          "Advertising",
-          "Design",
-          "Tech",
+          "Education",
+          "Finance",
           ",",
-          "Advertising, Design, Tech"
+          "Education, Finance"
         ],
         "typography": [
           "Sans Serif"
@@ -703,208 +84,890 @@
           "Personal, Service"
         ],
         "category": [
-          "Template"
+          "Landing"
         ],
         "platform": [
           "Framer"
         ],
         "colors": [
-          "#E3E4E7",
-          "#0F090E",
-          "#C7C2EF",
-          "#BFB8FA",
-          "#565179",
-          "#5D1F3C",
-          "#E17A74",
-          "#FB6E6D",
-          "#585186",
-          "#8A2548"
+          "#191919",
+          "#30312E",
+          "#52534C",
+          "#74756F",
+          "#95968F",
+          "#323424",
+          "#5B5E4D",
+          "#797C6B",
+          "#B6B7AE",
+          "#1E2111"
         ]
       },
-      "title": "Accent - Portfolio Template for Framer"
+      "title": "The Uncommon Founder Â· Coach and advisor"
     },
     {
-      "id": "design_mixpanel-digital-ana_16_1754069677002_3fnmpbrlv",
-      "image": "https://cdn.land-book.com/website/81523/777c8cd44d122a02-mixpanel-com.webp",
+      "id": "design_amp-the-ai-powered-f_2_1754257589524_edl16vv64",
+      "image": "https://cdn.land-book.com/website/73216/fbd9a484bb112d30-ampfit-com.webp",
       "tags": {
         "style": [
           "Big Footer",
-          "Bright Colors",
+          "Big Type in Footer",
+          "Cards",
           ",",
-          "Big Footer, Bright Colors",
+          "Big Footer, Big Type in Footer, Cards",
           "Claim this website"
         ],
         "industry": [
-          "Marketing",
+          "Ecommerce",
+          "Health & Fitness",
+          "Sport",
           "Tech",
           ",",
-          "Marketing, Tech"
+          "Ecommerce, Health & Fitness, Sport, Tech"
         ],
         "typography": [
           "Sans Serif"
         ],
         "type": [
+          "Mobile App",
+          "Physical Product",
           "Software",
-          "Web App",
           ",",
-          "Software, Web App"
+          "Mobile App, Physical Product, Software"
         ],
         "category": [
           "Landing"
         ],
-        "platform": [],
+        "platform": [
+          "Shopify"
+        ],
         "colors": [
-          "#F7F5F7",
-          "#1C0C3D",
-          "#6D5EC2",
-          "#A292B9",
-          "#302173",
-          "#5D4DB6",
-          "#D97D7A",
-          "#7459E4",
-          "#F6BA62",
-          "#D28D63"
+          "#FDFDFD",
+          "#5A5352",
+          "#80746F",
+          "#35302E",
+          "#1D1918",
+          "#A29491",
+          "#8A7464",
+          "#B19683",
+          "#957059",
+          "#B7917C"
         ]
       },
-      "title": "Mixpanel - Digital Analytics Platform"
+      "title": "amp - the AI-powered fitness machine made for modern life"
     },
     {
-      "id": "design_moment-fixed-income-_17_1754069677002_jfoigle9j",
-      "image": "https://cdn.land-book.com/website/81466/15300ac67f238c9f-moment-com.webp",
+      "id": "design_spot-insurance-desig_3_1754257589524_wsmhqq56d",
+      "image": "https://cdn.land-book.com/website/70266/a075c9e494d8bb9b-www-getspot-com.webp",
       "tags": {
         "style": [
-          "Animation",
-          "Black & White",
-          ",",
-          "Animation, Black & White",
-          "Vova Vindar",
-          "PRO"
-        ],
-        "industry": [
-          "Finance",
-          "Tech",
-          ",",
-          "Finance, Tech"
-        ],
-        "typography": [
-          "Sans Serif"
-        ],
-        "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
-        ],
-        "category": [
-          "Landing"
-        ],
-        "platform": [],
-        "colors": [
-          "#F2F2F2",
-          "#C4C4C4",
-          "#9D9D9D",
-          "#7F7F7F",
-          "#303332",
-          "#616161",
-          "#191F1D"
-        ]
-      },
-      "title": "Moment | Fixed Income Trading and Data for Wealth Platforms"
-    },
-    {
-      "id": "design_liveblocks-unlock-co_18_1754069677002_6drgstdk5",
-      "image": "https://cdn.land-book.com/website/61893/84fcece8c47d67ff-liveblocks-io.webp",
-      "tags": {
-        "style": [
-          "Animation",
+          "Background Image",
           "Big Footer",
-          "Black & White",
-          "Cards",
+          "People",
           ",",
-          "Animation, Big Footer, Black & White, Cards",
+          "Background Image, Big Footer, People",
           "Claim this website",
           "PRO"
         ],
         "industry": [
-          "AI",
-          "Tech",
+          "Finance",
+          "Health & Fitness",
           ",",
-          "AI, Tech"
+          "Finance, Health & Fitness"
         ],
         "typography": [
           "Sans Serif"
         ],
         "type": [
-          "Software",
-          "Web App",
-          ",",
-          "Software, Web App"
+          "Service"
         ],
         "category": [
           "Landing"
         ],
-        "platform": [],
+        "platform": [
+          "Webflow"
+        ],
         "colors": [
-          "#080407",
-          "#F4F3F4",
-          "#2A0A19",
-          "#4C2738",
-          "#AF8D9E",
-          "#956C81",
-          "#754F60",
-          "#551F35",
-          "#3E061F",
-          "#763853"
+          "#FAFBFA",
+          "#13120A",
+          "#3C3A26",
+          "#3C3D31",
+          "#524E39",
+          "#E3F52A",
+          "#E5EA5A",
+          "#6A1407",
+          "#9B2619",
+          "#4B5413"
         ]
       },
-      "title": "Liveblocks | Unlock collaboration in your product"
+      "title": "Spot Insurance | Designed for life in motion."
     },
     {
-      "id": "design_charter-modern-next-_19_1754069677002_jga0uo8v1",
-      "image": "https://cdn.land-book.com/website/82277/2d58d91d3b16be39-www-shadcnblocks-com.webp",
+      "id": "design_digital-product-desi_4_1754257589525_hhgq3gwu8",
+      "image": "https://cdn.land-book.com/website/67346/24ea1d689a3d74dc-www-victors-life.webp",
       "tags": {
         "style": [
-          "Gradient",
-          "Shadcnblocks",
-          "Next.js",
-          "Tailwind",
-          "Next.js, Tailwind",
+          "Animation",
+          "Parallax",
+          "Black & White",
+          ",",
+          "Animation, Parallax, Black & White",
+          "Victor Vorontsov",
           "PRO"
         ],
         "industry": [
-          "Finance",
+          "Design",
           "Tech",
           ",",
-          "Finance, Tech"
+          "Design, Tech"
         ],
         "typography": [
           "Sans Serif"
         ],
         "type": [
           "Service",
-          "Software",
-          "Web App",
+          "Personal",
           ",",
-          "Service, Software, Web App"
+          "Service, Personal"
         ],
         "category": [
-          "Template"
+          "Portfolio"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#EAE8E7",
+          "#B29475",
+          "#7C491D",
+          "#BB9066",
+          "#5171D0",
+          "#371203",
+          "#F6BD68",
+          "#1C2C8C",
+          "#1D3FB5",
+          "#7291CB"
+        ]
+      },
+      "title": "Digital Product Designer & Creative Director | 14 Years of UX Expertise | Webflow Developer"
+    },
+    {
+      "id": "design_life-time-healthy-wa_5_1754257589525_kvaansdbq",
+      "image": "https://cdn.land-book.com/website/65607/5ecd37e0959c253f-www-lifetime-life.webp",
+      "tags": {
+        "style": [
+          "People",
+          "Big Footer",
+          "Background Video",
+          ",",
+          "People, Big Footer, Background Video",
+          "Claim this website"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Tech",
+          "Furniture & Interiors",
+          "Real Estate",
+          ",",
+          "Health & Fitness, Tech, Furniture & Interiors, Real Estate"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Service",
+          "Software",
+          ",",
+          "Mobile App, Service, Software"
+        ],
+        "category": [
+          "Landing"
         ],
         "platform": [],
         "colors": [
-          "#F4F4F9",
-          "#22207F",
-          "#110F68",
-          "#797B86",
-          "#0B0A4D",
-          "#C5C3EE",
-          "#0D0C44",
-          "#626297",
-          "#504B72",
-          "#1305BA"
+          "#F1E9E6",
+          "#C7BFBE",
+          "#181514",
+          "#A39995",
+          "#3A3433",
+          "#7B7470",
+          "#5E5855",
+          "#A69587",
+          "#758190",
+          "#837465"
         ]
       },
-      "title": "Charter - Modern Next.js Template"
+      "title": "Life Time Healthy Way of Life | Join Life Time"
+    },
+    {
+      "id": "design_spectrum-life-full-s_6_1754257589525_hf5xh6g67",
+      "image": "https://cdn.land-book.com/website/64295/20c16f4ebadc9b54-www-spectrum-life.webp",
+      "tags": {
+        "style": [
+          "Big Type",
+          "Parallax",
+          "People",
+          "Big Footer",
+          "Big Type in Footer",
+          ",",
+          "Claim this website",
+          "PRO"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Education",
+          ",",
+          "Health & Fitness, Education"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Service",
+          "Agency",
+          ",",
+          "Service, Agency"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "WordPress"
+        ],
+        "colors": [
+          "#6B55FD",
+          "#E1DDFC",
+          "#E2DAFE",
+          "#F5C1D4",
+          "#131013",
+          "#272180",
+          "#631919",
+          "#8C7DDF",
+          "#282B6B",
+          "#3C92EA"
+        ]
+      },
+      "title": "Spectrum.Life | Full spectrum care, for a full spectrum life."
+    },
+    {
+      "id": "design_kin-a-personal-ai-fo_7_1754257589525_bvs8nff99",
+      "image": "https://cdn.land-book.com/website/64799/9ab56d2e00746dd9-mykin-ai.webp",
+      "tags": {
+        "style": [
+          "Animation",
+          "Parallax",
+          "Pastel Colors",
+          ",",
+          "Animation, Parallax, Pastel Colors",
+          "Claim this website",
+          "PRO"
+        ],
+        "industry": [
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Software",
+          ",",
+          "Mobile App, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#F3EBEB",
+          "#D0C8C8",
+          "#A59E9D",
+          "#7E7776",
+          "#F6E8D6",
+          "#55504E",
+          "#363130",
+          "#16100F",
+          "#6E4C44",
+          "#4A2B23"
+        ]
+      },
+      "title": "Kin - A personal AI for your private life."
+    },
+    {
+      "id": "design_bring-your-story-to-_8_1754257589525_qyd94lnf2",
+      "image": "https://cdn.land-book.com/website/60437/bedd87eb38772451-www-epidemicsound-com.webp",
+      "tags": {
+        "style": [
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "3D",
+          ",",
+          "Big Footer, Cards, Pastel Colors, 3D",
+          "Claim this website"
+        ],
+        "industry": [
+          "Tech",
+          "Music",
+          ",",
+          "Tech, Music"
+        ],
+        "typography": [
+          "Serif",
+          "Sans Serif",
+          "Serif, Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Web App",
+          "Resource",
+          "Software",
+          ",",
+          "Mobile App, Web App, Resource, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#62503C",
+          "#1A1311",
+          "#704B33",
+          "#4D2B18",
+          "#6F471F",
+          "#FDEBD7",
+          "#172D68",
+          "#641A15",
+          "#CD4022",
+          "#00125F"
+        ]
+      },
+      "title": "Bring your story to life | Music & SFX for videos | Epidemic Sound"
+    },
+    {
+      "id": "design_simple-things-the-ne_9_1754257589525_p7mz6ttnz",
+      "image": "https://cdn.land-book.com/website/58613/e324d8ff88b3b46b-simple-things-framer-website.webp",
+      "tags": {
+        "style": [
+          "Parallax",
+          "Background Image",
+          "Pastel Colors",
+          "Big Type in Footer",
+          ",",
+          "Parallax, Background Image, Pastel Colors, Big Type in Footer",
+          "Off The Wall"
+        ],
+        "industry": [
+          "Beauty"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Other"
+        ],
+        "platform": [
+          "Framer"
+        ],
+        "colors": [
+          "#F7EFE7",
+          "#3B2B1D",
+          "#201711",
+          "#6E482F",
+          "#2A1C0F",
+          "#604A32",
+          "#4B2F1A",
+          "#34261F",
+          "#B09B82",
+          "#E5B085"
+        ]
+      },
+      "title": "Simple-Things | The Necessities For Everyday Simple Life"
+    },
+    {
+      "id": "design_wand-bring-your-draw_10_1754257589525_6exn6txa6",
+      "image": "https://cdn.land-book.com/website/54327/58b39f41410e95bd-www-wand-app.webp",
+      "tags": {
+        "style": [
+          "Animation",
+          "Background Image",
+          "Illustration",
+          "Cards",
+          ",",
+          "Animation, Background Image, Illustration, Cards",
+          "Claim this website"
+        ],
+        "industry": [
+          "Design",
+          "Tech",
+          ",",
+          "Design, Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Beta",
+          "Software",
+          ",",
+          "Mobile App, Beta, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#171311",
+          "#96A479",
+          "#A6C073",
+          "#94AA64",
+          "#7F7354",
+          "#69573D",
+          "#90B45E",
+          "#2578C6",
+          "#3C7F98",
+          "#1F6DFE"
+        ]
+      },
+      "title": "Wand – Bring your drawings to life."
+    },
+    {
+      "id": "design_victor-vorontsov-pro_11_1754257589525_da4cmst54",
+      "image": "https://cdn.land-book.com/website/53675/2d8368f531286228-www-victors-life.webp",
+      "tags": {
+        "style": [
+          "Flat Design",
+          "Background Image",
+          "Cards",
+          ",",
+          "Flat Design, Background Image, Cards",
+          "Victor Vorontsov"
+        ],
+        "industry": [
+          "Design",
+          "Tech",
+          ",",
+          "Design, Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Service",
+          "Personal",
+          ",",
+          "Service, Personal"
+        ],
+        "category": [
+          "Portfolio"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#F2F1F2",
+          "#0B9544",
+          "#1EAA58",
+          "#F1481F",
+          "#DE4C22",
+          "#F14818",
+          "#2A824F",
+          "#CAF0CF",
+          "#FFD0BC",
+          "#05631F"
+        ]
+      },
+      "title": "Victor Vorontsov  /  Product Designer - Branding - Web - Mobile - Print"
+    },
+    {
+      "id": "design_find-your-life-s-wor_12_1754257589525_yi3jprvq3",
+      "image": "https://cdn.land-book.com/website/52992/9ec6ee0afcab3d1f-www-useparallel-com.webp",
+      "tags": {
+        "style": [
+          "Animation",
+          "People",
+          "Big Footer",
+          "Background Image",
+          "Cards",
+          "Big Type in Footer",
+          "Visible Borders",
+          ",",
+          "Claim this website"
+        ],
+        "industry": [
+          "HR",
+          "Tech",
+          ",",
+          "HR, Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Web App",
+          "Software",
+          ",",
+          "Mobile App, Web App, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#F8F7F5",
+          "#191513",
+          "#C8C6C3",
+          "#35322F",
+          "#797775",
+          "#22354B",
+          "#40556D",
+          "#B29E86",
+          "#E7EE62",
+          "#575E1F"
+        ]
+      },
+      "title": "Find your life's work."
+    },
+    {
+      "id": "design_todoist-a-to-do-list_13_1754257589525_4kijdv0ao",
+      "image": "https://cdn.land-book.com/website/53097/54c672f9aefeabb6-todoist-com.webp",
+      "tags": {
+        "style": [
+          "Animation",
+          "Parallax",
+          "Illustration",
+          "Pastel Colors",
+          ",",
+          "Animation, Parallax, Illustration, Pastel Colors",
+          "Claim this website"
+        ],
+        "industry": [
+          "Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Web App",
+          "OS App",
+          "Software",
+          ",",
+          "Mobile App, Web App, OS App, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#FAF7F6",
+          "#C4C2C2",
+          "#9A9997",
+          "#B75953",
+          "#DD8683",
+          "#DB9A91",
+          "#E2A197",
+          "#C34F46",
+          "#C65554",
+          "#B15445"
+        ]
+      },
+      "title": "Todoist | A To-Do List to Organize Your Work & Life"
+    },
+    {
+      "id": "design_swag-the-all-in-one-_14_1754257589525_vjx71udei",
+      "image": "https://cdn.land-book.com/website/52831/c2cabf80f76bcc93-swagapp-com.webp",
+      "tags": {
+        "style": [
+          "Animation",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          ",",
+          "Animation, Big Footer, Cards, Pastel Colors",
+          "Claim this website",
+          "PRO"
+        ],
+        "industry": [
+          "HR",
+          "Tech",
+          "Finance",
+          ",",
+          "HR, Tech, Finance"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Software",
+          ",",
+          "Mobile App, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [
+          "WordPress"
+        ],
+        "colors": [
+          "#F9F0FD",
+          "#3D195C",
+          "#3B214E",
+          "#B383DD",
+          "#D1BBE1",
+          "#300C4F",
+          "#B682E9",
+          "#9568BD",
+          "#4A281B",
+          "#AD9683"
+        ]
+      },
+      "title": "Swag: The All-in-one Superapp For Smarter Work, Career & Life."
+    },
+    {
+      "id": "design_making-life-smell-re_15_1754257589526_b45af1lxu",
+      "image": "https://cdn.land-book.com/website/50189/23d94b219a5ee281-dedcool-com.webp",
+      "tags": {
+        "style": [
+          "Animation",
+          "Flat Design",
+          "Cards",
+          "Pastel Colors",
+          "Visible Borders",
+          ",",
+          "ilovecreatives Studio"
+        ],
+        "industry": [
+          "Beauty",
+          "Ecommerce",
+          ",",
+          "Beauty, Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Ecommerce"
+        ],
+        "platform": [
+          "Shopify"
+        ],
+        "colors": [
+          "#EFEEF1",
+          "#679EB4",
+          "#160704",
+          "#4B8399",
+          "#B59F63",
+          "#607393",
+          "#485778",
+          "#425988",
+          "#445190",
+          "#CD4E19"
+        ]
+      },
+      "title": "Making life smell really good. GENDERLESS + VEGAN + NON TOXIC – DedCool"
+    },
+    {
+      "id": "design_acid-league-add-life_16_1754257589526_qfjlbcnm5",
+      "image": "https://cdn.land-book.com/website/48146/840db797c291b944-acidleague-com.webp",
+      "tags": {
+        "style": [
+          "Flat Design",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "Big Type in Footer",
+          "Visible Borders",
+          ",",
+          "Claim this website"
+        ],
+        "industry": [
+          "Food & Drinks",
+          "Ecommerce",
+          ",",
+          "Food & Drinks, Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Ecommerce"
+        ],
+        "platform": [
+          "Squarespace"
+        ],
+        "colors": [
+          "#FAF9F8",
+          "#949DE5",
+          "#130C0A",
+          "#747EC1",
+          "#8F3636",
+          "#6D1C20",
+          "#A32322",
+          "#C84743",
+          "#9D2C34",
+          "#C94E56"
+        ]
+      },
+      "title": "Acid League | Add life to your cooking."
+    },
+    {
+      "id": "design_sonos-radio-original_17_1754257589526_cfav62kz0",
+      "image": "https://cdn.land-book.com/website/46190/86b7bc26def60250-radio-sonos-com.webp",
+      "tags": {
+        "style": [
+          "Flat Design",
+          "Background Image",
+          "Cards",
+          ",",
+          "Flat Design, Background Image, Cards",
+          "Claim this website"
+        ],
+        "industry": [
+          "Tech",
+          "Music",
+          ",",
+          "Tech, Music"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Mobile App",
+          "Physical Product",
+          "OS App",
+          "Software",
+          ",",
+          "Mobile App, Physical Product, OS App, Software"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#F6F2F2",
+          "#312E30",
+          "#525254",
+          "#181517",
+          "#9F9B9C",
+          "#7A7778",
+          "#9D6758",
+          "#E18541",
+          "#D39061",
+          "#370800"
+        ]
+      },
+      "title": "Sonos Radio | Original music stations and shows for all of life's moments"
+    },
+    {
+      "id": "design_life-at-frost_18_1754257589526_6qwlmdlsk",
+      "image": "https://cdn.land-book.com/website/45833/1ce932d449c3947f-life-frostdesigngroup-com.webp",
+      "tags": {
+        "style": [
+          "Big Type",
+          "Flat Design",
+          "Illustration",
+          ",",
+          "Big Type, Flat Design, Illustration",
+          "Frost Design & Consulting Group",
+          "PRO"
+        ],
+        "industry": [
+          "Design",
+          "Tech",
+          ",",
+          "Design, Tech"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Service",
+          "Agency",
+          ",",
+          "Service, Agency"
+        ],
+        "category": [
+          "Portfolio"
+        ],
+        "platform": [
+          "Webflow"
+        ],
+        "colors": [
+          "#0A0708",
+          "#F9F8F8",
+          "#F6C70F",
+          "#7355EA",
+          "#D24C21",
+          "#2E5E51",
+          "#27613B",
+          "#B69737",
+          "#485B13",
+          "#6E1D08"
+        ]
+      },
+      "title": "Life at Frost"
+    },
+    {
+      "id": "design_nuro-on-a-mission-to_19_1754257589526_nxp0qje02",
+      "image": "https://cdn.land-book.com/website/45622/e49a3e22395572ba-www-nuro-ai.webp",
+      "tags": {
+        "style": [
+          "Background Image",
+          "Cards",
+          "3D",
+          ",",
+          "Background Image, Cards, 3D",
+          "Claim this website"
+        ],
+        "industry": [
+          "Design",
+          "Tech",
+          "Nature",
+          "Automotive",
+          ",",
+          "Design, Tech, Nature, Automotive"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Physical Product"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "#F8F6F6",
+          "#A19C98",
+          "#C0BEBE",
+          "#1A1510",
+          "#3B341F",
+          "#58513A",
+          "#A89C86",
+          "#A497DE",
+          "#8574D5",
+          "#B15D21"
+        ]
+      },
+      "title": "Nuro - On a mission to better everyday life through robotics. | Nuro"
     }
   ]
 }

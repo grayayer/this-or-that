@@ -2,6 +2,8 @@ const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const path = require('path');
 const readline = require('readline');
+const https = require('https');
+const http = require('http');
 
 class LandBookScraper {
 	constructor(options = {}) {
@@ -12,6 +14,7 @@ class LandBookScraper {
 			slowMo: options.slowMo || 100, // Add delay between actions
 			timeout: options.timeout || 30000,
 			maxItems: options.maxItems || 20, // Free account limit
+			downloadImages: options.downloadImages || false, // Download images locally
 			...options
 		};
 		this.scraped = [];
@@ -58,12 +61,123 @@ class LandBookScraper {
 			this.page.setDefaultTimeout(this.options.timeout);
 
 			console.log('✅ Browser initialized successfully');
+
+			// Ensure images directory exists
+			await this.ensureImagesDirectory();
+
 			return true;
 		} catch (error) {
 			console.error('❌ Failed to initialize browser:', error.message);
 			this.errors.push({ type: 'initialization', error: error.message });
 			return false;
 		}
+	}
+
+	/**
+	 * Ensures the images directory exists
+	 */
+	async ensureImagesDirectory() {
+		const imagesDir = path.join(__dirname, '..', 'data', 'images');
+		try {
+			await fs.access(imagesDir);
+		} catch (error) {
+			// Directory doesn't exist, create it
+			await fs.mkdir(imagesDir, { recursive: true });
+			console.log('📁 Created images directory:', imagesDir);
+		}
+	}
+
+	/**
+	 * Downloads an image from a URL and saves it locally
+	 * @param {string} imageUrl - The URL of the image to download
+	 * @param {string} designId - The design ID for naming the file
+	 * @returns {Promise<string|null>} - The local path or null if failed
+	 */
+	async downloadImage(imageUrl, designId) {
+		if (!imageUrl || !imageUrl.startsWith('http')) {
+			return null;
+		}
+
+		try {
+			// Extract filename from URL or create one
+			const urlParts = new URL(imageUrl);
+			let filename = path.basename(urlParts.pathname);
+
+			// If no filename or extension, create one
+			if (!filename || !filename.includes('.')) {
+				filename = `${designId}.webp`;
+			}
+
+			// Ensure we have a web-friendly extension
+			if (!filename.match(/\.(webp|jpg|jpeg|png)$/i)) {
+				filename = filename.replace(/\.[^.]*$/, '.webp');
+			}
+
+			const localPath = `/data/images/${filename}`;
+			const fullPath = path.join(__dirname, '..', 'data', 'images', filename);
+
+			// Check if file already exists
+			try {
+				await fs.access(fullPath);
+				console.log(`   📷 Image already exists: ${filename}`);
+				return localPath;
+			} catch (error) {
+				// File doesn't exist, proceed with download
+			}
+
+			// Download the image
+			const imageBuffer = await this.fetchImageBuffer(imageUrl);
+			if (!imageBuffer) {
+				return null;
+			}
+
+			// Save the image
+			await fs.writeFile(fullPath, imageBuffer);
+			console.log(`   📷 Downloaded image: ${filename}`);
+
+			return localPath;
+		} catch (error) {
+			console.error(`   ❌ Failed to download image ${imageUrl}:`, error.message);
+			return null;
+		}
+	}
+
+	/**
+	 * Fetches an image as a buffer
+	 * @param {string} url - The image URL
+	 * @returns {Promise<Buffer|null>} - The image buffer or null if failed
+	 */
+	async fetchImageBuffer(url) {
+		return new Promise((resolve) => {
+			const client = url.startsWith('https:') ? https : http;
+
+			const request = client.get(url, (response) => {
+				if (response.statusCode !== 200) {
+					console.error(`   ❌ HTTP ${response.statusCode} for ${url}`);
+					resolve(null);
+					return;
+				}
+
+				const chunks = [];
+				response.on('data', (chunk) => chunks.push(chunk));
+				response.on('end', () => {
+					const buffer = Buffer.concat(chunks);
+					resolve(buffer);
+				});
+			});
+
+			request.on('error', (error) => {
+				console.error(`   ❌ Request error for ${url}:`, error.message);
+				resolve(null);
+			});
+
+			// Set timeout
+			request.setTimeout(10000, () => {
+				request.destroy();
+				console.error(`   ❌ Timeout downloading ${url}`);
+				resolve(null);
+			});
+		});
 	}
 
 	async navigateToUrl(urlInfo) {
@@ -275,12 +389,108 @@ class LandBookScraper {
 		}
 	}
 
+	/**
+	 * Triggers lazy loading by scrolling to the pagination element to trigger intersection observer
+	 * @param {number} maxLoads - Maximum number of lazy loads to trigger
+	 * @returns {Promise<number>} - Number of successful loads
+	 */
+	async triggerLazyLoading(maxLoads = 4) {
+		console.log(`🔄 Triggering lazy loading (up to ${maxLoads} loads)...`);
+
+		let loadCount = 0;
+
+		for (let i = 0; i < maxLoads; i++) {
+			// Get current item count
+			const currentItemCount = await this.page.evaluate(() => {
+				const items = document.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id], a[href*="/website/"]');
+				return items.length;
+			});
+
+			console.log(`   Load ${i + 1}: Found ${currentItemCount} items`);
+
+			// Look for the pagination element and scroll it into view
+			const paginationFound = await this.page.evaluate(() => {
+				// Look for the pagination element with the specific attributes you found
+				const paginationElement = document.querySelector('[data-pagination], .pagination-load-cta, [data-pagination-load-more-btn]');
+
+				if (paginationElement) {
+					// Scroll the pagination element into view to trigger intersection observer
+					paginationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+					// Also try clicking the "Load more" button if it exists
+					const loadMoreBtn = paginationElement.querySelector('[data-pagination-load-more-btn], .btn');
+					if (loadMoreBtn && loadMoreBtn.textContent.includes('Load more')) {
+						loadMoreBtn.click();
+					}
+
+					return true;
+				}
+
+				// Fallback: scroll to bottom if no pagination element found
+				window.scrollTo(0, document.body.scrollHeight);
+				return false;
+			});
+
+			if (paginationFound) {
+				console.log(`   📍 Found pagination element, triggered intersection observer`);
+			} else {
+				console.log(`   📍 No pagination element found, scrolled to bottom`);
+			}
+
+			// Wait for new content to load (intersection observer needs time)
+			await new Promise(resolve => setTimeout(resolve, 4000));
+
+			// Check if new items were loaded
+			const newItemCount = await this.page.evaluate(() => {
+				const items = document.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id], a[href*="/website/"]');
+				return items.length;
+			});
+
+			if (newItemCount > currentItemCount) {
+				loadCount++;
+				console.log(`   ✅ Loaded ${newItemCount - currentItemCount} new items (total: ${newItemCount})`);
+			} else {
+				console.log(`   ⏸️  No new items loaded on attempt ${i + 1}`);
+
+				// If no new items loaded, check if we've reached the end
+				const hasMoreContent = await this.page.evaluate(() => {
+					const paginationElement = document.querySelector('[data-pagination]');
+					const loadingText = document.querySelector('[data-pagination-is-loading-txt]');
+					const loadMoreBtn = document.querySelector('[data-pagination-load-more-btn]');
+
+					// If loading text is visible or load more button exists, there might be more content
+					return (loadingText && loadingText.offsetParent !== null) ||
+						(loadMoreBtn && loadMoreBtn.offsetParent !== null);
+				});
+
+				if (!hasMoreContent) {
+					console.log(`   🏁 Reached end of content, stopping at ${loadCount} successful loads`);
+					break;
+				}
+			}
+
+			// Additional wait between loads to be respectful
+			if (i < maxLoads - 1) {
+				await new Promise(resolve => setTimeout(resolve, 2000));
+			}
+		}
+
+		console.log(`🔄 Lazy loading completed: ${loadCount} successful loads`);
+		return loadCount;
+	}
+
 	async scrapeGridPage() {
 		console.log('🕷️  Starting grid page scraping...');
 
 		try {
 			// Wait for content to be fully loaded
 			await new Promise(resolve => setTimeout(resolve, 3000));
+
+			// Trigger lazy loading to get more items (up to 100)
+			const maxLoads = Math.ceil(this.options.maxItems / 20) - 1; // -1 because first 20 are already loaded
+			if (maxLoads > 0) {
+				await this.triggerLazyLoading(maxLoads);
+			}
 
 			// Extract website items from the grid
 			const websiteData = await this.page.evaluate(() => {
@@ -1051,7 +1261,7 @@ class LandBookScraper {
 	}
 
 	// Format extracted data into the specified JSON structure
-	formatDesignData(rawData, index = 0) {
+	async formatDesignData(rawData, index = 0) {
 		try {
 			// Validate input data
 			if (!rawData || typeof rawData !== 'object') {
@@ -1062,10 +1272,24 @@ class LandBookScraper {
 			const id = this.generateUniqueId(rawData.websiteName, index);
 
 			// Use screenshot URL if available, fallback to thumbnail
-			const imageUrl = rawData.screenshotUrl || rawData.thumbnailUrl;
+			const originalImageUrl = rawData.screenshotUrl || rawData.thumbnailUrl;
 
-			if (!imageUrl) {
+			if (!originalImageUrl) {
 				throw new Error('No image URL available');
+			}
+
+			let finalImagePath = originalImageUrl;
+
+			// Download image locally if option is enabled
+			if (this.options.downloadImages) {
+				console.log(`   🔄 Downloading image for ${id}...`);
+				const localImagePath = await this.downloadImage(originalImageUrl, id);
+
+				if (localImagePath) {
+					finalImagePath = localImagePath;
+				} else {
+					console.log(`   ⚠️ Failed to download image, using original URL: ${originalImageUrl}`);
+				}
 			}
 
 			// Prepare tags object from scraped data
@@ -1111,7 +1335,7 @@ class LandBookScraper {
 			// Format according to schema
 			const formattedDesign = {
 				id: id,
-				image: imageUrl,
+				image: finalImagePath,
 				tags: cleanedTags
 			};
 
@@ -1205,8 +1429,9 @@ class LandBookScraper {
 		const formatErrors = [];
 
 		// Format each scraped design
-		scrapedData.forEach((rawData, index) => {
-			const formatResult = this.formatDesignData(rawData, index);
+		for (let index = 0; index < scrapedData.length; index++) {
+			const rawData = scrapedData[index];
+			const formatResult = await this.formatDesignData(rawData, index);
 
 			if (formatResult.success) {
 				// Validate the formatted design
@@ -1232,7 +1457,7 @@ class LandBookScraper {
 					rawData: formatResult.rawData
 				});
 			}
-		});
+		}
 
 		// Generate final JSON structure
 		const outputData = {

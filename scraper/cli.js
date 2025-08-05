@@ -37,11 +37,13 @@ program
 	.option('-i, --industries <industries>', 'Comma-separated list of industries')
 	.option('-p, --platforms <platforms>', 'Comma-separated list of platforms')
 	.option('--colors <colors>', 'Comma-separated list of color schemes')
-	.option('-m, --max-items <number>', 'Maximum number of items to scrape', parseInt, 20)
+	.option('-u, --url <url>', 'Direct Land-book URL to scrape (overrides filter options)')
+	.option('-m, --max-items <number>', 'Maximum number of items to scrape', parseInt, 100)
 	.option('-o, --output <path>', 'Output file path', 'designs.json')
 	.option('--headless <boolean>', 'Run browser in headless mode', 'true')
 	.option('--timeout <number>', 'Request timeout in milliseconds', parseInt, 30000)
 	.option('--delay <number>', 'Delay between requests in milliseconds', parseInt, 1500)
+	.option('--download-images', 'Download images locally to /data/images/ directory')
 	.option('--log-level <level>', 'Logging level (debug, info, warn, error)', 'info')
 	.option('--log-file <path>', 'Log to file')
 	.option('--config <path>', 'Path to configuration file')
@@ -117,6 +119,7 @@ async function runScrapeCommand(options) {
 	if (options.headless !== undefined) config.browser.headless = options.headless === 'true';
 	if (options.timeout) config.browser.timeout = options.timeout;
 	if (options.delay) config.limits.requestDelay = options.delay;
+	if (options.downloadImages) config.downloadImages = true;
 	if (options.logLevel) config.logging.level = options.logLevel;
 	if (options.logFile) {
 		config.logging.logToFile = true;
@@ -157,8 +160,8 @@ async function runScrapeCommand(options) {
 	if (options.platforms) filters.platforms = options.platforms.split(',').map(s => s.trim());
 	if (options.colors) filters.colors = options.colors.split(',').map(s => s.trim());
 
-	// Build URL
-	const url = buildLandBookUrl(filters);
+	// Build URL - use direct URL if provided, otherwise build from filters
+	const url = options.url || buildLandBookUrl(filters);
 	logger.info(`Target URL: ${url}`);
 
 	// Show filters
@@ -183,6 +186,7 @@ async function runScrapeCommand(options) {
 	const scraper = new LandBookScraper({
 		...config.browser,
 		maxItems: config.limits.maxItems,
+		downloadImages: config.downloadImages || false,
 		logger: logger
 	});
 
