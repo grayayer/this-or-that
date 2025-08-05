@@ -5,6 +5,28 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.6] - 2025-08-05
+
+### Enhanced: Clean Website URLs
+
+### Enhanced
+
+- **Clean URLs**: Scraper now automatically removes `?ref=land-book.com` tracking parameters from website URLs
+- **User-Friendly URLs**: Favorites section now displays clean URLs without tracking parameters
+- **Better UX**: Users see clean, professional URLs like `https://everon.net/` instead of `https://everon.net/?ref=land-book.com`
+
+### Added
+
+- **URL Cleaning Function**: Added `cleanWebsiteUrl()` method to both main scrapers
+- **Cleanup Script**: Created `clean-existing-urls.js` for cleaning existing data
+- **URL Tests**: Added comprehensive test suite for URL cleaning functionality
+
+### Technical
+
+- **Scraper Enhancement**: Updated `json-scraper.js` and `scraper.js` to clean URLs during extraction
+- **Backward Compatibility**: Existing data remains functional while new scrapes produce clean URLs
+- **Validation**: Added proper URL parsing and error handling for malformed URLs
+
 ## [1.4.5] - 2025-08-05
 
 ### Fixed: Critical Data Validator Issue
