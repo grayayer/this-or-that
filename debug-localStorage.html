@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Debug localStorage</title>
+	<style>
+		body {
+			font-family: monospace;
+			padding: 20px;
+			background-color: #f8f9fa;
+		}
+
+		.debug-section {
+			background: white;
+			padding: 20px;
+			margin-bottom: 20px;
+			border-radius: 8px;
+			border: 1px solid #e9ecef;
+		}
+
+		pre {
+			background: #f8f9fa;
+			padding: 15px;
+			border-radius: 4px;
+			overflow-x: auto;
+			white-space: pre-wrap;
+		}
+
+		button {
+			padding: 8px 16px;
+			margin: 5px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.btn-primary {
+			background: #0066cc;
+			color: white;
+		}
+
+		.btn-danger {
+			background: #dc3545;
+			color: white;
+		}
+
+		.btn-success {
+			background: #28a745;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>🔍 Debug localStorage Data</h1>
+
+	<div class="debug-section">
+		<h2>Controls</h2>
+		<button class="btn-primary" onclick="loadAllData()">Load All Data</button>
+		<button class="btn-danger" onclick="clearAllFavoritesData()">Clear All Favorites Data</button>
+		<button class="btn-success" onclick="testWithRealData()">Test with Real Data</button>
+	</div>
+
+	<div class="debug-section">
+		<h2>Selection Counts</h2>
+		<pre id="selections-data">Click "Load All Data" to see selection counts</pre>
+	</div>
+
+	<div class="debug-section">
+		<h2>Heart Bookmarks</h2>
+		<pre id="hearts-data">Click "Load All Data" to see heart bookmarks</pre>
+	</div>
+
+	<div class="debug-section">
+		<h2>Design Metadata</h2>
+		<pre id="metadata-data">Click "Load All Data" to see design metadata</pre>
+	</div>
+
+	<div class="debug-section">
+		<h2>Top Favorites Result</h2>
+		<pre id="favorites-result">Click "Load All Data" to see top favorites</pre>
+	</div>
+
+	<script src="js/favorites-manager.js"></script>
+	<script>
+		function loadAllData() {
+			try {
+				// Load selection counts
+				const selections = JSON.parse(localStorage.getItem('thisOrThat_selectionCounts') || '{}');
+				document.getElementById('selections-data').textContent = JSON.stringify(selections, null, 2);
+
+				// Load heart bookmarks
+				const hearts = JSON.parse(localStorage.getItem('thisOrThat_heartBookmarks') || '{}');
+				document.getElementById('hearts-data').textContent = JSON.stringify(hearts, null, 2);
+
+				// Load design metadata
+				const metadataKeys = Object.keys(localStorage).filter(key => key.startsWith('thisOrThat_design_'));
+				const metadata = {};
+				metadataKeys.forEach(key => {
+					const designId = key.replace('thisOrThat_design_', '');
+					metadata[designId] = JSON.parse(localStorage.getItem(key));
+				});
+				document.getElementById('metadata-data').textContent = JSON.stringify(metadata, null, 2);
+
+				// Load top favorites using FavoritesManager
+				if (typeof FavoritesManager !== 'undefined') {
+					const topFavorites = FavoritesManager.getTopFavorites();
+					document.getElementById('favorites-result').textContent = JSON.stringify(topFavorites, null, 2);
+				} else {
+					document.getElementById('favorites-result').textContent = 'FavoritesManager not available';
+				}
+
+				console.log('✅ All data loaded successfully');
+			} catch (error) {
+				console.error('❌ Error loading data:', error);
+				alert('Error loading data: ' + error.message);
+			}
+		}
+
+		function clearAllFavoritesData() {
+			if (confirm('Are you sure you want to clear ALL favorites data?')) {
+				// Clear main storage
+				localStorage.removeItem('thisOrThat_selectionCounts');
+				localStorage.removeItem('thisOrThat_heartBookmarks');
+
+				// Clear design metadata
+				const keys = Object.keys(localStorage);
+				keys.forEach(key => {
+					if (key.startsWith('thisOrThat_design_')) {
+						localStorage.removeItem(key);
+					}
+				});
+
+				// Clear displays
+				document.getElementById('selections-data').textContent = '{}';
+				document.getElementById('hearts-data').textContent = '{}';
+				document.getElementById('metadata-data').textContent = '{}';
+				document.getElementById('favorites-result').textContent = '[]';
+
+				console.log('🧹 All data cleared');
+				alert('All favorites data cleared!');
+			}
+		}
+
+		async function testWithRealData() {
+			try {
+				// Load real design data
+				const response = await fetch('data/designs.json');
+				const data = await response.json();
+				const designs = data.designs;
+
+				if (!designs || designs.length === 0) {
+					throw new Error('No designs found in data file');
+				}
+
+				console.log('📊 Testing with real design data...');
+				console.log('First design:', designs[0]);
+
+				// Test with first few designs
+				const testDesigns = designs.slice(0, 3);
+
+				testDesigns.forEach((design, index) => {
+					// Simulate selections
+					const selectionCount = index + 2; // 2, 3, 4 selections
+					for (let i = 0; i < selectionCount; i++) {
+						FavoritesManager.recordSelection(design.id, design);
+					}
+
+					// Heart the first design
+					if (index === 0) {
+						FavoritesManager.toggleHeart(design.id, design);
+					}
+
+					console.log(`✅ Processed ${design.name}: ${selectionCount} selections${index === 0 ? ' + hearted' : ''}`);
+				});
+
+				// Reload data to see results
+				loadAllData();
+
+				console.log('✅ Test completed with real data');
+				alert('Test completed! Check the data above.');
+
+			} catch (error) {
+				console.error('❌ Error testing with real data:', error);
+				alert('Error testing with real data: ' + error.message);
+			}
+		}
+
+		// Auto-load on page load
+		document.addEventListener('DOMContentLoaded', loadAllData);
+	</script>
+</body>
+
+</html>

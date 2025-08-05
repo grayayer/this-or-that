@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test Favorites Functionality</title>
+	<style>
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #f8f9fa;
+		}
+
+		.test-section {
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			margin-bottom: 20px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.test-header {
+			color: #0066cc;
+			border-bottom: 2px solid #e9ecef;
+			padding-bottom: 10px;
+			margin-bottom: 20px;
+		}
+
+		.test-controls {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 20px;
+			flex-wrap: wrap;
+		}
+
+		.btn {
+			padding: 8px 16px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+			transition: all 0.2s ease;
+		}
+
+		.btn-primary {
+			background-color: #0066cc;
+			color: white;
+		}
+
+		.btn-secondary {
+			background-color: #6c757d;
+			color: white;
+		}
+
+		.btn-success {
+			background-color: #28a745;
+			color: white;
+		}
+
+		.btn-danger {
+			background-color: #dc3545;
+			color: white;
+		}
+
+		.btn:hover {
+			opacity: 0.9;
+			transform: translateY(-1px);
+		}
+
+		.test-output {
+			background-color: #f8f9fa;
+			border: 1px solid #e9ecef;
+			border-radius: 4px;
+			padding: 15px;
+			font-family: monospace;
+			font-size: 12px;
+			white-space: pre-wrap;
+			max-height: 300px;
+			overflow-y: auto;
+		}
+
+		.favorites-preview {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.favorite-card {
+			background: white;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+			padding: 15px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+		}
+
+		.favorite-rank {
+			background-color: #0066cc;
+			color: white;
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 12px;
+			font-weight: bold;
+			margin-right: 10px;
+		}
+
+		.favorite-title {
+			font-weight: 600;
+			margin-bottom: 5px;
+		}
+
+		.favorite-stats {
+			font-size: 12px;
+			color: #666;
+		}
+
+		.heart-button {
+			background: none;
+			border: none;
+			font-size: 20px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+
+		.status {
+			padding: 10px;
+			border-radius: 4px;
+			margin-bottom: 15px;
+		}
+
+		.status.success {
+			background-color: #d4edda;
+			color: #155724;
+			border: 1px solid #c3e6cb;
+		}
+
+		.status.error {
+			background-color: #f8d7da;
+			color: #721c24;
+			border: 1px solid #f5c6cb;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>🎯 Favorites Functionality Test</h1>
+
+	<div class="test-section">
+		<h2 class="test-header">Test Controls</h2>
+		<div class="test-controls">
+			<button class="btn btn-primary" onclick="initializeFavorites()">Initialize Favorites</button>
+			<button class="btn btn-success" onclick="simulateSelections()">Simulate Selections</button>
+			<button class="btn btn-secondary" onclick="testHeartToggle()">Test Heart Toggle</button>
+			<button class="btn btn-secondary" onclick="showTopFavorites()">Show Top 5</button>
+			<button class="btn btn-secondary" onclick="showStatistics()">Show Statistics</button>
+			<button class="btn btn-danger" onclick="clearAllData()">Clear All Data</button>
+		</div>
+		<div id="status"></div>
+	</div>
+
+	<div class="test-section">
+		<h2 class="test-header">Test Output</h2>
+		<div id="test-output" class="test-output">Ready to test favorites functionality...</div>
+	</div>
+
+	<div class="test-section">
+		<h2 class="test-header">Top Favorites Preview</h2>
+		<div id="favorites-preview" class="favorites-preview">
+			<p>No favorites to display yet. Run some tests to see results.</p>
+		</div>
+	</div>
+
+	<!-- Load the favorites manager -->
+	<script src="js/favorites-manager.js"></script>
+
+	<script>
+		let testOutput = '';
+
+		function log(message) {
+			testOutput += new Date().toLocaleTimeString() + ': ' + message + '\n';
+			document.getElementById('test-output').textContent = testOutput;
+			console.log(message);
+		}
+
+		function showStatus(message, type = 'success') {
+			const statusDiv = document.getElementById('status');
+			statusDiv.className = `status ${type}`;
+			statusDiv.textContent = message;
+			setTimeout(() => {
+				statusDiv.className = '';
+				statusDiv.textContent = '';
+			}, 3000);
+		}
+
+		// Sample design data for testing (matching actual data structure)
+		const sampleDesigns = [
+			{
+				id: 'design-1',
+				name: 'Modern Health App | Wellness Platform',
+				description: 'A modern health application design',
+				websiteUrl: 'https://healthapp.com/?ref=land-book.com',
+				image: 'https://via.placeholder.com/400x300/0066cc/white?text=Health+App',
+				tags: {
+					style: ['modern', 'clean'],
+					industry: ['health', 'fitness'],
+					colors: ['#0066cc', '#ffffff']
+				}
+			},
+			{
+				id: 'design-2',
+				name: 'E-commerce Platform | Online Store',
+				description: 'A professional e-commerce platform',
+				websiteUrl: 'https://shopify.com/?ref=land-book.com',
+				image: 'https://via.placeholder.com/400x300/28a745/white?text=E-commerce',
+				tags: {
+					style: ['minimal', 'professional'],
+					industry: ['retail', 'business'],
+					colors: ['#28a745', '#ffffff']
+				}
+			},
+			{
+				id: 'design-3',
+				name: 'Creative Portfolio | Designer Showcase',
+				description: 'A creative portfolio website',
+				websiteUrl: 'https://portfolio.com/?ref=land-book.com',
+				image: 'https://via.placeholder.com/400x300/dc3545/white?text=Portfolio',
+				tags: {
+					style: ['creative', 'artistic'],
+					industry: ['design', 'creative'],
+					colors: ['#dc3545', '#ffffff']
+				}
+			},
+			{
+				id: 'design-4',
+				name: 'Tech Startup | Innovation Hub',
+				description: 'A modern tech startup website',
+				websiteUrl: 'https://startup.io/?ref=land-book.com',
+				image: 'https://via.placeholder.com/400x300/6f42c1/white?text=Startup',
+				tags: {
+					style: ['modern', 'tech'],
+					industry: ['technology', 'startup'],
+					colors: ['#6f42c1', '#ffffff']
+				}
+			},
+			{
+				id: 'design-5',
+				name: 'Restaurant Website | Fine Dining',
+				description: 'A warm restaurant website',
+				websiteUrl: 'https://restaurant.com/?ref=land-book.com',
+				image: 'https://via.placeholder.com/400x300/fd7e14/white?text=Restaurant',
+				tags: {
+					style: ['warm', 'inviting'],
+					industry: ['food', 'hospitality'],
+					colors: ['#fd7e14', '#ffffff']
+				}
+			}
+		];
+
+		function initializeFavorites() {
+			try {
+				if (typeof FavoritesManager === 'undefined') {
+					throw new Error('FavoritesManager not loaded');
+				}
+
+				FavoritesManager.init();
+				log('✅ FavoritesManager initialized successfully');
+				showStatus('Favorites Manager initialized!');
+			} catch (error) {
+				log('❌ Failed to initialize FavoritesManager: ' + error.message);
+				showStatus('Failed to initialize: ' + error.message, 'error');
+			}
+		}
+
+		function simulateSelections() {
+			try {
+				log('🎯 Simulating user selections...');
+
+				// Simulate multiple selections for different designs
+				const selections = [
+					{ designId: 'design-1', count: 5 },
+					{ designId: 'design-2', count: 3 },
+					{ designId: 'design-3', count: 7 },
+					{ designId: 'design-4', count: 2 },
+					{ designId: 'design-5', count: 1 }
+				];
+
+				selections.forEach(({ designId, count }) => {
+					const design = sampleDesigns.find(d => d.id === designId);
+					if (design) {
+						for (let i = 0; i < count; i++) {
+							FavoritesManager.recordSelection(designId, design);
+						}
+						log(`   Selected ${design.name} ${count} times`);
+					}
+				});
+
+				log('✅ Simulation completed');
+				showStatus('Selections simulated successfully!');
+				updateFavoritesPreview();
+
+			} catch (error) {
+				log('❌ Failed to simulate selections: ' + error.message);
+				showStatus('Simulation failed: ' + error.message, 'error');
+			}
+		}
+
+		function testHeartToggle() {
+			try {
+				log('❤️ Testing heart toggle functionality...');
+
+				// Toggle hearts for a few designs
+				const heartsToTest = ['design-1', 'design-3', 'design-5'];
+
+				heartsToTest.forEach(designId => {
+					const design = sampleDesigns.find(d => d.id === designId);
+					if (design) {
+						const isHearted = FavoritesManager.toggleHeart(designId, design);
+						log(`   ${design.name}: ${isHearted ? '❤️ Hearted' : '🤍 Unhearted'}`);
+					}
+				});
+
+				log('✅ Heart toggle test completed');
+				showStatus('Heart toggle test completed!');
+				updateFavoritesPreview();
+
+			} catch (error) {
+				log('❌ Failed to test heart toggle: ' + error.message);
+				showStatus('Heart toggle test failed: ' + error.message, 'error');
+			}
+		}
+
+		function showTopFavorites() {
+			try {
+				log('🏆 Getting top 5 favorites...');
+
+				const topFavorites = FavoritesManager.getTopFavorites();
+
+				if (topFavorites.length === 0) {
+					log('   No favorites found');
+				} else {
+					log(`   Found ${topFavorites.length} favorites:`);
+					topFavorites.forEach((favorite, index) => {
+						log(`   ${index + 1}. ${favorite.title}`);
+						log(`      - Selected: ${favorite.selectionCount} times`);
+						log(`      - Hearted: ${favorite.isHearted ? 'Yes' : 'No'}`);
+						log(`      - Score: ${favorite.score}`);
+						log(`      - URL: ${favorite.url}`);
+					});
+				}
+
+				showStatus(`Found ${topFavorites.length} favorites`);
+				updateFavoritesPreview();
+
+			} catch (error) {
+				log('❌ Failed to get top favorites: ' + error.message);
+				showStatus('Failed to get favorites: ' + error.message, 'error');
+			}
+		}
+
+		function showStatistics() {
+			try {
+				log('📊 Getting favorites statistics...');
+
+				const stats = FavoritesManager.getStatistics();
+
+				log('   Statistics:');
+				log(`   - Total designs selected: ${stats.totalDesignsSelected}`);
+				log(`   - Total selections made: ${stats.totalSelections}`);
+				log(`   - Total hearted designs: ${stats.totalHearted}`);
+				log(`   - Designs with 2+ selections: ${stats.designsWithMultipleSelections}`);
+				log(`   - Most selected count: ${stats.mostSelectedCount}`);
+				log(`   - Average selections per design: ${stats.averageSelectionsPerDesign}`);
+
+				showStatus('Statistics displayed');
+
+			} catch (error) {
+				log('❌ Failed to get statistics: ' + error.message);
+				showStatus('Failed to get statistics: ' + error.message, 'error');
+			}
+		}
+
+		function clearAllData() {
+			try {
+				if (confirm('Are you sure you want to clear all test data?')) {
+					FavoritesManager.clearAllData();
+					log('🧹 All favorites data cleared');
+					showStatus('All data cleared');
+					updateFavoritesPreview();
+				}
+			} catch (error) {
+				log('❌ Failed to clear data: ' + error.message);
+				showStatus('Failed to clear data: ' + error.message, 'error');
+			}
+		}
+
+		function updateFavoritesPreview() {
+			try {
+				const topFavorites = FavoritesManager.getTopFavorites();
+				const previewDiv = document.getElementById('favorites-preview');
+
+				if (topFavorites.length === 0) {
+					previewDiv.innerHTML = '<p>No favorites to display yet. Run some tests to see results.</p>';
+					return;
+				}
+
+				const favoritesHTML = topFavorites.map((favorite, index) => `
+                    <div class="favorite-card">
+                        <div class="favorite-rank">${index + 1}</div>
+                        <div class="favorite-title">${favorite.title}</div>
+                        <div class="favorite-stats">
+                            Selected: ${favorite.selectionCount} times
+                            ${favorite.isHearted ? ' • ❤️ Hearted' : ''}
+                            <br>Score: ${favorite.score}
+                        </div>
+                        <button class="heart-button" onclick="toggleHeartPreview('${favorite.designId}')">
+                            ${favorite.isHearted ? '❤️' : '🤍'}
+                        </button>
+                    </div>
+                `).join('');
+
+				previewDiv.innerHTML = favoritesHTML;
+
+			} catch (error) {
+				console.error('Failed to update favorites preview:', error);
+			}
+		}
+
+		function toggleHeartPreview(designId) {
+			const design = sampleDesigns.find(d => d.id === designId);
+			if (design) {
+				FavoritesManager.toggleHeart(designId, design);
+				updateFavoritesPreview();
+				log(`❤️ Toggled heart for ${design.name}`);
+			}
+		}
+
+		// Initialize on page load
+		document.addEventListener('DOMContentLoaded', function () {
+			log('🚀 Test page loaded');
+			initializeFavorites();
+		});
+	</script>
+</body>
+
+</html>

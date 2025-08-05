@@ -120,8 +120,44 @@ class DataValidator {
 			cleanedDesign.title = design.title.trim();
 		}
 
+		if (design.name && typeof design.name === 'string') {
+			cleanedDesign.name = design.name.trim();
+		}
+
 		if (design.author && typeof design.author === 'string') {
 			cleanedDesign.author = design.author.trim();
+		}
+
+		if (design.description && typeof design.description === 'string') {
+			cleanedDesign.description = design.description.trim();
+		}
+
+		if (design.websiteUrl && typeof design.websiteUrl === 'string') {
+			if (this.isValidUrl(design.websiteUrl)) {
+				cleanedDesign.websiteUrl = design.websiteUrl.trim();
+			} else {
+				this.warnings.push(`Design at index ${index} has invalid websiteUrl: ${design.websiteUrl}`);
+			}
+		}
+
+		if (design.category && typeof design.category === 'string') {
+			cleanedDesign.category = design.category.trim();
+		}
+
+		if (design.colors && Array.isArray(design.colors)) {
+			cleanedDesign.colors = design.colors.filter(color =>
+				typeof color === 'string' && color.trim().length > 0
+			);
+		}
+
+		if (design.source && typeof design.source === 'string') {
+			cleanedDesign.source = design.source.trim();
+		}
+
+		if (design.sourceUrl && typeof design.sourceUrl === 'string') {
+			if (this.isValidUrl(design.sourceUrl)) {
+				cleanedDesign.sourceUrl = design.sourceUrl.trim();
+			}
 		}
 
 		// Validate and clean tags

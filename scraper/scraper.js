@@ -31,6 +31,31 @@ class LandBookScraper {
 		};
 	}
 
+	/**
+	 * Clean website URL by removing tracking parameters
+	 * @param {string} url - Original URL with tracking parameters
+	 * @returns {string} - Cleaned URL without tracking parameters
+	 */
+	cleanWebsiteUrl(url) {
+		if (!url) return url;
+
+		try {
+			const urlObj = new URL(url);
+			// Remove the ref parameter specifically
+			urlObj.searchParams.delete('ref');
+
+			// If there are no search parameters left, return URL without query string
+			if (urlObj.searchParams.toString() === '') {
+				return urlObj.origin + urlObj.pathname;
+			}
+
+			return urlObj.toString();
+		} catch (error) {
+			console.warn('Failed to clean URL:', url, error.message);
+			return url; // Return original URL if parsing fails
+		}
+	}
+
 	async initialize() {
 		console.log('🚀 Initializing Land-book scraper...');
 
@@ -1050,7 +1075,7 @@ class LandBookScraper {
 			// Validate and clean up the extracted data
 			const cleanedData = {
 				websiteName: detailData.websiteName || 'Untitled',
-				websiteUrl: detailData.websiteUrl || null,
+				websiteUrl: detailData.websiteUrl ? this.cleanWebsiteUrl(detailData.websiteUrl) : null,
 				category: detailData.category || [],
 				style: detailData.style || [],
 				industry: detailData.industry || [],

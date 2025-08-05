@@ -5,6 +5,134 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.6] - 2025-08-05
+
+### Enhanced: Clean Website URLs
+
+### Enhanced
+
+- **Clean URLs**: Scraper now automatically removes `?ref=land-book.com` tracking parameters from website URLs
+- **User-Friendly URLs**: Favorites section now displays clean URLs without tracking parameters
+- **Better UX**: Users see clean, professional URLs like `https://everon.net/` instead of `https://everon.net/?ref=land-book.com`
+
+### Added
+
+- **URL Cleaning Function**: Added `cleanWebsiteUrl()` method to both main scrapers
+- **Cleanup Script**: Created `clean-existing-urls.js` for cleaning existing data
+- **URL Tests**: Added comprehensive test suite for URL cleaning functionality
+
+### Technical
+
+- **Scraper Enhancement**: Updated `json-scraper.js` and `scraper.js` to clean URLs during extraction
+- **Backward Compatibility**: Existing data remains functional while new scrapes produce clean URLs
+- **Validation**: Added proper URL parsing and error handling for malformed URLs
+
+## [1.4.5] - 2025-08-05
+
+### Fixed: Critical Data Validator Issue
+
+### Fixed
+
+- **Data Validator**: Fixed critical issue where `name` and `websiteUrl` fields were being stripped from design objects
+- **Complete Data Flow**: Ensured all design data flows correctly from JSON → Validator → App → Favorites
+- **Real URLs**: Favorites now display actual clickable website URLs instead of placeholder "#" links
+- **Company Names**: Proper extraction of company names from design data
+- **Favorites Display**: Fixed "Untitled Design" and "#" entries in favorites results
+
+### Enhanced
+
+- **Data Integrity**: Enhanced data validator to preserve all necessary fields (`name`, `websiteUrl`, `description`, `category`, `colors`, etc.)
+- **Debug Tools**: Added comprehensive test and debug utilities for troubleshooting favorites issues
+- **Error Handling**: Better validation and error reporting for malformed data
+
+### Technical
+
+- **Data Preservation**: Updated `validateAndCleanDesign` function to preserve complete design metadata
+- **URL Validation**: Added proper URL validation for `websiteUrl` field
+- **Debug Utilities**: Created debug tools for localStorage inspection and data migration
+
+## [1.4.4] - 2025-08-05
+
+### Fixed: Debug and Migration Tools
+
+### Added
+
+- **Debug Tools**: Added comprehensive debugging utilities for favorites troubleshooting
+- **Migration Function**: Added metadata migration capability for fixing corrupted data
+- **Console Helper**: Added `fixFavoritesData()` global function for easy data clearing
+
+## [1.4.3] - 2025-08-05
+
+### Fixed: Enhanced Debugging
+
+### Added
+
+- **Debug Logging**: Added comprehensive logging to identify data flow issues
+- **Metadata Validation**: Enhanced metadata storage and retrieval validation
+- **Error Reporting**: Better error messages for missing or corrupted favorites data
+
+## [1.4.2] - 2025-08-05
+
+### Fixed: Correct URL Usage
+
+### Fixed
+
+- **Website URLs**: Now correctly uses `websiteUrl` field from designs.json instead of generating fake URLs
+- **Data Integrity**: Favorites now display actual website URLs from the data source
+- **Simplified Logic**: Removed unnecessary URL extraction logic in favor of existing data
+
+### Enhanced
+
+- **Clean Title Extraction**: Simplified to `extractCleanTitle()` function for company names
+- **Data Accuracy**: Favorites display real website URLs that users can actually visit
+- **Test Updates**: Updated test files to match actual data structure
+
+## [1.4.1] - 2025-08-05
+
+### Fixed: Favorites Display Issues
+
+### Fixed
+
+- **Title and URL Display**: Fixed favorites showing "Untitled Design" and "undefined"
+- **Data Structure Compatibility**: Updated favorites manager to work with actual design data structure
+- **URL Extraction**: Improved extraction of company names and website URLs from design names
+- **Clean Title Display**: Now properly extracts company name from pipe-separated design names
+
+### Enhanced
+
+- **URL Parsing**: Better domain detection and fallback URL generation
+- **Helper Functions**: Added `extractTitleAndUrl()` helper for consistent data processing
+- **Test Coverage**: Added URL extraction test file and debug utilities
+
+## [1.4.0] - 2025-08-05
+
+### Added: Favorites Tracking System
+
+### Added
+
+- **Favorites Manager**: Complete favorites tracking system with localStorage persistence
+- **Selection Counting**: Automatic tracking of how many times each design is selected
+- **Heart Bookmarking**: Heart button on each image for instant bookmarking
+- **Top 5 Favorites**: Display of user's top 5 favorite designs in results
+- **Favorites Statistics**: Comprehensive statistics about user preferences
+- **Clear Favorites**: Option to clear all favorites data with confirmation
+- **Cross-Session Persistence**: Favorites data persists across browser sessions
+- **Round Robin Spec**: Added specification task for future round robin mode
+
+### Enhanced
+
+- **Results Display**: New favorites section showing top designs with selection counts
+- **User Interface**: Heart buttons with smooth animations and visual feedback
+- **Data Analysis**: Enhanced preference analysis including favorites scoring
+- **Mobile Experience**: Responsive heart buttons optimized for touch devices
+
+### Technical
+
+- **FavoritesManager Module**: New `js/favorites-manager.js` with complete API
+- **localStorage Integration**: Efficient storage and retrieval of favorites data
+- **CSS Animations**: Smooth heart button animations and visual feedback
+- **Test Suite**: Comprehensive test file for favorites functionality
+
 ## [1.3.0] - 2025-08-05
 
 ### Added: Rich Tag Data Integration
