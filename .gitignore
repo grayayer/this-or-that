@@ -1,1 +1,7 @@
 node_modules
+.DS_Store
+landingzone-full/
+landingpage-full/
+scrape-saved-html/health-coach_files
+health-coach.html
+*/.DS_Store

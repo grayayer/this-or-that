@@ -5,6 +5,34 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-08-02
+
+### Added
+
+- **Direct URL Support**: Scrape any Land-book URL directly from browser with `--url` option
+- **Lazy Loading**: Automatically trigger infinite scroll to load up to 100 items
+- **Enhanced Scraping Capacity**: Increased default max items from 20 to 100
+- **Browser-to-Scraper Workflow**: Copy any Land-book URL and scrape it directly
+
+### Technical
+
+- Added `triggerLazyLoading()` method for infinite scroll automation
+- Enhanced `scrapeGridPage()` with automatic lazy loading triggers
+- Added `--url` CLI option for direct URL input
+- Modified URL handling to accept any Land-book URL format
+- Created comprehensive test suite for new functionality
+- Added respectful crawling delays between lazy loads
+
+### Examples
+
+```bash
+# Direct URL scraping
+npm run scrape -- --url "https://land-book.com/?search=life+coach" --max-items 50
+
+# Test new functionality
+node test-direct-url-lazy-loading.js
+```
+
 ## [1.1.0] - 2025-08-02
 
 ### Added

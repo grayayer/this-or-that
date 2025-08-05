@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>This or That - New Data Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<style>
+		/* Override image paths for testing */
+		.image-pair img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 12px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		.test-info {
+			position: fixed;
+			top: 10px;
+			right: 10px;
+			background: rgba(0, 0, 0, 0.8);
+			color: white;
+			padding: 10px;
+			border-radius: 8px;
+			font-size: 0.8em;
+			z-index: 1000;
+		}
+
+		.data-source {
+			background: #007AFF;
+			color: white;
+			padding: 8px 16px;
+			border-radius: 20px;
+			font-size: 0.9em;
+			margin-bottom: 20px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-info">
+		<div>🧪 Testing Mode</div>
+		<div>Data: websites-list.json</div>
+		<div id="data-status">Loading...</div>
+	</div>
+
+	<div class="container">
+		<header class="header">
+			<div class="header-content">
+				<h1 class="app-title">This or That</h1>
+				<p class="app-description">Choose your favorite design</p>
+			</div>
+		</header>
+
+		<div class="data-source">
+			📊 Using processed data from websites-list.json (100 designs)
+		</div>
+
+		<main class="main-content">
+			<div id="loading-screen" class="loading-screen">
+				<div class="loading-spinner"></div>
+				<p>Loading designs from new data source...</p>
+			</div>
+
+			<div id="error-screen" class="error-screen" style="display: none;">
+				<h2>Oops! Something went wrong</h2>
+				<p id="error-message"></p>
+				<button onclick="location.reload()" class="retry-button">Try Again</button>
+			</div>
+
+			<div id="game-screen" class="game-screen" style="display: none;">
+				<div class="progress-section">
+					<div class="progress-bar">
+						<div class="progress-fill" id="progress-fill"></div>
+					</div>
+					<div class="progress-text">
+						<span id="current-round">1</span> of <span id="total-rounds">10</span>
+					</div>
+				</div>
+
+				<div class="image-pair" id="image-pair">
+					<!-- Images will be loaded here -->
+				</div>
+
+				<div class="game-controls">
+					<button id="skip-button" class="skip-button">Skip This Pair</button>
+				</div>
+			</div>
+
+			<div id="results-screen" class="results-screen" style="display: none;">
+				<h2>🎉 Your Results!</h2>
+				<div id="results-content">
+					<!-- Results will be displayed here -->
+				</div>
+				<div class="results-actions">
+					<button onclick="startNewGame()" class="primary-button">Play Again</button>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<script>
+		// Game state
+		let designs = [];
+		let currentRound = 1;
+		let totalRounds = 10;
+		let userChoices = [];
+		let currentPair = null;
+
+		// Load the new data file
+		async function loadDesigns() {
+			try {
+				console.log('Loading designs from new data file...');
+				const response = await fetch('./data/designs-from-websites-list.json');
+
+				if (!response.ok) {
+					throw new Error(`Failed to load designs: ${response.status} ${response.statusText}`);
+				}
+
+				const data = await response.json();
+				designs = data.designs;
+
+				console.log(`✅ Loaded ${designs.length} designs`);
+				console.log(`📂 Categories: ${data.metadata.categories.join(', ')}`);
+
+				// Update test info
+				document.getElementById('data-status').textContent = `${designs.length} designs loaded`;
+
+				return designs;
+
+			} catch (error) {
+				console.error('❌ Error loading designs:', error);
+				throw error;
+			}
+		}
+
+		// Initialize the game
+		async function initGame() {
+			try {
+				await loadDesigns();
+
+				if (designs.length < 2) {
+					throw new Error('Not enough designs to play the game');
+				}
+
+				// Hide loading screen
+				document.getElementById('loading-screen').style.display = 'none';
+				document.getElementById('game-screen').style.display = 'block';
+
+				// Start the first round
+				startNewRound();
+
+			} catch (error) {
+				console.error('Game initialization failed:', error);
+				showError(error.message);
+			}
+		}
+
+		// Start a new round
+		function startNewRound() {
+			if (currentRound > totalRounds) {
+				showResults();
+				return;
+			}
+
+			// Get two random designs
+			const shuffled = [...designs].sort(() => Math.random() - 0.5);
+			currentPair = [shuffled[0], shuffled[1]];
+
+			// Update progress
+			document.getElementById('current-round').textContent = currentRound;
+			document.getElementById('progress-fill').style.width = `${(currentRound / totalRounds) * 100}%`;
+
+			// Display the pair
+			displayImagePair(currentPair);
+		}
+
+		// Display image pair
+		function displayImagePair(pair) {
+			const imagePairContainer = document.getElementById('image-pair');
+
+			imagePairContainer.innerHTML = `
+                <div class="image-option" onclick="makeChoice(0)">
+                    <img src="./scrape-saved-html/${pair[0].image}"
+                         alt="${pair[0].name}"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4='">
+                    <div class="image-info">
+                        <h3>${pair[0].name}</h3>
+                        <p>${pair[0].description}</p>
+                        <span class="category-badge">${pair[0].category}</span>
+                    </div>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="image-option" onclick="makeChoice(1)">
+                    <img src="./scrape-saved-html/${pair[1].image}"
+                         alt="${pair[1].name}"
+                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4='">
+                    <div class="image-info">
+                        <h3>${pair[1].name}</h3>
+                        <p>${pair[1].description}</p>
+                        <span class="category-badge">${pair[1].category}</span>
+                    </div>
+                </div>
+            `;
+		}
+
+		// Make a choice
+		function makeChoice(choiceIndex) {
+			const chosen = currentPair[choiceIndex];
+			const notChosen = currentPair[1 - choiceIndex];
+
+			userChoices.push({
+				round: currentRound,
+				chosen: chosen,
+				notChosen: notChosen,
+				timestamp: new Date().toISOString()
+			});
+
+			console.log(`Round ${currentRound}: Chose "${chosen.name}" over "${notChosen.name}"`);
+
+			currentRound++;
+
+			// Small delay for better UX
+			setTimeout(() => {
+				startNewRound();
+			}, 300);
+		}
+
+		// Skip current pair
+		document.getElementById('skip-button').addEventListener('click', () => {
+			console.log(`Round ${currentRound}: Skipped`);
+			currentRound++;
+			startNewRound();
+		});
+
+		// Show results
+		function showResults() {
+			document.getElementById('game-screen').style.display = 'none';
+			document.getElementById('results-screen').style.display = 'block';
+
+			// Analyze choices
+			const categoryCount = {};
+			const chosenDesigns = userChoices.map(choice => choice.chosen);
+
+			chosenDesigns.forEach(design => {
+				categoryCount[design.category] = (categoryCount[design.category] || 0) + 1;
+			});
+
+			const favoriteCategory = Object.keys(categoryCount).reduce((a, b) =>
+				categoryCount[a] > categoryCount[b] ? a : b
+			);
+
+			const resultsContent = document.getElementById('results-content');
+			resultsContent.innerHTML = `
+                <div class="result-summary">
+                    <h3>🎯 Your Favorite Category</h3>
+                    <div class="favorite-category">${favoriteCategory}</div>
+                    <p>You chose ${categoryCount[favoriteCategory]} designs from this category</p>
+                </div>
+
+                <div class="category-breakdown">
+                    <h3>📊 Category Breakdown</h3>
+                    ${Object.entries(categoryCount).map(([category, count]) => `
+                        <div class="category-result">
+                            <span class="category-name">${category}</span>
+                            <span class="category-count">${count}</span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="chosen-designs">
+                    <h3>✨ Your Chosen Designs</h3>
+                    <div class="chosen-grid">
+                        ${chosenDesigns.slice(0, 6).map(design => `
+                            <div class="chosen-item">
+                                <img src="./scrape-saved-html/${design.image}"
+                                     alt="${design.name}"
+                                     onerror="this.style.display='none'">
+                                <div class="chosen-name">${design.name}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+		}
+
+		// Start new game
+		function startNewGame() {
+			currentRound = 1;
+			userChoices = [];
+			currentPair = null;
+
+			document.getElementById('results-screen').style.display = 'none';
+			document.getElementById('game-screen').style.display = 'block';
+
+			startNewRound();
+		}
+
+		// Show error
+		function showError(message) {
+			document.getElementById('loading-screen').style.display = 'none';
+			document.getElementById('error-screen').style.display = 'block';
+			document.getElementById('error-message').textContent = message;
+		}
+
+		// Initialize when page loads
+		document.addEventListener('DOMContentLoaded', initGame);
+	</script>
+</body>
+
+</html>
