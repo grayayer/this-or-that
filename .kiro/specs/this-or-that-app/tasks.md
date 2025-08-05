@@ -184,7 +184,16 @@
   - if image files aren't already downloaded, download them so that the app loads the images locally rather than from land-book.com, which could violate CORS
   - _Requirements: All requirements validation_
 
-- [ ] 18. Final integration and deployment preparation
+- [ ] 18. Implement Round Robin Favorites Mode
+  - Create optional "Round Robin" selection mode that pits only favorite designs against each other
+  - Add toggle button in results section to switch to round robin mode
+  - Filter designs to only show those with 2+ selections or heart bookmarks
+  - Implement separate round robin session with its own progress tracking
+  - Allow users to further refine their top preferences through head-to-head comparisons
+  - Add results comparison between regular mode and round robin mode preferences
+  - _Requirements: Enhanced user preference refinement_
+
+- [ ] 19. Final integration and deployment preparation
   - Integrate all components and test complete user flow
   - Optimize for static site hosting (Netlify/Vercel/GitHub Pages)
   - Configure Content Security Policy and security headers

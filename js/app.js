@@ -683,6 +683,10 @@ function displayImagePair(pair) {
 	// Set up second image
 	setupImageElement(image2Element, pair[1], option2Element);
 
+	// Add heart buttons to both images
+	addHeartButton(option1Element, pair[0]);
+	addHeartButton(option2Element, pair[1]);
+
 	// Show selection section and hide loading
 	showSelectionSection();
 }
@@ -766,6 +770,56 @@ function setupImageElement(imgElement, design, containerElement) {
 
 	// Set alt text
 	imgElement.alt = design.title || `Design option ${design.id}`;
+}
+
+/**
+ * Adds a heart button to an image container for bookmarking favorites
+ * @param {HTMLElement} containerElement - The image container element
+ * @param {Object} design - The design object
+ */
+function addHeartButton(containerElement, design) {
+
+
+	// Remove existing heart button if present
+	const existingHeart = containerElement.querySelector('.heart-button');
+	if (existingHeart) {
+		existingHeart.remove();
+	}
+
+	// Create heart button
+	const heartButton = document.createElement('button');
+	heartButton.className = 'heart-button';
+	heartButton.setAttribute('aria-label', `Bookmark ${design.name || design.title || design.id}`);
+	heartButton.setAttribute('title', 'Bookmark this design as a favorite');
+
+	// Check if already hearted and set initial state
+	const isHearted = typeof FavoritesManager !== 'undefined' ?
+		FavoritesManager.isHearted(design.id) : false;
+
+	heartButton.classList.toggle('hearted', isHearted);
+	heartButton.innerHTML = isHearted ? '❤️' : '🤍';
+
+	// Add click handler
+	heartButton.addEventListener('click', (e) => {
+		e.stopPropagation(); // Prevent image selection
+
+
+
+		if (typeof FavoritesManager !== 'undefined') {
+			const newHeartState = FavoritesManager.toggleHeart(design.id, design);
+			heartButton.classList.toggle('hearted', newHeartState);
+			heartButton.innerHTML = newHeartState ? '❤️' : '🤍';
+
+			// Add visual feedback
+			heartButton.classList.add('heart-animation');
+			setTimeout(() => {
+				heartButton.classList.remove('heart-animation');
+			}, 300);
+		}
+	});
+
+	// Add button to container
+	containerElement.appendChild(heartButton);
 }
 
 /**
@@ -929,6 +983,11 @@ function handleSelection(selectedDesignId) {
 		appState.selections.push(selectionRecord);
 		appState.currentRound++;
 		appState.totalRounds++;
+
+		// Track selection in favorites manager
+		if (typeof FavoritesManager !== 'undefined') {
+			FavoritesManager.recordSelection(selectedDesign.id, selectedDesign);
+		}
 
 		// Mark the current pair as used to prevent duplicates
 		const pairKey = `${appState.currentPair[0].id}|${appState.currentPair[1].id}`;
@@ -1357,6 +1416,36 @@ function setupResultsActions() {
 				console.log('🔄 User chose to start over');
 			}
 			location.reload();
+		});
+	}
+
+	// Set up clear favorites button
+	const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
+	if (clearFavoritesBtn) {
+		// Remove existing listeners
+		clearFavoritesBtn.replaceWith(clearFavoritesBtn.cloneNode(true));
+		const newClearFavoritesBtn = document.getElementById('clear-favorites-btn');
+
+		newClearFavoritesBtn.addEventListener('click', () => {
+			if (confirm('Are you sure you want to clear all your favorites data? This cannot be undone.')) {
+				if (typeof FavoritesManager !== 'undefined') {
+					FavoritesManager.clearAllData();
+
+					// Refresh the results display to show updated favorites
+					if (appState.selections && appState.designs) {
+						displayResults(appState.selections, appState.designs);
+					}
+
+					if (appState.config.enableLogging) {
+						console.log('🧹 User cleared all favorites data');
+					}
+
+					// Show confirmation
+					alert('All favorites data has been cleared.');
+				} else {
+					console.error('❌ FavoritesManager not available');
+				}
+			}
 		});
 	}
 

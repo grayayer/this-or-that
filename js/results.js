@@ -552,6 +552,68 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 /**
+ * Generates HTML for the top 5 favorites section
+ * @returns {string} - HTML string for favorites section
+ */
+function generateFavoritesHTML() {
+	try {
+		// Check if FavoritesManager is available
+		if (typeof FavoritesManager === 'undefined') {
+			return '';
+		}
+
+		const topFavorites = FavoritesManager.getTopFavorites();
+
+		if (topFavorites.length === 0) {
+			return `
+				<div class="favorites-section">
+					<h3>🏆 Your Top Favorite Designs</h3>
+					<p class="favorites-empty">No favorites yet! Heart designs during selection or select the same design multiple times to build your favorites list.</p>
+				</div>
+			`;
+		}
+
+		const favoritesHTML = `
+			<div class="favorites-section">
+				<h3>🏆 Your Top ${topFavorites.length} Favorite Designs</h3>
+				<p class="favorites-description">Based on your selections and bookmarks, these are the designs you liked most:</p>
+				<div class="favorites-list">
+					${topFavorites.map((favorite, index) => `
+						<div class="favorite-item">
+							<div class="favorite-rank">${index + 1}</div>
+							<div class="favorite-content">
+								<div class="favorite-image">
+									<img src="${favorite.image}" alt="${favorite.title}" loading="lazy">
+								</div>
+								<div class="favorite-details">
+									<h4 class="favorite-title">${favorite.title || 'Untitled Design'}</h4>
+									<a href="${favorite.url}" target="_blank" rel="noopener" class="favorite-url">${favorite.url}</a>
+									<div class="favorite-stats">
+										<span class="favorite-selections">Selected ${favorite.selectionCount} time${favorite.selectionCount !== 1 ? 's' : ''}</span>
+										${favorite.isHearted ? '<span class="favorite-heart">❤️ Bookmarked</span>' : ''}
+									</div>
+								</div>
+							</div>
+						</div>
+					`).join('')}
+				</div>
+			</div>
+		`;
+
+		return favoritesHTML;
+
+	} catch (error) {
+		console.error('❌ Failed to generate favorites HTML:', error);
+		return `
+			<div class="favorites-section">
+				<h3>🏆 Your Top Favorite Designs</h3>
+				<p class="favorites-error">Unable to load favorites data.</p>
+			</div>
+		`;
+	}
+}
+
+/**
  * Generates HTML content for displaying results in the UI
  * Implements requirements 4.3, 4.4, 4.5: Display ranked tag lists and design profile
  * @param {Object} formattedResults - Results from formatResults function
@@ -640,6 +702,9 @@ function generateResultsHTML(formattedResults) {
 			`;
 		}).filter(html => html !== '').join('');
 
+		// Generate favorites section
+		const favoritesHTML = generateFavoritesHTML();
+
 		// Generate insights section
 		const insightsHTML = `
 			<div class="insights-section">
@@ -670,7 +735,7 @@ function generateResultsHTML(formattedResults) {
 		`;
 
 		// Combine all sections
-		const fullHTML = summaryHTML + recommendationsHTML + categoriesHTML + insightsHTML;
+		const fullHTML = summaryHTML + recommendationsHTML + favoritesHTML + categoriesHTML + insightsHTML;
 
 		console.log('✅ Results HTML generated successfully');
 		return fullHTML;
