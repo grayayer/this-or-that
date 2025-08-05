@@ -389,12 +389,108 @@ class LandBookScraper {
 		}
 	}
 
+	/**
+	 * Triggers lazy loading by scrolling to the pagination element to trigger intersection observer
+	 * @param {number} maxLoads - Maximum number of lazy loads to trigger
+	 * @returns {Promise<number>} - Number of successful loads
+	 */
+	async triggerLazyLoading(maxLoads = 4) {
+		console.log(`🔄 Triggering lazy loading (up to ${maxLoads} loads)...`);
+
+		let loadCount = 0;
+
+		for (let i = 0; i < maxLoads; i++) {
+			// Get current item count
+			const currentItemCount = await this.page.evaluate(() => {
+				const items = document.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id], a[href*="/website/"]');
+				return items.length;
+			});
+
+			console.log(`   Load ${i + 1}: Found ${currentItemCount} items`);
+
+			// Look for the pagination element and scroll it into view
+			const paginationFound = await this.page.evaluate(() => {
+				// Look for the pagination element with the specific attributes you found
+				const paginationElement = document.querySelector('[data-pagination], .pagination-load-cta, [data-pagination-load-more-btn]');
+
+				if (paginationElement) {
+					// Scroll the pagination element into view to trigger intersection observer
+					paginationElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+					// Also try clicking the "Load more" button if it exists
+					const loadMoreBtn = paginationElement.querySelector('[data-pagination-load-more-btn], .btn');
+					if (loadMoreBtn && loadMoreBtn.textContent.includes('Load more')) {
+						loadMoreBtn.click();
+					}
+
+					return true;
+				}
+
+				// Fallback: scroll to bottom if no pagination element found
+				window.scrollTo(0, document.body.scrollHeight);
+				return false;
+			});
+
+			if (paginationFound) {
+				console.log(`   📍 Found pagination element, triggered intersection observer`);
+			} else {
+				console.log(`   📍 No pagination element found, scrolled to bottom`);
+			}
+
+			// Wait for new content to load (intersection observer needs time)
+			await new Promise(resolve => setTimeout(resolve, 4000));
+
+			// Check if new items were loaded
+			const newItemCount = await this.page.evaluate(() => {
+				const items = document.querySelectorAll('.website-item-wrapper, .website-item, [data-website-id], a[href*="/website/"]');
+				return items.length;
+			});
+
+			if (newItemCount > currentItemCount) {
+				loadCount++;
+				console.log(`   ✅ Loaded ${newItemCount - currentItemCount} new items (total: ${newItemCount})`);
+			} else {
+				console.log(`   ⏸️  No new items loaded on attempt ${i + 1}`);
+
+				// If no new items loaded, check if we've reached the end
+				const hasMoreContent = await this.page.evaluate(() => {
+					const paginationElement = document.querySelector('[data-pagination]');
+					const loadingText = document.querySelector('[data-pagination-is-loading-txt]');
+					const loadMoreBtn = document.querySelector('[data-pagination-load-more-btn]');
+
+					// If loading text is visible or load more button exists, there might be more content
+					return (loadingText && loadingText.offsetParent !== null) ||
+						(loadMoreBtn && loadMoreBtn.offsetParent !== null);
+				});
+
+				if (!hasMoreContent) {
+					console.log(`   🏁 Reached end of content, stopping at ${loadCount} successful loads`);
+					break;
+				}
+			}
+
+			// Additional wait between loads to be respectful
+			if (i < maxLoads - 1) {
+				await new Promise(resolve => setTimeout(resolve, 2000));
+			}
+		}
+
+		console.log(`🔄 Lazy loading completed: ${loadCount} successful loads`);
+		return loadCount;
+	}
+
 	async scrapeGridPage() {
 		console.log('🕷️  Starting grid page scraping...');
 
 		try {
 			// Wait for content to be fully loaded
 			await new Promise(resolve => setTimeout(resolve, 3000));
+
+			// Trigger lazy loading to get more items (up to 100)
+			const maxLoads = Math.ceil(this.options.maxItems / 20) - 1; // -1 because first 20 are already loaded
+			if (maxLoads > 0) {
+				await this.triggerLazyLoading(maxLoads);
+			}
 
 			// Extract website items from the grid
 			const websiteData = await this.page.evaluate(() => {
@@ -1165,7 +1261,7 @@ class LandBookScraper {
 	}
 
 	// Format extracted data into the specified JSON structure
-	formatDesignData(rawData, index = 0) {
+	async formatDesignData(rawData, index = 0) {
 		try {
 			// Validate input data
 			if (!rawData || typeof rawData !== 'object') {
@@ -1333,8 +1429,9 @@ class LandBookScraper {
 		const formatErrors = [];
 
 		// Format each scraped design
-		scrapedData.forEach((rawData, index) => {
-			const formatResult = this.formatDesignData(rawData, index);
+		for (let index = 0; index < scrapedData.length; index++) {
+			const rawData = scrapedData[index];
+			const formatResult = await this.formatDesignData(rawData, index);
 
 			if (formatResult.success) {
 				// Validate the formatted design
@@ -1360,7 +1457,7 @@ class LandBookScraper {
 					rawData: formatResult.rawData
 				});
 			}
-		});
+		}
 
 		// Generate final JSON structure
 		const outputData = {

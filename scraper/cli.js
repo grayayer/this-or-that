@@ -37,7 +37,8 @@ program
 	.option('-i, --industries <industries>', 'Comma-separated list of industries')
 	.option('-p, --platforms <platforms>', 'Comma-separated list of platforms')
 	.option('--colors <colors>', 'Comma-separated list of color schemes')
-	.option('-m, --max-items <number>', 'Maximum number of items to scrape', parseInt, 20)
+	.option('-u, --url <url>', 'Direct Land-book URL to scrape (overrides filter options)')
+	.option('-m, --max-items <number>', 'Maximum number of items to scrape', parseInt, 100)
 	.option('-o, --output <path>', 'Output file path', 'designs.json')
 	.option('--headless <boolean>', 'Run browser in headless mode', 'true')
 	.option('--timeout <number>', 'Request timeout in milliseconds', parseInt, 30000)
@@ -159,8 +160,8 @@ async function runScrapeCommand(options) {
 	if (options.platforms) filters.platforms = options.platforms.split(',').map(s => s.trim());
 	if (options.colors) filters.colors = options.colors.split(',').map(s => s.trim());
 
-	// Build URL
-	const url = buildLandBookUrl(filters);
+	// Build URL - use direct URL if provided, otherwise build from filters
+	const url = options.url || buildLandBookUrl(filters);
 	logger.info(`Target URL: ${url}`);
 
 	// Show filters

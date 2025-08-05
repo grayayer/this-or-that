@@ -13,6 +13,8 @@ A powerful and respectful web scraper for collecting design data from [Land-book
 - 🔧 **Error Handling**: Robust error handling with detailed error reporting
 - 📦 **JSON Output**: Generates clean, validated JSON data ready for use
 - 📷 **Local Image Download**: Download images locally to eliminate external dependencies
+- 🔗 **Direct URL Support**: Scrape any Land-book URL directly from your browser
+- 🔄 **Lazy Loading**: Automatically trigger infinite scroll to load up to 100 items
 
 ## Installation
 
@@ -78,7 +80,8 @@ node cli.js scrape [options]
 - `-i, --industries <industries>` - Comma-separated list of industries
 - `-p, --platforms <platforms>` - Comma-separated list of platforms
 - `--colors <colors>` - Comma-separated list of color schemes
-- `-m, --max-items <number>` - Maximum items to scrape (default: 20)
+- `-u, --url <url>` - Direct Land-book URL to scrape (overrides filter options)
+- `-m, --max-items <number>` - Maximum items to scrape (default: 100, with lazy loading)
 - `--download-images` - Download images locally to `/data/images/` directory
 - `-o, --output <path>` - Output file path (default: designs.json)
 - `--headless <boolean>` - Run browser in headless mode (default: true)
@@ -270,6 +273,18 @@ Scrape with local image download:
 npm run scrape -- --preset minimal-portfolios --download-images --max-items 10
 ```
 
+Scrape any Land-book search URL directly:
+
+```bash
+npm run scrape -- --url "https://land-book.com/?search=life+coach" --max-items 50
+```
+
+Scrape with lazy loading for more items:
+
+```bash
+npm run scrape -- --url "https://land-book.com/?search=portfolio+design" --max-items 80 --download-images
+```
+
 ### Advanced Examples
 
 Scrape with custom configuration and logging:
@@ -330,6 +345,61 @@ node test-image-download.js
 ```
 
 Images are saved to `/data/images/` directory and automatically organized by filename.
+
+## Direct URL Support
+
+Instead of using filter options, you can now scrape any Land-book URL directly:
+
+### From Browser to Scraper
+
+1. **Browse Land-book.com** in your browser
+2. **Find interesting results** using their search/filter interface
+3. **Copy the URL** from your browser address bar
+4. **Use the URL directly** with the scraper
+
+### Examples
+
+```bash
+# Search results (recommended)
+npm run scrape -- --url "https://land-book.com/?search=life+coach"
+
+# Category filters using traditional method
+npm run scrape -- --categories portfolio --styles minimalist
+
+# Search with more items (triggers lazy loading)
+npm run scrape -- --url "https://land-book.com/?search=life+coach" --max-items 50
+
+# Any Land-book search URL works
+npm run scrape -- --url "https://land-book.com/?search=portfolio+design" --max-items 30
+```
+
+**Note**: The `--url` option works best with search URLs like `https://land-book.com/?search=term`. For category-based filtering, you can still use the traditional filter options like `--categories` and `--styles`.
+
+## Lazy Loading Feature
+
+The scraper now automatically triggers Land-book's infinite scroll to load more items:
+
+- **Default**: Loads first 20 items
+- **With `--max-items 50`**: Triggers lazy loading to get ~50 items
+- **With `--max-items 100`**: Triggers multiple lazy loads to get ~100 items
+- **Respectful**: Includes delays between loads to avoid overwhelming the server
+
+### How It Works
+
+1. **Initial Load**: Page loads with ~20 items
+2. **Scroll Trigger**: Scraper scrolls to bottom to trigger lazy loading
+3. **Wait & Repeat**: Waits for new content, then repeats until target reached
+4. **Smart Stopping**: Stops when no new items load or target is reached
+
+### Testing
+
+```bash
+# Test lazy loading functionality
+node test-direct-url-lazy-loading.js
+
+# Test lazy loading only
+node test-direct-url-lazy-loading.js --lazy-only
+```
 
 ## Output Format
 
