@@ -239,9 +239,17 @@ class DataValidator {
 	 */
 	isValidUrl(url) {
 		try {
+			// Accept absolute URLs
 			new URL(url);
 			return true;
 		} catch {
+			// Also accept relative URLs that start with ./ or just a path
+			if (typeof url === 'string' && url.length > 0) {
+				// Check if it's a relative path (starts with ./ or just a filename/path)
+				if (url.startsWith('./') || url.startsWith('../') || !url.includes('://')) {
+					return true;
+				}
+			}
 			return false;
 		}
 	}

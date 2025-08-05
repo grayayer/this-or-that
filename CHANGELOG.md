@@ -5,6 +5,48 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2025-08-05
+
+### Added: Rich Tag Data Integration
+
+### Added
+
+- **Rich Tag Data System**: Comprehensive tag categorization across 6 dimensions (style, industry, typography, type, platform, colors)
+- **100 Enhanced Designs**: Scaled from 20 to 100 high-quality website designs with full metadata
+- **Color Palette Extraction**: Automatic extraction of color palettes from each design (avg 10 colors per design)
+- **JSON-Based Scraper**: New `json-scraper.js` for processing saved HTML files without live scraping
+- **Enhanced Descriptions**: Contextual, meaningful descriptions generated for each design
+- **Direct Website Links**: Links to actual websites for user inspiration
+- **Sophisticated Analysis**: Deep preference tracking across multiple design dimensions
+
+### Enhanced
+
+- **Data Validator**: Updated to support relative image URLs alongside absolute URLs
+- **Tag Categorization**: Intelligent categorization of 116+ unique tags into meaningful groups
+- **User Experience**: Much richer preference analysis and recommendations
+- **Performance**: Optimized data processing for larger datasets
+
+### Technical
+
+- Added `scraper/json-scraper.js` - Enhanced scraper with JSON input capability
+- Added `scraper/test-json-scraper.js` - Comprehensive test suite
+- Added `transform-enhanced-data.js` - Data transformation pipeline
+- Added `rename-images.js` - Optional image filename cleanup utility
+- Modified `js/data-validator.js` - Support for relative URLs
+- Updated `data/designs.json` - 100 enhanced designs with categorized tags
+- Added `data/images/` - Local image storage for all designs
+
+### Data
+
+- **116 unique tags** across all categories
+- **100% designs with color palettes**
+- **5 main categories**: Landing, Template, Ecommerce, Portfolio, Other
+- **Enhanced metadata**: Author info, website URLs, detailed descriptions
+
+### Breaking Changes
+
+- None - Full backward compatibility maintained
+
 ## [1.2.0] - 2025-08-02
 
 ### Added

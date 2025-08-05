@@ -409,6 +409,382 @@ class LandBookJsonScraper {
 		}
 	}
 
+	/**
+	 * Generate comprehensive and meaningful tags based on the website name and category
+	 * This is the MOST IMPORTANT part - rich tag data drives personalization
+	 */
+	generateEnhancedTags(name, category) {
+		const tags = [];
+		const nameLower = name.toLowerCase();
+
+		// CATEGORY-BASED TAGS (Primary classification)
+		if (category) {
+			tags.push(category.toLowerCase().replace(/\s+/g, '-'));
+		}
+
+		// INDUSTRY & VERTICAL TAGS
+		// Health & Medical
+		if (nameLower.match(/\b(health|medical|wellness|fitness|therapy|clinic|hospital|doctor|nurse|patient|treatment|medicine|pharmaceutical|biotech|healthcare)\b/)) {
+			tags.push('health');
+			if (nameLower.match(/\b(medical|clinic|hospital|doctor|treatment|medicine|pharmaceutical)\b/)) tags.push('medical');
+			if (nameLower.match(/\b(wellness|therapy|mental|mindfulness|meditation)\b/)) tags.push('wellness');
+			if (nameLower.match(/\b(fitness|gym|workout|exercise|training|sport|athletic)\b/)) tags.push('fitness');
+			if (nameLower.match(/\b(therapy|therapeutic|rehabilitation|recovery)\b/)) tags.push('therapy');
+		}
+
+		// Technology & Software
+		if (nameLower.match(/\b(ai|artificial|intelligence|machine|learning|tech|software|app|platform|digital|saas|api|cloud|data|analytics)\b/)) {
+			tags.push('technology');
+			if (nameLower.match(/\b(ai|artificial|intelligence|machine|learning)\b/)) tags.push('ai');
+			if (nameLower.match(/\b(software|app|platform|saas|tool)\b/)) tags.push('software');
+			if (nameLower.match(/\b(digital|online|web|internet)\b/)) tags.push('digital');
+			if (nameLower.match(/\b(data|analytics|insights|metrics|dashboard)\b/)) tags.push('analytics');
+		}
+
+		// Business & Professional Services
+		if (nameLower.match(/\b(business|corporate|professional|consulting|agency|studio|company|enterprise|startup|venture)\b/)) {
+			tags.push('business');
+			if (nameLower.match(/\b(consulting|advisory|strategy|management)\b/)) tags.push('consulting');
+			if (nameLower.match(/\b(agency|studio|creative|design)\b/)) tags.push('creative-agency');
+		}
+
+		// E-commerce & Retail
+		if (nameLower.match(/\b(shop|store|buy|sell|product|commerce|retail|marketplace|cart|checkout|payment)\b/)) {
+			tags.push('ecommerce');
+			if (nameLower.match(/\b(marketplace|platform|multi)\b/)) tags.push('marketplace');
+			if (nameLower.match(/\b(luxury|premium|high-end|exclusive)\b/)) tags.push('luxury');
+		}
+
+		// Education & Learning
+		if (nameLower.match(/\b(education|learning|course|trainil|university|academy|teach|student|knowledge)\b/)) {
+			tags.push('education');
+			if (nameLower.match(/\b(online|e-learning|digital|virtual)\b/)) tags.push('online-learning');
+		}
+
+		// DESIGN STYLE TAGS
+		// Modern & Contemporary
+		if (nameLower.match(/\b(modern|contemporary|sleek|clean|minimal|simple|elegant|sophisticated)\b/)) {
+			tags.push('modern');
+			if (nameLower.match(/\b(minimal|minimalist|clean|simple)\b/)) tags.push('minimalist');
+		}
+
+		// Creative & Artistic
+		if (nameLower.match(/\b(creative|artistic|bold|vibrant|colorful|unique|innovative|experimental)\b/)) {
+			tags.push('creative');
+			if (nameLower.match(/\b(bold|vibrant|colorful|bright)\b/)) tags.push('colorful');
+		}
+
+		// Professional & Corporate
+		if (nameLower.match(/\b(professional|corporate|business|formal|enterprise|executive)\b/)) {
+			tags.push('professional');
+		}
+
+		// FUNCTIONALITY TAGS
+		// Interactive & Dynamic
+		if (nameLower.match(/\b(interactive|dynamic|animation|motion|scroll|hover|transition)\b/)) {
+			tags.push('interactive');
+		}
+
+		// Mobile & Responsive
+		if (nameLower.match(/\b(mobile|responsive|adaptive|device|phone|tablet)\b/)) {
+			tags.push('mobile-friendly');
+		}
+
+		// TECHNICAL IMPLEMENTATION TAGS
+		if (nameLower.match(/\b(webflow|wordpress|react|vue|angular|javascript|css|html)\b/)) {
+			tags.push('web-development');
+			if (nameLower.match(/\b(webflow)\b/)) tags.push('webflow');
+			if (nameLower.match(/\b(wordpress)\b/)) tags.push('wordpress');
+			if (nameLower.match(/\b(react|vue|angular|javascript)\b/)) tags.push('javascript-framework');
+		}
+
+		// CONTENT TYPE TAGS
+		if (nameLower.match(/\b(blog|news|article|content|media|publication)\b/)) {
+			tags.push('content');
+		}
+
+		if (nameLower.match(/\b(portfolio|showcase|gallery|work|project)\b/)) {
+			tags.push('portfolio');
+		}
+
+		// TARGET AUDIENCE TAGS
+		if (nameLower.match(/\b(startup|entrepreneur|founder|small business|smb)\b/)) {
+			tags.push('startup');
+		}
+
+		if (nameLower.match(/\b(enterprise|corporation|large|big|global)\b/)) {
+			tags.push('enterprise');
+		}
+
+		if (nameLower.match(/\b(personal|individual|freelancer|solo)\b/)) {
+			tags.push('personal');
+		}
+
+		// SPECIAL FEATURES TAGS
+		if (nameLower.match(/\b(dashboard|admin|control|panel|management)\b/)) {
+			tags.push('dashboard');
+		}
+
+		if (nameLower.match(/\b(landing|page|conversion|lead|signup)\b/)) {
+			tags.push('landing-page');
+		}
+
+		if (nameLower.match(/\b(booking|appointment|schedule|calendar|reservation)\b/)) {
+			tags.push('booking');
+		}
+
+		// FALLBACK TAGS - ensure we always have meaningful tags
+		if (tags.length === 0) {
+			// Analyze the structure of the name for fallback tags
+			if (nameLower.includes('|') || nameLower.includes('–') || nameLower.includes('-')) {
+				tags.push('branded', 'professional');
+			} else {
+				tags.push('website', 'design');
+			}
+		}
+
+		// QUALITY ENHANCEMENT - add semantic tags based on combinations
+		if (tags.includes('health') && tags.includes('technology')) {
+			tags.push('healthtech');
+		}
+
+		if (tags.includes('business') && tags.includes('software')) {
+			tags.push('b2b-saas');
+		}
+
+		if (tags.includes('ecommerce') && tags.includes('luxury')) {
+			tags.push('premium-retail');
+		}
+
+		// Remove duplicates and prioritize most relevant tags (limit to 8 for rich data)
+		const uniqueTags = [...new Set(tags)];
+
+		// Prioritize tags by importance (category, industry, style, functionality)
+		const priorityOrder = [
+			'health', 'medical', 'wellness', 'fitness', 'therapy',
+			'technology', 'ai', 'software', 'digital',
+			'business', 'consulting', 'ecommerce', 'education',
+			'modern', 'minimalist', 'creative', 'professional',
+			'landing-page', 'portfolio', 'dashboard', 'interactive',
+			'startup', 'enterprise', 'personal',
+			'webflow', 'wordpress', 'mobile-friendly'
+		];
+
+		// Sort tags by priority, keeping high-value tags first
+		const sortedTags = uniqueTags.sort((a, b) => {
+			const aIndex = priorityOrder.indexOf(a);
+			const bIndex = priorityOrder.indexOf(b);
+			if (aIndex === -1 && bIndex === -1) return 0;
+			if (aIndex === -1) return 1;
+			if (bIndex === -1) return -1;
+			return aIndex - bIndex;
+		});
+
+		return sortedTags.slice(0, 8); // Return up to 8 most relevant tags
+	}
+
+	/**
+	 * Generate rich, contextual descriptions based on the website name and category
+	 */
+	generateEnhancedDescription(name, category) {
+		if (!name) return 'A beautiful website design';
+
+		const nameLower = name.toLowerCase();
+
+		// Base category descriptions
+		const categoryDescriptions = {
+			'Landing Page': 'A compelling landing page design',
+			'Ecommerce': 'An elegant ecommerce website',
+			'Template': 'A professional website template',
+			'Portfolio': 'A creative portfolio showcase',
+			'Other': 'A unique website design'
+		};
+
+		let baseDescription = categoryDescriptions[category] || 'A modern website design';
+
+		// INDUSTRY-SPECIFIC DESCRIPTIONS
+		// Health & Medical
+		if (nameLower.match(/\b(health|medical|wellness|fitness|therapy|clinic|hospital|doctor|pharmaceutical)\b/)) {
+			if (nameLower.match(/\b(fitness|gym|workout|exercise|training|sport)\b/)) {
+				baseDescription = `${baseDescription} focused on fitness and athletic performance`;
+			} else if (nameLower.match(/\b(therapy|mental|wellness|mindfulness|meditation)\b/)) {
+				baseDescription = `${baseDescription} focused on wellness and mental health`;
+			} else if (nameLower.match(/\b(medical|clinic|hospital|doctor|pharmaceutical)\b/)) {
+				baseDescription = `${baseDescription} focused on medical and healthcare services`;
+			} else {
+				baseDescription = `${baseDescription} focused on health and wellness`;
+			}
+		}
+
+		// Technology & Software
+		else if (nameLower.match(/\b(ai|artificial|intelligence|machine|learning|tech|software|app|platform|digital|saas)\b/)) {
+			if (nameLower.match(/\b(ai|artificial|intelligence|machine|learning)\b/)) {
+				baseDescription = `${baseDescription} showcasing AI and machine learning technology`;
+			} else if (nameLower.match(/\b(saas|platform|software|app)\b/)) {
+				baseDescription = `${baseDescription} for software and digital platforms`;
+			} else {
+				baseDescription = `${baseDescription} showcasing modern technology`;
+			}
+		}
+
+		// Business & Professional
+		else if (nameLower.match(/\b(business|corporate|professional|consulting|agency|studio|company|enterprise)\b/)) {
+			if (nameLower.match(/\b(consulting|advisory|strategy|management)\b/)) {
+				baseDescription = `${baseDescription} for consulting and professional services`;
+			} else if (nameLower.match(/\b(agency|studio|creative|design)\b/)) {
+				baseDescription = `${baseDescription} for creative agencies and design studios`;
+			} else if (nameLower.match(/\b(startup|entrepreneur|founder)\b/)) {
+				baseDescription = `${baseDescription} for startups and entrepreneurs`;
+			} else {
+				baseDescription = `${baseDescription} for professional services`;
+			}
+		}
+
+		// E-commerce & Retail
+		else if (nameLower.match(/\b(shop|store|buy|sell|product|commerce|retail|marketplace)\b/)) {
+			if (nameLower.match(/\b(luxury|premium|high-end|exclusive)\b/)) {
+				baseDescription = `${baseDescription} for luxury and premium products`;
+			} else if (nameLower.match(/\b(marketplace|platform|multi)\b/)) {
+				baseDescription = `${baseDescription} for online marketplaces`;
+			} else {
+				baseDescription = `${baseDescription} for online retail`;
+			}
+		}
+
+		// Education & Learning
+		else if (nameLower.match(/\b(education|learning|course|training|school|university|academy)\b/)) {
+			if (nameLower.match(/\b(online|e-learning|digital|virtual)\b/)) {
+				baseDescription = `${baseDescription} for online education and e-learning`;
+			} else {
+				baseDescription = `${baseDescription} for education and learning`;
+			}
+		}
+
+		// DESIGN STYLE ENHANCEMENTS
+		if (nameLower.match(/\b(minimal|minimalist|clean|simple)\b/)) {
+			baseDescription = `${baseDescription} with a clean, minimalist aesthetic`;
+		} else if (nameLower.match(/\b(bold|vibrant|colorful|bright|creative|artistic)\b/)) {
+			baseDescription = `${baseDescription} with bold, creative visuals`;
+		} else if (nameLower.match(/\b(elegant|sophisticated|luxury|premium)\b/)) {
+			baseDescription = `${baseDescription} with an elegant, sophisticated style`;
+		} else if (nameLower.match(/\b(modern|contemporary|sleek)\b/)) {
+			baseDescription = `${baseDescription} with a modern, contemporary look`;
+		}
+
+		return baseDescription;
+	}
+
+	/**
+	 * Process JSON data and scrape detail pages for rich taxonomy data
+	 * @returns {Promise<Object>} - Processed design data
+	 */
+	async processJsonData() {
+		if (!this.inputData) {
+			throw new Error('No JSON data loaded. Call loadJsonData() first.');
+		}
+
+		console.log(`🕷️  Processing ${this.inputData.websites.length} websites from JSON...`);
+
+		const processedDesigns = [];
+		const websites = this.inputData.websites.slice(0, this.options.maxItems);
+
+		for (let i = 0; i < websites.length; i++) {
+			const website = websites[i];
+			console.log(`\n📍 Processing ${i + 1}/${websites.length}: ${website.name}`);
+
+			try {
+				// Start with basic data from JSON
+				let designData = {
+					id: website.id || `design_${i + 1}`,
+					name: website.name || `Design ${i + 1}`,
+					description: this.generateEnhancedDescription(website.name, website.category),
+					image: website.localImagePath || website.thumbnailImage,
+					category: website.category || 'Uncategorized',
+					tags: this.options.enhancedTags ?
+						this.generateEnhancedTags(website.name, website.category) :
+						[website.category?.toLowerCase().replace(/\s+/g, '-') || 'design'],
+					source: 'land-book',
+					sourceUrl: website.postUrl,
+					websitePath: website.websitePath,
+					originalIndex: website.index || i + 1
+				};
+
+				// If we have a detail URL, scrape for rich taxonomy data
+				if (website.postUrl && this.browser) {
+					console.log(`   🔍 Scraping detail page for rich data...`);
+					try {
+						const detailData = await this.scrapeDetailPage(website.postUrl);
+						if (detailData && detailData.success) {
+							// Merge scraped data with basic data
+							designData = {
+								...designData,
+								...detailData.data,
+								// Combine tags from both sources
+								tags: [...new Set([
+									...designData.tags,
+									...(detailData.data.tags || [])
+								])].slice(0, 10) // Limit to 10 total tags
+							};
+							console.log(`   ✅ Enhanced with ${detailData.data.tags?.length || 0} additional tags`);
+						}
+					} catch (error) {
+						console.log(`   ⚠️  Detail scraping failed: ${error.message}`);
+						// Continue with basic data
+					}
+				}
+
+				// Download image if requested
+				if (this.options.downloadImages && website.thumbnailImage) {
+					console.log(`   📷 Downloading image...`);
+					const localImagePath = await this.downloadImage(website.thumbnailImage, designData.id);
+					if (localImagePath) {
+						designData.image = localImagePath;
+						designData.localImagePath = localImagePath;
+					}
+				}
+
+				processedDesigns.push(designData);
+				console.log(`   ✅ Processed with ${designData.tags.length} tags: ${designData.tags.join(', ')}`);
+
+			} catch (error) {
+				console.error(`   ❌ Error processing website ${i + 1}:`, error.message);
+				this.errors.push({
+					type: 'processing',
+					website: website.name,
+					error: error.message
+				});
+			}
+
+			// Progress update
+			if (this.logger.updateProgress) {
+				this.logger.updateProgress(i + 1, websites.length);
+			}
+
+			// Small delay to be respectful
+			await new Promise(resolve => setTimeout(resolve, 500));
+		}
+
+		console.log(`\n🎉 Processing completed!`);
+		console.log(`   ✅ Successfully processed: ${processedDesigns.length}`);
+		console.log(`   ❌ Errors: ${this.errors.length}`);
+
+		return {
+			success: true,
+			designs: processedDesigns,
+			metadata: {
+				generatedAt: new Date().toISOString(),
+				totalDesigns: processedDesigns.length,
+				source: 'json-processing-enhanced',
+				originalSource: this.inputData.metadata?.source || 'unknown',
+				categories: [...new Set(processedDesigns.map(d => d.category))].sort(),
+				tags: [...new Set(processedDesigns.flatMap(d => d.tags))].sort(),
+				errors: this.errors.length,
+				version: '2.0.0'
+			},
+			errors: this.errors
+		};
+	}
+
 	async close() {
 		console.log('🔄 Closing browser...');
 
@@ -1651,7 +2027,7 @@ function parseLandBookUrl(url) {
 }
 
 // Export for use as module
-module.exports = LandBookScraper;
+module.exports = LandBookJsonScraper;
 
 // CLI usage when run directly
 if (require.main === module) {
