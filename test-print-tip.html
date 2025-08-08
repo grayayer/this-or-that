@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Print Tip Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/print.css">
+	<style>
+		body {
+			padding: 20px;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		}
+
+		.test-section {
+			margin: 20px 0;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+		}
+
+		.test-controls {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.test-controls button {
+			margin-right: 10px;
+			padding: 10px 20px;
+			background: #007bff;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.test-controls button:hover {
+			background: #0056b3;
+		}
+
+		.results-section {
+			display: block;
+		}
+
+		.results-container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.results-header h2 {
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.results-description {
+			color: #666;
+			margin-bottom: 30px;
+		}
+
+		.preference-categories {
+			margin-bottom: 20px;
+		}
+
+		.preference-category {
+			background: #fff;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+
+		.category-header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 15px;
+		}
+
+		.category-icon {
+			font-size: 18px;
+			margin-right: 10px;
+		}
+
+		.category-title {
+			font-size: 16px;
+			font-weight: bold;
+			color: #333;
+			flex-grow: 1;
+		}
+
+		.category-strength {
+			padding: 4px 12px;
+			border-radius: 12px;
+			font-size: 12px;
+			font-weight: bold;
+			background: #e3f2fd;
+			color: #1565c0;
+		}
+
+		.preference-items {
+			display: block;
+		}
+
+		.preference-item {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 8px 12px;
+			margin-bottom: 8px;
+			background: #f8f9fa;
+			border-radius: 4px;
+		}
+
+		.preference-tag {
+			font-weight: 500;
+			color: #333;
+		}
+
+		.preference-percentage {
+			font-weight: bold;
+			color: #007bff;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-controls">
+		<h1>Print Tip Test</h1>
+		<p>This page tests that the print tip is visible on screen but hidden when printing/saving as PDF.</p>
+		<button onclick="showPrintTip()">Show Print Tip</button>
+		<button onclick="window.print()">Print/Save as PDF</button>
+		<button onclick="hidePrintTip()">Hide Print Tip</button>
+	</div>
+
+	<section class="results-section">
+		<div class="results-container">
+			<header class="results-header">
+				<h2>Sample Results Page</h2>
+				<p class="results-description">This is a sample results page to test print functionality</p>
+			</header>
+
+			<div class="preference-categories">
+				<div class="preference-category">
+					<div class="category-header">
+						<span class="category-icon">🎨</span>
+						<h3 class="category-title">Visual Style</h3>
+						<span class="category-strength">Strong (45%)</span>
+					</div>
+					<div class="preference-items">
+						<div class="preference-item">
+							<span class="preference-tag">Minimalist</span>
+							<span class="preference-percentage">45%</span>
+						</div>
+						<div class="preference-item">
+							<span class="preference-tag">Clean</span>
+							<span class="preference-percentage">38%</span>
+						</div>
+						<div class="preference-item">
+							<span class="preference-tag">Modern</span>
+							<span class="preference-percentage">32%</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="preference-category">
+					<div class="category-header">
+						<span class="category-icon">🌈</span>
+						<h3 class="category-title">Color Preferences</h3>
+						<span class="category-strength">Moderate (28%)</span>
+					</div>
+					<div class="preference-items">
+						<div class="preference-item">
+							<span class="preference-tag">#FFFFFF</span>
+							<span class="preference-percentage">28%</span>
+						</div>
+						<div class="preference-item">
+							<span class="preference-tag">#000000</span>
+							<span class="preference-percentage">25%</span>
+						</div>
+						<div class="preference-item">
+							<span class="preference-tag">#F5F5F5</span>
+							<span class="preference-percentage">22%</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		function showPrintTip() {
+			// Create or update print tip element (same as in print.js)
+			let printTipElement = document.getElementById('print-tip');
+
+			if (!printTipElement) {
+				printTipElement = document.createElement('div');
+				printTipElement.id = 'print-tip';
+				printTipElement.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #e3f2fd;
+                    color: #1565c0;
+                    border: 1px solid #bbdefb;
+                    padding: 16px 24px;
+                    border-radius: 8px;
+                    font-weight: 500;
+                    z-index: 1000;
+                    max-width: 500px;
+                    text-align: center;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    transition: opacity 0.3s ease;
+                `;
+				document.body.appendChild(printTipElement);
+			}
+
+			printTipElement.innerHTML = `
+                <div style="margin-bottom: 8px;">
+                    <strong>💡 Print Tip:</strong> Save as PDF to easily share your results!
+                </div>
+                <div style="font-size: 14px; opacity: 0.9;">
+                    In the print dialog, choose "Save as PDF" as your destination to create a shareable file.
+                </div>
+            `;
+
+			printTipElement.style.opacity = '1';
+			printTipElement.style.display = 'block';
+
+			console.log('Print tip shown');
+		}
+
+		function hidePrintTip() {
+			const printTipElement = document.getElementById('print-tip');
+			if (printTipElement) {
+				printTipElement.style.opacity = '0';
+				setTimeout(() => {
+					if (printTipElement.parentNode) {
+						printTipElement.parentNode.removeChild(printTipElement);
+					}
+				}, 300);
+			}
+		}
+
+		// Show print tip on page load for testing
+		document.addEventListener('DOMContentLoaded', function () {
+			setTimeout(showPrintTip, 1000);
+		});
+	</script>
+</body>
+
+</html>

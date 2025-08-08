@@ -552,7 +552,7 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 /**
- * Generates HTML for the top 5 favorites section
+ * Generates HTML for the top favorites section (up to 10)
  * @returns {string} - HTML string for favorites section
  */
 function generateFavoritesHTML() {
@@ -575,7 +575,7 @@ function generateFavoritesHTML() {
 
 		const favoritesHTML = `
 			<div class="favorites-section">
-				<h3>🏆 Your Top ${topFavorites.length} Favorite Designs</h3>
+				<h3>🏆 Your Top ${topFavorites.length} Favorite Design${topFavorites.length === 1 ? '' : 's'}</h3>
 				<p class="favorites-description">Based on your selections and bookmarks, these are the designs you liked most:</p>
 				<div class="favorites-list">
 					${topFavorites.map((favorite, index) => `

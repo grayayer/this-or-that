@@ -294,8 +294,8 @@ const FavoritesManager = {
 	},
 
 	/**
-	 * Get top 5 favorite designs based on selection count and hearts
-	 * @returns {Array} - Array of top 5 favorite designs with metadata
+	 * Get top 10 favorite designs based on selection count and hearts
+	 * @returns {Array} - Array of top 10 favorite designs with metadata
 	 */
 	getTopFavorites() {
 		try {
@@ -366,14 +366,14 @@ const FavoritesManager = {
 				return (a.title || '').localeCompare(b.title || '');
 			});
 
-			// Return top 5
-			const top5 = favorites.slice(0, 5);
+			// Return top 10
+			const top10 = favorites.slice(0, 10);
 
-			console.log(`🏆 Top ${top5.length} favorites calculated:`, top5.map(f =>
+			console.log(`🏆 Top ${top10.length} favorites calculated:`, top10.map(f =>
 				`${f.title} (${f.selectionCount} selections${f.isHearted ? ' + ❤️' : ''})`
 			));
 
-			return top5;
+			return top10;
 
 		} catch (error) {
 			console.error('❌ Failed to get top favorites:', error);

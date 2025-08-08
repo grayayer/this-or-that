@@ -5,6 +5,39 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2025-08-07
+
+### Fixed: Print Tip Display Issue
+
+### Fixed
+
+- **Print/PDF Output**: Print tip box no longer appears in printed results or saved PDFs
+- **Screen-Only Display**: Print tip now only shows on screen when needed, not in print output
+- **Clean Printing**: Removed visual clutter from printed/PDF versions of results
+
+### Technical
+
+- Updated `css/print.css` to hide `#print-tip` and `#copy-feedback` elements during print
+- Added proper `@media print` rules to ensure clean print output
+- Created test page (`test-print-tip.html`) to verify print behavior
+
+## [0.6.1] - 2025-08-07
+
+### Enhanced: Expanded Top Favorites Display
+
+### Changed
+
+- **Favorites Display**: Expanded "Your Top 5 Favorite Designs" to show up to 10 favorites
+- **Better Coverage**: Users can now see more of their preferred designs in results
+- **Dynamic Labeling**: Section title now shows actual count (e.g., "Your Top 7 Favorite Designs")
+- **Improved UX**: More comprehensive view of user preferences
+
+### Technical
+
+- **FavoritesManager**: Updated `getTopFavorites()` to return up to 10 items instead of 5
+- **Results Display**: Enhanced section generation to handle variable counts
+- **CSS Compatibility**: Existing styles work seamlessly with additional items
+
 ## [0.6.0] - 2025-08-07
 
 ### Added: Additional Skip Options

@@ -33,7 +33,9 @@
     .app-footer,
     .results-actions,
     button,
-    .btn {
+    .btn,
+    #print-tip,
+    #copy-feedback {
         display: none !important;
     }
 
