@@ -5,7 +5,7 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.6] - 2025-08-05
+## [0.4.6] - 2025-08-05
 
 ### Enhanced: Clean Website URLs
 
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Backward Compatibility**: Existing data remains functional while new scrapes produce clean URLs
 - **Validation**: Added proper URL parsing and error handling for malformed URLs
 
-## [1.4.5] - 2025-08-05
+## [0.4.5] - 2025-08-05
 
 ### Fixed: Critical Data Validator Issue
 
@@ -51,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **URL Validation**: Added proper URL validation for `websiteUrl` field
 - **Debug Utilities**: Created debug tools for localStorage inspection and data migration
 
-## [1.4.4] - 2025-08-05
+## [0.4.4] - 2025-08-05
 
 ### Fixed: Debug and Migration Tools
 
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Migration Function**: Added metadata migration capability for fixing corrupted data
 - **Console Helper**: Added `fixFavoritesData()` global function for easy data clearing
 
-## [1.4.3] - 2025-08-05
+## [0.4.3] - 2025-08-05
 
 ### Fixed: Enhanced Debugging
 
@@ -71,7 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Metadata Validation**: Enhanced metadata storage and retrieval validation
 - **Error Reporting**: Better error messages for missing or corrupted favorites data
 
-## [1.4.2] - 2025-08-05
+## [0.4.2] - 2025-08-05
 
 ### Fixed: Correct URL Usage
 
@@ -87,7 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Data Accuracy**: Favorites display real website URLs that users can actually visit
 - **Test Updates**: Updated test files to match actual data structure
 
-## [1.4.1] - 2025-08-05
+## [0.4.1] - 2025-08-05
 
 ### Fixed: Favorites Display Issues
 
@@ -104,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Helper Functions**: Added `extractTitleAndUrl()` helper for consistent data processing
 - **Test Coverage**: Added URL extraction test file and debug utilities
 
-## [1.4.0] - 2025-08-05
+## [0.4.0] - 2025-08-05
 
 ### Added: Favorites Tracking System
 
