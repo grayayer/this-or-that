@@ -113,6 +113,18 @@ The "This or That?" application is a client-facing web tool designed to help use
 
 ### Requirement 10
 
+**User Story:** As a user, I want additional skip options beyond the spacebar, so that I can handle different scenarios when I can't decide between designs.
+
+#### Acceptance Criteria
+
+1. WHEN viewing a design pair THEN the system SHALL display two skip buttons below the images
+2. WHEN I click "Dislike Both" THEN the system SHALL record both designs as disliked and advance to the next pair
+3. WHEN I click "Can't Decide - Show Later" THEN the system SHALL skip the current pair without recording preferences (equivalent to spacebar skip)
+4. WHEN I dislike both designs THEN the system SHALL filter those designs from future pairs
+5. WHEN skip buttons are clicked THEN the system SHALL provide visual feedback before advancing
+
+### Requirement 11
+
 **User Story:** As a user, I want to know that my privacy is protected and content is ethically sourced, so that I can use the application with confidence.
 
 #### Acceptance Criteria

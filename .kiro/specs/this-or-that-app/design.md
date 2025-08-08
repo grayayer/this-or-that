@@ -44,7 +44,8 @@ this-or-that-app/
 │   ├── app.js
 │   ├── timer.js
 │   ├── results.js
-│   └── email.js
+│   ├── email.js
+│   └── favorites-manager.js
 ├── data/
 │   └── designs.json
 ├── scraper/
@@ -145,6 +146,24 @@ const analysisCategories = {
 3. Ensure variety in tags/categories when possible
 4. Track pair history to prevent repeats
 
+### 6. Skip Button Component
+
+**Purpose**: Provides additional skip options beyond spacebar for different user scenarios.
+
+**Key Methods**:
+
+- `handleDislikeBoth()`: Records both designs as disliked and advances to next pair
+- `handleCannotDecide()`: Skips pair without recording preferences (equivalent to spacebar)
+- `showSkipButtonFeedback()`: Provides visual feedback when buttons are clicked
+- `filterDislikedDesigns()`: Removes disliked designs from future pair selection
+
+**UI Elements**:
+
+- "Dislike Both" button: Red-tinted button with 👎 emoji for rejecting both options
+- "Can't Decide - Show Later" button: Neutral button with 🤔 emoji for neutral skipping
+- Visual feedback animations when buttons are clicked
+- Integration with existing FavoritesManager for dislike tracking
+
 ## Data Models
 
 ### Design Object Structure
@@ -175,6 +194,18 @@ const analysisCategories = {
     "selectedId": "design-123",
     "rejectedId": "design-456",
     "timeToDecision": 12.5, // seconds
+    "roundNumber": 15,
+    "selectionType": "click" // "click", "keyboard", "skip", "dislike-both", "cannot-decide"
+}
+```
+
+### Skip Action Structure
+
+```javascript
+{
+    "timestamp": "2025-01-30T10:30:00Z",
+    "skippedIds": ["design-123", "design-456"],
+    "skipType": "dislike-both", // "dislike-both", "cannot-decide", "spacebar"
     "roundNumber": 15
 }
 ```

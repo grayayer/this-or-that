@@ -5,6 +5,63 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2025-08-07
+
+### Added: Additional Skip Options
+
+### Added
+
+- **Dislike Both Button**: New 👎 "Dislike Both" button to mark both designs as disliked
+- **Can't Decide Button**: New 🤔 "Can't Decide - Show Later" button for neutral skipping
+- **Visual Feedback**: Skip buttons provide immediate visual feedback when clicked
+- **Smart Filtering**: Disliked designs are automatically filtered from future pairs
+- **Enhanced UX**: Users now have more granular control over their preferences
+
+### Enhanced
+
+- **Skip Functionality**: Expanded beyond spacebar to include explicit button options
+- **User Control**: Better handling of indecision vs. active dislike scenarios
+- **Mobile Responsive**: Skip buttons adapt to mobile layouts with stacked design
+
+### Technical
+
+- **CSS Styling**: Added comprehensive styling for skip buttons with hover effects
+- **JavaScript Integration**: New event handlers and feedback systems
+- **Data Tracking**: Enhanced selection recording to include skip types
+- **FavoritesManager Integration**: Leverages existing dislike tracking system
+
+## [0.5.0] - 2025-08-05
+
+### Added: Intelligent Dislike System
+
+### Added
+
+- **Dislike Tracking**: Automatically tracks rejected designs when users make choices
+- **Smart Filtering**: Rejected designs are filtered out from future pairs to avoid showing them again
+- **Persistent Learning**: Dislike data persists across sessions, creating a personalized experience
+- **Rejection Statistics**: Track how many times designs have been rejected
+- **Improved UX**: Users won't see designs they've already rejected, making choices more relevant
+
+### Enhanced
+
+- **Pair Generation**: Updated `getRandomPairs()` to filter out disliked designs
+- **Data Loader**: Enhanced with `generatePairsFromDesigns()` method for flexible pair generation
+- **Statistics**: Added dislike metrics to favorites statistics (totalDisliked, totalRejections)
+- **Storage Management**: Dislike data integrated into localStorage with proper cleanup
+
+### Technical
+
+- **FavoritesManager**: Added `recordDislike()`, `isDisliked()`, `getDislikedDesigns()` methods
+- **Selection Logic**: Updated `handleSelection()` to automatically record rejected designs as dislikes
+- **Fallback Logic**: Graceful fallback when too many designs are disliked
+- **Test Suite**: Comprehensive test file for dislike functionality
+
+### User Experience
+
+- **Smarter Recommendations**: App learns user preferences and avoids showing rejected designs
+- **Faster Decision Making**: Users spend less time on designs they don't like
+- **Personalized Experience**: Each user's experience becomes more tailored over time
+
 ## [0.4.6] - 2025-08-05
 
 ### Enhanced: Clean Website URLs

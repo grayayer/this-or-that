@@ -1,9 +1,9 @@
 {
-	"version": "0.4.6",
+	"version": "0.6.0",
 	"name": "This or That - Design Preference Discovery",
 	"author": "Gray Ayer",
 	"website": "https://studiok40.com",
-	"releaseDate": "2025-08-05",
+	"releaseDate": "2025-08-07",
 	"description": "A web application for discovering design preferences through binary choices with rich tag analysis",
 	"repository": {
 		"type": "git",

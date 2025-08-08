@@ -207,14 +207,46 @@ class AppDataLoader {
 			return [];
 		}
 
-		const designs = this.designsData.designs;
-		const pairs = [];
-
-		if (designs.length < 2) {
-			console.error('❌ Need at least 2 designs to create pairs');
-			return [];
+		// Get disliked design IDs to filter them out
+		let dislikedIds = [];
+		if (typeof FavoritesManager !== 'undefined') {
+			dislikedIds = FavoritesManager.getDislikedDesignIds();
 		}
 
+		// Filter out disliked designs
+		const availableDesigns = this.designsData.designs.filter(design =>
+			!dislikedIds.includes(design.id)
+		);
+
+		const pairs = [];
+
+		if (availableDesigns.length < 2) {
+			console.warn('⚠️ Not enough non-disliked designs available, falling back to all designs');
+			// Fallback to all designs if we don't have enough non-disliked ones
+			const fallbackDesigns = this.designsData.designs;
+			if (fallbackDesigns.length < 2) {
+				console.error('❌ Need at least 2 designs to create pairs');
+				return [];
+			}
+			return this.generatePairsFromDesigns(fallbackDesigns, count, usedPairs);
+		}
+
+		if (dislikedIds.length > 0) {
+			console.log(`🚫 Filtering out ${dislikedIds.length} disliked designs, ${availableDesigns.length} designs available`);
+		}
+
+		return this.generatePairsFromDesigns(availableDesigns, count, usedPairs);
+	}
+
+	/**
+	 * Generate pairs from a given set of designs
+	 * @param {Array} designs - Array of design objects to choose from
+	 * @param {number} count - Number of pairs to generate
+	 * @param {Set} usedPairs - Set of already used pair identifiers
+	 * @returns {Array} - Array of design pairs
+	 */
+	generatePairsFromDesigns(designs, count, usedPairs) {
+		const pairs = [];
 		let attempts = 0;
 		const maxAttempts = count * 10; // Prevent infinite loops
 

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Skip Buttons Test - This or That</title>
+	<link rel="stylesheet" href="css/main.css">
+	<style>
+		body {
+			padding: 20px;
+			background: #f8f9fa;
+		}
+
+		.test-container {
+			max-width: 800px;
+			margin: 0 auto;
+			background: white;
+			padding: 20px;
+			border-radius: 12px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		}
+
+		.test-header {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.test-info {
+			background: #e3f2fd;
+			padding: 15px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+		}
+
+		.test-info h3 {
+			margin: 0 0 10px 0;
+			color: #1976d2;
+		}
+
+		.test-info ul {
+			margin: 0;
+			padding-left: 20px;
+		}
+
+		.debug-info {
+			background: #f5f5f5;
+			padding: 15px;
+			border-radius: 8px;
+			margin-top: 20px;
+			font-family: monospace;
+			font-size: 14px;
+		}
+
+		.debug-info h4 {
+			margin: 0 0 10px 0;
+		}
+
+		.debug-actions {
+			margin-top: 15px;
+		}
+
+		.debug-actions button {
+			margin-right: 10px;
+			padding: 8px 16px;
+			background: #007bff;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.debug-actions button:hover {
+			background: #0056b3;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="test-container">
+		<div class="test-header">
+			<h1>Skip Buttons Test</h1>
+			<p>Testing the new "Dislike Both" and "Can't Decide" skip buttons</p>
+		</div>
+
+		<div class="test-info">
+			<h3>Test Instructions:</h3>
+			<ul>
+				<li>Click "Dislike Both" (👎) to mark both designs as disliked</li>
+				<li>Click "Can't Decide - Show Later" (🤔) to skip without recording preferences</li>
+				<li>Watch the console for debug information</li>
+				<li>Check localStorage to see recorded dislikes</li>
+			</ul>
+		</div>
+
+		<!-- Image Pair Selection Section -->
+		<section class="selection-section" id="selection-section">
+			<div class="image-pair-container">
+				<div class="image-option" id="image-option-1">
+					<img src="" alt="Design option 1" id="image-1" class="design-image">
+					<div class="image-overlay">
+						<span class="choice-label">Choose This</span>
+					</div>
+				</div>
+
+				<div class="vs-divider">
+					<span>or</span>
+				</div>
+
+				<div class="image-option" id="image-option-2">
+					<img src="" alt="Design option 2" id="image-2" class="design-image">
+					<div class="image-overlay">
+						<span class="choice-label">Choose This</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Skip Options -->
+			<div class="skip-options" id="skip-options">
+				<button class="skip-btn dislike-both-btn" id="dislike-both-btn" title="Mark both designs as disliked">
+					👎 Dislike Both
+				</button>
+				<button class="skip-btn cant-decide-btn" id="cant-decide-btn"
+					title="Skip this pair and show it again later">
+					🤔 Can't Decide - Show Later
+				</button>
+			</div>
+		</section>
+
+		<div class="debug-info">
+			<h4>Debug Information:</h4>
+			<div id="debug-output">
+				<p>Loading application...</p>
+			</div>
+			<div class="debug-actions">
+				<button onclick="showCurrentPair()">Show Current Pair</button>
+				<button onclick="showDislikedDesigns()">Show Disliked Designs</button>
+				<button onclick="showSelectionHistory()">Show Selection History</button>
+				<button onclick="clearAllData()">Clear All Data</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="js/data-validator.js"></script>
+	<script src="js/app-data-loader.js"></script>
+	<script src="js/favorites-manager.js"></script>
+	<script src="js/app.js"></script>
+
+	<script>
+		// Debug functions
+		function showCurrentPair() {
+			const state = getAppState();
+			const output = document.getElementById('debug-output');
+			if (state.currentPair && state.currentPair.length === 2) {
+				output.innerHTML = `
+                    <strong>Current Pair:</strong><br>
+                    1. ${state.currentPair[0].id} - ${state.currentPair[0].name || 'Untitled'}<br>
+                    2. ${state.currentPair[1].id} - ${state.currentPair[1].name || 'Untitled'}
+                `;
+			} else {
+				output.innerHTML = '<strong>No current pair loaded</strong>';
+			}
+		}
+
+		function showDislikedDesigns() {
+			const output = document.getElementById('debug-output');
+			if (typeof FavoritesManager !== 'undefined') {
+				const dislikes = FavoritesManager.getDislikedDesigns();
+				const dislikedIds = Object.keys(dislikes);
+
+				if (dislikedIds.length === 0) {
+					output.innerHTML = '<strong>No disliked designs</strong>';
+				} else {
+					let html = `<strong>Disliked Designs (${dislikedIds.length}):</strong><br>`;
+					dislikedIds.forEach(id => {
+						const dislike = dislikes[id];
+						html += `• ${id} - Rejected ${dislike.rejectionCount || 1} times<br>`;
+					});
+					output.innerHTML = html;
+				}
+			} else {
+				output.innerHTML = '<strong>FavoritesManager not available</strong>';
+			}
+		}
+
+		function showSelectionHistory() {
+			const state = getAppState();
+			const output = document.getElementById('debug-output');
+
+			if (state.selections && state.selections.length > 0) {
+				let html = `<strong>Selection History (${state.selections.length}):</strong><br>`;
+				state.selections.slice(-5).forEach((selection, index) => {
+					if (selection.selectionType === 'dislike-both') {
+						html += `${index + 1}. Disliked both: ${selection.skippedIds.join(' & ')}<br>`;
+					} else if (selection.selectionType === 'cannot-decide') {
+						html += `${index + 1}. Can't decide: ${selection.skippedIds.join(' vs ')}<br>`;
+					} else if (selection.selectedId) {
+						html += `${index + 1}. Selected: ${selection.selectedId}<br>`;
+					}
+				});
+				output.innerHTML = html;
+			} else {
+				output.innerHTML = '<strong>No selection history</strong>';
+			}
+		}
+
+		function clearAllData() {
+			if (confirm('Clear all test data? This will reset dislikes and selections.')) {
+				if (typeof FavoritesManager !== 'undefined') {
+					FavoritesManager.clearAllData();
+				}
+				localStorage.clear();
+				location.reload();
+			}
+		}
+
+		// Initialize the test
+		document.addEventListener('DOMContentLoaded', async function () {
+			try {
+				console.log('🧪 Starting skip buttons test...');
+
+				// Initialize the app
+				await initializeApp({
+					dataPath: 'data/sample-designs.json',
+					enableLogging: true
+				});
+
+				// Set up image pair system
+				initializeImagePairSystem();
+
+				// Load first pair
+				setTimeout(() => {
+					if (typeof loadNextPair === 'function') {
+						loadNextPair();
+						showCurrentPair();
+					}
+				}, 1000);
+
+				// Update debug info
+				const output = document.getElementById('debug-output');
+				output.innerHTML = `
+                    <strong>✅ Application initialized successfully</strong><br>
+                    Skip buttons are ready for testing!<br>
+                    <em>Check console for detailed logs</em>
+                `;
+
+			} catch (error) {
+				console.error('❌ Test initialization failed:', error);
+				const output = document.getElementById('debug-output');
+				output.innerHTML = `<strong>❌ Error:</strong> ${error.message}`;
+			}
+		});
+
+		// Log skip button clicks for debugging
+		document.addEventListener('click', function (e) {
+			if (e.target.id === 'dislike-both-btn') {
+				console.log('🧪 TEST: Dislike Both button clicked');
+				setTimeout(showDislikedDesigns, 600);
+			} else if (e.target.id === 'cant-decide-btn') {
+				console.log('🧪 TEST: Can\'t Decide button clicked');
+				setTimeout(showSelectionHistory, 600);
+			}
+		});
+	</script>
+</body>
+
+</html>

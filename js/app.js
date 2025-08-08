@@ -987,6 +987,8 @@ function handleSelection(selectedDesignId) {
 		// Track selection in favorites manager
 		if (typeof FavoritesManager !== 'undefined') {
 			FavoritesManager.recordSelection(selectedDesign.id, selectedDesign);
+			// Record the rejected design as disliked
+			FavoritesManager.recordDislike(rejectedDesign.id, rejectedDesign);
 		}
 
 		// Mark the current pair as used to prevent duplicates
@@ -1543,8 +1545,11 @@ function setupImageClickHandlers() {
 	// Set up keyboard navigation
 	setupKeyboardNavigation();
 
+	// Set up skip button handlers
+	setupSkipButtonHandlers();
+
 	if (appState.config.enableLogging) {
-		console.log('✅ Image click, touch, and keyboard handlers set up');
+		console.log('✅ Image click, touch, keyboard, and skip button handlers set up');
 	}
 }
 
@@ -1810,6 +1815,165 @@ function handleSkipPair() {
 	} catch (error) {
 		handleAppError(error, 'handleSkipPair');
 		return false;
+	}
+}
+
+/**
+ * Sets up event handlers for skip buttons
+ */
+function setupSkipButtonHandlers() {
+	const dislikeBothBtn = document.getElementById('dislike-both-btn');
+	const cantDecideBtn = document.getElementById('cant-decide-btn');
+
+	if (dislikeBothBtn) {
+		dislikeBothBtn.addEventListener('click', handleDislikeBoth);
+	}
+
+	if (cantDecideBtn) {
+		cantDecideBtn.addEventListener('click', handleCannotDecide);
+	}
+
+	if (appState.config.enableLogging) {
+		console.log('✅ Skip button handlers set up');
+	}
+}
+
+/**
+ * Handles "Dislike Both" button click
+ * Records both designs as disliked and advances to next pair
+ */
+function handleDislikeBoth() {
+	try {
+		if (!appState.currentPair || appState.currentPair.length !== 2) {
+			console.warn('⚠️ No current pair available to dislike');
+			return false;
+		}
+
+		const [design1, design2] = appState.currentPair;
+
+		// Show visual feedback
+		showSkipButtonFeedback('dislike-both-btn', 'Disliked Both');
+
+		// Record both designs as disliked using FavoritesManager
+		if (typeof FavoritesManager !== 'undefined') {
+			FavoritesManager.recordDislike(design1.id, design1);
+			FavoritesManager.recordDislike(design2.id, design2);
+		}
+
+		// Record skip action in selections for analytics
+		const skipRecord = {
+			timestamp: new Date().toISOString(),
+			skippedIds: [design1.id, design2.id],
+			skipType: 'dislike-both',
+			roundNumber: appState.currentRound,
+			selectionType: 'dislike-both'
+		};
+		appState.selections.push(skipRecord);
+
+		// Mark the current pair as used to prevent it from showing again
+		const pairKey = `${design1.id}|${design2.id}`;
+		appState.usedPairs.add(pairKey);
+
+		// Stop timer if running
+		if (typeof stopTimer === 'function') {
+			stopTimer();
+		}
+
+		// Load next pair
+		setTimeout(() => {
+			loadNextPair();
+		}, 500); // Small delay for visual feedback
+
+		if (appState.config.enableLogging) {
+			console.log(`👎 Disliked both: ${design1.id} and ${design2.id}`);
+		}
+
+		return true;
+
+	} catch (error) {
+		handleAppError(error, 'handleDislikeBoth');
+		return false;
+	}
+}
+
+/**
+ * Handles "Can't Decide - Show Later" button click
+ * Skips the current pair without recording preferences (equivalent to spacebar)
+ */
+function handleCannotDecide() {
+	try {
+		if (!appState.currentPair || appState.currentPair.length !== 2) {
+			console.warn('⚠️ No current pair available to skip');
+			return false;
+		}
+
+		const [design1, design2] = appState.currentPair;
+
+		// Show visual feedback
+		showSkipButtonFeedback('cant-decide-btn', 'Skipped');
+
+		// Record skip action in selections for analytics
+		const skipRecord = {
+			timestamp: new Date().toISOString(),
+			skippedIds: [design1.id, design2.id],
+			skipType: 'cannot-decide',
+			roundNumber: appState.currentRound,
+			selectionType: 'cannot-decide'
+		};
+		appState.selections.push(skipRecord);
+
+		// Do NOT mark pair as used - this allows it to show again later
+		// This is the key difference from dislike-both
+
+		// Stop timer if running
+		if (typeof stopTimer === 'function') {
+			stopTimer();
+		}
+
+		// Load next pair (same as spacebar skip)
+		setTimeout(() => {
+			loadNextPair();
+		}, 500); // Small delay for visual feedback
+
+		if (appState.config.enableLogging) {
+			console.log(`🤔 Cannot decide: ${design1.id} vs ${design2.id}`);
+		}
+
+		return true;
+
+	} catch (error) {
+		handleAppError(error, 'handleCannotDecide');
+		return false;
+	}
+}
+
+/**
+ * Shows visual feedback when skip buttons are clicked
+ * @param {string} buttonId - ID of the button that was clicked
+ * @param {string} feedbackText - Text to show in the vs-divider
+ */
+function showSkipButtonFeedback(buttonId, feedbackText) {
+	const button = document.getElementById(buttonId);
+	const vsDivider = document.querySelector('.vs-divider');
+
+	// Add clicked animation to button
+	if (button) {
+		button.classList.add('clicked');
+		setTimeout(() => {
+			button.classList.remove('clicked');
+		}, 300);
+	}
+
+	// Show feedback in vs-divider
+	if (vsDivider) {
+		const originalText = vsDivider.textContent;
+		vsDivider.textContent = feedbackText;
+		vsDivider.classList.add('skip-feedback');
+
+		setTimeout(() => {
+			vsDivider.textContent = originalText;
+			vsDivider.classList.remove('skip-feedback');
+		}, 500);
 	}
 }
 

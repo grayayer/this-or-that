@@ -649,6 +649,92 @@ a:hover {
     100% { transform: scale(1); }
 }
 
+/* Skip Options Styles */
+.skip-options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding: 0 20px;
+}
+
+.skip-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+    justify-content: center;
+    user-select: none;
+}
+
+.skip-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.skip-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dislike-both-btn {
+    background: #fff5f5;
+    color: #dc3545;
+    border-color: #f8d7da;
+}
+
+.dislike-both-btn:hover {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+.cant-decide-btn {
+    background: #fffbf0;
+    color: #856404;
+    border-color: #ffeaa7;
+}
+
+.cant-decide-btn:hover {
+    background: #fff3cd;
+    border-color: #856404;
+    color: #533f03;
+}
+
+/* Skip button feedback animation */
+.skip-btn.clicked {
+    animation: skipFeedback 0.3s ease;
+}
+
+@keyframes skipFeedback {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Mobile responsive skip buttons */
+@media (max-width: 768px) {
+    .skip-options {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .skip-btn {
+        min-width: auto;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+}
+
 /* Mobile heart button adjustments */
 @media (max-width: 768px) {
     .heart-button {

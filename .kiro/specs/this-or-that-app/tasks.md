@@ -128,6 +128,16 @@
   - Ensure proper state updates and progress tracking
   - _Requirements: 2.4, 3.1_
 
+- [x] 9.1 Implement additional skip buttons functionality
+  - Add "Dislike Both" button with 👎 emoji below image pairs
+  - Add "Can't Decide - Show Later" button with 🤔 emoji below image pairs
+  - Create handleDislikeBoth() function to record both designs as disliked
+  - Create handleCannotDecide() function for neutral skipping (equivalent to spacebar)
+  - Integrate with FavoritesManager to track disliked designs
+  - Add visual feedback animations for button clicks
+  - Update CSS styling for skip buttons with appropriate colors (red-tinted for dislike, neutral for can't decide)
+  - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
+
 - [x] 10. Implement results analysis engine
   - Create results.js with analyzeSelections() and calculateTagFrequencies() methods
   - Build tag frequency analysis across all categories (style, industry, typography, etc.)

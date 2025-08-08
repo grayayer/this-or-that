@@ -35,7 +35,8 @@ const FavoritesManager = {
 	// Storage keys
 	STORAGE_KEYS: {
 		SELECTIONS: 'thisOrThat_selectionCounts',
-		HEARTS: 'thisOrThat_heartBookmarks'
+		HEARTS: 'thisOrThat_heartBookmarks',
+		DISLIKES: 'thisOrThat_dislikedDesigns'
 	},
 
 	/**
@@ -55,6 +56,9 @@ const FavoritesManager = {
 		}
 		if (!localStorage.getItem(this.STORAGE_KEYS.HEARTS)) {
 			localStorage.setItem(this.STORAGE_KEYS.HEARTS, JSON.stringify({}));
+		}
+		if (!localStorage.getItem(this.STORAGE_KEYS.DISLIKES)) {
+			localStorage.setItem(this.STORAGE_KEYS.DISLIKES, JSON.stringify({}));
 		}
 	},
 
@@ -136,6 +140,69 @@ const FavoritesManager = {
 	isHearted(designId) {
 		const hearts = this.getHeartBookmarks();
 		return !!hearts[designId];
+	},
+
+	/**
+	 * Record a design as disliked (rejected in a choice)
+	 * @param {string} designId - ID of the disliked design
+	 * @param {Object} designData - Full design object for reference
+	 */
+	recordDislike(designId, designData) {
+		try {
+			const dislikes = this.getDislikedDesigns();
+
+			// Record the dislike with timestamp
+			dislikes[designId] = {
+				timestamp: new Date().toISOString(),
+				rejectionCount: (dislikes[designId]?.rejectionCount || 0) + 1,
+				designData: {
+					id: designData.id,
+					title: extractCleanTitle(designData.name),
+					url: designData.websiteUrl || designData.url || '#',
+					image: designData.image
+				}
+			};
+
+			localStorage.setItem(this.STORAGE_KEYS.DISLIKES, JSON.stringify(dislikes));
+
+			console.log(`👎 Dislike recorded: ${designId} (${dislikes[designId].rejectionCount} times)`);
+
+		} catch (error) {
+			console.error('❌ Failed to record dislike:', error);
+		}
+	},
+
+	/**
+	 * Check if a design is disliked
+	 * @param {string} designId - ID of the design
+	 * @returns {boolean} - True if disliked
+	 */
+	isDisliked(designId) {
+		const dislikes = this.getDislikedDesigns();
+		return !!dislikes[designId];
+	},
+
+	/**
+	 * Get disliked designs from localStorage
+	 * @returns {Object} - Disliked designs by design ID
+	 */
+	getDislikedDesigns() {
+		try {
+			const data = localStorage.getItem(this.STORAGE_KEYS.DISLIKES);
+			return data ? JSON.parse(data) : {};
+		} catch (error) {
+			console.error('❌ Failed to get disliked designs:', error);
+			return {};
+		}
+	},
+
+	/**
+	 * Get list of disliked design IDs for filtering
+	 * @returns {Array} - Array of disliked design IDs
+	 */
+	getDislikedDesignIds() {
+		const dislikes = this.getDislikedDesigns();
+		return Object.keys(dislikes);
 	},
 
 	/**
@@ -322,14 +389,17 @@ const FavoritesManager = {
 		try {
 			const selections = this.getSelectionCounts();
 			const hearts = this.getHeartBookmarks();
+			const dislikes = this.getDislikedDesigns();
 
 			const stats = {
 				totalDesignsSelected: Object.keys(selections).length,
 				totalSelections: Object.values(selections).reduce((sum, count) => sum + count, 0),
 				totalHearted: Object.keys(hearts).length,
+				totalDisliked: Object.keys(dislikes).length,
 				designsWithMultipleSelections: Object.values(selections).filter(count => count >= 2).length,
 				mostSelectedCount: Math.max(...Object.values(selections), 0),
-				averageSelectionsPerDesign: 0
+				averageSelectionsPerDesign: 0,
+				totalRejections: Object.values(dislikes).reduce((sum, dislike) => sum + (dislike.rejectionCount || 1), 0)
 			};
 
 			if (stats.totalDesignsSelected > 0) {
@@ -344,9 +414,11 @@ const FavoritesManager = {
 				totalDesignsSelected: 0,
 				totalSelections: 0,
 				totalHearted: 0,
+				totalDisliked: 0,
 				designsWithMultipleSelections: 0,
 				mostSelectedCount: 0,
-				averageSelectionsPerDesign: 0
+				averageSelectionsPerDesign: 0,
+				totalRejections: 0
 			};
 		}
 	},
@@ -359,6 +431,7 @@ const FavoritesManager = {
 			// Clear main storage
 			localStorage.removeItem(this.STORAGE_KEYS.SELECTIONS);
 			localStorage.removeItem(this.STORAGE_KEYS.HEARTS);
+			localStorage.removeItem(this.STORAGE_KEYS.DISLIKES);
 
 			// Clear design metadata
 			const keys = Object.keys(localStorage);
@@ -368,7 +441,7 @@ const FavoritesManager = {
 				}
 			});
 
-			console.log('🧹 All favorites data cleared');
+			console.log('🧹 All favorites and dislikes data cleared');
 
 		} catch (error) {
 			console.error('❌ Failed to clear favorites data:', error);
