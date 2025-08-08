@@ -18,10 +18,25 @@
 
 		<!-- Header Section -->
 		<header class="app-header">
-			<h1>This or That?</h1>
-			<p class="app-description">Choose your preferred web design in each pair to discover your aesthetic
-				preferences.
-			</p>
+			<div class="header-content">
+				<div class="header-main">
+					<h1>This or That?</h1>
+					<p class="app-description">Choose your preferred web design in each pair to discover your aesthetic
+						preferences.
+					</p>
+				</div>
+				<div class="header-actions">
+					<button id="header-settings-button" class="header-settings-button" type="button"
+						title="App Settings" style="display: none;">
+						<span class="settings-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+								<path
+									d="M96 128C78.3 128 64 142.3 64 160C64 177.7 78.3 192 96 192L182.7 192C195 220.3 223.2 240 256 240C288.8 240 317 220.3 329.3 192L544 192C561.7 192 576 177.7 576 160C576 142.3 561.7 128 544 128L329.3 128C317 99.7 288.8 80 256 80C223.2 80 195 99.7 182.7 128L96 128zM96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L342.7 352C355 380.3 383.2 400 416 400C448.8 400 477 380.3 489.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L489.3 288C477 259.7 448.8 240 416 240C383.2 240 355 259.7 342.7 288L96 288zM96 448C78.3 448 64 462.3 64 480C64 497.7 78.3 512 96 512L150.7 512C163 540.3 191.2 560 224 560C256.8 560 285 540.3 297.3 512L544 512C561.7 512 576 497.7 576 480C576 462.3 561.7 448 544 448L297.3 448C285 419.7 256.8 400 224 400C191.2 400 163 419.7 150.7 448L96 448z" />
+							</svg>
+						</span>
+					</button>
+				</div>
+			</div>
 		</header>
 
 		<!-- Instructions Section -->
@@ -256,13 +271,59 @@
 			</div>
 		</section>
 
+		<!-- Settings Modal -->
+		<div class="settings-modal" id="settings-modal" style="display: none;">
+			<div class="modal-backdrop" id="modal-backdrop"></div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>App Settings</h3>
+					<button class="modal-close-button" id="modal-close-button" type="button"
+						aria-label="Close settings">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="settings-section">
+						<h4>Timer Configuration</h4>
+						<p class="settings-description">Adjust how much time you have for each choice</p>
+
+						<div class="timer-config-modal">
+							<label for="modal-timer-duration-slider" class="timer-config-label">
+								Timer duration: <span id="modal-timer-duration-display">15</span> seconds
+							</label>
+							<div class="timer-slider-container">
+								<input type="range" id="modal-timer-duration-slider" class="timer-slider" min="15"
+									max="60" value="15" step="5">
+								<div class="timer-slider-labels">
+									<span>15s</span>
+									<span>30s</span>
+									<span>45s</span>
+									<span>60s</span>
+								</div>
+							</div>
+							<div class="timer-disable-option">
+								<label class="timer-checkbox-label">
+									<input type="checkbox" id="modal-timer-disable-checkbox" class="timer-checkbox">
+									<span class="timer-checkbox-text">Disable timer (no time limit)</span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" id="modal-cancel-button">Cancel</button>
+					<button class="btn btn-primary" id="modal-save-button">Save Settings</button>
+				</div>
+			</div>
+		</div>
+
 	</main>
 
 	<!-- Footer -->
 	<footer class="app-footer">
 		<p>Design images courtesy of <a href="https://land-book.com" target="_blank" rel="noopener">Land-book.com</a>
 		</p>
-		<p>This or That v0.6.3 • Built by <a href="https://studiok40.com" target="_blank" rel="noopener">Gray Ayer</a>
+		<p>This or That v0.6.4 • Built by <a href="https://studiok40.com" target="_blank" rel="noopener">Gray Ayer</a>
 		</p>
 	</footer>
 
@@ -279,6 +340,7 @@
 	<script src="js/app.js?v=1"></script>
 	<script src="js/timer-config.js?v=1"></script>
 	<script src="js/timer.js?v=1"></script>
+	<script src="js/settings-modal.js?v=1"></script>
 	<script src="js/email.js?v=1"></script>
 	<script src="js/print.js?v=1"></script>
 

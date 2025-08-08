@@ -5,6 +5,28 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.4] - 2025-08-08
+
+### Added: Persistent Settings Modal
+
+### Added
+
+- **Header Settings Button**: Persistent settings button in header available throughout the entire session
+- **Settings Modal**: Professional modal dialog for app configuration accessible anytime during usage
+- **Timer Pause Integration**: Automatically pauses active timers when settings modal opens
+- **Modal Timer Controls**: Dedicated timer configuration controls within the modal interface
+- **Session Persistence**: Settings button appears when app becomes active and hides during instructions
+- **Keyboard Support**: ESC key closes modal, proper focus management and accessibility
+- **Backdrop Interaction**: Click outside modal to close, with smooth backdrop blur effect
+
+### Enhanced
+
+- **Always Available**: Users can adjust timer settings at any point during their session
+- **Professional UI**: Clean modal design with proper header, body, and footer sections
+- **Smooth Animations**: Modal slides in/out with scale and opacity transitions
+- **Mobile Responsive**: Modal adapts to mobile screens with full-width buttons and optimized spacing
+- **Timer Integration**: Seamless integration with existing timer system and configuration
+
 ## [0.6.3] - 2025-08-08
 
 ### Added: Configurable Timer Duration with Clean UX
@@ -28,6 +50,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Responsive Design**: Timer configuration adapts to mobile layouts with optimized sizing
 
 ### Technical Implementation
+
+- **Settings Modal Module**: New `js/settings-modal.js` with complete modal management system
+- **Header Integration**: Dynamic settings button that shows/hides based on app state
+- **Timer Pause/Resume**: Automatic timer state management when modal opens/closes
+- **Modal State Management**: Complete state tracking with proper cleanup and error handling
+- **App State Integration**: Listens for app state changes to show/hide settings appropriately
+- **DOM Management**: Proper focus management, body scroll prevention, and cleanup
+- **Test Suite**: Complete test page (`test-settings-modal.html`) for modal functionality verification
+
+### Previous Implementation (0.6.3)
 
 - **Timer Configuration Module**: New `js/timer-config.js` with complete configuration management
 - **Toggle Functionality**: `toggleTimerConfig()` function with smooth show/hide animations

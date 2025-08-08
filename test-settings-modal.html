@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Settings Modal Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<style>
+		body {
+			padding: 20px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.test-section {
+			margin: 30px 0;
+			padding: 20px;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+			background-color: #f8f9fa;
+		}
+
+		.test-controls {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.test-controls button {
+			padding: 8px 16px;
+			border: 1px solid #0066cc;
+			background: #0066cc;
+			color: white;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.test-controls button:hover {
+			background: #0052a3;
+		}
+
+		.status-display {
+			margin: 20px 0;
+			padding: 15px;
+			background: #ffffff;
+			border: 1px solid #d1d5db;
+			border-radius: 6px;
+			font-family: monospace;
+			font-size: 14px;
+		}
+
+		.demo-header {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 8px;
+			margin: 20px 0;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Settings Modal Test</h1>
+
+	<div class="test-section">
+		<h2>Header with Settings Button</h2>
+		<div class="demo-header">
+			<header class="app-header">
+				<div class="header-content">
+					<div class="header-main">
+						<h1>This or That?</h1>
+						<p class="app-description">Choose your preferred web design in each pair to discover your
+							aesthetic preferences.</p>
+					</div>
+					<div class="header-actions">
+						<button id="header-settings-button" class="header-settings-button" type="button"
+							title="App Settings">
+							<span class="settings-icon">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+									<path
+										d="M96 128C78.3 128 64 142.3 64 160C64 177.7 78.3 192 96 192L182.7 192C195 220.3 223.2 240 256 240C288.8 240 317 220.3 329.3 192L544 192C561.7 192 576 177.7 576 160C576 142.3 561.7 128 544 128L329.3 128C317 99.7 288.8 80 256 80C223.2 80 195 99.7 182.7 128L96 128zM96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L342.7 352C355 380.3 383.2 400 416 400C448.8 400 477 380.3 489.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L489.3 288C477 259.7 448.8 240 416 240C383.2 240 355 259.7 342.7 288L96 288zM96 448C78.3 448 64 462.3 64 480C64 497.7 78.3 512 96 512L150.7 512C163 540.3 191.2 560 224 560C256.8 560 285 540.3 297.3 512L544 512C561.7 512 576 497.7 576 480C576 462.3 561.7 448 544 448L297.3 448C285 419.7 256.8 400 224 400C191.2 400 163 419.7 150.7 448L96 448z" />
+								</svg>
+							</span>
+						</button>
+					</div>
+				</div>
+			</header>
+		</div>
+		<div class="test-controls">
+			<button onclick="showHeaderButton()">Show Header Button</button>
+			<button onclick="hideHeaderButton()">Hide Header Button</button>
+			<button onclick="openModal()">Open Modal</button>
+			<button onclick="closeModal()">Close Modal</button>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Modal State</h2>
+		<div class="status-display" id="modal-status">
+			Loading modal state...
+		</div>
+		<div class="test-controls">
+			<button onclick="refreshModalStatus()">Refresh Status</button>
+			<button onclick="testModalFunctionality()">Test Modal Functions</button>
+			<button onclick="testTimerIntegration()">Test Timer Integration</button>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Timer Configuration Test</h2>
+		<p>This section tests the integration between the modal and timer configuration.</p>
+		<div class="status-display" id="timer-status">
+			Ready for timer testing...
+		</div>
+		<div class="test-controls">
+			<button onclick="testTimerConfig()">Test Timer Config</button>
+			<button onclick="simulateTimerPause()">Simulate Timer Pause</button>
+			<button onclick="simulateTimerResume()">Simulate Timer Resume</button>
+		</div>
+	</div>
+
+	<!-- Settings Modal -->
+	<div class="settings-modal" id="settings-modal" style="display: none;">
+		<div class="modal-backdrop" id="modal-backdrop"></div>
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>App Settings</h3>
+				<button class="modal-close-button" id="modal-close-button" type="button" aria-label="Close settings">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="settings-section">
+					<h4>Timer Configuration</h4>
+					<p class="settings-description">Adjust how much time you have for each choice</p>
+
+					<div class="timer-config-modal">
+						<label for="modal-timer-duration-slider" class="timer-config-label">
+							Timer duration: <span id="modal-timer-duration-display">15</span> seconds
+						</label>
+						<div class="timer-slider-container">
+							<input type="range" id="modal-timer-duration-slider" class="timer-slider" min="15" max="60"
+								value="15" step="5">
+							<div class="timer-slider-labels">
+								<span>15s</span>
+								<span>30s</span>
+								<span>45s</span>
+								<span>60s</span>
+							</div>
+						</div>
+						<div class="timer-disable-option">
+							<label class="timer-checkbox-label">
+								<input type="checkbox" id="modal-timer-disable-checkbox" class="timer-checkbox">
+								<span class="timer-checkbox-text">Disable timer (no time limit)</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" id="modal-cancel-button">Cancel</button>
+				<button class="btn btn-primary" id="modal-save-button">Save Settings</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="js/timer-config.js"></script>
+	<script src="js/timer.js"></script>
+	<script src="js/settings-modal.js"></script>
+
+	<script>
+		// Initialize when DOM is ready
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('🚀 Initializing settings modal test...');
+
+			// Initialize timer configuration first
+			if (typeof initializeTimerConfig === 'function') {
+				initializeTimerConfig({
+					onConfigChange: (config) => {
+						console.log('📝 Timer config changed:', config);
+						refreshModalStatus();
+					}
+				});
+				console.log('✅ Timer configuration initialized');
+			}
+
+			// Initialize timer system
+			if (typeof initializeTimer === 'function') {
+				initializeTimer({
+					duration: 15,
+					enableLogging: true
+				});
+				console.log('✅ Timer system initialized');
+			}
+
+			// Initialize settings modal
+			if (typeof initializeSettingsModal === 'function') {
+				initializeSettingsModal();
+				console.log('✅ Settings modal initialized');
+			}
+
+			// Initial status refresh
+			setTimeout(() => {
+				refreshModalStatus();
+			}, 500);
+		});
+
+		function showHeaderButton() {
+			if (typeof showHeaderSettingsButton === 'function') {
+				showHeaderSettingsButton();
+				console.log('👁️ Header button shown');
+			} else {
+				console.error('❌ showHeaderSettingsButton function not available');
+			}
+		}
+
+		function hideHeaderButton() {
+			if (typeof hideHeaderSettingsButton === 'function') {
+				hideHeaderSettingsButton();
+				console.log('👁️ Header button hidden');
+			} else {
+				console.error('❌ hideHeaderSettingsButton function not available');
+			}
+		}
+
+		function openModal() {
+			if (typeof openSettingsModal === 'function') {
+				openSettingsModal();
+				console.log('🔧 Modal opened');
+				setTimeout(refreshModalStatus, 500);
+			} else {
+				console.error('❌ openSettingsModal function not available');
+			}
+		}
+
+		function closeModal() {
+			if (typeof closeSettingsModal === 'function') {
+				closeSettingsModal();
+				console.log('🔧 Modal closed');
+				setTimeout(refreshModalStatus, 500);
+			} else {
+				console.error('❌ closeSettingsModal function not available');
+			}
+		}
+
+		function refreshModalStatus() {
+			const statusElement = document.getElementById('modal-status');
+
+			if (statusElement) {
+				let status = '';
+
+				// Check modal state
+				if (typeof getSettingsModalState === 'function') {
+					const modalState = getSettingsModalState();
+					status += `<strong>Modal State:</strong>\n`;
+					status += `Initialized: ${modalState.isInitialized ? '✅' : '❌'}\n`;
+					status += `Open: ${modalState.isOpen ? '✅' : '❌'}\n\n`;
+				}
+
+				// Check timer config
+				if (typeof getTimerConfig === 'function') {
+					const timerConfig = getTimerConfig();
+					status += `<strong>Timer Configuration:</strong>\n`;
+					status += `Duration: ${timerConfig.duration} seconds\n`;
+					status += `Disabled: ${timerConfig.isDisabled}\n`;
+					status += `Config Visible: ${timerConfig.isConfigVisible}\n\n`;
+				}
+
+				// Check DOM elements
+				const modal = document.getElementById('settings-modal');
+				const headerButton = document.getElementById('header-settings-button');
+
+				status += `<strong>DOM Elements:</strong>\n`;
+				status += `Modal: ${modal ? '✅ Found' : '❌ Missing'}\n`;
+				status += `Header Button: ${headerButton ? '✅ Found' : '❌ Missing'}\n`;
+				status += `Header Button Visible: ${headerButton && headerButton.style.display !== 'none' ? '✅' : '❌'}\n\n`;
+
+				// Check functions
+				status += `<strong>Functions Available:</strong>\n`;
+				status += `initializeSettingsModal: ${typeof initializeSettingsModal === 'function' ? '✅' : '❌'}\n`;
+				status += `openSettingsModal: ${typeof openSettingsModal === 'function' ? '✅' : '❌'}\n`;
+				status += `closeSettingsModal: ${typeof closeSettingsModal === 'function' ? '✅' : '❌'}\n`;
+				status += `getSettingsModalState: ${typeof getSettingsModalState === 'function' ? '✅' : '❌'}\n`;
+
+				statusElement.innerHTML = status;
+			}
+		}
+
+		function testModalFunctionality() {
+			console.log('🧪 Testing modal functionality...');
+
+			// Test open/close cycle
+			openModal();
+
+			setTimeout(() => {
+				console.log('🧪 Closing modal after 2 seconds...');
+				closeModal();
+
+				setTimeout(() => {
+					console.log('✅ Modal functionality test completed');
+					refreshModalStatus();
+				}, 1000);
+			}, 2000);
+		}
+
+		function testTimerIntegration() {
+			const timerStatus = document.getElementById('timer-status');
+			let results = [];
+
+			try {
+				// Test timer state functions
+				if (typeof getTimerState === 'function') {
+					const timerState = getTimerState();
+					results.push(`✅ Timer state accessible: active=${timerState.isActive}, paused=${timerState.isPaused}`);
+				} else {
+					results.push(`⚠️ Timer state not accessible`);
+				}
+
+				// Test pause/resume functions
+				if (typeof pauseTimer === 'function' && typeof resumeTimer === 'function') {
+					results.push(`✅ Timer pause/resume functions available`);
+				} else {
+					results.push(`❌ Timer pause/resume functions missing`);
+				}
+
+				// Test config integration
+				if (typeof getTimerConfig === 'function' && typeof setTimerDuration === 'function') {
+					const originalConfig = getTimerConfig();
+					const testDuration = originalConfig.duration === 15 ? 30 : 15;
+
+					setTimerDuration(testDuration);
+					const updatedConfig = getTimerConfig();
+
+					if (updatedConfig.duration === testDuration) {
+						results.push(`✅ Timer config integration working`);
+						// Restore original
+						setTimerDuration(originalConfig.duration);
+					} else {
+						results.push(`❌ Timer config integration failed`);
+					}
+				} else {
+					results.push(`❌ Timer config functions missing`);
+				}
+
+				results.push(`\n✅ Timer integration test completed`);
+
+			} catch (error) {
+				results.push(`❌ Timer integration test failed: ${error.message}`);
+			}
+
+			if (timerStatus) {
+				timerStatus.textContent = results.join('\n');
+			}
+		}
+
+		function testTimerConfig() {
+			console.log('🧪 Testing timer configuration...');
+
+			if (typeof getTimerConfig === 'function' && typeof setTimerDuration === 'function') {
+				const config = getTimerConfig();
+				const newDuration = config.duration === 15 ? 45 : 15;
+
+				console.log(`🔄 Changing timer duration: ${config.duration}s → ${newDuration}s`);
+				setTimerDuration(newDuration);
+
+				setTimeout(() => {
+					const updatedConfig = getTimerConfig();
+					console.log(`✅ Timer duration updated to: ${updatedConfig.duration}s`);
+					refreshModalStatus();
+				}, 500);
+			} else {
+				console.error('❌ Timer config functions not available');
+			}
+		}
+
+		function simulateTimerPause() {
+			if (typeof pauseTimer === 'function') {
+				pauseTimer();
+				console.log('⏸️ Timer paused');
+			} else {
+				console.error('❌ pauseTimer function not available');
+			}
+		}
+
+		function simulateTimerResume() {
+			if (typeof resumeTimer === 'function') {
+				resumeTimer();
+				console.log('▶️ Timer resumed');
+			} else {
+				console.error('❌ resumeTimer function not available');
+			}
+		}
+	</script>
+</body>
+
+</html>
