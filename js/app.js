@@ -441,10 +441,7 @@ function showSelectionSection() {
 		selectionSection.classList.remove('hidden', 'loading');
 	}
 
-	// Show settings button when app becomes active
-	if (typeof showHeaderSettingsButton === 'function') {
-		showHeaderSettingsButton();
-	}
+
 }
 
 /**
@@ -482,11 +479,6 @@ function clearAllUIStates() {
 	const instructionsSection = document.getElementById('instructions-section');
 	if (instructionsSection) {
 		instructionsSection.style.display = 'block';
-	}
-
-	// Hide settings button when showing instructions
-	if (typeof hideHeaderSettingsButton === 'function') {
-		hideHeaderSettingsButton();
 	}
 
 	// Clear any error messages

@@ -54,8 +54,7 @@ function initializeSettingsModal() {
 		// Set up event listeners
 		setupSettingsModalListeners();
 
-		// Show header button when app starts (after instructions are hidden)
-		showHeaderSettingsButton();
+
 
 		if (settingsModal.enableLogging) {
 			console.log('✅ Settings modal initialized');
@@ -137,31 +136,7 @@ function setupSettingsModalListeners() {
 	}
 }
 
-/**
- * Shows the header settings button when the app is active
- */
-function showHeaderSettingsButton() {
-	if (settingsModal.headerButton) {
-		settingsModal.headerButton.style.display = 'inline-flex';
 
-		if (settingsModal.enableLogging) {
-			console.log('👁️ Header settings button shown');
-		}
-	}
-}
-
-/**
- * Hides the header settings button
- */
-function hideHeaderSettingsButton() {
-	if (settingsModal.headerButton) {
-		settingsModal.headerButton.style.display = 'none';
-
-		if (settingsModal.enableLogging) {
-			console.log('👁️ Header settings button hidden');
-		}
-	}
-}
 
 /**
  * Opens the settings modal
@@ -362,16 +337,7 @@ function resumeAppTimers() {
 	}
 }
 
-/**
- * Shows the settings button when the app transitions to active state
- */
-function onAppStateChange(state) {
-	if (state === 'active' || state === 'selection') {
-		showHeaderSettingsButton();
-	} else if (state === 'instructions') {
-		hideHeaderSettingsButton();
-	}
-}
+
 
 /**
  * Gets the current modal state
@@ -397,14 +363,7 @@ function setupSettingsModalIntegration() {
 		initializeSettingsModal();
 	}
 
-	// Listen for app state changes
-	if (typeof window !== 'undefined') {
-		window.addEventListener('appStateChange', (e) => {
-			if (e.detail && e.detail.state) {
-				onAppStateChange(e.detail.state);
-			}
-		});
-	}
+
 }
 
 // Export functions for use in other modules
@@ -413,8 +372,6 @@ if (typeof module !== 'undefined' && module.exports) {
 		initializeSettingsModal,
 		openSettingsModal,
 		closeSettingsModal,
-		showHeaderSettingsButton,
-		hideHeaderSettingsButton,
 		getSettingsModalState,
 		setupSettingsModalIntegration
 	};
@@ -425,8 +382,6 @@ if (typeof window !== 'undefined') {
 	window.initializeSettingsModal = initializeSettingsModal;
 	window.openSettingsModal = openSettingsModal;
 	window.closeSettingsModal = closeSettingsModal;
-	window.showHeaderSettingsButton = showHeaderSettingsButton;
-	window.hideHeaderSettingsButton = hideHeaderSettingsButton;
 	window.getSettingsModalState = getSettingsModalState;
 	window.setupSettingsModalIntegration = setupSettingsModalIntegration;
 }
