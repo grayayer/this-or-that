@@ -51,6 +51,48 @@
         font-size: 0.9rem;
     }
 
+    /* Timer configuration mobile adjustments */
+    .timer-config {
+        margin-top: 12px;
+        padding: 12px;
+    }
+
+    .timer-config-label {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .timer-slider-container {
+        margin-bottom: 12px;
+    }
+
+    .timer-slider {
+        height: 8px; /* Thicker for easier mobile interaction */
+    }
+
+    .timer-slider::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .timer-slider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .timer-slider-labels {
+        font-size: 0.75rem;
+    }
+
+    .timer-checkbox-label {
+        font-size: 0.85rem;
+    }
+
+    .timer-checkbox {
+        width: 18px;
+        height: 18px;
+    }
+
     .instructions-actions {
         flex-direction: column;
         align-items: stretch;

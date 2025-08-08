@@ -220,6 +220,125 @@ a:hover {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Timer Configuration Styles */
+.timer-config {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.timer-config-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 12px;
+}
+
+.timer-slider-container {
+    margin-bottom: 16px;
+}
+
+.timer-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #e9ecef;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.timer-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0066cc;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.timer-slider::-webkit-slider-thumb:hover {
+    background: #0052a3;
+    transform: scale(1.1);
+}
+
+.timer-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0066cc;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.timer-slider::-moz-range-thumb:hover {
+    background: #0052a3;
+    transform: scale(1.1);
+}
+
+.timer-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #6c757d;
+    padding: 0 2px;
+}
+
+.timer-disable-option {
+    border-top: 1px solid #e9ecef;
+    padding-top: 12px;
+}
+
+.timer-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.timer-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 3px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.timer-checkbox:checked {
+    background-color: #0066cc;
+    border-color: #0066cc;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e");
+}
+
+.timer-checkbox-text {
+    user-select: none;
+}
+
+/* Timer disabled state */
+.timer-config.timer-disabled .timer-slider-container {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.timer-config.timer-disabled .timer-config-label {
+    opacity: 0.5;
+}
+
 .instructions-actions {
     display: flex;
     gap: 16px;

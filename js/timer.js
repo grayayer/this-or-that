@@ -36,15 +36,22 @@ const timerState = {
  * Initializes the timer component
  * Sets up DOM element references and default callbacks
  * @param {Object} options - Configuration options
- * @param {number} options.duration - Timer duration in seconds (default: 30)
+ * @param {number} options.duration - Timer duration in seconds (default: 15)
  * @param {Function} options.onTimeout - Callback when timer expires
  * @param {Function} options.onTick - Callback for each second
  * @param {boolean} options.enableLogging - Enable console logging
  */
 function initializeTimer(options = {}) {
 	try {
+		// Get configured duration if available
+		let defaultDuration = options.duration || 15;
+		if (typeof getTimerConfig === 'function') {
+			const config = getTimerConfig();
+			defaultDuration = config.duration;
+		}
+
 		// Update configuration
-		timerState.duration = options.duration || 15;
+		timerState.duration = defaultDuration;
 		timerState.currentTime = timerState.duration;
 		timerState.onTimeout = options.onTimeout || defaultTimeoutHandler;
 		timerState.onTick = options.onTick || null;
@@ -84,6 +91,22 @@ function initializeTimer(options = {}) {
  */
 function startTimer(duration = null) {
 	try {
+		// Check if timer is disabled via configuration
+		if (typeof getTimerConfig === 'function') {
+			const config = getTimerConfig();
+			if (config.isDisabled) {
+				if (timerState.enableLogging) {
+					console.log('⏸️ Timer disabled via configuration - not starting');
+				}
+				return false;
+			}
+
+			// Use configured duration if no override provided
+			if (duration === null) {
+				duration = config.duration;
+			}
+		}
+
 		// Stop any existing timer
 		if (timerState.isActive) {
 			stopTimer();
@@ -465,9 +488,16 @@ function getTimerState() {
  */
 function setupTimerIntegration() {
 	try {
+		// Get configured duration
+		let configuredDuration = 15;
+		if (typeof getTimerConfig === 'function') {
+			const config = getTimerConfig();
+			configuredDuration = config.duration;
+		}
+
 		// Initialize timer with app-specific settings
 		const success = initializeTimer({
-			duration: 15,
+			duration: configuredDuration,
 			enableLogging: true,
 			onTimeout: () => {
 				// Automatic progression when timer expires

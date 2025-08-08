@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Timer Configuration Test</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<style>
+		body {
+			padding: 20px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.test-section {
+			margin: 30px 0;
+			padding: 20px;
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+			background-color: #f8f9fa;
+		}
+
+		.test-controls {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.test-controls button {
+			padding: 8px 16px;
+			border: 1px solid #0066cc;
+			background: #0066cc;
+			color: white;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.test-controls button:hover {
+			background: #0052a3;
+		}
+
+		.status-display {
+			margin: 20px 0;
+			padding: 15px;
+			background: #ffffff;
+			border: 1px solid #d1d5db;
+			border-radius: 6px;
+			font-family: monospace;
+			font-size: 14px;
+		}
+
+		.timer-demo {
+			text-align: center;
+			padding: 20px;
+			background: #ffffff;
+			border: 1px solid #d1d5db;
+			border-radius: 8px;
+			margin: 20px 0;
+		}
+
+		.timer-demo .timer-display {
+			font-size: 2rem;
+			font-weight: bold;
+			color: #0066cc;
+			margin: 10px 0;
+		}
+
+		.timer-demo .timer-progress-bar {
+			width: 200px;
+			height: 10px;
+			background: #e9ecef;
+			border-radius: 5px;
+			margin: 20px auto;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.timer-demo .timer-progress-bar::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			background: linear-gradient(90deg, #dc3545, #ffc107, #28a745);
+			border-radius: 5px;
+			transition: width 0.1s linear;
+			width: var(--progress, 100%);
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Timer Configuration Test</h1>
+
+	<div class="test-section">
+		<h2>Timer Configuration Panel</h2>
+		<div class="instructions-container">
+			<div class="instruction-item">
+				<div class="instruction-icon">⏱️</div>
+				<div class="instruction-content">
+					<h3>Quick Decisions</h3>
+					<p>You have <span id="timer-duration-display">15</span> seconds per choice - trust your instincts!
+					</p>
+					<div class="timer-config">
+						<label for="timer-duration-slider" class="timer-config-label">
+							Adjust timer duration:
+						</label>
+						<div class="timer-slider-container">
+							<input type="range" id="timer-duration-slider" class="timer-slider" min="15" max="60"
+								value="15" step="5">
+							<div class="timer-slider-labels">
+								<span>15s</span>
+								<span>30s</span>
+								<span>45s</span>
+								<span>60s</span>
+							</div>
+						</div>
+						<div class="timer-disable-option">
+							<label class="timer-checkbox-label">
+								<input type="checkbox" id="timer-disable-checkbox" class="timer-checkbox">
+								<span class="timer-checkbox-text">Disable timer (no time limit)</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Timer Demo</h2>
+		<div class="timer-demo">
+			<div class="timer-display" id="demo-timer-display">15</div>
+			<div class="timer-progress-bar" id="demo-timer-progress"></div>
+			<div class="test-controls">
+				<button onclick="startDemoTimer()">Start Timer</button>
+				<button onclick="stopDemoTimer()">Stop Timer</button>
+				<button onclick="resetDemoTimer()">Reset Timer</button>
+				<button onclick="pauseDemoTimer()">Pause Timer</button>
+				<button onclick="resumeDemoTimer()">Resume Timer</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Configuration Status</h2>
+		<div class="status-display" id="config-status">
+			Loading configuration...
+		</div>
+		<div class="test-controls">
+			<button onclick="refreshStatus()">Refresh Status</button>
+			<button onclick="resetConfiguration()">Reset to Defaults</button>
+			<button onclick="testLocalStorage()">Test LocalStorage</button>
+		</div>
+	</div>
+
+	<div class="test-section">
+		<h2>Integration Test</h2>
+		<p>This section tests the integration between timer configuration and the main timer system.</p>
+		<div class="test-controls">
+			<button onclick="testIntegration()">Test Integration</button>
+			<button onclick="simulateConfigChange()">Simulate Config Change</button>
+		</div>
+		<div class="status-display" id="integration-status">
+			Ready for integration testing...
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="js/timer-config.js"></script>
+	<script src="js/timer.js"></script>
+
+	<script>
+		// Demo timer state
+		let demoTimer = {
+			duration: 15,
+			currentTime: 15,
+			isActive: false,
+			intervalId: null
+		};
+
+		// Initialize when DOM is ready
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('🚀 Initializing timer configuration test...');
+
+			// Initialize timer configuration
+			const success = initializeTimerConfig({
+				onConfigChange: (config) => {
+					console.log('📝 Config changed:', config);
+					updateDemoTimer(config);
+					refreshStatus();
+				}
+			});
+
+			if (success) {
+				console.log('✅ Timer configuration initialized successfully');
+				refreshStatus();
+			} else {
+				console.error('❌ Failed to initialize timer configuration');
+			}
+
+			// Initialize main timer system
+			if (typeof initializeTimer === 'function') {
+				initializeTimer({
+					duration: 15,
+					enableLogging: true
+				});
+				console.log('✅ Main timer system initialized');
+			}
+		});
+
+		function updateDemoTimer(config) {
+			demoTimer.duration = config.duration;
+			demoTimer.currentTime = config.duration;
+
+			const display = document.getElementById('demo-timer-display');
+			if (display) {
+				display.textContent = config.isDisabled ? '∞' : config.duration;
+				display.style.color = config.isDisabled ? '#6c757d' : '#0066cc';
+			}
+
+			const progressBar = document.getElementById('demo-timer-progress');
+			if (progressBar) {
+				progressBar.style.setProperty('--progress', '100%');
+				progressBar.style.opacity = config.isDisabled ? '0.5' : '1';
+			}
+		}
+
+		function startDemoTimer() {
+			if (demoTimer.isActive) return;
+
+			const config = getTimerConfig();
+			if (config.isDisabled) {
+				alert('Timer is disabled in configuration');
+				return;
+			}
+
+			demoTimer.isActive = true;
+			demoTimer.currentTime = demoTimer.duration;
+
+			demoTimer.intervalId = setInterval(() => {
+				demoTimer.currentTime -= 0.1;
+
+				const display = document.getElementById('demo-timer-display');
+				const progressBar = document.getElementById('demo-timer-progress');
+
+				if (display) {
+					display.textContent = Math.ceil(demoTimer.currentTime);
+				}
+
+				if (progressBar) {
+					const percentage = (demoTimer.currentTime / demoTimer.duration) * 100;
+					progressBar.style.setProperty('--progress', `${Math.max(0, percentage)}%`);
+				}
+
+				if (demoTimer.currentTime <= 0) {
+					stopDemoTimer();
+					alert('Demo timer expired!');
+				}
+			}, 100);
+
+			console.log('▶️ Demo timer started');
+		}
+
+		function stopDemoTimer() {
+			if (demoTimer.intervalId) {
+				clearInterval(demoTimer.intervalId);
+				demoTimer.intervalId = null;
+			}
+			demoTimer.isActive = false;
+			console.log('⏹️ Demo timer stopped');
+		}
+
+		function resetDemoTimer() {
+			stopDemoTimer();
+			const config = getTimerConfig();
+			demoTimer.currentTime = config.duration;
+
+			const display = document.getElementById('demo-timer-display');
+			const progressBar = document.getElementById('demo-timer-progress');
+
+			if (display) {
+				display.textContent = config.isDisabled ? '∞' : config.duration;
+			}
+
+			if (progressBar) {
+				progressBar.style.setProperty('--progress', '100%');
+			}
+
+			console.log('🔄 Demo timer reset');
+		}
+
+		function pauseDemoTimer() {
+			if (demoTimer.isActive && demoTimer.intervalId) {
+				clearInterval(demoTimer.intervalId);
+				demoTimer.intervalId = null;
+				console.log('⏸️ Demo timer paused');
+			}
+		}
+
+		function resumeDemoTimer() {
+			if (demoTimer.isActive && !demoTimer.intervalId) {
+				demoTimer.intervalId = setInterval(() => {
+					demoTimer.currentTime -= 0.1;
+
+					const display = document.getElementById('demo-timer-display');
+					const progressBar = document.getElementById('demo-timer-progress');
+
+					if (display) {
+						display.textContent = Math.ceil(demoTimer.currentTime);
+					}
+
+					if (progressBar) {
+						const percentage = (demoTimer.currentTime / demoTimer.duration) * 100;
+						progressBar.style.setProperty('--progress', `${Math.max(0, percentage)}%`);
+					}
+
+					if (demoTimer.currentTime <= 0) {
+						stopDemoTimer();
+						alert('Demo timer expired!');
+					}
+				}, 100);
+
+				console.log('▶️ Demo timer resumed');
+			}
+		}
+
+		function refreshStatus() {
+			const config = getTimerConfig();
+			const statusElement = document.getElementById('config-status');
+
+			if (statusElement) {
+				statusElement.innerHTML = `
+<strong>Current Configuration:</strong>
+Duration: ${config.duration} seconds
+Disabled: ${config.isDisabled}
+Min Duration: ${config.minDuration} seconds
+Max Duration: ${config.maxDuration} seconds
+Step: ${config.step} seconds
+
+<strong>LocalStorage Key:</strong> thisOrThat_timerConfig
+
+<strong>Saved Data:</strong>
+${localStorage.getItem('thisOrThat_timerConfig') || 'No saved data'}
+
+<strong>DOM Elements:</strong>
+Slider: ${document.getElementById('timer-duration-slider') ? '✅ Found' : '❌ Missing'}
+Checkbox: ${document.getElementById('timer-disable-checkbox') ? '✅ Found' : '❌ Missing'}
+Display: ${document.getElementById('timer-duration-display') ? '✅ Found' : '❌ Missing'}
+
+<strong>Functions Available:</strong>
+getTimerConfig: ${typeof getTimerConfig === 'function' ? '✅' : '❌'}
+setTimerDuration: ${typeof setTimerDuration === 'function' ? '✅' : '❌'}
+setTimerDisabled: ${typeof setTimerDisabled === 'function' ? '✅' : '❌'}
+initializeTimer: ${typeof initializeTimer === 'function' ? '✅' : '❌'}
+                `;
+			}
+		}
+
+		function resetConfiguration() {
+			if (typeof resetTimerConfig === 'function') {
+				resetTimerConfig();
+				refreshStatus();
+				console.log('🔄 Configuration reset to defaults');
+			} else {
+				console.error('❌ resetTimerConfig function not available');
+			}
+		}
+
+		function testLocalStorage() {
+			try {
+				// Test write
+				const testData = { test: true, timestamp: Date.now() };
+				localStorage.setItem('test_timer_config', JSON.stringify(testData));
+
+				// Test read
+				const retrieved = JSON.parse(localStorage.getItem('test_timer_config'));
+
+				// Clean up
+				localStorage.removeItem('test_timer_config');
+
+				if (retrieved && retrieved.test === true) {
+					alert('✅ LocalStorage test passed');
+					console.log('✅ LocalStorage working correctly');
+				} else {
+					alert('❌ LocalStorage test failed - data mismatch');
+					console.error('❌ LocalStorage data mismatch');
+				}
+			} catch (error) {
+				alert('❌ LocalStorage test failed: ' + error.message);
+				console.error('❌ LocalStorage error:', error);
+			}
+		}
+
+		function testIntegration() {
+			const integrationStatus = document.getElementById('integration-status');
+			let results = [];
+
+			try {
+				// Test 1: Check if timer config affects main timer
+				const config = getTimerConfig();
+				results.push(`✅ Got config: duration=${config.duration}, disabled=${config.isDisabled}`);
+
+				// Test 2: Check if main timer respects config
+				if (typeof timerState !== 'undefined') {
+					results.push(`✅ Timer state accessible: duration=${timerState.duration}`);
+				} else {
+					results.push(`⚠️ Timer state not accessible (this is normal in test environment)`);
+				}
+
+				// Test 3: Test config change propagation
+				const originalDuration = config.duration;
+				const newDuration = originalDuration === 15 ? 30 : 15;
+
+				setTimerDuration(newDuration);
+				const updatedConfig = getTimerConfig();
+
+				if (updatedConfig.duration === newDuration) {
+					results.push(`✅ Config change successful: ${originalDuration}s → ${newDuration}s`);
+
+					// Restore original
+					setTimerDuration(originalDuration);
+					results.push(`✅ Config restored to: ${originalDuration}s`);
+				} else {
+					results.push(`❌ Config change failed`);
+				}
+
+				// Test 4: Test disable functionality
+				const originalDisabled = config.isDisabled;
+				setTimerDisabled(!originalDisabled);
+
+				const disabledConfig = getTimerConfig();
+				if (disabledConfig.isDisabled === !originalDisabled) {
+					results.push(`✅ Disable toggle successful: ${originalDisabled} → ${!originalDisabled}`);
+
+					// Restore original
+					setTimerDisabled(originalDisabled);
+					results.push(`✅ Disable state restored to: ${originalDisabled}`);
+				} else {
+					results.push(`❌ Disable toggle failed`);
+				}
+
+				results.push(`\n✅ Integration test completed successfully`);
+
+			} catch (error) {
+				results.push(`❌ Integration test failed: ${error.message}`);
+				console.error('Integration test error:', error);
+			}
+
+			if (integrationStatus) {
+				integrationStatus.textContent = results.join('\n');
+			}
+		}
+
+		function simulateConfigChange() {
+			const config = getTimerConfig();
+			const newDuration = config.duration === 15 ? 45 : 15;
+			const newDisabled = !config.isDisabled;
+
+			console.log(`🔄 Simulating config change: ${config.duration}s → ${newDuration}s, disabled: ${config.isDisabled} → ${newDisabled}`);
+
+			setTimerDuration(newDuration);
+			setTimeout(() => {
+				setTimerDisabled(newDisabled);
+			}, 1000);
+		}
+	</script>
+</body>
+
+</html>

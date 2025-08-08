@@ -50,7 +50,29 @@
 						<div class="instruction-icon">⏱️</div>
 						<div class="instruction-content">
 							<h3>Quick Decisions</h3>
-							<p>You have 15 seconds per choice - trust your instincts!</p>
+							<p>You have <span id="timer-duration-display">15</span> seconds per choice - trust your
+								instincts!</p>
+							<div class="timer-config">
+								<label for="timer-duration-slider" class="timer-config-label">
+									Adjust timer duration:
+								</label>
+								<div class="timer-slider-container">
+									<input type="range" id="timer-duration-slider" class="timer-slider" min="15"
+										max="60" value="15" step="5">
+									<div class="timer-slider-labels">
+										<span>15s</span>
+										<span>30s</span>
+										<span>45s</span>
+										<span>60s</span>
+									</div>
+								</div>
+								<div class="timer-disable-option">
+									<label class="timer-checkbox-label">
+										<input type="checkbox" id="timer-disable-checkbox" class="timer-checkbox">
+										<span class="timer-checkbox-text">Disable timer (no time limit)</span>
+									</label>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="instruction-item">
@@ -228,7 +250,7 @@
 	<footer class="app-footer">
 		<p>Design images courtesy of <a href="https://land-book.com" target="_blank" rel="noopener">Land-book.com</a>
 		</p>
-		<p>This or That v0.6.1 • Built by <a href="https://studiok40.com" target="_blank" rel="noopener">Gray Ayer</a>
+		<p>This or That v0.6.3 • Built by <a href="https://studiok40.com" target="_blank" rel="noopener">Gray Ayer</a>
 		</p>
 	</footer>
 
@@ -243,6 +265,7 @@
 	<script src="js/favorites-manager.js?v=1"></script>
 	<script src="js/results.js?v=1"></script>
 	<script src="js/app.js?v=1"></script>
+	<script src="js/timer-config.js?v=1"></script>
 	<script src="js/timer.js?v=1"></script>
 	<script src="js/email.js?v=1"></script>
 	<script src="js/print.js?v=1"></script>

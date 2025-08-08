@@ -5,6 +5,47 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.3] - 2025-08-08
+
+### Added: Configurable Timer Duration
+
+### Added
+
+- **Timer Configuration Slider**: Users can now adjust timer duration from 15-60 seconds in 5-second increments
+- **Disable Timer Option**: Added checkbox to completely disable the timer for users who prefer no time pressure
+- **Persistent Settings**: Timer preferences are saved in localStorage and persist across sessions
+- **Real-time Updates**: Timer configuration changes are applied immediately without page refresh
+- **Visual Feedback**: Timer display updates dynamically to show current setting (∞ when disabled)
+
+### Enhanced
+
+- **Quick Decisions Panel**: Enhanced the instructions section with an interactive timer configuration interface
+- **User Experience**: Accommodates users with different decision-making speeds and anxiety levels
+- **Accessibility**: Larger touch targets on mobile devices for easier slider interaction
+- **Responsive Design**: Timer configuration adapts to mobile layouts with optimized sizing
+
+### Technical Implementation
+
+- **Timer Configuration Module**: New `js/timer-config.js` with complete configuration management
+- **Integration Layer**: Seamless integration with existing timer system (`js/timer.js`)
+- **LocalStorage Persistence**: Automatic saving and loading of user preferences
+- **CSS Styling**: Comprehensive styling for slider, checkbox, and visual states
+- **Mobile Optimization**: Enhanced touch interaction and responsive design
+- **Test Suite**: Complete test page (`test-timer-config.html`) for functionality verification
+
+### User Interface
+
+- **Slider Control**: Smooth range slider with labeled increments (15s, 30s, 45s, 60s)
+- **Disable Option**: Clear checkbox with descriptive text for timer disable functionality
+- **Visual States**: Disabled state styling and dynamic text updates
+- **Instruction Updates**: Dynamic instruction text that reflects current timer setting
+
+### Future Considerations
+
+- Built with extensibility in mind for potential future removal of disable option
+- Modular design allows for easy configuration changes
+- Comprehensive error handling and fallback mechanisms
+
 ## [0.6.2] - 2025-08-07
 
 ### Fixed: Print Tip Display Issue
