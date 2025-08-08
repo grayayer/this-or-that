@@ -52,8 +52,27 @@
     }
 
     /* Timer configuration mobile adjustments */
+    .timer-config-toggle {
+        margin-top: 10px;
+    }
+
+    .timer-config-button {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+        gap: 6px;
+        /* Larger touch target for mobile */
+        min-height: 44px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .config-icon {
+        width: 16px;
+        height: 16px;
+    }
+
     .timer-config {
-        margin-top: 12px;
+        margin-top: 10px;
         padding: 12px;
     }
 

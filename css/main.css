@@ -220,13 +220,95 @@ a:hover {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Timer Configuration Styles */
+/* Timer Configuration Toggle Button */
+.timer-config-toggle {
+    margin-top: 12px;
+}
+
+.timer-config-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.timer-config-button:hover {
+    background-color: #f8f9fa;
+    border-color: #0066cc;
+    color: #0066cc;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timer-config-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.timer-config-button[aria-expanded="true"] {
+    background-color: #0066cc;
+    border-color: #0066cc;
+    color: #ffffff;
+}
+
+.timer-config-button[aria-expanded="true"]:hover {
+    background-color: #0052a3;
+    border-color: #0052a3;
+    color: #ffffff;
+}
+
+.config-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+}
+
+.config-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    transition: inherit;
+}
+
+.timer-config-button[aria-expanded="true"] .config-icon {
+    transform: rotate(45deg);
+}
+
+.config-text {
+    font-weight: 500;
+    user-select: none;
+}
+
+/* Timer Configuration Panel */
 .timer-config {
-    margin-top: 16px;
+    margin-top: 12px;
     padding: 16px;
     background-color: #f8f9fa;
     border-radius: 8px;
     border: 1px solid #e9ecef;
+    /* Animation for smooth show/hide */
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-10px);
+}
+
+.timer-config.show {
+    opacity: 1;
+    max-height: 200px;
+    transform: translateY(0);
 }
 
 .timer-config-label {

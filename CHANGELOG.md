@@ -7,34 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.6.3] - 2025-08-08
 
-### Added: Configurable Timer Duration
+### Added: Configurable Timer Duration with Clean UX
 
 ### Added
 
 - **Timer Configuration Slider**: Users can now adjust timer duration from 15-60 seconds in 5-second increments
 - **Disable Timer Option**: Added checkbox to completely disable the timer for users who prefer no time pressure
+- **Settings Toggle Button**: Clean UX with configuration options hidden behind a settings button (⚙️)
 - **Persistent Settings**: Timer preferences are saved in localStorage and persist across sessions
 - **Real-time Updates**: Timer configuration changes are applied immediately without page refresh
 - **Visual Feedback**: Timer display updates dynamically to show current setting (∞ when disabled)
 
 ### Enhanced
 
-- **Quick Decisions Panel**: Enhanced the instructions section with an interactive timer configuration interface
+- **Clean Interface**: Configuration options are hidden by default, keeping the interface uncluttered
+- **Progressive Disclosure**: Settings button reveals advanced options only when needed
+- **Smooth Animations**: Configuration panel slides in/out with smooth CSS transitions
 - **User Experience**: Accommodates users with different decision-making speeds and anxiety levels
-- **Accessibility**: Larger touch targets on mobile devices for easier slider interaction
+- **Accessibility**: Larger touch targets on mobile devices and proper ARIA attributes
 - **Responsive Design**: Timer configuration adapts to mobile layouts with optimized sizing
 
 ### Technical Implementation
 
 - **Timer Configuration Module**: New `js/timer-config.js` with complete configuration management
+- **Toggle Functionality**: `toggleTimerConfig()` function with smooth show/hide animations
 - **Integration Layer**: Seamless integration with existing timer system (`js/timer.js`)
-- **LocalStorage Persistence**: Automatic saving and loading of user preferences
-- **CSS Styling**: Comprehensive styling for slider, checkbox, and visual states
+- **LocalStorage Persistence**: Automatic saving and loading of user preferences including visibility state
+- **CSS Animations**: Smooth slide-in/out transitions with opacity and transform effects
 - **Mobile Optimization**: Enhanced touch interaction and responsive design
 - **Test Suite**: Complete test page (`test-timer-config.html`) for functionality verification
 
 ### User Interface
 
+- **Settings Button**: Clean toggle button with Font Awesome settings SVG icon and descriptive text
+- **Professional Icon**: Replaced emoji with scalable SVG icon for better visual consistency
+- **Hidden by Default**: Configuration panel starts hidden for cleaner initial experience
+- **Smooth Transitions**: CSS animations for panel show/hide with proper timing
 - **Slider Control**: Smooth range slider with labeled increments (15s, 30s, 45s, 60s)
 - **Disable Option**: Clear checkbox with descriptive text for timer disable functionality
 - **Visual States**: Disabled state styling and dynamic text updates

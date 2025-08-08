@@ -16,6 +16,7 @@ const timerConfig = {
 	// Current settings
 	duration: 15,
 	isDisabled: false,
+	isConfigVisible: false,
 
 	// Storage key
 	storageKey: 'thisOrThat_timerConfig',
@@ -25,6 +26,7 @@ const timerConfig = {
 	checkbox: null,
 	durationDisplay: null,
 	configContainer: null,
+	toggleButton: null,
 
 	// Callbacks
 	onConfigChange: null
@@ -45,7 +47,8 @@ function initializeTimerConfig(options = {}) {
 		timerConfig.slider = document.getElementById('timer-duration-slider');
 		timerConfig.checkbox = document.getElementById('timer-disable-checkbox');
 		timerConfig.durationDisplay = document.getElementById('timer-duration-display');
-		timerConfig.configContainer = document.querySelector('.timer-config');
+		timerConfig.configContainer = document.getElementById('timer-config');
+		timerConfig.toggleButton = document.getElementById('timer-config-button');
 
 		if (!timerConfig.slider || !timerConfig.checkbox || !timerConfig.durationDisplay) {
 			throw new Error('Required timer configuration DOM elements not found');
@@ -89,9 +92,17 @@ function loadTimerConfig() {
 				timerConfig.isDisabled = config.isDisabled;
 			}
 
+			// Load visibility state (default to false for better UX)
+			if (typeof config.isConfigVisible === 'boolean') {
+				timerConfig.isConfigVisible = config.isConfigVisible;
+			} else {
+				timerConfig.isConfigVisible = false; // Default to hidden
+			}
+
 			console.log('📁 Loaded timer config:', {
 				duration: timerConfig.duration,
-				disabled: timerConfig.isDisabled
+				disabled: timerConfig.isDisabled,
+				visible: timerConfig.isConfigVisible
 			});
 		}
 	} catch (error) {
@@ -99,6 +110,7 @@ function loadTimerConfig() {
 		// Reset to defaults on error
 		timerConfig.duration = timerConfig.defaultDuration;
 		timerConfig.isDisabled = false;
+		timerConfig.isConfigVisible = false;
 	}
 }
 
@@ -110,6 +122,7 @@ function saveTimerConfig() {
 		const config = {
 			duration: timerConfig.duration,
 			isDisabled: timerConfig.isDisabled,
+			isConfigVisible: timerConfig.isConfigVisible,
 			timestamp: Date.now()
 		};
 
@@ -122,9 +135,40 @@ function saveTimerConfig() {
 }
 
 /**
+ * Saves just the visibility state (separate from main config)
+ */
+function saveTimerConfigVisibility() {
+	try {
+		// Get existing config
+		const existing = localStorage.getItem(timerConfig.storageKey);
+		let config = existing ? JSON.parse(existing) : {};
+
+		// Update visibility
+		config.isConfigVisible = timerConfig.isConfigVisible;
+		config.timestamp = Date.now();
+
+		localStorage.setItem(timerConfig.storageKey, JSON.stringify(config));
+
+	} catch (error) {
+		console.warn('⚠️ Failed to save timer config visibility:', error.message);
+	}
+}
+
+/**
  * Sets up event listeners for timer configuration controls
  */
 function setupTimerConfigListeners() {
+	// Toggle button handler
+	const toggleButton = document.getElementById('timer-config-button');
+	const configPanel = document.getElementById('timer-config');
+
+	if (toggleButton && configPanel) {
+		toggleButton.addEventListener('click', (e) => {
+			e.preventDefault();
+			toggleTimerConfig();
+		});
+	}
+
 	// Slider change handler
 	timerConfig.slider.addEventListener('input', (e) => {
 		if (!timerConfig.isDisabled) {
@@ -205,6 +249,48 @@ function setTimerDisabled(isDisabled) {
 }
 
 /**
+ * Toggles the visibility of the timer configuration panel
+ */
+function toggleTimerConfig() {
+	try {
+		timerConfig.isConfigVisible = !timerConfig.isConfigVisible;
+
+		// Update DOM elements
+		if (timerConfig.configContainer && timerConfig.toggleButton) {
+			if (timerConfig.isConfigVisible) {
+				// Show the config panel
+				timerConfig.configContainer.style.display = 'block';
+				timerConfig.toggleButton.setAttribute('aria-expanded', 'true');
+
+				// Add show class for animation after a brief delay
+				setTimeout(() => {
+					timerConfig.configContainer.classList.add('show');
+				}, 10);
+
+				console.log('👁️ Timer configuration panel opened');
+			} else {
+				// Hide the config panel
+				timerConfig.configContainer.classList.remove('show');
+				timerConfig.toggleButton.setAttribute('aria-expanded', 'false');
+
+				// Hide after animation completes
+				setTimeout(() => {
+					timerConfig.configContainer.style.display = 'none';
+				}, 300);
+
+				console.log('👁️ Timer configuration panel closed');
+			}
+		}
+
+		// Save the visibility state
+		saveTimerConfigVisibility();
+
+	} catch (error) {
+		console.warn('⚠️ Failed to toggle timer configuration:', error.message);
+	}
+}
+
+/**
  * Updates the timer configuration display
  */
 function updateTimerConfigDisplay() {
@@ -233,6 +319,19 @@ function updateTimerConfigDisplay() {
 		// Update container visual state
 		if (timerConfig.configContainer) {
 			timerConfig.configContainer.classList.toggle('timer-disabled', timerConfig.isDisabled);
+		}
+
+		// Update toggle button and panel visibility
+		if (timerConfig.toggleButton && timerConfig.configContainer) {
+			timerConfig.toggleButton.setAttribute('aria-expanded', timerConfig.isConfigVisible.toString());
+
+			if (timerConfig.isConfigVisible) {
+				timerConfig.configContainer.style.display = 'block';
+				timerConfig.configContainer.classList.add('show');
+			} else {
+				timerConfig.configContainer.style.display = 'none';
+				timerConfig.configContainer.classList.remove('show');
+			}
 		}
 
 		// Update the instruction text
@@ -270,6 +369,7 @@ function getTimerConfig() {
 	return {
 		duration: timerConfig.duration,
 		isDisabled: timerConfig.isDisabled,
+		isConfigVisible: timerConfig.isConfigVisible,
 		minDuration: timerConfig.minDuration,
 		maxDuration: timerConfig.maxDuration,
 		step: timerConfig.step
@@ -282,6 +382,7 @@ function getTimerConfig() {
 function resetTimerConfig() {
 	timerConfig.duration = timerConfig.defaultDuration;
 	timerConfig.isDisabled = false;
+	timerConfig.isConfigVisible = false;
 
 	updateTimerConfigDisplay();
 	saveTimerConfig();
@@ -380,6 +481,7 @@ if (typeof module !== 'undefined' && module.exports) {
 		getTimerConfig,
 		setTimerDuration,
 		setTimerDisabled,
+		toggleTimerConfig,
 		resetTimerConfig,
 		setupTimerConfigIntegration
 	};
@@ -391,6 +493,7 @@ if (typeof window !== 'undefined') {
 	window.getTimerConfig = getTimerConfig;
 	window.setTimerDuration = setTimerDuration;
 	window.setTimerDisabled = setTimerDisabled;
+	window.toggleTimerConfig = toggleTimerConfig;
 	window.resetTimerConfig = resetTimerConfig;
 	window.setupTimerConfigIntegration = setupTimerConfigIntegration;
 }
