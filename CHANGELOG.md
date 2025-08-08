@@ -5,6 +5,12 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.5] - 2025-08-08
+
+## Fix
+
+- show settings at all times instead of hide/show. Simplifies things.
+
 ## [0.6.4] - 2025-08-08
 
 ### Added: Persistent Settings Modal
