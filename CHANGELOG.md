@@ -5,6 +5,13 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - Development Notes
+
+### Development Configuration
+
+- **SiteGround Caching**: Added `cache-control: no-cache` meta tag to disable SiteGround Dynamic Caching during development
+- **Production Note**: Remove cache-control meta tag before production deployment to enable caching for better performance
+
 ## [0.6.5] - 2025-08-08
 
 ## Fix
