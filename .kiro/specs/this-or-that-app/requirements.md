@@ -134,3 +134,24 @@ The "This or That?" application is a client-facing web tool designed to help use
 3. WHEN displaying results THEN the system SHALL include a credit link to Land-book.com
 4. WHEN session ends THEN the system SHALL not retain any user preference data
 5. WHEN scraping content THEN the system SHALL respect Land-book.com's terms of service and robots.txt
+
+## Development Guidelines
+
+### Placeholder Images
+
+**Service:** Use <https://placehold.co/> for all placeholder images in testing and development.
+
+**URL Structure:**
+
+- Basic format: `https://placehold.co/{width}x{height}`
+- Example: `https://placehold.co/600x400` (creates a 600×400 pixel placeholder)
+- With custom colors: `https://placehold.co/600x400/4a90e2/ffffff` (background/text colors)
+- With text: `https://placehold.co/600x400/4a90e2/ffffff/png?text=Custom+Text`
+
+**Usage Guidelines:**
+
+- Use placehold.co URLs for all test files and debugging
+- Specify appropriate dimensions matching the expected image sizes
+- Include descriptive text when helpful for testing (e.g., "Test Image 1", "Hover Me")
+- Prefer PNG format for consistent rendering across browsers
+- Use realistic aspect ratios that match actual design screenshots (typically 4:3 or 16:10)

@@ -685,10 +685,6 @@ function displayImagePair(pair) {
 	// Set up second image
 	setupImageElement(image2Element, pair[1], option2Element);
 
-	// Add heart buttons to both images
-	addHeartButton(option1Element, pair[0]);
-	addHeartButton(option2Element, pair[1]);
-
 	// Show selection section and hide loading
 	showSelectionSection();
 }
@@ -707,6 +703,9 @@ function setupImageElement(imgElement, design, containerElement) {
 	containerElement.classList.add('loading');
 	containerElement.classList.remove('loaded', 'error');
 	imgElement.classList.add('loading');
+
+	// Set up website info
+	setupWebsiteInfo(containerElement, design);
 
 	// Create loading timeout
 	const loadingTimeout = setTimeout(() => {
@@ -775,18 +774,94 @@ function setupImageElement(imgElement, design, containerElement) {
 }
 
 /**
- * Adds a heart button to an image container for bookmarking favorites
+ * Sets up the website info section with name and heart button
  * @param {HTMLElement} containerElement - The image container element
  * @param {Object} design - The design object
  */
-function addHeartButton(containerElement, design) {
+function setupWebsiteInfo(containerElement, design) {
+	// Find the website info elements
+	const websiteInfo = containerElement.querySelector('.website-info');
+	const websiteNameLink = containerElement.querySelector('.website-name');
+	const heartContainer = containerElement.querySelector('.heart-container');
 
-
-	// Remove existing heart button if present
-	const existingHeart = containerElement.querySelector('.heart-button');
-	if (existingHeart) {
-		existingHeart.remove();
+	if (!websiteInfo || !websiteNameLink || !heartContainer) {
+		console.warn('⚠️ Website info elements not found in container');
+		return;
 	}
+
+	// Extract clean website name from the design name
+	const websiteName = extractWebsiteName(design.name || design.title || 'Unknown Website');
+
+	// Set up the website name link
+	websiteNameLink.textContent = websiteName;
+	websiteNameLink.href = design.websiteUrl || '#';
+	websiteNameLink.title = `Visit ${websiteName}`;
+
+	// If no URL available, make it non-clickable
+	if (!design.websiteUrl || design.websiteUrl === '#') {
+		websiteNameLink.style.color = '#666666';
+		websiteNameLink.style.cursor = 'default';
+		websiteNameLink.onclick = (e) => e.preventDefault();
+		websiteNameLink.title = websiteName;
+	}
+
+	// Add heart button to the heart container
+	addHeartButton(heartContainer, design);
+}
+
+/**
+ * Extracts a clean website name from the full design name
+ * @param {string} fullName - The full design name (e.g., "Company Name | Description | Domain")
+ * @returns {string} - Clean website name
+ */
+function extractWebsiteName(fullName) {
+	if (!fullName) return 'Unknown Website';
+
+	// Split by pipe character and analyze parts
+	const nameParts = fullName.split('|').map(part => part.trim());
+	let cleanName = '';
+
+	// Smart selection of the best part
+	if (nameParts.length > 1) {
+		// If first part is generic (Home, Just a moment, etc.), try second part
+		const firstPart = nameParts[0].toLowerCase();
+		if (firstPart === 'home' || firstPart === 'just a moment' || firstPart.length < 3) {
+			cleanName = nameParts[1] || nameParts[0];
+		} else {
+			cleanName = nameParts[0];
+		}
+	} else {
+		cleanName = fullName;
+	}
+
+	// Remove common suffixes and clean up
+	cleanName = cleanName
+		.replace(/\s*-\s*.*$/, '') // Remove everything after dash
+		.replace(/\s*\|\s*.*$/, '') // Remove everything after pipe
+		.replace(/\s+/g, ' ') // Normalize whitespace
+		.trim();
+
+	// If the result is too short or empty, use a fallback
+	if (!cleanName || cleanName.length < 2) {
+		cleanName = 'Website';
+	}
+
+	// Limit length for display
+	if (cleanName.length > 25) {
+		cleanName = cleanName.substring(0, 22) + '...';
+	}
+
+	return cleanName;
+}
+
+/**
+ * Adds a heart button to the heart container for bookmarking favorites
+ * @param {HTMLElement} heartContainer - The heart container element
+ * @param {Object} design - The design object
+ */
+function addHeartButton(heartContainer, design) {
+	// Clear existing content
+	heartContainer.innerHTML = '';
 
 	// Create heart button
 	const heartButton = document.createElement('button');
@@ -799,18 +874,16 @@ function addHeartButton(containerElement, design) {
 		FavoritesManager.isHearted(design.id) : false;
 
 	heartButton.classList.toggle('hearted', isHearted);
-	heartButton.innerHTML = isHearted ? '❤️' : '🤍';
+	heartButton.innerHTML = isHearted ? '♥' : '♡';
 
 	// Add click handler
 	heartButton.addEventListener('click', (e) => {
 		e.stopPropagation(); // Prevent image selection
 
-
-
 		if (typeof FavoritesManager !== 'undefined') {
 			const newHeartState = FavoritesManager.toggleHeart(design.id, design);
 			heartButton.classList.toggle('hearted', newHeartState);
-			heartButton.innerHTML = newHeartState ? '❤️' : '🤍';
+			heartButton.innerHTML = newHeartState ? '♥' : '♡';
 
 			// Add visual feedback
 			heartButton.classList.add('heart-animation');
@@ -820,8 +893,8 @@ function addHeartButton(containerElement, design) {
 		}
 	});
 
-	// Add button to container
-	containerElement.appendChild(heartButton);
+	// Add button to heart container
+	heartContainer.appendChild(heartButton);
 }
 
 /**
@@ -1564,116 +1637,131 @@ function setupImageClickHandlers() {
 function setupImageOptionHandlers(element, optionName) {
 	if (!element) return;
 
+	// Find the clickable area (image and wrapper)
+	const imageElement = element.querySelector('.design-image');
+	const imageWrapper = element.querySelector('.image-wrapper');
+
+	if (!imageElement || !imageWrapper) {
+		console.warn(`⚠️ Missing image or wrapper element for ${optionName}`);
+		return;
+	}
+
+	// Both image and wrapper are clickable (overlay is on wrapper)
+	const clickableElements = [imageElement, imageWrapper];
+
 	let touchStartTime = 0;
 	let touchStartX = 0;
 	let touchStartY = 0;
 	let isTouch = false;
 
-	// Touch start handler
-	element.addEventListener('touchstart', (event) => {
-		isTouch = true;
-		touchStartTime = Date.now();
+	// Set up handlers for each clickable element
+	clickableElements.forEach(clickableElement => {
+		// Touch start handler
+		clickableElement.addEventListener('touchstart', (event) => {
+			isTouch = true;
+			touchStartTime = Date.now();
 
-		const touch = event.touches[0];
-		touchStartX = touch.clientX;
-		touchStartY = touch.clientY;
+			const touch = event.touches[0];
+			touchStartX = touch.clientX;
+			touchStartY = touch.clientY;
 
-		// Add visual feedback for touch
-		element.classList.add('touch-active');
+			// Add visual feedback for touch on the container
+			element.classList.add('touch-active');
 
-		// Prevent default to avoid double-tap zoom and scrolling issues
-		event.preventDefault();
+			// Prevent default to avoid double-tap zoom and scrolling issues
+			event.preventDefault();
 
-		if (appState.config.enableLogging) {
-			console.log(`👆 Touch start on ${optionName}`);
-		}
-	}, { passive: false });
+			if (appState.config.enableLogging) {
+				console.log(`👆 Touch start on ${optionName} (${clickableElement.className})`);
+			}
+		}, { passive: false });
 
-	// Touch end handler
-	element.addEventListener('touchend', (event) => {
-		const touchEndTime = Date.now();
-		const touchDuration = touchEndTime - touchStartTime;
+		// Touch end handler
+		clickableElement.addEventListener('touchend', (event) => {
+			const touchEndTime = Date.now();
+			const touchDuration = touchEndTime - touchStartTime;
 
-		// Remove visual feedback
-		element.classList.remove('touch-active');
+			// Remove visual feedback
+			element.classList.remove('touch-active');
 
-		// Only process if it was a quick tap (not a long press or drag)
-		if (touchDuration < 500) {
+			// Only process if it was a quick tap (not a long press or drag)
+			if (touchDuration < 500) {
+				const designId = element.dataset.designId;
+				if (designId) {
+					handleSelection(designId);
+
+					if (appState.config.enableLogging) {
+						console.log(`✅ Touch selection: ${designId} (${touchDuration}ms)`);
+					}
+				}
+			}
+
+			// Prevent default to avoid click event firing
+			event.preventDefault();
+			isTouch = false;
+		}, { passive: false });
+
+		// Touch move handler to detect dragging
+		clickableElement.addEventListener('touchmove', (event) => {
+			const touch = event.touches[0];
+			const deltaX = Math.abs(touch.clientX - touchStartX);
+			const deltaY = Math.abs(touch.clientY - touchStartY);
+
+			// If user is dragging significantly, remove active state
+			if (deltaX > 10 || deltaY > 10) {
+				element.classList.remove('touch-active');
+			}
+
+			// Allow scrolling if moving vertically
+			if (deltaY > deltaX) {
+				return;
+			}
+
+			// Prevent horizontal scrolling during image interaction
+			event.preventDefault();
+		}, { passive: false });
+
+		// Touch cancel handler
+		clickableElement.addEventListener('touchcancel', (event) => {
+			element.classList.remove('touch-active');
+			isTouch = false;
+			event.preventDefault();
+		});
+
+		// Click handler for mouse/desktop interactions
+		clickableElement.addEventListener('click', (event) => {
+			// Prevent click if this was a touch interaction
+			if (isTouch) {
+				event.preventDefault();
+				return;
+			}
+
+			event.preventDefault();
 			const designId = element.dataset.designId;
 			if (designId) {
 				handleSelection(designId);
 
 				if (appState.config.enableLogging) {
-					console.log(`✅ Touch selection: ${designId} (${touchDuration}ms)`);
+					console.log(`🖱️ Click selection: ${designId} (${clickableElement.className})`);
 				}
 			}
-		}
+		});
 
-		// Prevent default to avoid click event firing
-		event.preventDefault();
-		isTouch = false;
-	}, { passive: false });
-
-	// Touch move handler to detect dragging
-	element.addEventListener('touchmove', (event) => {
-		const touch = event.touches[0];
-		const deltaX = Math.abs(touch.clientX - touchStartX);
-		const deltaY = Math.abs(touch.clientY - touchStartY);
-
-		// If user is dragging significantly, remove active state
-		if (deltaX > 10 || deltaY > 10) {
-			element.classList.remove('touch-active');
-		}
-
-		// Allow scrolling if moving vertically
-		if (deltaY > deltaX) {
-			return;
-		}
-
-		// Prevent horizontal scrolling during image interaction
-		event.preventDefault();
-	}, { passive: false });
-
-	// Touch cancel handler
-	element.addEventListener('touchcancel', (event) => {
-		element.classList.remove('touch-active');
-		isTouch = false;
-		event.preventDefault();
-	});
-
-	// Click handler for mouse/desktop interactions
-	element.addEventListener('click', (event) => {
-		// Prevent click if this was a touch interaction
-		if (isTouch) {
+		// Prevent context menu on long press
+		clickableElement.addEventListener('contextmenu', (event) => {
 			event.preventDefault();
-			return;
-		}
-
-		event.preventDefault();
-		const designId = element.dataset.designId;
-		if (designId) {
-			handleSelection(designId);
-
-			if (appState.config.enableLogging) {
-				console.log(`🖱️ Click selection: ${designId}`);
-			}
-		}
+		});
 	});
 
-	// Mouse enter/leave for desktop hover effects
-	element.addEventListener('mouseenter', () => {
+	// Mouse enter/leave for desktop hover effects (only on image)
+	imageElement.addEventListener('mouseenter', () => {
 		if (!isTouch) {
 			element.classList.add('hover-active');
 		}
 	});
 
-	element.addEventListener('mouseleave', () => {
+	imageElement.addEventListener('mouseleave', () => {
 		element.classList.remove('hover-active');
-	});
-
-	// Prevent context menu on long press
-	element.addEventListener('contextmenu', (event) => {
-		event.preventDefault();
 	});
 }
 

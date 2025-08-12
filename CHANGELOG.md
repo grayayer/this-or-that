@@ -5,6 +5,50 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.1] - 2025-08-12
+
+### Fixed
+
+- **Pseudo-Element Overlay**: Fixed critical issue where pseudo-elements cannot be applied directly to `<img>` tags
+- **Image Wrapper Structure**: Added `.image-wrapper` div around images to properly support pseudo-element overlays
+- **Real Image URLs**: Resolved issue where overlay wouldn't appear with actual image URLs (vs placeholder URLs)
+- **Browser Compatibility**: Ensured overlay works consistently across all browsers and image loading states
+
+### Technical Improvements
+
+- **HTML Structure**: Updated to use `<div class="image-wrapper">` around `<img>` elements
+- **CSS Refactor**: Moved pseudo-element from `.design-image::before` to `.image-wrapper::before`
+- **JavaScript Updates**: Updated click handlers to work with new wrapper structure
+- **Replaced Element Support**: Proper handling of CSS limitations with replaced elements like `<img>`
+
+## [0.7.0] - 2025-08-12
+
+### Added
+
+- **Website Information Display**: Added website name and heart button underneath each image
+- **Website Links**: Website names are now clickable links that open the source website in a new tab
+- **Improved Heart Icons**: Changed from emoji hearts (🤍/❤️) to Unicode glyphs (♡/♥) for better visibility and consistency
+
+### Changed
+
+- **Overlay System**: Completely reimplemented image overlay using CSS pseudo-elements (::before) instead of DOM elements
+- **Click Handling**: Refined click areas so only image/overlay triggers selection, while website links and heart buttons work independently
+- **Hover Behavior**: Overlay now only appears when hovering directly over the image, not the entire container
+- **User Experience**: Clear visual separation between selectable image area and interactive website information
+
+### Fixed
+
+- **Overlay Positioning**: Eliminated height mismatch issues between overlay and image
+- **Click Conflicts**: Resolved issues where clicking website links or heart buttons would trigger image selection
+- **Responsive Design**: Improved mobile layout for website information section
+
+### Technical Improvements
+
+- **Cleaner DOM**: Removed unnecessary HTML overlay elements
+- **Better Performance**: Fewer DOM nodes and CSS-only animations
+- **Maintainability**: Simplified code structure with pseudo-element approach
+- **Browser Compatibility**: Enhanced cross-browser support with fallback hover states
+
 ## [0.6.6] - 2025-08-12
 
 ### Changed
