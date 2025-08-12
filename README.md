@@ -14,6 +14,77 @@ A web application that helps users discover their design preferences through bin
 - **Performance Optimized**: Advanced caching, image optimization, and smooth animations
 - **Offline Support**: Service worker enables offline functionality
 
+## 💻 Technology Stack
+
+This application is built with **modern vanilla web technologies** - no frameworks like React or Vue.js required!
+
+### Frontend Technologies
+
+- **HTML5**: Semantic markup with modern web standards
+- **CSS3**: Advanced styling with Grid, Flexbox, and custom properties
+  - Responsive design with mobile-first approach
+  - CSS animations and transitions for smooth UX
+  - Print-specific styles for PDF generation
+- **Vanilla JavaScript (ES6+)**: Modern JavaScript without frameworks
+  - Modular architecture with ES6 modules
+  - Async/await for data loading
+  - Local storage for persistence
+  - Service worker for offline support
+
+### Key JavaScript Modules
+
+- **Application Core** (`js/app.js`): Main application logic and state management
+- **Data Management** (`js/app-data-loader.js`, `js/data-validator.js`): Data loading and validation
+- **User Interface** (`js/timer.js`, `js/settings-modal.js`): Interactive components
+- **Results System** (`js/results.js`, `js/favorites-manager.js`): Preference analysis and tracking
+- **Utilities** (`js/print.js`, `js/email.js`): Export and sharing functionality
+
+### Data & Storage
+
+- **JSON Data Files**: Design database stored in JSON format
+- **Local Storage**: User preferences and session data
+- **Image Assets**: Optimized web images with WebP support
+
+### Development Tools
+
+- **Node.js Scraper**: Automated data collection from Land-book.com
+  - Puppeteer for web scraping
+  - Image downloading and optimization
+  - JSON data generation
+- **Python HTTP Server**: Local development server
+- **Browser DevTools**: Debugging and performance monitoring
+
+### Third-Party Services
+
+- **EmailJS**: Email functionality for sharing results
+- **Land-book.com**: Design image source and inspiration
+
+### Browser APIs Used
+
+- **Service Worker API**: Offline caching and performance
+- **Local Storage API**: Data persistence
+- **Canvas API**: Image optimization and processing
+- **Print API**: PDF generation and printing
+- **Performance API**: Monitoring and optimization
+- **Intersection Observer**: Lazy loading and animations
+
+### Why Vanilla JavaScript?
+
+This project demonstrates that modern web applications don't always need heavy frameworks:
+
+- **Performance**: Faster loading with no framework overhead
+- **Simplicity**: Easier to understand and maintain
+- **Flexibility**: Direct control over all functionality
+- **Learning**: Great for understanding core web technologies
+- **Compatibility**: Works in all modern browsers without build tools
+
+### Architecture Pattern
+
+- **Modular Design**: Each feature is a separate JavaScript module
+- **Event-Driven**: Components communicate through custom events
+- **Progressive Enhancement**: Works without JavaScript (basic functionality)
+- **Mobile-First**: Responsive design prioritizes mobile experience
+
 ## 🏗️ Architecture
 
 ### Core Components
