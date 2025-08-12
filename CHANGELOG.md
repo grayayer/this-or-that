@@ -5,7 +5,12 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - Development Notes
+## [0.6.6] - 2025-08-12
+
+### Changed
+
+- **Keyboard Navigation**: Updated keyboard shortcuts from number keys (1, 2) to arrow keys (←, →) for more intuitive left/right selection
+- **User Interface**: Updated all keyboard hints and instructions to reflect new arrow key shortcuts
 
 ### Development Configuration
 
@@ -461,7 +466,7 @@ node test-direct-url-lazy-loading.js
 - Land-book.com scraper tool for automated design data collection
 - Comprehensive test suite with multiple test pages
 - Cache management tools for development
-- Keyboard navigation support (1, 2, Space keys)
+- Keyboard navigation support (Arrow keys, Space key)
 - Accessibility features including reduced motion support
 
 ### Features

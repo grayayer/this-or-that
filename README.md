@@ -1,6 +1,6 @@
 # This or That? - Design Preference Discovery
 
-**Version 1.0.0** | Built by [Gray Ayer](https://studiok40.com)
+**Version 0.6.6** | Built by [Gray Ayer](https://studiok40.com)
 
 A web application that helps users discover their design preferences through binary choices between web design screenshots. Users make quick decisions between pairs of designs to build a comprehensive preference profile.
 
@@ -333,7 +333,7 @@ The application includes built-in performance monitoring:
 
 This project follows [Semantic Versioning (SemVer)](https://semver.org/):
 
-- **Current Version**: 1.0.0
+- **Current Version**: 0.6.6
 - **Changelog**: See [CHANGELOG.md](CHANGELOG.md) for detailed version history
 - **Version Format**: MAJOR.MINOR.PATCH
   - **MAJOR**: Breaking changes, major feature overhauls

@@ -1679,7 +1679,7 @@ function setupImageOptionHandlers(element, optionName) {
 
 /**
  * Sets up keyboard navigation for image selection and skipping
- * Supports: 1 key (select first option), 2 key (select second option), spacebar (skip)
+ * Supports: Left Arrow (select first option), Right Arrow (select second option), spacebar (skip)
  */
 function setupKeyboardNavigation() {
 	// Remove any existing keyboard listeners to prevent duplicates
@@ -1689,7 +1689,7 @@ function setupKeyboardNavigation() {
 	document.addEventListener('keydown', handleKeyboardNavigation);
 
 	if (appState.config.enableLogging) {
-		console.log('⌨️ Keyboard navigation set up (1, 2, spacebar)');
+		console.log('⌨️ Keyboard navigation set up (←, →, spacebar)');
 	}
 }
 
@@ -1713,7 +1713,7 @@ function handleKeyboardNavigation(event) {
 	let handled = false;
 
 	switch (key) {
-		case '1':
+		case 'ArrowLeft':
 			// Select first option with visual feedback
 			const option1 = document.getElementById('image-option-1');
 			if (option1 && option1.dataset.designId) {
@@ -1725,12 +1725,12 @@ function handleKeyboardNavigation(event) {
 				handled = true;
 
 				if (appState.config.enableLogging) {
-					console.log('⌨️ Keyboard selection: Option 1');
+					console.log('⌨️ Keyboard selection: Left Arrow (Option 1)');
 				}
 			}
 			break;
 
-		case '2':
+		case 'ArrowRight':
 			// Select second option with visual feedback
 			const option2 = document.getElementById('image-option-2');
 			if (option2 && option2.dataset.designId) {
@@ -1742,7 +1742,7 @@ function handleKeyboardNavigation(event) {
 				handled = true;
 
 				if (appState.config.enableLogging) {
-					console.log('⌨️ Keyboard selection: Option 2');
+					console.log('⌨️ Keyboard selection: Right Arrow (Option 2)');
 				}
 			}
 			break;
