@@ -116,49 +116,61 @@ class WebsiteMetadataScraper {
 					result.screenshotUrl = screenshotImg.src;
 				}
 
-				// Extract tags from various sections
-				const tagElements = document.querySelectorAll('.tag, .badge, [class*="tag"], [class*="category"], .chip');
-				tagElements.forEach(tag => {
-					const tagText = tag.textContent.trim();
-					if (tagText) {
-						// Categorize tags based on content or context
-						const tagLower = tagText.toLowerCase();
+				// Extract tags from Land-book's specific structure
+				const metadataContainer = document.querySelector('div.website-content-sidebar .bg-secondary');
+				if (metadataContainer) {
+					const rows = metadataContainer.querySelectorAll('.row');
 
-						// Style tags
-						if (tagLower.includes('minimal') || tagLower.includes('modern') || tagLower.includes('clean') ||
-							tagLower.includes('bold') || tagLower.includes('dark') || tagLower.includes('light')) {
-							result.tags.style.push(tagText);
-						}
-						// Industry tags
-						else if (tagLower.includes('health') || tagLower.includes('tech') || tagLower.includes('finance') ||
-							tagLower.includes('education') || tagLower.includes('ecommerce') || tagLower.includes('agency')) {
-							result.tags.industry.push(tagText);
-						}
-						// Platform tags
-						else if (tagLower.includes('webflow') || tagLower.includes('react') || tagLower.includes('wordpress') ||
-							tagLower.includes('shopify') || tagLower.includes('framer')) {
-							result.tags.platform.push(tagText);
-						}
-						// Type tags
-						else if (tagLower.includes('landing') || tagLower.includes('portfolio') || tagLower.includes('blog') ||
-							tagLower.includes('template') || tagLower.includes('ecommerce')) {
-							result.tags.type.push(tagText);
-						}
-						// Default to category
-						else {
-							result.tags.category.push(tagText);
-						}
-					}
-				});
+					rows.forEach(row => {
+						const labelCol = row.querySelector('.col-4 p.text-muted');
+						const valueCol = row.querySelector('.col-8');
 
-				// Extract colors if available
-				const colorElements = document.querySelectorAll('[class*="color"], .color-palette span, [style*="background-color"]');
-				colorElements.forEach(colorEl => {
-					const style = colorEl.style.backgroundColor || colorEl.getAttribute('data-color');
-					if (style && style.includes('#')) {
-						result.tags.colors.push(style);
-					}
-				});
+						if (labelCol && valueCol) {
+							const label = labelCol.textContent.trim().toLowerCase();
+							const links = valueCol.querySelectorAll('a.text-decoration-underline');
+
+							links.forEach(link => {
+								const tagText = link.textContent.trim();
+								if (tagText) {
+									// Map Land-book labels to our tag categories
+									switch (label) {
+										case 'style':
+											result.tags.style.push(tagText);
+											break;
+										case 'industry':
+											result.tags.industry.push(tagText);
+											break;
+										case 'typography':
+											result.tags.typography.push(tagText);
+											break;
+										case 'type':
+											result.tags.type.push(tagText);
+											break;
+										case 'category':
+											result.tags.category.push(tagText);
+											break;
+										default:
+											// For any other categories, add to category
+											result.tags.category.push(tagText);
+											break;
+									}
+								}
+							});
+						}
+					});
+				}
+
+				// Extract colors from Land-book's color palette
+				const colorContainer = metadataContainer?.querySelector('.website-colors');
+				if (colorContainer) {
+					const colorElements = colorContainer.querySelectorAll('.website-colors-item');
+					colorElements.forEach(colorEl => {
+						const style = colorEl.style.backgroundColor;
+						if (style) {
+							result.tags.colors.push(style);
+						}
+					});
+				}
 
 				// Clean up empty arrays
 				Object.keys(result.tags).forEach(key => {
