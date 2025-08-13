@@ -5,6 +5,18 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.2] - 2025-08-12
+
+### Added
+
+- **Enter Key Support**: Added Enter key functionality to trigger the "Start Discovering" button on the welcome screen
+- **Keyboard Hint**: Added visual tip in instructions showing users can press Enter to start
+
+### Improved
+
+- **User Experience**: Enhanced accessibility and speed of getting started with keyboard navigation
+- **Instructions Clarity**: Better guidance on available keyboard shortcuts
+
 ## [0.7.1] - 2025-08-12
 
 ### Fixed

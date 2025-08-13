@@ -2122,8 +2122,31 @@ function setupInstructionsHandlers() {
 		});
 	}
 
+	// Add Enter key handler for the instructions section
+	const handleInstructionsKeydown = (event) => {
+		// Only handle Enter key when instructions section is visible
+		const instructionsSection = document.getElementById('instructions-section');
+		if (!instructionsSection || instructionsSection.style.display === 'none') {
+			return;
+		}
+
+		if (event.key === 'Enter' || event.keyCode === 13) {
+			event.preventDefault();
+			hideInstructionsSection();
+			startImageSelection();
+		}
+	};
+
+	// Add keyboard event listener
+	document.addEventListener('keydown', handleInstructionsKeydown);
+
+	// Store reference to remove listener later if needed
+	if (!window.instructionsKeydownHandler) {
+		window.instructionsKeydownHandler = handleInstructionsKeydown;
+	}
+
 	if (appState.config.enableLogging) {
-		console.log('✅ Instructions handlers set up');
+		console.log('✅ Instructions handlers set up (including Enter key support)');
 	}
 }
 
