@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "scrapedAt": "2025-08-13T00:49:05.093Z",
+    "totalWebsites": 5,
+    "source": "metadata-scraping",
+    "errors": 0
+  },
+  "designs": [
+    {
+      "id": "website_82725",
+      "image": "./personal-yoga-files/b354706775f10b93-mugenstudio-framer-website.webp",
+      "title": "Mugen Design Studio - Framer Template",
+      "tags": {
+        "style": [],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [
+          "PRO"
+        ],
+        "platform": [],
+        "colors": []
+      }
+    },
+    {
+      "id": "website_82469",
+      "image": "./personal-yoga-files/e8d85d11c1dc7b49-jacktheobald-com.webp",
+      "title": "Jack Theobald",
+      "tags": {
+        "style": [],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [
+          "PRO"
+        ],
+        "platform": [],
+        "colors": []
+      }
+    },
+    {
+      "id": "website_82597",
+      "image": "./personal-yoga-files/6f82e8a9b98d5ee7-format-template-framer-website.webp",
+      "title": "Format - Portfolio Template for Framer",
+      "tags": {
+        "style": [],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [
+          "PRO"
+        ],
+        "platform": [],
+        "colors": []
+      }
+    },
+    {
+      "id": "website_82334",
+      "image": "./personal-yoga-files/4da3c1252867bbe7-accent-template-framer-website.webp",
+      "title": "Accent - Portfolio Template for Framer",
+      "tags": {
+        "style": [],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [
+          "PRO"
+        ],
+        "platform": [],
+        "colors": []
+      }
+    },
+    {
+      "id": "website_81833",
+      "image": "./personal-yoga-files/dc4a8b359a6515f4-framer-link.webp",
+      "title": "Arkitect - Architecture Framer Template",
+      "tags": {
+        "style": [],
+        "industry": [],
+        "typography": [],
+        "type": [],
+        "category": [
+          "PRO"
+        ],
+        "platform": [],
+        "colors": []
+      }
+    }
+  ],
+  "errors": []
+}
