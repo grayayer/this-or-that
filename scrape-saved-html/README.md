@@ -222,15 +222,15 @@ The final `designs.json` file follows the same format as the main scraper:
 
 ## Advantages
 
-✅ **No lazy loading issues** - User controls how much content to load
-✅ **Reliable extraction** - Works with static HTML, no dynamic content issues
-✅ **Flexible** - Works with any Land-book search or filter results
-✅ **Respectful** - Controlled scraping pace with delays
-✅ **Debuggable** - Can run browser in visible mode
-✅ **Testable** - Easy to test with small samples
-✅ **Enterprise Reliability** - 100% success rate on large datasets through error recovery
-✅ **Memory Optimized** - Prevents browser crashes through periodic restarts
-✅ **Resume Capability** - Can recover from partial failures automatically
+- ✅ **No lazy loading issues** - User controls how much content to load
+- ✅ **Reliable extraction** - Works with static HTML, no dynamic content issues
+- ✅ **Flexible** - Works with any Land-book search or filter results
+- ✅ **Respectful** - Controlled scraping pace with delays
+- ✅ **Debuggable** - Can run browser in visible mode
+- ✅ **Testable** - Easy to test with small samples
+- ✅ **Enterprise Reliability** - 100% success rate on large datasets through error recovery
+- ✅ **Memory Optimized** - Prevents browser crashes through periodic restarts
+- ✅ **Resume Capability** - Can recover from partial failures automatically
 
 ## File Structure
 
