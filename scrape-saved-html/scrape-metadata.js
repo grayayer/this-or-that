@@ -206,10 +206,12 @@ class WebsiteMetadataScraper {
 				return result;
 			});
 
-			// Combine with original website data
+			// Combine with original website data and add missing properties
 			const combinedData = {
 				...website,
 				...metadata,
+				source: "land-book",
+				sourceUrl: website.postUrl, // This is the Land-book page URL
 				scrapedAt: new Date().toISOString()
 			};
 
@@ -322,7 +324,10 @@ class WebsiteMetadataScraper {
 						category: [],
 						platform: [],
 						colors: []
-					}
+					},
+					websiteUrl: result.websiteUrl || null,
+					source: result.source || "land-book",
+					sourceUrl: result.sourceUrl || null
 				})),
 				errors: this.errors
 			};

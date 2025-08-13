@@ -5,6 +5,35 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.2] - 2025-08-13
+
+### Fixed
+
+- **Critical Bug Fix**: Fixed `saveResults` method in scraper that was excluding `websiteUrl`, `source`, and `sourceUrl` properties from output
+- **Data Output Completeness**: Ensured all scraped properties are properly included in final JSON output
+- **CLI Scraper Functionality**: Fixed command-line scraping to produce complete data structure
+
+### Technical Details
+
+- Updated `saveResults` method to include all scraped properties in output mapping
+- Fixed property filtering that was causing data loss during JSON generation
+- Verified new scraping runs now include all required properties
+
+## [0.8.1] - 2025-08-13
+
+### Fixed
+
+- **Data Structure Completeness**: Added missing `source` and `sourceUrl` properties to scraped data to match expected format
+- **Metadata Scraper Enhancement**: Updated scraper to include Land-book source attribution and page URLs
+- **Data Consistency**: Ensured all scraped designs have consistent property structure with reference data
+
+### Technical Details
+
+- Enhanced `scrape-metadata.js` to add `source: "land-book"` and `sourceUrl` properties
+- Updated existing scraped data (220 designs) to include missing properties
+- Verified `websiteUrl` extraction works correctly (when available on source pages)
+- Maintained backward compatibility with existing data structure
+
 ## [0.8.0] - 2025-08-13
 
 ### Added: Robust Web Scraping Infrastructure
