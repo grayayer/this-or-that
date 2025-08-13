@@ -56,6 +56,23 @@ class WebsiteMetadataScraper {
 	}
 
 	/**
+	 * Reinitialize browser if it's crashed or closed
+	 */
+	async reinitializeBrowser() {
+		console.log('🔄 Reinitializing browser...');
+
+		try {
+			if (this.browser) {
+				await this.browser.close();
+			}
+		} catch (error) {
+			// Ignore errors when closing crashed browser
+		}
+
+		return await this.initialize();
+	}
+
+	/**
 	 * Scrape metadata from a single website
 	 * @param {Object} website - Website data from the list
 	 * @returns {Promise<Object>} - Scraped metadata
@@ -64,6 +81,14 @@ class WebsiteMetadataScraper {
 		console.log(`🔍 Scraping: ${website.name}`);
 
 		try {
+			// Check if browser/page is still valid
+			if (!this.page || this.page.isClosed()) {
+				const reinitialized = await this.reinitializeBrowser();
+				if (!reinitialized) {
+					throw new Error('Failed to reinitialize browser');
+				}
+			}
+
 			// Navigate to the website detail page
 			await this.page.goto(website.postUrl, {
 				waitUntil: 'networkidle2',
@@ -118,6 +143,7 @@ class WebsiteMetadataScraper {
 
 				// Extract tags from Land-book's specific structure
 				const metadataContainer = document.querySelector('div.website-content-sidebar .bg-secondary');
+
 				if (metadataContainer) {
 					const rows = metadataContainer.querySelectorAll('.row');
 
@@ -197,6 +223,25 @@ class WebsiteMetadataScraper {
 
 		} catch (error) {
 			console.log(`   ❌ Failed to scrape: ${error.message}`);
+
+			// If it's a browser/session error, try to reinitialize and retry once
+			if (error.message.includes('Session closed') ||
+				error.message.includes('detached Frame') ||
+				error.message.includes('Protocol error')) {
+
+				console.log(`   🔄 Attempting to recover from browser error...`);
+				const reinitialized = await this.reinitializeBrowser();
+
+				if (reinitialized) {
+					try {
+						console.log(`   🔄 Retrying: ${website.name}`);
+						return await this.scrapeWebsiteMetadata(website);
+					} catch (retryError) {
+						console.log(`   ❌ Retry failed: ${retryError.message}`);
+					}
+				}
+			}
+
 			this.errors.push({
 				website: website.name,
 				url: website.postUrl,
@@ -222,6 +267,12 @@ class WebsiteMetadataScraper {
 		for (let i = 0; i < websites.length; i++) {
 			const website = websites[i];
 			console.log(`\n📄 Processing ${i + 1}/${websites.length}: ${website.name}`);
+
+			// Restart browser every 50 items to prevent memory leaks and crashes
+			if (i > 0 && i % 50 === 0) {
+				console.log(`🔄 Restarting browser after ${i} items to prevent memory issues...`);
+				await this.reinitializeBrowser();
+			}
 
 			const result = await this.scrapeWebsiteMetadata(website);
 			this.results.push(result.data);
