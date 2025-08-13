@@ -112,18 +112,9 @@ class HTMLWebsiteExtractor {
 			// Extract the thumbnail image
 			const imgElement = item.querySelector('img.img-fluid.website-item-height');
 			let thumbnailImage = null;
-			let localImagePath = null;
 
 			if (imgElement) {
 				thumbnailImage = imgElement.src;
-
-				// Convert to local path if it's a relative path
-				if (thumbnailImage.startsWith('./')) {
-					localImagePath = thumbnailImage;
-					// Extract just the filename for potential use
-					const filename = path.basename(thumbnailImage);
-					localImagePath = `./health-coach_files/${filename}`;
-				}
 			}
 
 			// Extract category if available
@@ -154,7 +145,6 @@ class HTMLWebsiteExtractor {
 				postUrl: postUrl,
 				websitePath: websitePath,
 				thumbnailImage: thumbnailImage,
-				localImagePath: localImagePath,
 				category: category,
 				index: index + 1
 			};
