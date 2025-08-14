@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "scrapedAt": "2025-08-13T04:29:35.047Z",
+    "totalWebsites": 2,
+    "source": "metadata-scraping",
+    "errors": 0
+  },
+  "designs": [
+    {
+      "id": "website_37386",
+      "image": "./yoga_files/d63cdc3944c34353-janinaroeseler-com.webp",
+      "title": "Janina Roeseler – Personal Yoga Trainerin",
+      "tags": {
+        "style": [
+          "Flat Design",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Local Business"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Service",
+          "Personal"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "rgb(245, 238, 238)",
+          "rgb(227, 189, 172)",
+          "rgb(206, 198, 204)",
+          "rgb(250, 230, 213)",
+          "rgb(217, 193, 174)",
+          "rgb(55, 51, 43)",
+          "rgb(174, 163, 159)",
+          "rgb(59, 49, 32)",
+          "rgb(94, 84, 64)",
+          "rgb(72, 40, 25)"
+        ]
+      }
+    },
+    {
+      "id": "website_18618",
+      "image": "./yoga_files/03db1df792b0dcaa-yogger-themezaa-com.webp",
+      "title": "Yogger – Meditation and Yoga Elementor Template Kit",
+      "tags": {
+        "style": [
+          "Big Type",
+          "People",
+          "Background Image",
+          "Bright Colors",
+          "Light Colors"
+        ],
+        "industry": [
+          "Health & Fitness",
+          "Local Business"
+        ],
+        "typography": [],
+        "type": [
+          "Service",
+          "Community"
+        ],
+        "category": [
+          "Landing"
+        ],
+        "platform": [],
+        "colors": [
+          "rgb(253, 251, 250)",
+          "rgb(246, 103, 96)",
+          "rgb(22, 20, 20)",
+          "rgb(234, 130, 99)",
+          "rgb(231, 186, 170)",
+          "rgb(207, 143, 100)",
+          "rgb(200, 144, 125)",
+          "rgb(120, 114, 123)",
+          "rgb(255, 156, 144)",
+          "rgb(52, 15, 7)"
+        ]
+      }
+    }
+  ],
+  "errors": []
+}

@@ -56,6 +56,23 @@ class WebsiteMetadataScraper {
 	}
 
 	/**
+	 * Reinitialize browser if it's crashed or closed
+	 */
+	async reinitializeBrowser() {
+		console.log('🔄 Reinitializing browser...');
+
+		try {
+			if (this.browser) {
+				await this.browser.close();
+			}
+		} catch (error) {
+			// Ignore errors when closing crashed browser
+		}
+
+		return await this.initialize();
+	}
+
+	/**
 	 * Scrape metadata from a single website
 	 * @param {Object} website - Website data from the list
 	 * @returns {Promise<Object>} - Scraped metadata
@@ -64,6 +81,14 @@ class WebsiteMetadataScraper {
 		console.log(`🔍 Scraping: ${website.name}`);
 
 		try {
+			// Check if browser/page is still valid
+			if (!this.page || this.page.isClosed()) {
+				const reinitialized = await this.reinitializeBrowser();
+				if (!reinitialized) {
+					throw new Error('Failed to reinitialize browser');
+				}
+			}
+
 			// Navigate to the website detail page
 			await this.page.goto(website.postUrl, {
 				waitUntil: 'networkidle2',
@@ -116,49 +141,62 @@ class WebsiteMetadataScraper {
 					result.screenshotUrl = screenshotImg.src;
 				}
 
-				// Extract tags from various sections
-				const tagElements = document.querySelectorAll('.tag, .badge, [class*="tag"], [class*="category"], .chip');
-				tagElements.forEach(tag => {
-					const tagText = tag.textContent.trim();
-					if (tagText) {
-						// Categorize tags based on content or context
-						const tagLower = tagText.toLowerCase();
+				// Extract tags from Land-book's specific structure
+				const metadataContainer = document.querySelector('div.website-content-sidebar .bg-secondary');
 
-						// Style tags
-						if (tagLower.includes('minimal') || tagLower.includes('modern') || tagLower.includes('clean') ||
-							tagLower.includes('bold') || tagLower.includes('dark') || tagLower.includes('light')) {
-							result.tags.style.push(tagText);
-						}
-						// Industry tags
-						else if (tagLower.includes('health') || tagLower.includes('tech') || tagLower.includes('finance') ||
-							tagLower.includes('education') || tagLower.includes('ecommerce') || tagLower.includes('agency')) {
-							result.tags.industry.push(tagText);
-						}
-						// Platform tags
-						else if (tagLower.includes('webflow') || tagLower.includes('react') || tagLower.includes('wordpress') ||
-							tagLower.includes('shopify') || tagLower.includes('framer')) {
-							result.tags.platform.push(tagText);
-						}
-						// Type tags
-						else if (tagLower.includes('landing') || tagLower.includes('portfolio') || tagLower.includes('blog') ||
-							tagLower.includes('template') || tagLower.includes('ecommerce')) {
-							result.tags.type.push(tagText);
-						}
-						// Default to category
-						else {
-							result.tags.category.push(tagText);
-						}
-					}
-				});
+				if (metadataContainer) {
+					const rows = metadataContainer.querySelectorAll('.row');
 
-				// Extract colors if available
-				const colorElements = document.querySelectorAll('[class*="color"], .color-palette span, [style*="background-color"]');
-				colorElements.forEach(colorEl => {
-					const style = colorEl.style.backgroundColor || colorEl.getAttribute('data-color');
-					if (style && style.includes('#')) {
-						result.tags.colors.push(style);
-					}
-				});
+					rows.forEach(row => {
+						const labelCol = row.querySelector('.col-4 p.text-muted');
+						const valueCol = row.querySelector('.col-8');
+
+						if (labelCol && valueCol) {
+							const label = labelCol.textContent.trim().toLowerCase();
+							const links = valueCol.querySelectorAll('a.text-decoration-underline');
+
+							links.forEach(link => {
+								const tagText = link.textContent.trim();
+								if (tagText) {
+									// Map Land-book labels to our tag categories
+									switch (label) {
+										case 'style':
+											result.tags.style.push(tagText);
+											break;
+										case 'industry':
+											result.tags.industry.push(tagText);
+											break;
+										case 'typography':
+											result.tags.typography.push(tagText);
+											break;
+										case 'type':
+											result.tags.type.push(tagText);
+											break;
+										case 'category':
+											result.tags.category.push(tagText);
+											break;
+										default:
+											// For any other categories, add to category
+											result.tags.category.push(tagText);
+											break;
+									}
+								}
+							});
+						}
+					});
+				}
+
+				// Extract colors from Land-book's color palette
+				const colorContainer = metadataContainer?.querySelector('.website-colors');
+				if (colorContainer) {
+					const colorElements = colorContainer.querySelectorAll('.website-colors-item');
+					colorElements.forEach(colorEl => {
+						const style = colorEl.style.backgroundColor;
+						if (style) {
+							result.tags.colors.push(style);
+						}
+					});
+				}
 
 				// Clean up empty arrays
 				Object.keys(result.tags).forEach(key => {
@@ -168,10 +206,12 @@ class WebsiteMetadataScraper {
 				return result;
 			});
 
-			// Combine with original website data
+			// Combine with original website data and add missing properties
 			const combinedData = {
 				...website,
 				...metadata,
+				source: "land-book",
+				sourceUrl: website.postUrl, // This is the Land-book page URL
 				scrapedAt: new Date().toISOString()
 			};
 
@@ -185,6 +225,25 @@ class WebsiteMetadataScraper {
 
 		} catch (error) {
 			console.log(`   ❌ Failed to scrape: ${error.message}`);
+
+			// If it's a browser/session error, try to reinitialize and retry once
+			if (error.message.includes('Session closed') ||
+				error.message.includes('detached Frame') ||
+				error.message.includes('Protocol error')) {
+
+				console.log(`   🔄 Attempting to recover from browser error...`);
+				const reinitialized = await this.reinitializeBrowser();
+
+				if (reinitialized) {
+					try {
+						console.log(`   🔄 Retrying: ${website.name}`);
+						return await this.scrapeWebsiteMetadata(website);
+					} catch (retryError) {
+						console.log(`   ❌ Retry failed: ${retryError.message}`);
+					}
+				}
+			}
+
 			this.errors.push({
 				website: website.name,
 				url: website.postUrl,
@@ -210,6 +269,12 @@ class WebsiteMetadataScraper {
 		for (let i = 0; i < websites.length; i++) {
 			const website = websites[i];
 			console.log(`\n📄 Processing ${i + 1}/${websites.length}: ${website.name}`);
+
+			// Restart browser every 50 items to prevent memory leaks and crashes
+			if (i > 0 && i % 50 === 0) {
+				console.log(`🔄 Restarting browser after ${i} items to prevent memory issues...`);
+				await this.reinitializeBrowser();
+			}
 
 			const result = await this.scrapeWebsiteMetadata(website);
 			this.results.push(result.data);
@@ -259,7 +324,10 @@ class WebsiteMetadataScraper {
 						category: [],
 						platform: [],
 						colors: []
-					}
+					},
+					websiteUrl: result.websiteUrl || null,
+					source: result.source || "land-book",
+					sourceUrl: result.sourceUrl || null
 				})),
 				errors: this.errors
 			};

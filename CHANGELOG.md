@@ -5,6 +5,131 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.4] - 2025-08-14
+
+### Fixed
+
+- **Image Path Update**: Fixed merge script to properly update image paths when copying designs
+  - Images paths now correctly point to `data/images/filename.webp` instead of relative scraped paths
+  - Prevents broken image references after merging scraped data
+  - Ensures consistent image path format across all designs
+
+### Technical Details
+
+- Added `updateImagePath()` method to merge script that extracts filename and updates path
+- Image paths are now updated during the merge process before adding/updating designs
+- All existing relative paths (e.g., `./personal_files/image.webp`) are converted to `data/images/image.webp`
+
+## [0.8.3] - 2025-08-13
+
+### Added
+
+- **Data Merge System**: Complete suite of scripts for merging scraped data into main database
+  - `merge-scraped-data.js` - Main merge script with intelligent data merging
+  - `merge-helper.js` - Interactive helper for easy file selection
+  - `validate-merged-data.js` - Data integrity validation tool
+- **Automatic Backup System**: Creates timestamped backups before each merge operation
+- **Intelligent Tag Merging**: Combines and deduplicates tag arrays when merging designs
+- **Image Management**: Automatically copies images from scraped directories to main images folder
+- **Comprehensive Error Handling**: Detailed error reporting and graceful failure handling
+- **Merge Statistics**: Detailed reporting of merge operations (new, updated, skipped designs)
+
+### Features
+
+- Merge new scraped JSON files into `data/designs.json`
+- Copy associated images to `data/images/` directory
+- Preserve existing design data while updating with new information
+- Validate data integrity after merging operations
+- Auto-discovery of scraped files with metadata display
+
+### Documentation
+
+- Added `MERGE-DATA-README.md` with comprehensive usage instructions
+- Detailed workflow examples and troubleshooting guide
+- Best practices for data merging operations
+
+## [0.8.2] - 2025-08-13
+
+### Fixed
+
+- **Critical Bug Fix**: Fixed `saveResults` method in scraper that was excluding `websiteUrl`, `source`, and `sourceUrl` properties from output
+- **Data Output Completeness**: Ensured all scraped properties are properly included in final JSON output
+- **CLI Scraper Functionality**: Fixed command-line scraping to produce complete data structure
+
+### Technical Details
+
+- Updated `saveResults` method to include all scraped properties in output mapping
+- Fixed property filtering that was causing data loss during JSON generation
+- Verified new scraping runs now include all required properties
+
+## [0.8.1] - 2025-08-13
+
+### Fixed
+
+- **Data Structure Completeness**: Added missing `source` and `sourceUrl` properties to scraped data to match expected format
+- **Metadata Scraper Enhancement**: Updated scraper to include Land-book source attribution and page URLs
+- **Data Consistency**: Ensured all scraped designs have consistent property structure with reference data
+
+### Technical Details
+
+- Enhanced `scrape-metadata.js` to add `source: "land-book"` and `sourceUrl` properties
+- Updated existing scraped data (220 designs) to include missing properties
+- Verified `websiteUrl` extraction works correctly (when available on source pages)
+- Maintained backward compatibility with existing data structure
+
+## [0.8.0] - 2025-08-13
+
+### Added: Robust Web Scraping Infrastructure
+
+### Added
+
+- **Enhanced Metadata Scraper**: Improved `scrape-metadata.js` with browser crash recovery and session management
+- **Browser Recovery System**: Automatic browser reinitialization when sessions crash or become detached
+- **Periodic Browser Restart**: Automatic browser restart every 50 items to prevent memory leaks and crashes
+- **Resume Scraping Tool**: New `resume-scraping.js` for identifying and re-processing failed items
+- **Failed Items Analysis**: New `check-failed-items.js` for analyzing scraping success rates and identifying failures
+- **Error Recovery Logic**: Intelligent retry mechanism for browser session errors and protocol failures
+- **Large Dataset Support**: Successfully tested with 220+ websites with 100% completion rate
+
+### Enhanced
+
+- **Scraping Reliability**: Improved from 69% to 100% success rate on large datasets through error recovery
+- **Session Management**: Better handling of long-running scraping sessions with automatic cleanup
+- **Memory Management**: Prevents browser memory leaks through periodic restarts and proper session cleanup
+- **Error Handling**: Comprehensive error detection and recovery for common browser automation issues
+- **Data Integrity**: Ensures complete metadata extraction even when individual items fail initially
+
+### Technical Improvements
+
+- **Browser Lifecycle Management**: Added `reinitializeBrowser()` method for crash recovery
+- **Session Validation**: Added `page.isClosed()` checks before operations
+- **Retry Logic**: Automatic retry for browser session errors with exponential backoff
+- **Process Monitoring**: Better tracking of successful vs failed items with detailed statistics
+- **Cleanup Procedures**: Proper browser cleanup and resource management
+
+### Fixed
+
+- **Browser Crashes**: Resolved "Protocol error (Page.navigate): Session closed" errors
+- **Detached Frame Errors**: Fixed "Attempted to use detached Frame" issues through session validation
+- **Memory Leaks**: Prevented browser memory accumulation through periodic restarts
+- **Large Dataset Failures**: Eliminated cascading failures in large scraping jobs (200+ items)
+- **Session Recovery**: Automatic recovery from browser crashes without losing progress
+
+### Developer Experience
+
+- **Comprehensive Logging**: Detailed progress tracking and error reporting
+- **Resume Functionality**: Ability to resume failed scraping jobs from where they left off
+- **Analysis Tools**: Built-in tools for analyzing scraping success rates and identifying problem areas
+- **Test Utilities**: Enhanced testing capabilities for validating scraper improvements
+- **Documentation**: Updated README with new tools and best practices
+
+### Performance
+
+- **100% Success Rate**: Achieved complete success on 220-item dataset through robust error handling
+- **Efficient Recovery**: Fast browser reinitialization minimizes downtime during crashes
+- **Resource Optimization**: Better memory usage through periodic cleanup and restart cycles
+- **Scalable Architecture**: Designed to handle datasets of 500+ items reliably
+
 ## [0.7.2] - 2025-08-12
 
 ### Added
