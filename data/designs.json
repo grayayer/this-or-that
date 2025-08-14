@@ -1,7 +1,7 @@
 {
 	"metadata": {
 		"generatedAt": "2025-08-05T04:37:20.446Z",
-		"totalDesigns": 316,
+		"totalDesigns": 335,
 		"source": "enhanced-json-scraper",
 		"version": "2.0.0",
 		"categories": [
@@ -13,12 +13,12 @@
 		],
 		"totalTags": 100,
 		"designsWithColors": 100,
-		"lastMergeAt": "2025-08-14T21:51:30.951Z",
+		"lastMergeAt": "2025-08-14T22:00:17.646Z",
 		"lastMergeSource": "metadata-scraping",
 		"lastMergeStats": {
-			"newDesigns": 0,
-			"updatedDesigns": 220,
-			"scrapedAt": "2025-08-13T04:50:19.518Z"
+			"newDesigns": 19,
+			"updatedDesigns": 1,
+			"scrapedAt": "2025-08-14T21:58:50.331Z"
 		}
 	},
 	"designs": [
@@ -26,7 +26,7 @@
 			"id": "website_82056",
 			"name": "Seriant | Advancing Cutting-Edge Science for Real-World Therapies | Seriant",
 			"description": "A compelling landing page design",
-			"image": "./data/images/c41a3bb8bc0f1430-seriant-org.webp",
+			"image": "data/images/c41a3bb8bc0f1430-seriant-org.webp",
 			"category": "Landing",
 			"tags": {
 				"style": [
@@ -36,15 +36,22 @@
 					"Parallax",
 					"People"
 				],
-				"industry": [],
+				"industry": [
+					"Health & Fitness",
+					"Medical",
+					"Tech"
+				],
 				"typography": [
 					"Sans Serif"
 				],
 				"type": [
 					"landing-page",
+					"Landing",
+					"Service"
+				],
+				"category": [
 					"Landing"
 				],
-				"category": [],
 				"platform": [],
 				"colors": [
 					"#143243",
@@ -52,7 +59,17 @@
 					"#322D2E",
 					"#1E191A",
 					"#385162",
-					"#445492"
+					"#445492",
+					"rgb(20, 50, 67)",
+					"rgb(236, 236, 239)",
+					"rgb(50, 45, 46)",
+					"rgb(30, 25, 26)",
+					"rgb(56, 81, 98)",
+					"rgb(68, 84, 146)",
+					"rgb(63, 105, 190)",
+					"rgb(58, 114, 174)",
+					"rgb(62, 92, 173)",
+					"rgb(39, 114, 188)"
 				]
 			},
 			"colors": [
@@ -69,7 +86,9 @@
 			],
 			"websiteUrl": "https://seriant.org/",
 			"source": "land-book",
-			"sourceUrl": "https://land-book.com/websites/82056-seriant-advancing-cutting-edge-science-for-real-world-therapies-seriant"
+			"sourceUrl": "https://land-book.com/websites/82056-seriant-advancing-cutting-edge-science-for-real-world-therapies-seriant",
+			"title": "Seriant | Advancing Cutting-Edge Science for Real-World Therapies | Seriant",
+			"updatedAt": "2025-08-14T22:00:17.646Z"
 		},
 		{
 			"id": "website_80985",
@@ -5175,7 +5194,7 @@
 		},
 		{
 			"id": "website_37386",
-			"image": "./yoga_files/d63cdc3944c34353-janinaroeseler-com.webp",
+			"image": "./data/images/d63cdc3944c34353-janinaroeseler-com.webp",
 			"title": "Janina Roeseler – Personal Yoga Trainerin",
 			"tags": {
 				"style": [
@@ -5213,7 +5232,7 @@
 		},
 		{
 			"id": "website_18618",
-			"image": "./yoga_files/03db1df792b0dcaa-yogger-themezaa-com.webp",
+			"image": "./data/images/03db1df792b0dcaa-yogger-themezaa-com.webp",
 			"title": "Yogger – Meditation and Yoga Elementor Template Kit",
 			"tags": {
 				"style": [
@@ -14736,6 +14755,823 @@
 			"source": "land-book",
 			"sourceUrl": "https://land-book.com/websites/45369-aaron-mcguire-design-director-2023",
 			"updatedAt": "2025-08-14T21:51:30.951Z"
+		},
+		{
+			"id": "website_40909",
+			"image": "data/images/7295a32b724c8a98-avnier-com.webp",
+			"title": "AVNIER",
+			"tags": {
+				"style": [
+					"Big Footer",
+					"People"
+				],
+				"industry": [
+					"Ecommerce",
+					"Fashion"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Physical Product"
+				],
+				"category": [
+					"Ecommerce"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(253, 253, 253)",
+					"rgb(57, 57, 57)",
+					"rgb(73, 73, 73)",
+					"rgb(26, 24, 26)",
+					"rgb(154, 151, 152)",
+					"rgb(113, 140, 222)",
+					"rgb(120, 145, 205)",
+					"rgb(46, 60, 81)",
+					"rgb(68, 83, 107)",
+					"rgb(90, 112, 162)"
+				]
+			},
+			"websiteUrl": "https://avnier.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/40909-avnier"
+		},
+		{
+			"id": "website_72596",
+			"image": "data/images/d6f25cf7834c8bcd-www-makearte-ca.webp",
+			"title": "arte*",
+			"tags": {
+				"style": [
+					"Animation",
+					"Big Footer",
+					"Big Type",
+					"Big Type in Footer",
+					"Pastel Colors",
+					"People"
+				],
+				"industry": [
+					"Food & Drinks"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Physical Product"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(231, 220, 212)",
+					"rgb(236, 221, 199)",
+					"rgb(211, 201, 201)",
+					"rgb(220, 199, 172)",
+					"rgb(52, 17, 6)",
+					"rgb(155, 105, 57)",
+					"rgb(105, 27, 10)",
+					"rgb(232, 228, 128)",
+					"rgb(218, 83, 7)",
+					"rgb(202, 43, 61)"
+				]
+			},
+			"websiteUrl": "https://www.makearte.ca/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/72596-arte"
+		},
+		{
+			"id": "website_82878",
+			"image": "data/images/2f305d93295fe576-rareassembly-com.webp",
+			"title": "Custom Corporate Gifts & Branded Merch That Stands Out | Rare Assembly",
+			"tags": {
+				"style": [
+					"Big Type in Footer",
+					"People"
+				],
+				"industry": [
+					"Design",
+					"Marketing"
+				],
+				"typography": [
+					"Serif"
+				],
+				"type": [
+					"Agency",
+					"Service"
+				],
+				"category": [
+					"Landing",
+					"Shopify"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(251, 250, 250)",
+					"rgb(233, 136, 23)",
+					"rgb(102, 8, 6)",
+					"rgb(224, 147, 34)",
+					"rgb(248, 172, 61)",
+					"rgb(90, 13, 16)",
+					"rgb(181, 86, 89)",
+					"rgb(150, 56, 59)",
+					"rgb(15, 8, 7)",
+					"rgb(192, 72, 70)"
+				]
+			},
+			"websiteUrl": "https://rareassembly.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82878-custom-corporate-gifts-and-branded-merch-that-stands-out-rare-assembly"
+		},
+		{
+			"id": "website_82821",
+			"image": "data/images/3a4601ddbb40b6d5-superpower-com.webp",
+			"title": "Superpower | Your New Health Intelligence",
+			"tags": {
+				"style": [
+					"Background Video",
+					"Big Footer",
+					"Big Type in Footer",
+					"People"
+				],
+				"industry": [
+					"Health & Fitness",
+					"Medical",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Service",
+					"Software",
+					"Web App",
+					"Mobile App"
+				],
+				"category": [
+					"Landing",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(252, 252, 251)",
+					"rgb(15, 12, 12)",
+					"rgb(45, 100, 122)",
+					"rgb(50, 91, 114)",
+					"rgb(55, 114, 137)",
+					"rgb(49, 49, 49)",
+					"rgb(124, 122, 125)",
+					"rgb(37, 10, 9)",
+					"rgb(79, 40, 25)",
+					"rgb(233, 131, 96)"
+				]
+			},
+			"websiteUrl": "https://superpower.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82821-superpower-your-new-health-intelligence"
+		},
+		{
+			"id": "website_82864",
+			"image": "data/images/5ce4727e49764821-try-webflow-com.webp",
+			"title": "&Fold™ - Webflow HTML website template",
+			"tags": {
+				"style": [
+					"Parallax",
+					"Pastel Colors",
+					"People"
+				],
+				"industry": [
+					"Beauty",
+					"Fashion",
+					"Health & Fitness"
+				],
+				"typography": [
+					"Serif"
+				],
+				"type": [
+					"Agency",
+					"Service"
+				],
+				"category": [
+					"Template",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(245, 242, 240)",
+					"rgb(196, 201, 200)",
+					"rgb(171, 156, 135)",
+					"rgb(161, 160, 152)",
+					"rgb(196, 184, 163)",
+					"rgb(111, 33, 7)",
+					"rgb(82, 41, 25)",
+					"rgb(22, 14, 9)",
+					"rgb(68, 3, 0)",
+					"rgb(139, 34, 2)"
+				]
+			},
+			"websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=fold-website-template",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82864-and-foldTM-webflow-html-website-template"
+		},
+		{
+			"id": "website_82673",
+			"image": "data/images/a8b0a98b08f0623b-www-pipio-ai.webp",
+			"title": "Pipio | The AI-powered video production platform",
+			"tags": {
+				"style": [
+					"Big Footer",
+					"Cards",
+					"People"
+				],
+				"industry": [
+					"Design",
+					"Marketing",
+					"Tech",
+					"AI"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Landing",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(8, 4, 6)",
+					"rgb(125, 120, 119)",
+					"rgb(152, 150, 151)",
+					"rgb(88, 83, 79)",
+					"rgb(54, 49, 45)",
+					"rgb(188, 185, 187)",
+					"rgb(99, 82, 66)",
+					"rgb(62, 48, 34)",
+					"rgb(133, 113, 98)",
+					"rgb(215, 129, 154)"
+				]
+			},
+			"websiteUrl": "https://www.pipio.ai/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82673-pipio-the-ai-powered-video-production-platform"
+		},
+		{
+			"id": "website_82557",
+			"image": "data/images/6171eb94e0f5d53e-jomomoment-com.webp",
+			"title": "Jomo Moment",
+			"tags": {
+				"style": [
+					"Background Image",
+					"Big Footer",
+					"Pastel Colors",
+					"People"
+				],
+				"industry": [
+					"Ecommerce",
+					"Fashion"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Physical Product"
+				],
+				"category": [
+					"Ecommerce"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(235, 233, 228)",
+					"rgb(23, 22, 16)",
+					"rgb(169, 153, 133)",
+					"rgb(162, 157, 152)",
+					"rgb(201, 194, 190)",
+					"rgb(53, 50, 44)",
+					"rgb(123, 119, 112)",
+					"rgb(119, 153, 173)",
+					"rgb(96, 79, 62)",
+					"rgb(95, 135, 160)"
+				]
+			},
+			"websiteUrl": "https://jomomoment.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82557-jomo-moment"
+		},
+		{
+			"id": "website_82624",
+			"image": "data/images/6e99d3947db36d4a-stelstores-com.webp",
+			"title": "STEL",
+			"tags": {
+				"style": [
+					"Background Video",
+					"Big Type in Footer",
+					"People"
+				],
+				"industry": [
+					"Ecommerce",
+					"Fashion"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Physical Product"
+				],
+				"category": [
+					"Ecommerce"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(240, 239, 240)",
+					"rgb(167, 155, 157)",
+					"rgb(59, 52, 51)",
+					"rgb(194, 199, 204)",
+					"rgb(122, 115, 116)",
+					"rgb(91, 85, 85)",
+					"rgb(176, 147, 147)",
+					"rgb(68, 116, 136)",
+					"rgb(78, 116, 138)",
+					"rgb(178, 204, 222)"
+				]
+			},
+			"websiteUrl": "https://stelstores.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82624-stel"
+		},
+		{
+			"id": "website_82444",
+			"image": "data/images/7d55c408b0765671-www-rivr-ai.webp",
+			"title": "RIVR",
+			"tags": {
+				"style": [
+					"Background Video",
+					"Big Footer",
+					"Bright Colors",
+					"People"
+				],
+				"industry": [
+					"AI",
+					"Tech"
+				],
+				"typography": [
+					"Display"
+				],
+				"type": [
+					"Service",
+					"Software"
+				],
+				"category": [
+					"Landing",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(236, 251, 126)",
+					"rgb(165, 160, 160)",
+					"rgb(237, 253, 119)",
+					"rgb(24, 19, 15)",
+					"rgb(56, 53, 26)",
+					"rgb(235, 242, 160)",
+					"rgb(197, 209, 104)",
+					"rgb(194, 203, 124)",
+					"rgb(114, 126, 27)",
+					"rgb(144, 155, 58)"
+				]
+			},
+			"websiteUrl": "https://www.rivr.ai/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82444-rivr"
+		},
+		{
+			"id": "website_82460",
+			"image": "data/images/64c98ec1cf7dcba0-www-fabletribe-com.webp",
+			"title": "Fable Tribe - A fullâservice digital product studio",
+			"tags": {
+				"style": [
+					"Animation",
+					"Background Image",
+					"Parallax",
+					"People"
+				],
+				"industry": [
+					"Design",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Agency",
+					"Service"
+				],
+				"category": [
+					"Portfolio",
+					"Framer"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(249, 248, 247)",
+					"rgb(187, 191, 192)",
+					"rgb(120, 71, 51)",
+					"rgb(158, 103, 84)",
+					"rgb(90, 89, 80)",
+					"rgb(80, 36, 22)",
+					"rgb(135, 63, 51)",
+					"rgb(230, 105, 246)",
+					"rgb(221, 121, 221)",
+					"rgb(246, 209, 192)"
+				]
+			},
+			"websiteUrl": "https://www.fabletribe.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82460-fable-tribe-a-fulla-service-digital-product-studio"
+		},
+		{
+			"id": "website_82461",
+			"image": "data/images/589a66f5ece9bdfc-www-pennidrop-com.webp",
+			"title": "Pennidrop",
+			"tags": {
+				"style": [
+					"Background Image",
+					"People"
+				],
+				"industry": [
+					"Finance",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Beta",
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Landing",
+					"Framer"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(247, 244, 242)",
+					"rgb(227, 130, 23)",
+					"rgb(194, 92, 30)",
+					"rgb(224, 142, 24)",
+					"rgb(107, 18, 4)",
+					"rgb(222, 122, 44)",
+					"rgb(89, 14, 12)",
+					"rgb(140, 47, 23)",
+					"rgb(71, 3, 2)",
+					"rgb(189, 159, 158)"
+				]
+			},
+			"websiteUrl": "https://www.pennidrop.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82461-pennidrop"
+		},
+		{
+			"id": "website_82177",
+			"image": "data/images/9478931c6fbca178-tux-co.webp",
+			"title": "TUX CREATIVE HOUSE â¢ Plan / Make / Launch",
+			"tags": {
+				"style": [
+					"Background Video",
+					"Cards",
+					"Parallax",
+					"People"
+				],
+				"industry": [
+					"Advertising",
+					"Design",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Agency",
+					"Service"
+				],
+				"category": [
+					"Portfolio"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(246, 245, 245)",
+					"rgb(185, 187, 174)",
+					"rgb(24, 15, 11)",
+					"rgb(74, 42, 29)",
+					"rgb(181, 146, 134)",
+					"rgb(41, 59, 82)",
+					"rgb(158, 31, 27)",
+					"rgb(105, 9, 5)",
+					"rgb(255, 228, 125)",
+					"rgb(252, 183, 99)"
+				]
+			},
+			"websiteUrl": "https://tux.co/en/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82177-tux-creative-house-a-c-plan-make-launch"
+		},
+		{
+			"id": "website_82194",
+			"image": "data/images/cdea5ed05739e86d-nitex-com.webp",
+			"title": "nitex",
+			"tags": {
+				"style": [
+					"Background Image",
+					"Parallax",
+					"People"
+				],
+				"industry": [
+					"Design",
+					"Fashion"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Service"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(252, 252, 252)",
+					"rgb(15, 16, 18)",
+					"rgb(30, 78, 105)",
+					"rgb(24, 64, 87)",
+					"rgb(216, 248, 29)",
+					"rgb(78, 43, 24)",
+					"rgb(138, 164, 179)",
+					"rgb(53, 99, 25)",
+					"rgb(165, 213, 139)",
+					"rgb(7, 24, 65)"
+				]
+			},
+			"websiteUrl": "https://nitex.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/82194-nitex"
+		},
+		{
+			"id": "website_81771",
+			"image": "data/images/961c52448d348db0-www-primary-paper-com.webp",
+			"title": "PRIMARY PAPER",
+			"tags": {
+				"style": [
+					"Background Image",
+					"Big Type in Footer",
+					"Cards",
+					"People"
+				],
+				"industry": [
+					"Art",
+					"Photography"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Resource"
+				],
+				"category": [
+					"Portfolio",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(249, 250, 248)",
+					"rgb(156, 155, 156)",
+					"rgb(195, 192, 190)",
+					"rgb(123, 123, 124)",
+					"rgb(26, 24, 22)",
+					"rgb(52, 48, 46)",
+					"rgb(85, 81, 80)",
+					"rgb(176, 156, 136)",
+					"rgb(73, 43, 29)",
+					"rgb(109, 121, 93)"
+				]
+			},
+			"websiteUrl": "https://www.primary-paper.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/81771-primary-paper"
+		},
+		{
+			"id": "website_81794",
+			"image": "data/images/600ca4f804e14092-didris-com.webp",
+			"title": "Didris | DIDRIS",
+			"tags": {
+				"style": [
+					"Background Image",
+					"Big Type",
+					"People"
+				],
+				"industry": [
+					"Ecommerce",
+					"Fashion"
+				],
+				"typography": [
+					"Display"
+				],
+				"type": [
+					"Physical Product"
+				],
+				"category": [
+					"Ecommerce",
+					"Shopify"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(17, 23, 17)",
+					"rgb(252, 251, 247)",
+					"rgb(58, 50, 26)",
+					"rgb(75, 43, 30)",
+					"rgb(212, 188, 162)",
+					"rgb(50, 47, 41)",
+					"rgb(178, 156, 130)",
+					"rgb(90, 82, 52)",
+					"rgb(34, 29, 9)",
+					"rgb(89, 85, 31)"
+				]
+			},
+			"websiteUrl": "https://didris.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/81794-didris-didris"
+		},
+		{
+			"id": "website_81770",
+			"image": "data/images/16ac35edf9dd3b48-wayflyer-com.webp",
+			"title": "eCommerce, Amazon & Wholesale Funding | $5K-$20M | Wayflyer",
+			"tags": {
+				"style": [
+					"Animation",
+					"Background Image",
+					"Big Footer",
+					"Cards",
+					"People"
+				],
+				"industry": [
+					"Ecommerce",
+					"Finance",
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Service",
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Landing"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(246, 247, 247)",
+					"rgb(28, 23, 24)",
+					"rgb(156, 156, 154)",
+					"rgb(77, 42, 27)",
+					"rgb(112, 73, 54)",
+					"rgb(239, 130, 32)",
+					"rgb(180, 94, 62)",
+					"rgb(238, 108, 22)",
+					"rgb(210, 80, 27)",
+					"rgb(227, 149, 69)"
+				]
+			},
+			"websiteUrl": "https://wayflyer.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/81770-ecommerce-amazon-and-wholesale-funding-5k-20m-wayflyer"
+		},
+		{
+			"id": "website_81427",
+			"image": "data/images/12fbdbd8c3baaddd-www-paraform-com.webp",
+			"title": "Paraform",
+			"tags": {
+				"style": [
+					"Cards",
+					"People"
+				],
+				"industry": [
+					"HR",
+					"Tech"
+				],
+				"typography": [
+					"Serif"
+				],
+				"type": [
+					"Service",
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Landing",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(234, 240, 245)",
+					"rgb(23, 22, 21)",
+					"rgb(156, 157, 163)",
+					"rgb(104, 116, 146)",
+					"rgb(76, 86, 119)",
+					"rgb(78, 42, 24)",
+					"rgb(156, 107, 81)",
+					"rgb(115, 76, 55)",
+					"rgb(71, 79, 125)",
+					"rgb(95, 35, 7)"
+				]
+			},
+			"websiteUrl": "https://www.paraform.com/",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/81427-paraform"
+		},
+		{
+			"id": "website_81285",
+			"image": "data/images/e320a9b696c8601e-keynote-framer-website.webp",
+			"title": "Keynote - Premium Event Template for Framer",
+			"tags": {
+				"style": [
+					"Big Type",
+					"Parallax",
+					"People"
+				],
+				"industry": [
+					"Event"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Community",
+					"Service"
+				],
+				"category": [
+					"Template",
+					"Framer"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(173, 163, 220)",
+					"rgb(159, 152, 194)",
+					"rgb(183, 176, 219)",
+					"rgb(56, 52, 56)",
+					"rgb(88, 84, 108)",
+					"rgb(240, 239, 240)",
+					"rgb(119, 114, 148)",
+					"rgb(118, 113, 140)",
+					"rgb(19, 15, 41)",
+					"rgb(147, 115, 101)"
+				]
+			},
+			"websiteUrl": "https://framer.link/j0kHVTu",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/81285-keynote-a-premium-event-template-for-framer"
+		},
+		{
+			"id": "website_81284",
+			"image": "data/images/d3ba7753a02009e3-venturio-business-webflow-io.webp",
+			"title": "Venturio - Webflow Template",
+			"tags": {
+				"style": [
+					"Pastel Colors",
+					"People"
+				],
+				"industry": [
+					"Tech"
+				],
+				"typography": [
+					"Sans Serif"
+				],
+				"type": [
+					"Software",
+					"Web App"
+				],
+				"category": [
+					"Template",
+					"Webflow"
+				],
+				"platform": [],
+				"colors": [
+					"rgb(248, 249, 245)",
+					"rgb(198, 195, 188)",
+					"rgb(158, 158, 152)",
+					"rgb(207, 190, 168)",
+					"rgb(174, 155, 130)",
+					"rgb(39, 27, 8)",
+					"rgb(59, 46, 24)",
+					"rgb(90, 47, 8)",
+					"rgb(230, 242, 93)",
+					"rgb(83, 94, 0)"
+				]
+			},
+			"websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=venturio-website-template",
+			"source": "land-book",
+			"sourceUrl": "https://land-book.com/websites/81284-venturio-home-01"
 		}
 	]
 }
