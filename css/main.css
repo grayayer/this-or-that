@@ -223,9 +223,14 @@ a:hover {
 
 .instructions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
     margin-bottom: 30px;
+}
+
+/* Make first instruction item span full width */
+.instructions-grid .instruction-item:nth-child(1) {
+    grid-column: 1 / -1;
 }
 
 .instruction-item {
