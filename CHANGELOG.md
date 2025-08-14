@@ -5,6 +5,34 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.3] - 2025-08-13
+
+### Added
+
+- **Data Merge System**: Complete suite of scripts for merging scraped data into main database
+  - `merge-scraped-data.js` - Main merge script with intelligent data merging
+  - `merge-helper.js` - Interactive helper for easy file selection
+  - `validate-merged-data.js` - Data integrity validation tool
+- **Automatic Backup System**: Creates timestamped backups before each merge operation
+- **Intelligent Tag Merging**: Combines and deduplicates tag arrays when merging designs
+- **Image Management**: Automatically copies images from scraped directories to main images folder
+- **Comprehensive Error Handling**: Detailed error reporting and graceful failure handling
+- **Merge Statistics**: Detailed reporting of merge operations (new, updated, skipped designs)
+
+### Features
+
+- Merge new scraped JSON files into `data/designs.json`
+- Copy associated images to `data/images/` directory
+- Preserve existing design data while updating with new information
+- Validate data integrity after merging operations
+- Auto-discovery of scraped files with metadata display
+
+### Documentation
+
+- Added `MERGE-DATA-README.md` with comprehensive usage instructions
+- Detailed workflow examples and troubleshooting guide
+- Best practices for data merging operations
+
 ## [0.8.2] - 2025-08-13
 
 ### Fixed

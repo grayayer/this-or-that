@@ -1,0 +1,5049 @@
+{
+  "metadata": {
+    "generatedAt": "2025-08-05T04:37:20.446Z",
+    "totalDesigns": 100,
+    "source": "enhanced-json-scraper",
+    "version": "2.0.0",
+    "categories": [
+      "Ecommerce",
+      "Landing",
+      "Other",
+      "Portfolio",
+      "Template"
+    ],
+    "totalTags": 100,
+    "designsWithColors": 100
+  },
+  "designs": [
+    {
+      "id": "website_82056",
+      "name": "Seriant | Advancing Cutting-Edge Science for Real-World Therapies | Seriant",
+      "description": "A compelling landing page design",
+      "image": "./data/images/c41a3bb8bc0f1430-seriant-org.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Background Image",
+          "Big Footer",
+          "Parallax",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#143243",
+          "#ECECEF",
+          "#322D2E",
+          "#1E191A",
+          "#385162",
+          "#445492"
+        ]
+      },
+      "colors": [
+        "#143243",
+        "#ECECEF",
+        "#322D2E",
+        "#1E191A",
+        "#385162",
+        "#445492",
+        "#3F69BE",
+        "#3A72AE",
+        "#3E5CAD",
+        "#2772BC"
+      ],
+      "websiteUrl": "https://seriant.org/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/82056-seriant-advancing-cutting-edge-science-for-real-world-therapies-seriant"
+    },
+    {
+      "id": "website_80985",
+      "name": "Silna Health",
+      "description": "A modern website design focused on health and wellness",
+      "image": "./data/images/afe7054642cbad19-www-silnahealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Together",
+          "Gradient",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "health",
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F7F5F7",
+          "#CECBCF",
+          "#9C979D",
+          "#F5DCED",
+          "#827F83",
+          "#3B2843"
+        ]
+      },
+      "colors": [
+        "#F7F5F7",
+        "#CECBCF",
+        "#9C979D",
+        "#F5DCED",
+        "#827F83",
+        "#3B2843",
+        "#E4CBDD",
+        "#1C141F",
+        "#433C47",
+        "#AD9EB5"
+      ],
+      "websiteUrl": "https://www.silnahealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/80985-home-silna-health"
+    },
+    {
+      "id": "website_80224",
+      "name": "Everon UK",
+      "description": "A modern website design",
+      "image": "./data/images/a949edace000710d-everon-net.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "website",
+          "design",
+          "nephew",
+          "3D",
+          "Background Video"
+        ],
+        "industry": [
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#ECE7E9",
+          "#46331F",
+          "#544E49",
+          "#3C3430",
+          "#624F3E",
+          "#A59E9B"
+        ]
+      },
+      "colors": [
+        "#ECE7E9",
+        "#46331F",
+        "#544E49",
+        "#3C3430",
+        "#624F3E",
+        "#A59E9B",
+        "#76726F",
+        "#7E6B59",
+        "#281C18",
+        "#4A2F1B"
+      ],
+      "websiteUrl": "https://everon.net/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/80224-just-a-moment"
+    },
+    {
+      "id": "website_57111",
+      "name": "Tennis Love - Webflow Ecommerce website template",
+      "description": "A professional website template",
+      "image": "./data/images/1179d12ef12e3f82-tennis-love-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Claim this website",
+          "Parallax",
+          "Big Footer",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "template",
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#84BEFD",
+          "#ADD3F8",
+          "#54A5FD",
+          "#3394FF",
+          "#67B1F2",
+          "#71B4FF"
+        ]
+      },
+      "colors": [
+        "#84BEFD",
+        "#ADD3F8",
+        "#54A5FD",
+        "#3394FF",
+        "#67B1F2",
+        "#71B4FF",
+        "#34312D",
+        "#9B1313",
+        "#7E312A",
+        "#44829B"
+      ],
+      "websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=tennis-fitness-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/57111-tennis-love-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_79991",
+      "name": "MyHealthPrac — Predictive, Personalised Health Powered by Functional Medicine",
+      "description": "A modern website design focused on health and wellness",
+      "image": "./data/images/ba8f8d5b55f99fa9-www-myhealthprac-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Artemii Lebedev",
+          "Animation",
+          "Background Video",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "health",
+          "medical"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#D2CAC7",
+          "#492415",
+          "#B29B83",
+          "#34170D",
+          "#190F0A",
+          "#6C4833"
+        ]
+      },
+      "colors": [
+        "#D2CAC7",
+        "#492415",
+        "#B29B83",
+        "#34170D",
+        "#190F0A",
+        "#6C4833",
+        "#A59F98",
+        "#CCB7A3",
+        "#E2DCD9",
+        "#8E775C"
+      ],
+      "websiteUrl": "https://www.myhealthprac.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/79991-myhealthprac-predictive-personalised-health-powered-by-functional-medicine"
+    },
+    {
+      "id": "website_78095",
+      "name": "The New Quechua Collection - SS25 Lookbook",
+      "description": "A unique website design",
+      "image": "./data/images/77ea6587d25b8199-quechua-lookbook-com.webp",
+      "category": "Other",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Background Video",
+          "Cards",
+          "Parallax",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "other",
+          "PRO",
+          "Other"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F0EDE8",
+          "#747357",
+          "#A1D2E4",
+          "#55563A",
+          "#4C5735",
+          "#6C7551"
+        ]
+      },
+      "colors": [
+        "#F0EDE8",
+        "#747357",
+        "#A1D2E4",
+        "#55563A",
+        "#4C5735",
+        "#6C7551",
+        "#CAC8C7",
+        "#37371F",
+        "#2D3A1B",
+        "#8E3F26"
+      ],
+      "websiteUrl": "https://quechua-lookbook.com/ss25/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/78095-the-new-quechua-collection-ss25-lookbook"
+    },
+    {
+      "id": "website_78867",
+      "name": "The Uncommon Founder Â· Coach and advisor",
+      "description": "A modern website design",
+      "image": "./data/images/051655ce785a406f-www-theuncommonfounder-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "startup",
+          "Bryn Taylor",
+          "Animation",
+          "Big Footer",
+          "Big Type in Footer"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#191919",
+          "#30312E",
+          "#52534C",
+          "#74756F",
+          "#95968F",
+          "#5B5E4D"
+        ]
+      },
+      "colors": [
+        "#191919",
+        "#30312E",
+        "#52534C",
+        "#74756F",
+        "#95968F",
+        "#5B5E4D",
+        "#323424",
+        "#797C6B",
+        "#B6B7AE",
+        "#1E2111"
+      ],
+      "websiteUrl": "https://www.theuncommonfounder.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/78867-the-uncommon-founder-A-coach-and-advisor"
+    },
+    {
+      "id": "website_79312",
+      "name": "Camber: Healthcare RCM & AI Medical Billing Software",
+      "description": "A compelling landing page design focused on medical and healthcare services",
+      "image": "./data/images/5494171795032f9f-www-camber-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "ai",
+          "software",
+          "healthtech",
+          "Claim this website"
+        ],
+        "industry": [
+          "health",
+          "medical"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#6E7C5B",
+          "#B2C299",
+          "#919F77",
+          "#939C8F",
+          "#889989",
+          "#75776F"
+        ]
+      },
+      "colors": [
+        "#6E7C5B",
+        "#B2C299",
+        "#919F77",
+        "#939C8F",
+        "#889989",
+        "#75776F",
+        "#9BA58C",
+        "#748573",
+        "#3B3934",
+        "#5A684A"
+      ],
+      "websiteUrl": "https://www.camber.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/79312-camber-healthcare-rcm-and-ai-medical-billing-software"
+    },
+    {
+      "id": "website_79418",
+      "name": "Sereniti – Webflow Ecommerce website template",
+      "description": "A modern website design",
+      "image": "./data/images/7b1e021db1a7862e-sereniti-temlis-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Temlis",
+          "Cards",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#EFEDED",
+          "#675A47",
+          "#C8C5C4",
+          "#7B6C59",
+          "#AF9D87",
+          "#F9DAF9"
+        ]
+      },
+      "colors": [
+        "#EFEDED",
+        "#675A47",
+        "#C8C5C4",
+        "#7B6C59",
+        "#AF9D87",
+        "#F9DAF9",
+        "#645B51",
+        "#CBB69F",
+        "#F7E1F4",
+        "#DBBCDB"
+      ],
+      "websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=sereniti-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/79418-sereniti-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_79571",
+      "name": "Journa Health",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/86a0adc2f59c6e65-www-journahealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Background Image",
+          "People"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EFEDF2",
+          "#C6C4C9",
+          "#9E9DA3",
+          "#999B39",
+          "#79777C",
+          "#141115"
+        ]
+      },
+      "colors": [
+        "#EFEDF2",
+        "#C6C4C9",
+        "#9E9DA3",
+        "#999B39",
+        "#79777C",
+        "#141115",
+        "#42566B",
+        "#283345",
+        "#7B7D1E",
+        "#7C7C36"
+      ],
+      "websiteUrl": "https://www.journahealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/79571-journa-health"
+    },
+    {
+      "id": "website_75433",
+      "name": "Tiempo",
+      "description": "A compelling landing page design",
+      "image": "./data/images/aaf3d2e676bb71fa-www-tiempo-fitness.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "3D",
+          "Animation",
+          "Parallax"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#181515",
+          "#383434",
+          "#545051",
+          "#73706D",
+          "#575E25",
+          "#96938F"
+        ]
+      },
+      "colors": [
+        "#181515",
+        "#383434",
+        "#545051",
+        "#73706D",
+        "#575E25",
+        "#96938F",
+        "#DEEB83",
+        "#DFF458",
+        "#A2AC48",
+        "#525834"
+      ],
+      "websiteUrl": "https://www.tiempo.fitness/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/75433-tiempo"
+    },
+    {
+      "id": "website_78458",
+      "name": "Trait. Train uncommon.",
+      "description": "A compelling landing page design",
+      "image": "./data/images/fba57cb8651c1c81-www-trait-club.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Background Image",
+          "Cards",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#E5E2E3",
+          "#090606",
+          "#B8ACF2",
+          "#A59BDB",
+          "#60523A",
+          "#D04F15"
+        ]
+      },
+      "colors": [
+        "#E5E2E3",
+        "#090606",
+        "#B8ACF2",
+        "#A59BDB",
+        "#60523A",
+        "#D04F15",
+        "#F65B12",
+        "#140F32",
+        "#86320F",
+        "#E9A1B6"
+      ],
+      "websiteUrl": "https://www.trait.club/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/78458-trait-train-uncommon"
+    },
+    {
+      "id": "website_77036",
+      "name": "Athleats | Fuel Your Body with Easy & Healthy Recipes",
+      "description": "A modern website design",
+      "image": "./data/images/6447febb8f838b91-weareathleats-com.webp",
+      "category": "Other",
+      "tags": {
+        "style": [
+          "professional",
+          "branded",
+          "Fourth Floor Design Studio",
+          "Animation",
+          "Cards"
+        ],
+        "industry": [
+          "Food & Drinks"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Other"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#7A4A1C",
+          "#7EAEA8",
+          "#9F6D3F",
+          "#8E743F",
+          "#95C3C1",
+          "#B89960"
+        ]
+      },
+      "colors": [
+        "#7A4A1C",
+        "#7EAEA8",
+        "#9F6D3F",
+        "#8E743F",
+        "#95C3C1",
+        "#B89960",
+        "#C59160",
+        "#D3B97F",
+        "#5EA4AE",
+        "#173E3F"
+      ],
+      "websiteUrl": "https://weareathleats.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/77036-athleats-fuel-your-body-with-easy-and-healthy-recipes"
+    },
+    {
+      "id": "website_77177",
+      "name": "Oura Ring. Smart Ring for Fitness, Stress, Sleep & Health.",
+      "description": "A compelling landing page design focused on fitness and athletic performance",
+      "image": "./data/images/2dd9cec83d02c5e2-ouraring-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website"
+        ],
+        "industry": [
+          "health",
+          "fitness"
+        ],
+        "typography": [
+          "Sans Serif",
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EFE3DB",
+          "#AA927D",
+          "#917762",
+          "#665140",
+          "#84756D",
+          "#94715E"
+        ]
+      },
+      "colors": [
+        "#EFE3DB",
+        "#AA927D",
+        "#917762",
+        "#665140",
+        "#84756D",
+        "#94715E",
+        "#704B3C",
+        "#B5917A",
+        "#4B2B1E",
+        "#483528"
+      ],
+      "websiteUrl": "https://ouraring.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/77177-oura-ring-smart-ring-for-fitness-stress-sleep-and-health"
+    },
+    {
+      "id": "website_77644",
+      "name": "Joyful Health | Revenue Recovery For Practices",
+      "description": "A modern website design focused on health and wellness",
+      "image": "./data/images/9c39e568dc38b5b6-www-joyfulhealth-io.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "therapy",
+          "Paper Tiger",
+          "Big Footer",
+          "Big Type in Footer",
+          "Cards",
+          "Parallax"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F4EEE3",
+          "#F0EBD8",
+          "#CDC1AB",
+          "#C8C3B9",
+          "#A8A298",
+          "#A89E88"
+        ]
+      },
+      "colors": [
+        "#F4EEE3",
+        "#F0EBD8",
+        "#CDC1AB",
+        "#C8C3B9",
+        "#A8A298",
+        "#A89E88",
+        "#A0733A",
+        "#847B64",
+        "#E5C261",
+        "#E7BD40"
+      ],
+      "websiteUrl": "https://www.joyfulhealth.io/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/77644-joyful-health-revenue-recovery-for-practices"
+    },
+    {
+      "id": "website_77087",
+      "name": "Clinical Notes in Seconds. That’s Hipp | Hipp Health",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/00ed9b8b32177a38-www-hipp-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Cards",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F1F2F7",
+          "#C5BBB8",
+          "#A79B94",
+          "#81756C",
+          "#585049",
+          "#3F3731"
+        ]
+      },
+      "colors": [
+        "#F1F2F7",
+        "#C5BBB8",
+        "#A79B94",
+        "#81756C",
+        "#585049",
+        "#3F3731",
+        "#857163",
+        "#A69286",
+        "#5F4D40",
+        "#33180B"
+      ],
+      "websiteUrl": "https://www.hipp.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/77087-clinical-notes-in-seconds-that-s-hipp-hipp-health"
+    },
+    {
+      "id": "website_76519",
+      "name": "Milamend | Hormone Care Made Simple",
+      "description": "A compelling landing page design with a clean, minimalist aesthetic",
+      "image": "./data/images/875aed8ae6f1c6e7-www-milamend-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "modern",
+          "minimalist",
+          "Claim this website",
+          "Big Footer",
+          "Big Type in Footer",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F5F5ED",
+          "#A2A499",
+          "#F4E9CE",
+          "#D3C2A3",
+          "#BEC4B7",
+          "#645717"
+        ]
+      },
+      "colors": [
+        "#F5F5ED",
+        "#A2A499",
+        "#F4E9CE",
+        "#D3C2A3",
+        "#BEC4B7",
+        "#645717",
+        "#A49C81",
+        "#1C1F06",
+        "#87795C",
+        "#7C6F33"
+      ],
+      "websiteUrl": "https://www.milamend.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/76519-milamend-hormone-care-made-simple"
+    },
+    {
+      "id": "website_76526",
+      "name": "Luminous Labs",
+      "description": "A compelling landing page design",
+      "image": "./data/images/70c27649684bc64d-www-luminouslabs-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Background Image",
+          "Big Footer",
+          "Cards",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FBF6EE",
+          "#42301A",
+          "#4C2B18",
+          "#F4F0DC",
+          "#F6737E",
+          "#62503D"
+        ]
+      },
+      "colors": [
+        "#FBF6EE",
+        "#42301A",
+        "#4C2B18",
+        "#F4F0DC",
+        "#F6737E",
+        "#62503D",
+        "#2B1B0A",
+        "#32130A",
+        "#AE997E",
+        "#FB586F"
+      ],
+      "websiteUrl": "https://www.luminouslabs.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/76526-luminous-labs-home-page"
+    },
+    {
+      "id": "website_76457",
+      "name": "Nationwide Lab Testing & Data From 500+ Health Devices",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/df926d98a4fa96ae-www-junction-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "analytics",
+          "healthtech",
+          "Claim this website",
+          "Animation"
+        ],
+        "industry": [
+          "health",
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#E0E2EA",
+          "#482744",
+          "#C4C5CE",
+          "#9B9BA6",
+          "#684766",
+          "#896F90"
+        ]
+      },
+      "colors": [
+        "#E0E2EA",
+        "#482744",
+        "#C4C5CE",
+        "#9B9BA6",
+        "#684766",
+        "#896F90",
+        "#C2B5DF",
+        "#B3C7DF",
+        "#99A3C6",
+        "#47469E"
+      ],
+      "websiteUrl": "https://www.junction.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/76457-nationwide-lab-testing-and-data-from-500-health-devices"
+    },
+    {
+      "id": "website_75616",
+      "name": "Keikku — Meet the Next-Gen Digital Stethoscope",
+      "description": "A compelling landing page design showcasing modern technology",
+      "image": "./data/images/db60ce8f0ec9fc36-keikku-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "digital",
+          "Claim this website",
+          "3D",
+          "Animation",
+          "Big Footer"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#BEC2C9",
+          "#9998A1",
+          "#B8C0DC",
+          "#4E5776",
+          "#D4F3C4",
+          "#354881"
+        ]
+      },
+      "colors": [
+        "#BEC2C9",
+        "#9998A1",
+        "#B8C0DC",
+        "#4E5776",
+        "#D4F3C4",
+        "#354881",
+        "#667E5D",
+        "#253311",
+        "#ADB4F4",
+        "#2741A7"
+      ],
+      "websiteUrl": "https://keikku.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/75616-keikku-meet-the-next-gen-digital-stethoscope"
+    },
+    {
+      "id": "website_76192",
+      "name": "Telehealth for a healthy, handsome you | hims",
+      "description": "A compelling landing page design",
+      "image": "./data/images/67700ac521548763-www-hims-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "Big Type in Footer",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#A36E2B",
+          "#F8F7F4",
+          "#9E6E34",
+          "#B9853E",
+          "#BE8D52",
+          "#D2B79A"
+        ]
+      },
+      "colors": [
+        "#A36E2B",
+        "#F8F7F4",
+        "#9E6E34",
+        "#B9853E",
+        "#BE8D52",
+        "#D2B79A",
+        "#946C57",
+        "#B8935C",
+        "#764C3C",
+        "#4F2A17"
+      ],
+      "websiteUrl": "https://www.hims.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/76192-just-a-moment"
+    },
+    {
+      "id": "website_76191",
+      "name": "Hers for Women's Health | hers",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/0599ea33220753e7-www-forhers-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "People",
+          "Big Footer",
+          "Cards",
+          "Big Type in Footer"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EFF4F0",
+          "#7E7D63",
+          "#7B8864",
+          "#767A6D",
+          "#C7C4BD",
+          "#9A9880"
+        ]
+      },
+      "colors": [
+        "#EFF4F0",
+        "#7E7D63",
+        "#7B8864",
+        "#767A6D",
+        "#C7C4BD",
+        "#9A9880",
+        "#83926C",
+        "#180F07",
+        "#9B6A55",
+        "#714431"
+      ],
+      "websiteUrl": "https://www.forhers.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/76191-just-a-moment"
+    },
+    {
+      "id": "website_75839",
+      "name": "Ariel Childs Coaching",
+      "description": "A modern website design",
+      "image": "./data/images/26858d8ff28e8d1d-www-arielchilds-com.webp",
+      "category": "Portfolio",
+      "tags": {
+        "style": [
+          "website",
+          "design",
+          "Off The Wall",
+          "Big Type",
+          "Parallax",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "Portfolio"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F8F2F0",
+          "#161416",
+          "#CEC8C5",
+          "#A39F9E",
+          "#373435",
+          "#5A5755"
+        ]
+      },
+      "colors": [
+        "#F8F2F0",
+        "#161416",
+        "#CEC8C5",
+        "#A39F9E",
+        "#373435",
+        "#5A5755",
+        "#7A7774"
+      ],
+      "websiteUrl": "https://www.arielchilds.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/75839-ariel-childs-coaching"
+    },
+    {
+      "id": "website_75319",
+      "name": "Joi Planner",
+      "description": "A unique website design",
+      "image": "./data/images/d4da7d3a71a8074c-joi-software.webp",
+      "category": "Other",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "3D",
+          "Black & White",
+          "Parallax"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "other",
+          "PRO",
+          "Other"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#110E0F",
+          "#F9F7F9",
+          "#807C7C",
+          "#3A3435",
+          "#585353",
+          "#A29EA0"
+        ]
+      },
+      "colors": [
+        "#110E0F",
+        "#F9F7F9",
+        "#807C7C",
+        "#3A3435",
+        "#585353",
+        "#A29EA0",
+        "#C6C3C5",
+        "#2C1414",
+        "#492E2F",
+        "#B09192"
+      ],
+      "websiteUrl": "https://joi.software/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/75319-joi-planner"
+    },
+    {
+      "id": "website_74974",
+      "name": "Atlaslogie und Naturheilkunde in Zürich – Praxis Leandra Isler",
+      "description": "A compelling landing page design",
+      "image": "./data/images/2036cfb04ea325b6-www-leandra-isler-ch.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "3D",
+          "Big Type",
+          "Parallax",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#B89D6F",
+          "#362F0F",
+          "#5C502E",
+          "#1F1D02",
+          "#711805",
+          "#5F5423"
+        ]
+      },
+      "colors": [
+        "#B89D6F",
+        "#362F0F",
+        "#5C502E",
+        "#1F1D02",
+        "#711805",
+        "#5F5423",
+        "#882F15",
+        "#A2280A",
+        "#942210",
+        "#C05928"
+      ],
+      "websiteUrl": "https://www.leandra-isler.ch/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74974-atlaslogie-und-naturheilkunde-in-zurich-praxis-leandra-isler"
+    },
+    {
+      "id": "website_74768",
+      "name": "Chicago Medical Spa & Skincare | SpaDerma Medspa | Facials & Laser",
+      "description": "A modern website design focused on medical and healthcare services",
+      "image": "./data/images/2b8daeb2fc4d9335-spaderma-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Nice People",
+          "Animation",
+          "Background Image",
+          "Bright Colors",
+          "Cards"
+        ],
+        "industry": [
+          "health",
+          "medical"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F4F4F3",
+          "#E5F68E",
+          "#160D08",
+          "#E9F1A3",
+          "#F5EBCC",
+          "#18372B"
+        ]
+      },
+      "colors": [
+        "#F4F4F3",
+        "#E5F68E",
+        "#160D08",
+        "#E9F1A3",
+        "#F5EBCC",
+        "#18372B",
+        "#4B2919",
+        "#737C3C",
+        "#6073D0",
+        "#6073EA"
+      ],
+      "websiteUrl": "https://spaderma.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74768-chicago-medical-spa-and-skincare-spaderma-medspa-facials-and-laser"
+    },
+    {
+      "id": "website_74718",
+      "name": "Focus on Health: Wellness for Hospitality",
+      "description": "A modern website design focused on wellness and mental health",
+      "image": "./data/images/43ed0cec6bc9c37f-www-fohealth-org.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "wellness",
+          "Brianna Corn",
+          "Bright Colors",
+          "People"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EEEAE6",
+          "#076BCA",
+          "#C7C2BB",
+          "#9F9B93",
+          "#046BD7",
+          "#A49480"
+        ]
+      },
+      "colors": [
+        "#EEEAE6",
+        "#076BCA",
+        "#C7C2BB",
+        "#9F9B93",
+        "#046BD7",
+        "#A49480",
+        "#106DBF",
+        "#1C5E9A",
+        "#155DB2",
+        "#A0233B"
+      ],
+      "websiteUrl": "https://www.fohealth.org/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74718-focus-on-health-wellness-for-hospitality"
+    },
+    {
+      "id": "website_74161",
+      "name": "Unlock your potential with Urolithin A",
+      "description": "An elegant ecommerce website",
+      "image": "./data/images/ee67151b9d7304ae-get-timeline-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Background Image",
+          "People"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F9F6F7",
+          "#121012",
+          "#363436",
+          "#C9C3C4",
+          "#535051",
+          "#996E63"
+        ]
+      },
+      "colors": [
+        "#F9F6F7",
+        "#121012",
+        "#363436",
+        "#C9C3C4",
+        "#535051",
+        "#996E63",
+        "#992522",
+        "#4F2C21",
+        "#872D2C",
+        "#791D13"
+      ],
+      "websiteUrl": "https://get.timeline.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74161-unlock-your-potential-with-urolithin-a"
+    },
+    {
+      "id": "website_74604",
+      "name": "Chirorelief - Webflow Ecommerce website template",
+      "description": "A modern website design",
+      "image": "./data/images/3a032ab4546280ed-chirorelief-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Dorian Hoxha",
+          "Big Footer",
+          "Cards",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#183EE7",
+          "#8FC3F9",
+          "#20354B",
+          "#011343",
+          "#377CB8",
+          "#103DFB"
+        ]
+      },
+      "colors": [
+        "#183EE7",
+        "#8FC3F9",
+        "#20354B",
+        "#011343",
+        "#377CB8",
+        "#103DFB",
+        "#14267F",
+        "#3C62FD",
+        "#1E45C9",
+        "#074F9C"
+      ],
+      "websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=chirorelief-therapy-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74604-chirorelief-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_74328",
+      "name": "The Simple Gym | Seu novo jeito de se exercitar no Rio de Janeiro @thesimplegym",
+      "description": "A compelling landing page design with a clean, minimalist aesthetic",
+      "image": "./data/images/affe97052499ebb3-www-thesimplegym-com-br.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "modern",
+          "minimalist",
+          "Claim this website",
+          "Background Image",
+          "Big Type",
+          "Big Type in Footer"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F7F6F5",
+          "#CBC8C7",
+          "#35332E",
+          "#D1BAA8",
+          "#A29E99",
+          "#55524C"
+        ]
+      },
+      "colors": [
+        "#F7F6F5",
+        "#CBC8C7",
+        "#35332E",
+        "#D1BAA8",
+        "#A29E99",
+        "#55524C",
+        "#1B1A16",
+        "#B29D87",
+        "#7A746D",
+        "#5F5142"
+      ],
+      "websiteUrl": "https://www.thesimplegym.com.br/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74328-the-simple-gym-seu-novo-jeito-de-se-exercitar-no-rio-de-janeiro-at-thesimplegym"
+    },
+    {
+      "id": "website_74412",
+      "name": "Thrivewell - Webflow Ecommerce website template",
+      "description": "A modern website design",
+      "image": "./data/images/ac0f19ce0950c716-thrivewell-template-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Dorian Hoxha",
+          "Background Video",
+          "Illustration",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#F6F0ED",
+          "#D3C4BE",
+          "#A79B96",
+          "#827772",
+          "#181311",
+          "#D7C4B6"
+        ]
+      },
+      "colors": [
+        "#F6F0ED",
+        "#D3C4BE",
+        "#A79B96",
+        "#827772",
+        "#181311",
+        "#D7C4B6",
+        "#5E524D",
+        "#A79A86",
+        "#6C493D",
+        "#1B2D5F"
+      ],
+      "websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=thrivewell-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74412-thrivewell-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_73743",
+      "name": "Quantum Body - A New Dimension of Wellness",
+      "description": "A modern website design focused on wellness and mental health",
+      "image": "./data/images/7f07157ae5c93566-www-qntmbody-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "wellness",
+          "Denys Verholomchuk",
+          "Background Video",
+          "Big Type",
+          "Parallax"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#221814",
+          "#392F27",
+          "#5A5147",
+          "#382B1E",
+          "#7D7369",
+          "#5E503F"
+        ]
+      },
+      "colors": [
+        "#221814",
+        "#392F27",
+        "#5A5147",
+        "#382B1E",
+        "#7D7369",
+        "#5E503F",
+        "#2A1E13",
+        "#A99F95",
+        "#83705D",
+        "#AA9C8D"
+      ],
+      "websiteUrl": "https://www.qntmbody.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/73743-quantum-body-a-new-dimension-of-wellness"
+    },
+    {
+      "id": "website_74064",
+      "name": "Midlife Engineering - Sound therapy for a harmonious mind",
+      "description": "A unique website design focused on wellness and mental health",
+      "image": "./data/images/76e5c751deae1046-www-midlife-engineering.webp",
+      "category": "Other",
+      "tags": {
+        "style": [
+          "wellness",
+          "therapy",
+          "Claim this website",
+          "3D",
+          "Animation"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "other",
+          "PRO",
+          "Other"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EAE9EF",
+          "#323036",
+          "#18171B",
+          "#514F55",
+          "#A09FA5",
+          "#C4C2C8"
+        ]
+      },
+      "colors": [
+        "#EAE9EF",
+        "#323036",
+        "#18171B",
+        "#514F55",
+        "#A09FA5",
+        "#C4C2C8",
+        "#7E7D82",
+        "#FCE2D6",
+        "#B2988D"
+      ],
+      "websiteUrl": "https://www.midlife.engineering/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/74064-midlife-engineering-a-sound-therapy-for-a-harmonious-mind"
+    },
+    {
+      "id": "website_73216",
+      "name": "amp - the AI-powered fitness machine made for modern life",
+      "description": "A compelling landing page design focused on fitness and athletic performance with a modern, contemporary look",
+      "image": "./data/images/fbd9a484bb112d30-ampfit-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "ai",
+          "modern",
+          "healthtech",
+          "Claim this website"
+        ],
+        "industry": [
+          "health",
+          "fitness"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FDFDFD",
+          "#5A5352",
+          "#80746F",
+          "#35302E",
+          "#1D1918",
+          "#A29491"
+        ]
+      },
+      "colors": [
+        "#FDFDFD",
+        "#5A5352",
+        "#80746F",
+        "#35302E",
+        "#1D1918",
+        "#A29491",
+        "#8A7464",
+        "#B19683",
+        "#957059",
+        "#B7917C"
+      ],
+      "websiteUrl": "https://ampfit.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/73216-amp-the-ai-powered-fitness-machine-made-for-modern-life"
+    },
+    {
+      "id": "website_72238",
+      "name": "Nuvra- Webflow Ecommerce website template",
+      "description": "A professional website template",
+      "image": "./data/images/aecf6d361f543f56-nuvra-template-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Claim this website",
+          "Animation",
+          "Big Footer",
+          "Cards"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "template",
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#E4E4DC",
+          "#C8C6BD",
+          "#A39E95",
+          "#A89B82",
+          "#CABEA8",
+          "#867861"
+        ]
+      },
+      "colors": [
+        "#E4E4DC",
+        "#C8C6BD",
+        "#A39E95",
+        "#A89B82",
+        "#CABEA8",
+        "#867861",
+        "#7D776F",
+        "#ECE0CA",
+        "#5F513C",
+        "#3C321B"
+      ],
+      "websiteUrl": "https://try.webflow.com/landbook?type=templates&website=html&template=nuvra-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/72238-nuvra-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_73231",
+      "name": "Elevate your reproductive health journey - Rhea Fertility",
+      "description": "A creative portfolio showcase focused on health and wellness",
+      "image": "./data/images/735a429492675339-www-rhea-fertility-com.webp",
+      "category": "Portfolio",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "portfolio",
+          "Portfolio"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F9F8F5",
+          "#C1D8A4",
+          "#7D7975",
+          "#C6C5C6",
+          "#161413",
+          "#D0E4B7"
+        ]
+      },
+      "colors": [
+        "#F9F8F5",
+        "#C1D8A4",
+        "#7D7975",
+        "#C6C5C6",
+        "#161413",
+        "#D0E4B7",
+        "#93A979",
+        "#C2DA9F",
+        "#937264",
+        "#F1AF45"
+      ],
+      "websiteUrl": "https://www.rhea-fertility.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/73231-elevate-your-reproductive-health-journey-rhea-fertility"
+    },
+    {
+      "id": "website_72601",
+      "name": "Redefining Human Performance",
+      "description": "A modern website design",
+      "image": "./data/images/c5100278146586c7-enroute-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "website",
+          "design",
+          "Kuba Gawlik",
+          "Background Image",
+          "Big Footer",
+          "Cards"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F4F3F2",
+          "#1D1B1A",
+          "#363332",
+          "#7A7977",
+          "#54514F",
+          "#979695"
+        ]
+      },
+      "colors": [
+        "#F4F3F2",
+        "#1D1B1A",
+        "#363332",
+        "#7A7977",
+        "#54514F",
+        "#979695",
+        "#6A4B39",
+        "#60513E",
+        "#7D755C",
+        "#F2F8B3"
+      ],
+      "websiteUrl": "https://enroute.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/72601-redefining-human-performance"
+    },
+    {
+      "id": "website_71873",
+      "name": "Vibrant | The better way for people and their providers",
+      "description": "A modern website design with bold, creative visuals",
+      "image": "./data/images/cfb4721fb5974b9c-www-vibrantpractice-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "creative",
+          "colorful",
+          "Paper Tiger",
+          "Big Type in Footer",
+          "Cards",
+          "Gradient"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F7F5F0",
+          "#F07C25",
+          "#DD9148",
+          "#E98236",
+          "#F06611",
+          "#83715B"
+        ]
+      },
+      "colors": [
+        "#F7F5F0",
+        "#F07C25",
+        "#DD9148",
+        "#E98236",
+        "#F06611",
+        "#83715B",
+        "#E95307",
+        "#C7632C",
+        "#DA5716",
+        "#462815"
+      ],
+      "websiteUrl": "https://www.vibrantpractice.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/71873-vibrant-the-better-way-for-people-and-their-providers"
+    },
+    {
+      "id": "website_65523",
+      "name": "Serenium - Webflow Ecommerce website template",
+      "description": "A modern website design",
+      "image": "./data/images/76dc4d51c40e0df7-serenium-template-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Temlis",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif",
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#DBE2CD",
+          "#123017",
+          "#C2C5AE",
+          "#0A230C",
+          "#DBE4D1",
+          "#38563F"
+        ]
+      },
+      "colors": [
+        "#DBE2CD",
+        "#123017",
+        "#C2C5AE",
+        "#0A230C",
+        "#DBE4D1",
+        "#38563F",
+        "#846A3E",
+        "#698169",
+        "#745B2F",
+        "#7C4C27"
+      ],
+      "websiteUrl": "https://webflow.grsm.io/landbook?type=templates&website=html&template=serenium-wellness-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/65523-serenium-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_71374",
+      "name": "ELEMENTIS",
+      "description": "A compelling landing page design",
+      "image": "./data/images/41063475cd31d96b-elementis-co.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Background Video",
+          "Big Footer",
+          "Big Type",
+          "Parallax"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#2F3432",
+          "#161813",
+          "#245F73",
+          "#337B8E",
+          "#747576",
+          "#37576A"
+        ]
+      },
+      "colors": [
+        "#2F3432",
+        "#161813",
+        "#245F73",
+        "#337B8E",
+        "#747576",
+        "#37576A",
+        "#714C40",
+        "#939FE5",
+        "#BA9278",
+        "#020F35"
+      ],
+      "websiteUrl": "https://elementis.co/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/71374-elementis"
+    },
+    {
+      "id": "website_72044",
+      "name": "MOOOOR | Pure, Natural, Complete",
+      "description": "An elegant ecommerce website",
+      "image": "./data/images/532c70e2c1c2ff96-www-moooor-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Big Footer",
+          "Big Type",
+          "Big Type in Footer",
+          "Pastel Colors",
+          "Animation"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#E4E3E6",
+          "#CDC3AD",
+          "#CEC5C8",
+          "#A4997C",
+          "#8B7F63",
+          "#BBC7DC"
+        ]
+      },
+      "colors": [
+        "#E4E3E6",
+        "#CDC3AD",
+        "#CEC5C8",
+        "#A4997C",
+        "#8B7F63",
+        "#BBC7DC",
+        "#5E575B",
+        "#EAC88A",
+        "#A67240",
+        "#CBBDD5"
+      ],
+      "websiteUrl": "https://www.moooor.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/72044-moooor-pure-natural-complete"
+    },
+    {
+      "id": "website_71869",
+      "name": "NOON · Cognitive Wellness where Neuroscience meets Nature",
+      "description": "An elegant ecommerce website focused on wellness and mental health",
+      "image": "./data/images/7fc1250474200487-noon-world.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "wellness",
+          "Claim this website",
+          "Big Type in Footer",
+          "Cards"
+        ],
+        "industry": [
+          "health",
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#E5E4DE",
+          "#393532",
+          "#787976",
+          "#C8C7C1",
+          "#585755",
+          "#9B9A98"
+        ]
+      },
+      "colors": [
+        "#E5E4DE",
+        "#393532",
+        "#787976",
+        "#C8C7C1",
+        "#585755",
+        "#9B9A98",
+        "#73805F",
+        "#A59883",
+        "#8D9A76",
+        "#D7E0A9"
+      ],
+      "websiteUrl": "https://noon.world/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/71869-noon-cognitive-wellness-where-neuroscience-meets-nature"
+    },
+    {
+      "id": "website_71232",
+      "name": "Sofi",
+      "description": "A compelling landing page design",
+      "image": "./data/images/1afc535e3f27c913-www-sofihealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "3D",
+          "Big Type",
+          "Big Type in Footer",
+          "Parallax"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F8F6F5",
+          "#0B0A0A",
+          "#7A7776",
+          "#3C312C",
+          "#59504D",
+          "#482E24"
+        ]
+      },
+      "colors": [
+        "#F8F6F5",
+        "#0B0A0A",
+        "#7A7776",
+        "#3C312C",
+        "#59504D",
+        "#482E24",
+        "#433025",
+        "#4A322D",
+        "#5A4539",
+        "#5D433F"
+      ],
+      "websiteUrl": "https://www.sofihealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/71232-sofi-sofi"
+    },
+    {
+      "id": "website_71728",
+      "name": "Neycher | Natural Vaginal Health Solutions",
+      "description": "A modern website design focused on health and wellness",
+      "image": "./data/images/3a0096f86b968722-www-helloneycher-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Shade",
+          "Background Image",
+          "Big Footer",
+          "Cards"
+        ],
+        "industry": [
+          "health",
+          "Ecommerce",
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F9F9F9",
+          "#C7C7CC",
+          "#7C3B59",
+          "#DCB6D7",
+          "#62203B",
+          "#8D687B"
+        ]
+      },
+      "colors": [
+        "#F9F9F9",
+        "#C7C7CC",
+        "#7C3B59",
+        "#DCB6D7",
+        "#62203B",
+        "#8D687B",
+        "#191D2D",
+        "#4E2E1E",
+        "#89A082",
+        "#7197CD"
+      ],
+      "websiteUrl": "https://www.helloneycher.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/71728-neycher-natural-vaginal-health-solutions"
+    },
+    {
+      "id": "website_71380",
+      "name": "Eucalyptus | Digital Healthcare That Puts Patients First",
+      "description": "A compelling landing page design showcasing modern technology",
+      "image": "./data/images/b6837341e1a99722-www-eucalyptus-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "digital",
+          "healthtech",
+          "Claim this website",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#527A74",
+          "#325856",
+          "#FEF7E0",
+          "#996D56",
+          "#9B683E",
+          "#2C8059"
+        ]
+      },
+      "colors": [
+        "#527A74",
+        "#325856",
+        "#FEF7E0",
+        "#996D56",
+        "#9B683E",
+        "#2C8059",
+        "#7C74B0",
+        "#3A1962",
+        "#4F1286",
+        "#AF7792"
+      ],
+      "websiteUrl": "https://www.eucalyptus.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/71380-eucalyptus-digital-healthcare-that-puts-patients-first"
+    },
+    {
+      "id": "website_70202",
+      "name": "Clevr Blends | Superfood Lattes and Teas",
+      "description": "An elegant ecommerce website",
+      "image": "./data/images/55224b382f9a6b07-clevrblends-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Big Footer",
+          "Big Type in Footer",
+          "Cards",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FBF3D4",
+          "#3D591E",
+          "#C18D66",
+          "#471E0D",
+          "#844A26",
+          "#D38198"
+        ]
+      },
+      "colors": [
+        "#FBF3D4",
+        "#3D591E",
+        "#C18D66",
+        "#471E0D",
+        "#844A26",
+        "#D38198",
+        "#B393BE",
+        "#83A9A3",
+        "#DE79B1",
+        "#FD9B5A"
+      ],
+      "websiteUrl": "https://clevrblends.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/70202-clevr-blends-superfood-lattes-and-teas"
+    },
+    {
+      "id": "website_64343",
+      "name": "Cleanforms",
+      "description": "An elegant ecommerce website",
+      "image": "./data/images/a7f89d8c97948219-cleanforms-co.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "Illustration",
+          "Cards",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F5F1E8",
+          "#EEE88C",
+          "#D3CC72",
+          "#D3CA81",
+          "#D1CA7A",
+          "#231C03"
+        ]
+      },
+      "colors": [
+        "#F5F1E8",
+        "#EEE88C",
+        "#D3CC72",
+        "#D3CA81",
+        "#D1CA7A",
+        "#231C03",
+        "#7052E5",
+        "#5536E2",
+        "#847B3B",
+        "#D2C0DD"
+      ],
+      "websiteUrl": "https://cleanforms.co/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64343-cleanforms"
+    },
+    {
+      "id": "website_70689",
+      "name": "Othership | Immersive Sauna + Ice Bath",
+      "description": "A compelling landing page design",
+      "image": "./data/images/bc75011b8251c99f-othership-us.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Background Video",
+          "Big Footer",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#412532",
+          "#201612",
+          "#EFE7E6",
+          "#641903",
+          "#AFA4AA",
+          "#BB5D16"
+        ]
+      },
+      "colors": [
+        "#412532",
+        "#201612",
+        "#EFE7E6",
+        "#641903",
+        "#AFA4AA",
+        "#BB5D16",
+        "#887339",
+        "#C9CB82",
+        "#DFBD66",
+        "#C088AE"
+      ],
+      "websiteUrl": "https://othership.us/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/70689-othership-immersive-sauna-ice-bath"
+    },
+    {
+      "id": "website_70164",
+      "name": "Elevate",
+      "description": "A compelling landing page design",
+      "image": "./data/images/bef51b688aed236f-www-aayuwell-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#29265E",
+          "#999B98",
+          "#F5FDCB",
+          "#C0C6A8",
+          "#F1FCB4",
+          "#74795C"
+        ]
+      },
+      "colors": [
+        "#29265E",
+        "#999B98",
+        "#F5FDCB",
+        "#C0C6A8",
+        "#F1FCB4",
+        "#74795C",
+        "#BCCE5D",
+        "#BCD24D",
+        "#C3CF88",
+        "#DFEE8E"
+      ],
+      "websiteUrl": "https://www.aayuwell.com/weightloss-program",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/70164-elevate"
+    },
+    {
+      "id": "website_70266",
+      "name": "Spot Insurance | Designed for life in motion.",
+      "description": "A compelling landing page design",
+      "image": "./data/images/a075c9e494d8bb9b-www-getspot-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "interactive",
+          "Claim this website",
+          "Background Image",
+          "Big Footer",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAFBFA",
+          "#13120A",
+          "#3C3A26",
+          "#3C3D31",
+          "#524E39",
+          "#E3F52A"
+        ]
+      },
+      "colors": [
+        "#FAFBFA",
+        "#13120A",
+        "#3C3A26",
+        "#3C3D31",
+        "#524E39",
+        "#E3F52A",
+        "#E5EA5A",
+        "#6A1407",
+        "#9B2619",
+        "#4B5413"
+      ],
+      "websiteUrl": "https://www.getspot.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/70266-spot-insurance-designed-for-life-in-motion"
+    },
+    {
+      "id": "website_70250",
+      "name": "Innerwork | Natural, Sugar-Free Gummy & Liquid Supplements",
+      "description": "A modern website design",
+      "image": "./data/images/09db5f79ac9451bb-innerworkhealth-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "professional",
+          "branded",
+          "Gone Fishing Studio",
+          "Background Video",
+          "Big Footer"
+        ],
+        "industry": [
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif",
+          "Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAF8F1",
+          "#F5B98A",
+          "#EEC56B",
+          "#E38360",
+          "#D04922",
+          "#E07C11"
+        ]
+      },
+      "colors": [
+        "#FAF8F1",
+        "#F5B98A",
+        "#EEC56B",
+        "#E38360",
+        "#D04922",
+        "#E07C11",
+        "#F1B861",
+        "#F8DC9F",
+        "#EAC988",
+        "#5A2D03"
+      ],
+      "websiteUrl": "https://innerworkhealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/70250-innerwork-natural-sugar-free-gummy-and-liquid-supplements"
+    },
+    {
+      "id": "website_69900",
+      "name": "Breathpod",
+      "description": "A compelling landing page design",
+      "image": "./data/images/ecb768014917e39e-www-breathpod-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Background Image",
+          "Big Footer",
+          "Parallax",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#070507",
+          "#D4CCC4",
+          "#DFCDB5",
+          "#527996",
+          "#DFB65E",
+          "#E5DDD4"
+        ]
+      },
+      "colors": [
+        "#070507",
+        "#D4CCC4",
+        "#DFCDB5",
+        "#527996",
+        "#DFB65E",
+        "#E5DDD4",
+        "#7F98AC",
+        "#897339",
+        "#DB9227",
+        "#B25E14"
+      ],
+      "websiteUrl": "https://www.breathpod.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/69900-breathpod"
+    },
+    {
+      "id": "website_68868",
+      "name": "Dentist in Darlinghurst | Sage Space",
+      "description": "A compelling landing page design",
+      "image": "./data/images/ae5d8adf1642e48d-sagespace-au.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Background Image",
+          "Cards",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F3EBE4",
+          "#AE9E89",
+          "#A9A399",
+          "#83705B",
+          "#6E4921",
+          "#645039"
+        ]
+      },
+      "colors": [
+        "#F3EBE4",
+        "#AE9E89",
+        "#A9A399",
+        "#83705B",
+        "#6E4921",
+        "#645039",
+        "#532E09",
+        "#46311A",
+        "#0F3463",
+        "#243F44"
+      ],
+      "websiteUrl": "https://sagespace.au/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/68868-dentist-in-darlinghurst-sage-space"
+    },
+    {
+      "id": "website_69120",
+      "name": "AYOCIN - Where design meets your well-being",
+      "description": "A compelling landing page design",
+      "image": "./data/images/65b9f3ea50f840db-ayocin-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "3D",
+          "Big Footer",
+          "Big Type",
+          "Pastel Colors",
+          "Background Image"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#313218",
+          "#C9BDB4",
+          "#151609",
+          "#A49A86",
+          "#1D1F0C",
+          "#CCBCA2"
+        ]
+      },
+      "colors": [
+        "#313218",
+        "#C9BDB4",
+        "#151609",
+        "#A49A86",
+        "#1D1F0C",
+        "#CCBCA2",
+        "#505130",
+        "#F7DE7D",
+        "#D4C47F",
+        "#F3E87E"
+      ],
+      "websiteUrl": "https://ayocin.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/69120-ayocin-where-design-meets-your-well-being"
+    },
+    {
+      "id": "website_69359",
+      "name": "Verywell - Webflow HTML Website Template",
+      "description": "A modern website design",
+      "image": "./data/images/6ee9c65538b5eb90-verywell-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Medium Rare",
+          "Big Footer",
+          "Illustration"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#F0F2F1",
+          "#C2C4C3",
+          "#9A9C9C",
+          "#7A7E7D",
+          "#1E3E33",
+          "#7EDABB"
+        ]
+      },
+      "colors": [
+        "#F0F2F1",
+        "#C2C4C3",
+        "#9A9C9C",
+        "#7A7E7D",
+        "#1E3E33",
+        "#7EDABB",
+        "#303C38",
+        "#8177B5",
+        "#8878D7",
+        "#6B8B80"
+      ],
+      "websiteUrl": "https://webflow.grsm.io/landbook?type=templates&website=html&template=verywell-health-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/69359-verywell-webflow-html-website-template"
+    },
+    {
+      "id": "website_69111",
+      "name": "Lifeforce: Your Longevity Partner",
+      "description": "A compelling landing page design",
+      "image": "./data/images/9aea1b4de93e21b4-www-mylifeforce-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Background Image",
+          "Big Footer",
+          "Parallax",
+          "Pastel Colors",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F5F2EA",
+          "#C4C3BC",
+          "#A69E96",
+          "#4B2618",
+          "#AB9A87",
+          "#5C2707"
+        ]
+      },
+      "colors": [
+        "#F5F2EA",
+        "#C4C3BC",
+        "#A69E96",
+        "#4B2618",
+        "#AB9A87",
+        "#5C2707",
+        "#794217",
+        "#1D1412",
+        "#351207",
+        "#270F0E"
+      ],
+      "websiteUrl": "https://www.mylifeforce.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/69111-lifeforce-your-longevity-partner"
+    },
+    {
+      "id": "website_69121",
+      "name": "Amaterasu - Empower your mental health journey",
+      "description": "A compelling landing page design focused on wellness and mental health",
+      "image": "./data/images/284c4ecad534a561-amaterasu-ai.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "wellness",
+          "Claim this website",
+          "Animation",
+          "Big Footer",
+          "Gradient",
+          "Parallax"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAFBFC",
+          "#84D8E3",
+          "#111F72",
+          "#030D47",
+          "#182A7B",
+          "#0B1666"
+        ]
+      },
+      "colors": [
+        "#FAFBFC",
+        "#84D8E3",
+        "#111F72",
+        "#030D47",
+        "#182A7B",
+        "#0B1666",
+        "#2E8097",
+        "#1C1718",
+        "#4D4E7D",
+        "#C1C1CB"
+      ],
+      "websiteUrl": "https://amaterasu.ai/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/69121-amaterasu-empower-your-mental-health-journey"
+    },
+    {
+      "id": "website_68318",
+      "name": "NIMU | Luxury Italian Towels to elevate your daily bath ritual.",
+      "description": "An elegant ecommerce website with an elegant, sophisticated style",
+      "image": "./data/images/f30ddfc74e796705-nimuroma-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Background Video",
+          "Big Type",
+          "Cards",
+          "Parallax",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#E7E4E2",
+          "#C1C1C3",
+          "#18100F",
+          "#9A9D9F",
+          "#75777C",
+          "#383030"
+        ]
+      },
+      "colors": [
+        "#E7E4E2",
+        "#C1C1C3",
+        "#18100F",
+        "#9A9D9F",
+        "#75777C",
+        "#383030",
+        "#565559",
+        "#687686",
+        "#4D251B",
+        "#E3BEAF"
+      ],
+      "websiteUrl": "https://nimuroma.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/68318-nimu-luxury-italian-towels-to-elevate-your-daily-bath-ritual"
+    },
+    {
+      "id": "website_68247",
+      "name": "Highlight Therapeutics",
+      "description": "A modern website design",
+      "image": "./data/images/4d19cf0dfe3cd9fb-www-highlighttherapeutics-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "website",
+          "design",
+          "Firma Branding Agency",
+          "Background Video",
+          "Parallax"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FCFCFC",
+          "#111013",
+          "#7B0DC0",
+          "#520886",
+          "#8B0BAB",
+          "#4A089E"
+        ]
+      },
+      "colors": [
+        "#FCFCFC",
+        "#111013",
+        "#7B0DC0",
+        "#520886",
+        "#8B0BAB",
+        "#4A089E",
+        "#6A0BD8",
+        "#B70AE8",
+        "#20092B",
+        "#FE03F2"
+      ],
+      "websiteUrl": "https://www.highlighttherapeutics.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/68247-home-highlight-therapeutics"
+    },
+    {
+      "id": "website_67901",
+      "name": "Vazzi — Natural Water-Based Lubricant Made in Montreal 💦",
+      "description": "An elegant ecommerce website",
+      "image": "./data/images/603faa6f3b75f46e-vazzi-fun.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Display",
+          "Big Type",
+          "Animation",
+          "Parallax",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#75A29C",
+          "#9BBEB8",
+          "#549BA4",
+          "#FAEE33",
+          "#EBE64E",
+          "#D6D346"
+        ]
+      },
+      "colors": [
+        "#75A29C",
+        "#9BBEB8",
+        "#549BA4",
+        "#FAEE33",
+        "#EBE64E",
+        "#D6D346",
+        "#FCDF4B",
+        "#C8D061",
+        "#FEE234",
+        "#6AC355"
+      ],
+      "websiteUrl": "https://vazzi.fun/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/67901-vazzi-natural-water-based-lubricant-made-in-montreal"
+    },
+    {
+      "id": "website_67756",
+      "name": "Vision Care at the Speed of Sight – Eyebot",
+      "description": "A modern website design",
+      "image": "./data/images/97fd765269758629-www-eyebot-co.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "professional",
+          "branded",
+          "Milkshake",
+          "People",
+          "Big Footer",
+          "Cards"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAF6F4",
+          "#160E17",
+          "#16081E",
+          "#383037",
+          "#C7C2C5",
+          "#9E989E"
+        ]
+      },
+      "colors": [
+        "#FAF6F4",
+        "#160E17",
+        "#16081E",
+        "#383037",
+        "#C7C2C5",
+        "#9E989E",
+        "#564E56",
+        "#13081C",
+        "#7D777B",
+        "#6D4A3B"
+      ],
+      "websiteUrl": "https://www.eyebot.co/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/67756-vision-care-at-the-speed-of-sight-eyebot"
+    },
+    {
+      "id": "website_67601",
+      "name": "August Health - The EHR platform caregivers love",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/57fb972547430503-www-augusthealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "software",
+          "healthtech",
+          "Claim this website",
+          "Animation"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F9F7F5",
+          "#F6C0AA",
+          "#E4A5CF",
+          "#F46E3C",
+          "#E2805E",
+          "#2C8D3B"
+        ]
+      },
+      "colors": [
+        "#F9F7F5",
+        "#F6C0AA",
+        "#E4A5CF",
+        "#F46E3C",
+        "#E2805E",
+        "#2C8D3B",
+        "#22381A",
+        "#2CB37B",
+        "#6265CF",
+        "#582A07"
+      ],
+      "websiteUrl": "https://www.augusthealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/67601-august-health-the-ehr-platform-caregivers-love"
+    },
+    {
+      "id": "website_66796",
+      "name": "Sophia Healthcare Website Page Template for Webflow",
+      "description": "A modern website design",
+      "image": "./data/images/bf77cd4e63e0ff45-webflow-com.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Ariel Jędrzejczak"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif",
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#C0BFC1",
+          "#A09C9C",
+          "#60503F",
+          "#160C07",
+          "#877965",
+          "#A39784"
+        ]
+      },
+      "colors": [
+        "#C0BFC1",
+        "#A09C9C",
+        "#60503F",
+        "#160C07",
+        "#877965",
+        "#A39784",
+        "#96725D",
+        "#4776D5",
+        "#99640B",
+        "#889F62"
+      ],
+      "websiteUrl": "https://webflow.grsm.io/landbook?type=templates&website=html&template=sophiahealthcare-medical-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/66796-sophia-healthcare-website-page-template-for-webflow"
+    },
+    {
+      "id": "website_66628",
+      "name": "Sol Health — Your Personalized Health Co-Pilot",
+      "description": "A modern website design focused on health and wellness",
+      "image": "./data/images/e14e20ade62baeda-joinsol-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Regina Musi",
+          "People",
+          "Big Footer",
+          "Background Image",
+          "Big Type in Footer"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAFAF9",
+          "#328397",
+          "#10150F",
+          "#116579",
+          "#5F9BAA",
+          "#D8C1AD"
+        ]
+      },
+      "colors": [
+        "#FAFAF9",
+        "#328397",
+        "#10150F",
+        "#116579",
+        "#5F9BAA",
+        "#D8C1AD",
+        "#522D1D",
+        "#538181",
+        "#92CCDB",
+        "#CC4642"
+      ],
+      "websiteUrl": "https://app.joinsol.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/66628-sol-health-your-personalized-health-co-pilot"
+    },
+    {
+      "id": "website_66311",
+      "name": "Ooma",
+      "description": "An elegant ecommerce website",
+      "image": "./data/images/4afa21f73fb276f6-tryooma-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Parallax",
+          "Big Footer",
+          "Background Video",
+          "Cards"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#90371C",
+          "#9A9B9F",
+          "#889DB2",
+          "#C3C1C5",
+          "#6C473A",
+          "#4B251B"
+        ]
+      },
+      "colors": [
+        "#90371C",
+        "#9A9B9F",
+        "#889DB2",
+        "#C3C1C5",
+        "#6C473A",
+        "#4B251B",
+        "#7C7B7D",
+        "#EAE4DE",
+        "#B3BDD7",
+        "#37100A"
+      ],
+      "websiteUrl": "https://tryooma.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/66311-ooma"
+    },
+    {
+      "id": "website_66204",
+      "name": "Jorgobé – Jorgobé - Precision Skin Health",
+      "description": "An elegant ecommerce website focused on health and wellness",
+      "image": "./data/images/ea5adfa2b29c1104-jorgobe-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "People"
+        ],
+        "industry": [
+          "health",
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#E0DBDB",
+          "#CCC7C5",
+          "#A7A29F",
+          "#6C4C3C",
+          "#1E1513",
+          "#91705E"
+        ]
+      },
+      "colors": [
+        "#E0DBDB",
+        "#CCC7C5",
+        "#A7A29F",
+        "#6C4C3C",
+        "#1E1513",
+        "#91705E",
+        "#482B1F",
+        "#8B7465",
+        "#31150C",
+        "#26100A"
+      ],
+      "websiteUrl": "https://jorgobe.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/66204-jorgobe-jorgobe-precision-skin-health"
+    },
+    {
+      "id": "website_65733",
+      "name": "Apple Watch Ultra 2 - Apple",
+      "description": "A compelling landing page design",
+      "image": "./data/images/74e7bb911d5e64e6-www-apple-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Parallax",
+          "Big Footer",
+          "3D"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#120E11",
+          "#353339",
+          "#515056",
+          "#7D7B7E",
+          "#9C9A9D",
+          "#272F3F"
+        ]
+      },
+      "colors": [
+        "#120E11",
+        "#353339",
+        "#515056",
+        "#7D7B7E",
+        "#9C9A9D",
+        "#272F3F",
+        "#0A1827",
+        "#BDBDC0",
+        "#455A6B",
+        "#5A7184"
+      ],
+      "websiteUrl": "https://www.apple.com/apple-watch-ultra-2/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/65733-apple-watch-ultra-2-apple"
+    },
+    {
+      "id": "website_65735",
+      "name": "AirPods Pro 2 - Hearing Health - Apple",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/e7bd041c7883feba-www-apple-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Parallax",
+          "People",
+          "Big Footer",
+          "Apple Style"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#030204",
+          "#343132",
+          "#545254",
+          "#F1F4F5",
+          "#999899",
+          "#757375"
+        ]
+      },
+      "colors": [
+        "#030204",
+        "#343132",
+        "#545254",
+        "#F1F4F5",
+        "#999899",
+        "#757375",
+        "#C2C5C7",
+        "#291E12",
+        "#422D29",
+        "#311C14"
+      ],
+      "websiteUrl": "https://www.apple.com/airpods-pro/hearing-health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/65735-airpods-pro-2-hearing-health-apple"
+    },
+    {
+      "id": "website_65607",
+      "name": "Life Time Healthy Way of Life | Join Life Time",
+      "description": "A compelling landing page design",
+      "image": "./data/images/5ecd37e0959c253f-www-lifetime-life.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "People",
+          "Big Footer",
+          "Background Video"
+        ],
+        "industry": [
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F1E9E6",
+          "#C7BFBE",
+          "#181514",
+          "#A39995",
+          "#3A3433",
+          "#7B7470"
+        ]
+      },
+      "colors": [
+        "#F1E9E6",
+        "#C7BFBE",
+        "#181514",
+        "#A39995",
+        "#3A3433",
+        "#7B7470",
+        "#5E5855",
+        "#A69587",
+        "#758190",
+        "#837465"
+      ],
+      "websiteUrl": "https://www.lifetime.life/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/65607-life-time-healthy-way-of-life-join-life-time"
+    },
+    {
+      "id": "website_64295",
+      "name": "Spectrum.Life | Full spectrum care, for a full spectrum life.",
+      "description": "A compelling landing page design",
+      "image": "./data/images/20c16f4ebadc9b54-www-spectrum-life.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Big Type",
+          "Parallax",
+          "People",
+          "Big Footer",
+          "Big Type in Footer"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#6B55FD",
+          "#E1DDFC",
+          "#E2DAFE",
+          "#F5C1D4",
+          "#131013",
+          "#272180"
+        ]
+      },
+      "colors": [
+        "#6B55FD",
+        "#E1DDFC",
+        "#E2DAFE",
+        "#F5C1D4",
+        "#131013",
+        "#272180",
+        "#631919",
+        "#8C7DDF",
+        "#282B6B",
+        "#3C92EA"
+      ],
+      "websiteUrl": "https://www.spectrum.life/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64295-spectrum-life-full-spectrum-care-for-a-full-spectrum-life"
+    },
+    {
+      "id": "website_64054",
+      "name": "Blok",
+      "description": "A compelling landing page design",
+      "image": "./data/images/cd6edefcacd6a360-blok-so.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Parallax",
+          "Background Video",
+          "Black & White",
+          "3D"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#161314",
+          "#373535",
+          "#545455",
+          "#747576",
+          "#929696",
+          "#C3C3C3"
+        ]
+      },
+      "colors": [
+        "#161314",
+        "#373535",
+        "#545455",
+        "#747576",
+        "#929696",
+        "#C3C3C3",
+        "#EBEAEC",
+        "#3D3327"
+      ],
+      "websiteUrl": "https://blok.so/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64054-blok"
+    },
+    {
+      "id": "website_64799",
+      "name": "Kin - A personal AI for your private life.",
+      "description": "A compelling landing page design showcasing AI and machine learning technology",
+      "image": "./data/images/9ab56d2e00746dd9-mykin-ai.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "ai",
+          "personal",
+          "Claim this website",
+          "Animation",
+          "Parallax"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F3EBEB",
+          "#D0C8C8",
+          "#A59E9D",
+          "#7E7776",
+          "#F6E8D6",
+          "#55504E"
+        ]
+      },
+      "colors": [
+        "#F3EBEB",
+        "#D0C8C8",
+        "#A59E9D",
+        "#7E7776",
+        "#F6E8D6",
+        "#55504E",
+        "#363130",
+        "#16100F",
+        "#6E4C44",
+        "#4A2B23"
+      ],
+      "websiteUrl": "https://mykin.ai/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64799-kin-a-personal-ai-for-your-private-life"
+    },
+    {
+      "id": "website_64426",
+      "name": "Telehealth for a healthy, handsome you | hims",
+      "description": "A compelling landing page design",
+      "image": "./data/images/463952febd145a98-www-hims-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Flat Design",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "Big Type in Footer"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAF8F7",
+          "#CBC5C3",
+          "#160F11",
+          "#A39C98",
+          "#6E493D",
+          "#39312F"
+        ]
+      },
+      "colors": [
+        "#FAF8F7",
+        "#CBC5C3",
+        "#160F11",
+        "#A39C98",
+        "#6E493D",
+        "#39312F",
+        "#807672",
+        "#5A534F",
+        "#502B21",
+        "#D2C09F"
+      ],
+      "websiteUrl": "https://www.hims.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64426-just-a-moment"
+    },
+    {
+      "id": "website_64545",
+      "name": "Black Jays Ventures",
+      "description": "A modern website design",
+      "image": "./data/images/8a482363675f7b79-blackjays-vc.webp",
+      "category": "Portfolio",
+      "tags": {
+        "style": [
+          "website",
+          "design",
+          "HEX Studio",
+          "Flat Design",
+          "Illustration",
+          "Cards"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "PRO",
+          "Portfolio"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EBE7DC",
+          "#C9C5BB",
+          "#CEC2AF",
+          "#F0E4D1",
+          "#91A65E",
+          "#4B5E42"
+        ]
+      },
+      "colors": [
+        "#EBE7DC",
+        "#C9C5BB",
+        "#CEC2AF",
+        "#F0E4D1",
+        "#91A65E",
+        "#4B5E42",
+        "#94AD4D",
+        "#E5BE38",
+        "#A0BF5B",
+        "#834026"
+      ],
+      "websiteUrl": "https://blackjays.vc/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64545-home-black-jays-ventures"
+    },
+    {
+      "id": "website_64425",
+      "name": "Hers for Women's Health | hers",
+      "description": "An elegant ecommerce website focused on health and wellness",
+      "image": "./data/images/9b8b1ff4a732c729-www-forhers-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Flat Design",
+          "People",
+          "Big Footer",
+          "Background Video",
+          "Cards"
+        ],
+        "industry": [
+          "health",
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F5F4F0",
+          "#C5C9C9",
+          "#56534C",
+          "#605342",
+          "#F0E4CF",
+          "#393632"
+        ]
+      },
+      "colors": [
+        "#F5F4F0",
+        "#C5C9C9",
+        "#56534C",
+        "#605342",
+        "#F0E4CF",
+        "#393632",
+        "#817461",
+        "#77726A",
+        "#D3C3AB",
+        "#413323"
+      ],
+      "websiteUrl": "https://forhers.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64425-just-a-moment"
+    },
+    {
+      "id": "website_64385",
+      "name": "Somvai",
+      "description": "A compelling landing page design",
+      "image": "./data/images/755ae26041ca463c-somvai-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Parallax",
+          "Background Image",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#61514A",
+          "#93603B",
+          "#8D6549",
+          "#DCBEA1",
+          "#85532C",
+          "#7A5237"
+        ]
+      },
+      "colors": [
+        "#61514A",
+        "#93603B",
+        "#8D6549",
+        "#DCBEA1",
+        "#85532C",
+        "#7A5237",
+        "#C2987A",
+        "#FADFBF",
+        "#AF5E21",
+        "#1A1613"
+      ],
+      "websiteUrl": "https://somvai.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64385-somvai"
+    },
+    {
+      "id": "website_64384",
+      "name": "hangboards Climbing Training Without Drilling - Deltaboard",
+      "description": "An elegant ecommerce website for education and learning",
+      "image": "./data/images/f9378dedc550177e-delta-board-com.webp",
+      "category": "Ecommerce",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Big Footer",
+          "Background Video",
+          "Cards",
+          "3D"
+        ],
+        "industry": [
+          "ecommerce",
+          "Ecommerce"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#C0BDBC",
+          "#FBF9F9",
+          "#A6A09D",
+          "#272C3F",
+          "#827B78",
+          "#191C2B"
+        ]
+      },
+      "colors": [
+        "#C0BDBC",
+        "#FBF9F9",
+        "#A6A09D",
+        "#272C3F",
+        "#827B78",
+        "#191C2B",
+        "#AB988A",
+        "#E8B997",
+        "#6E503E",
+        "#2A0F03"
+      ],
+      "websiteUrl": "https://delta-board.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/64384-hangboards-climbing-training-without-drilling-deltaboard"
+    },
+    {
+      "id": "website_63885",
+      "name": "Heva Health | Personalized Telehealth for Wellness & Weight Loss",
+      "description": "A compelling landing page design focused on wellness and mental health",
+      "image": "./data/images/67c99c6b890bb458-www-hevahealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "wellness",
+          "Claim this website",
+          "Big Type",
+          "Animation",
+          "Parallax"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F9F8EE",
+          "#427EA9",
+          "#171413",
+          "#8A7662",
+          "#4F89A3",
+          "#6399B2"
+        ]
+      },
+      "colors": [
+        "#F9F8EE",
+        "#427EA9",
+        "#171413",
+        "#8A7662",
+        "#4F89A3",
+        "#6399B2",
+        "#AA927B",
+        "#4D2A1A",
+        "#967160",
+        "#EFF889"
+      ],
+      "websiteUrl": "https://www.hevahealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/63885-heva-health-personalized-telehealth-for-wellness-and-weight-loss"
+    },
+    {
+      "id": "website_63750",
+      "name": "Function Health • 100 Healthy Years",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/5f51bbfc221ee8c2-www-functionhealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Animation",
+          "Parallax",
+          "People",
+          "Big Footer"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FAF5EB",
+          "#C4C4BE",
+          "#9A9F9D",
+          "#1A1614",
+          "#74787A",
+          "#5E7586"
+        ]
+      },
+      "colors": [
+        "#FAF5EB",
+        "#C4C4BE",
+        "#9A9F9D",
+        "#1A1614",
+        "#74787A",
+        "#5E7586",
+        "#F8F4E0",
+        "#595959",
+        "#34312F",
+        "#6A493B"
+      ],
+      "websiteUrl": "https://www.functionhealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/63750-function-health-o-100-healthy-years"
+    },
+    {
+      "id": "website_63537",
+      "name": "Clearmind - Webflow HTML Website Template",
+      "description": "A modern website design",
+      "image": "./data/images/f64a99c96abeb5bd-clearmind-template-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Medium Rare",
+          "People"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif",
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#EFEFE6",
+          "#0F3019",
+          "#AEC59A",
+          "#C2C6BB",
+          "#07260E",
+          "#D5E7C9"
+        ]
+      },
+      "colors": [
+        "#EFEFE6",
+        "#0F3019",
+        "#AEC59A",
+        "#C2C6BB",
+        "#07260E",
+        "#D5E7C9",
+        "#3A5439",
+        "#617B60",
+        "#A6C184",
+        "#4E2916"
+      ],
+      "websiteUrl": "https://webflow.grsm.io/landbook?type=templates&website=html&template=clearmind-consulting-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/63537-clearmind-webflow-html-website-template"
+    },
+    {
+      "id": "website_62707",
+      "name": "Impilo | Remote Patient Monitoring Devices",
+      "description": "A compelling landing page design",
+      "image": "./data/images/81097425876b57a9-impilo-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Big Type",
+          "Animation",
+          "Parallax",
+          "Big Footer"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#4740CD",
+          "#4148C7",
+          "#5F59EB",
+          "#6763EB",
+          "#B8B7FD",
+          "#4743AD"
+        ]
+      },
+      "colors": [
+        "#4740CD",
+        "#4148C7",
+        "#5F59EB",
+        "#6763EB",
+        "#B8B7FD",
+        "#4743AD",
+        "#8699FB",
+        "#DEDEFF",
+        "#5871D2",
+        "#55A2F5"
+      ],
+      "websiteUrl": "https://impilo.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62707-impilo-remote-patient-monitoring-devices"
+    },
+    {
+      "id": "website_62974",
+      "name": "The Humane Space - Unlock the power of curiosity and awe.",
+      "description": "A compelling landing page design",
+      "image": "./data/images/d8aaac51d96d76f4-www-thehumane-space.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "Big Footer",
+          "Background Image",
+          "3D"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#62809D",
+          "#929DA3",
+          "#787F83",
+          "#99C5D2",
+          "#8198AB",
+          "#53261D"
+        ]
+      },
+      "colors": [
+        "#62809D",
+        "#929DA3",
+        "#787F83",
+        "#99C5D2",
+        "#8198AB",
+        "#53261D",
+        "#937841",
+        "#A41E05",
+        "#D4B671",
+        "#8A3321"
+      ],
+      "websiteUrl": "https://www.thehumane.space/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62974-the-humane-space-unlock-the-power-of-curiosity-and-awe"
+    },
+    {
+      "id": "website_62761",
+      "name": "Sugar - Social media just got healthy",
+      "description": "A compelling landing page design",
+      "image": "./data/images/1e38f16d15893365-www-sugar-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "content",
+          "Claim this website",
+          "Display",
+          "Big Type",
+          "Animation",
+          "Gradient"
+        ],
+        "industry": [],
+        "typography": [],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EADDE6",
+          "#E8D4F7",
+          "#E9D6E7",
+          "#D4C8D2",
+          "#D9C6F0",
+          "#1B1716"
+        ]
+      },
+      "colors": [
+        "#EADDE6",
+        "#E8D4F7",
+        "#E9D6E7",
+        "#D4C8D2",
+        "#D9C6F0",
+        "#1B1716",
+        "#A296A0",
+        "#2F1402",
+        "#D28F69",
+        "#5F5263"
+      ],
+      "websiteUrl": "https://www.sugar.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62761-sugar-social-media-just-got-healthy"
+    },
+    {
+      "id": "website_62708",
+      "name": "Rumer Has It | A Place for Discovery",
+      "description": "A unique website design",
+      "image": "./data/images/cd4e101dcd7454e3-rumerhasit-com.webp",
+      "category": "Other",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "People",
+          "Big Footer",
+          "Background Image",
+          "Cards"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "other",
+          "Other"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F5F4F5",
+          "#C3C1C1",
+          "#13111A",
+          "#A39F9F",
+          "#131524",
+          "#302D35"
+        ]
+      },
+      "colors": [
+        "#F5F4F5",
+        "#C3C1C1",
+        "#13111A",
+        "#A39F9F",
+        "#131524",
+        "#302D35",
+        "#D3C4AD",
+        "#EEEACF",
+        "#6B4738",
+        "#522C1B"
+      ],
+      "websiteUrl": "https://rumerhasit.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62708-rumer-has-it-a-place-for-discovery"
+    },
+    {
+      "id": "website_62581",
+      "name": "WHOOP | Unlock Your Potential",
+      "description": "A compelling landing page design",
+      "image": "./data/images/75ac551eacb8039f-www-whoop-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "People",
+          "Big Footer",
+          "Background Video",
+          "Cards"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#100A0D",
+          "#303031",
+          "#F1F0F3",
+          "#9D9D9D",
+          "#2D0F15",
+          "#163F38"
+        ]
+      },
+      "colors": [
+        "#100A0D",
+        "#303031",
+        "#F1F0F3",
+        "#9D9D9D",
+        "#2D0F15",
+        "#163F38",
+        "#452029",
+        "#3C1012",
+        "#511317",
+        "#727946"
+      ],
+      "websiteUrl": "https://www.whoop.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62581-whoop-unlock-your-potential"
+    },
+    {
+      "id": "website_62343",
+      "name": "AI in Clinical Trials - Science4Tech",
+      "description": "A compelling landing page design showcasing AI and machine learning technology",
+      "image": "./data/images/7919bf77107176d5-s4t-health.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "ai",
+          "Claim this website",
+          "Parallax",
+          "Cards",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EEF0ED",
+          "#DBDFF7",
+          "#C7CCC7",
+          "#C9CDE8",
+          "#9DA0A2",
+          "#75787A"
+        ]
+      },
+      "colors": [
+        "#EEF0ED",
+        "#DBDFF7",
+        "#C7CCC7",
+        "#C9CDE8",
+        "#9DA0A2",
+        "#75787A",
+        "#545757",
+        "#777B96",
+        "#26203A",
+        "#757FB2"
+      ],
+      "websiteUrl": "https://s4t.health/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62343-ai-in-clinical-trials-science4tech"
+    },
+    {
+      "id": "website_62113",
+      "name": "Kabata | The World's First AI-Powered Dumbbells",
+      "description": "A compelling landing page design showcasing AI and machine learning technology",
+      "image": "./data/images/41810f46672332bb-www-kabatafitness-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "ai",
+          "Claim this website",
+          "Big Type",
+          "Parallax",
+          "Big Footer"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F4EEEE",
+          "#0B080D",
+          "#FBEBCE",
+          "#DBBD7C",
+          "#C6A347",
+          "#E3C163"
+        ]
+      },
+      "colors": [
+        "#F4EEEE",
+        "#0B080D",
+        "#FBEBCE",
+        "#DBBD7C",
+        "#C6A347",
+        "#E3C163",
+        "#FEE6A4",
+        "#553000",
+        "#7C5204",
+        "#FDDF80"
+      ],
+      "websiteUrl": "https://www.kabatafitness.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62113-kabata-the-world-s-first-ai-powered-dumbbells"
+    },
+    {
+      "id": "website_62166",
+      "name": "Cocoon | Tailored for you",
+      "description": "A compelling landing page design",
+      "image": "./data/images/5bd2350bddffd507-www-cocoonapp-ca.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "Big Footer",
+          "Background Image",
+          "Pastel Colors"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F6F2F0",
+          "#A4BEDB",
+          "#80A0C2",
+          "#121311",
+          "#7698C8",
+          "#6588B5"
+        ]
+      },
+      "colors": [
+        "#F6F2F0",
+        "#A4BEDB",
+        "#80A0C2",
+        "#121311",
+        "#7698C8",
+        "#6588B5",
+        "#6686A8",
+        "#777555",
+        "#74A19A",
+        "#97CB9A"
+      ],
+      "websiteUrl": "https://www.cocoonapp.ca/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/62166-cocoon-tailored-for-you"
+    },
+    {
+      "id": "website_61784",
+      "name": "watchOS 11 Preview - Apple",
+      "description": "A compelling landing page design",
+      "image": "./data/images/08bb05ce3eeac19d-www-apple-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "Big Footer",
+          "Cards",
+          "Pastel Colors",
+          "3D"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F6F2F8",
+          "#13161A",
+          "#1E344E",
+          "#65A2B4",
+          "#BF3E4C",
+          "#C68C7F"
+        ]
+      },
+      "colors": [
+        "#F6F2F8",
+        "#13161A",
+        "#1E344E",
+        "#65A2B4",
+        "#BF3E4C",
+        "#C68C7F",
+        "#E9C86B",
+        "#F36C38",
+        "#DE3748",
+        "#42A79E"
+      ],
+      "websiteUrl": "https://www.apple.com/watchos/watchos-preview/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/61784-watchos-11-preview-apple"
+    },
+    {
+      "id": "website_61865",
+      "name": "Empowering Women's Health & Maternity Care - Moxie",
+      "description": "A compelling landing page design focused on health and wellness",
+      "image": "./data/images/6e54c57b021b2c13-www-moxiecare-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Display",
+          "Big Type",
+          "Big Footer",
+          "Background Image",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#FBEBD0",
+          "#B19675",
+          "#9B7047",
+          "#7A4E28",
+          "#B68B5F",
+          "#957858"
+        ]
+      },
+      "colors": [
+        "#FBEBD0",
+        "#B19675",
+        "#9B7047",
+        "#7A4E28",
+        "#B68B5F",
+        "#957858",
+        "#B19063",
+        "#9A6E53",
+        "#774B32",
+        "#B78C71"
+      ],
+      "websiteUrl": "https://www.moxiecare.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/61865-empowering-women-s-health-and-maternity-care-moxie"
+    },
+    {
+      "id": "website_61595",
+      "name": "Bunkerhill Health | Advancing AI Healthcare from Concept to Clinic",
+      "description": "A compelling landing page design focused on medical and healthcare services",
+      "image": "./data/images/7b7401af65c36637-www-bunkerhillhealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "ai",
+          "healthtech",
+          "Claim this website"
+        ],
+        "industry": [
+          "health",
+          "medical",
+          "Medical"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#ECEEF1",
+          "#1848F9",
+          "#2955FD",
+          "#3961FB",
+          "#4369F0",
+          "#1041FE"
+        ]
+      },
+      "colors": [
+        "#ECEEF1",
+        "#1848F9",
+        "#2955FD",
+        "#3961FB",
+        "#4369F0",
+        "#1041FE",
+        "#B8C0E2",
+        "#0D0D10",
+        "#5D88FE",
+        "#051164"
+      ],
+      "websiteUrl": "https://www.bunkerhillhealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/61595-bunkerhill-health-advancing-ai-healthcare-from-concept-to-clinic"
+    },
+    {
+      "id": "website_61003",
+      "name": "HALO | Webflow Ecommerce website template",
+      "description": "A professional website template",
+      "image": "./data/images/fd1280e66157e0cb-template-halo-webflow-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Claim this website"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif",
+          "Sans Serif"
+        ],
+        "type": [
+          "template",
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#AA9685",
+          "#A89890",
+          "#D5BEAB",
+          "#362920",
+          "#362B1C",
+          "#967361"
+        ]
+      },
+      "colors": [
+        "#AA9685",
+        "#A89890",
+        "#D5BEAB",
+        "#362920",
+        "#362B1C",
+        "#967361",
+        "#EADFD7",
+        "#8B7762",
+        "#D1C4BA",
+        "#655139"
+      ],
+      "websiteUrl": "https://webflow.grsm.io/landbook?type=templates&website=html&template=halo-beauty-and-wellness-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/61003-halo-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_61136",
+      "name": "Significo: Revolutionizing Healthcare with Human-Centric Software",
+      "description": "A compelling landing page design for software and digital platforms",
+      "image": "./data/images/b95f3eb77ed0ae6c-www-significo-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "software",
+          "healthtech",
+          "Claim this website",
+          "Parallax",
+          "People"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#0B0809",
+          "#8B7A64",
+          "#AFD6D9",
+          "#38312C",
+          "#534E4C",
+          "#9D8E74"
+        ]
+      },
+      "colors": [
+        "#0B0809",
+        "#8B7A64",
+        "#AFD6D9",
+        "#38312C",
+        "#534E4C",
+        "#9D8E74",
+        "#624B36",
+        "#463223",
+        "#6B4B31",
+        "#4D311C"
+      ],
+      "websiteUrl": "https://www.significo.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/61136-significo-revolutionizing-healthcare-with-human-centric-software"
+    },
+    {
+      "id": "website_61191",
+      "name": "Feel Good - Webflow Ecommerce website template",
+      "description": "A modern website design",
+      "image": "./data/images/6f5ec45b0823ea6d-webflow-grsm-io.webp",
+      "category": "Template",
+      "tags": {
+        "style": [
+          "web-development",
+          "Wavesdesign",
+          "People",
+          "Big Footer",
+          "Background Image"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "PRO",
+          "Template"
+        ],
+        "category": [],
+        "platform": [
+          "webflow"
+        ],
+        "colors": [
+          "#FBFAFA",
+          "#1B1618",
+          "#7B7674",
+          "#4D291F",
+          "#39302C",
+          "#5A524E"
+        ]
+      },
+      "colors": [
+        "#FBFAFA",
+        "#1B1618",
+        "#7B7674",
+        "#4D291F",
+        "#39302C",
+        "#5A524E",
+        "#403122",
+        "#847A5E",
+        "#893C15",
+        "#84874F"
+      ],
+      "websiteUrl": "https://webflow.grsm.io/landbook?type=templates&website=html&template=feelgood-therapy-website-template",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/61191-homepage-feel-good-webflow-ecommerce-website-template"
+    },
+    {
+      "id": "website_59480",
+      "name": "CMedical | Scandinavias leading holistic health concept for urology, gynecology and fertility.",
+      "description": "A creative portfolio showcase focused on health and wellness",
+      "image": "./data/images/e24857cb5bd03586-cmedical-no.webp",
+      "category": "Portfolio",
+      "tags": {
+        "style": [
+          "Claim this website",
+          "Parallax",
+          "People",
+          "Background Image",
+          "Pastel Colors"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "portfolio",
+          "PRO",
+          "Portfolio"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F1EBE9",
+          "#959F9B",
+          "#9E6A42",
+          "#1B100C",
+          "#C4BFBB",
+          "#814B29"
+        ]
+      },
+      "colors": [
+        "#F1EBE9",
+        "#959F9B",
+        "#9E6A42",
+        "#1B100C",
+        "#C4BFBB",
+        "#814B29",
+        "#6C7976",
+        "#71412B",
+        "#47AF58",
+        "#478959"
+      ],
+      "websiteUrl": "https://cmedical.no/en",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/59480-cmedical-scandinavias-leading-holistic-health-concept-for-urology-gynecology-and-fertility"
+    },
+    {
+      "id": "website_59741",
+      "name": "Atoms. The official Atomic Habits app",
+      "description": "A compelling landing page design for software and digital platforms",
+      "image": "./data/images/170beb567001bdaf-atoms-jamesclear-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "software",
+          "Claim this website"
+        ],
+        "industry": [],
+        "typography": [
+          "Serif",
+          "Sans Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F0EDE6",
+          "#2C2729",
+          "#211E1F",
+          "#C6C3C1",
+          "#53514F",
+          "#9E9B9C"
+        ]
+      },
+      "colors": [
+        "#F0EDE6",
+        "#2C2729",
+        "#211E1F",
+        "#C6C3C1",
+        "#53514F",
+        "#9E9B9C",
+        "#332E17",
+        "#F1E6CA",
+        "#241F08",
+        "#2F2336"
+      ],
+      "websiteUrl": "https://atoms.jamesclear.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/59741-atoms-the-official-atomic-habits-app"
+    },
+    {
+      "id": "website_59542",
+      "name": "Dropset - Gym tracker",
+      "description": "A modern website design",
+      "image": "./data/images/ebce72ba1b047e62-www-getdropset-app.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "professional",
+          "branded",
+          "Alexander Shvets",
+          "Big Type",
+          "Black & White"
+        ],
+        "industry": [
+          "Health & Fitness"
+        ],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#1A171D",
+          "#2E2B32",
+          "#545157",
+          "#E9E7EA",
+          "#777479",
+          "#C2C0C3"
+        ]
+      },
+      "colors": [
+        "#1A171D",
+        "#2E2B32",
+        "#545157",
+        "#E9E7EA",
+        "#777479",
+        "#C2C0C3",
+        "#9D9BA0"
+      ],
+      "websiteUrl": "https://www.getdropset.app/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/59542-dropset-gym-tracker"
+    },
+    {
+      "id": "website_59234",
+      "name": "Inner Vision Pro - listen to nature sounds, fall in love with the Earth",
+      "description": "A modern website design",
+      "image": "./data/images/38e51f1ac1651d27-innervision-pro.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "professional",
+          "branded",
+          "Catalin Zorzini",
+          "Big Type",
+          "Parallax",
+          "Black & White"
+        ],
+        "industry": [],
+        "typography": [
+          "Sans Serif"
+        ],
+        "type": [
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#0F0D0E",
+          "#777677",
+          "#9B9A9A",
+          "#F0F0EF",
+          "#E5B49A",
+          "#2A5C52"
+        ]
+      },
+      "colors": [
+        "#0F0D0E",
+        "#777677",
+        "#9B9A9A",
+        "#F0F0EF",
+        "#E5B49A",
+        "#2A5C52",
+        "#235A8F",
+        "#C9937E",
+        "#465A7C",
+        "#4179B0"
+      ],
+      "websiteUrl": "https://innervision.pro/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/59234-inner-vision-pro-listen-to-nature-sounds-fall-in-love-with-the-earth"
+    },
+    {
+      "id": "website_59069",
+      "name": "Eucalyptus | Digital Healthcare That Puts Patients First",
+      "description": "A compelling landing page design showcasing modern technology",
+      "image": "./data/images/9b0fc8deae067a5a-eucalyptus-vc.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "digital",
+          "healthtech",
+          "Claim this website",
+          "People",
+          "Background Video"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#EBE8E2",
+          "#CBC5BE",
+          "#3A342F",
+          "#56514A",
+          "#7B746D",
+          "#5F5139"
+        ]
+      },
+      "colors": [
+        "#EBE8E2",
+        "#CBC5BE",
+        "#3A342F",
+        "#56514A",
+        "#7B746D",
+        "#5F5139",
+        "#3F3925",
+        "#83715A",
+        "#CFBDAA",
+        "#AA9780"
+      ],
+      "websiteUrl": "https://eucalyptus.vc/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/59069-eucalyptus-digital-healthcare-that-puts-patients-first"
+    },
+    {
+      "id": "website_58897",
+      "name": "Fabric | Healthcare's Leading Care Enablement Platform",
+      "description": "A compelling landing page design for software and digital platforms",
+      "image": "./data/images/9b21a179ae1b8f7b-www-fabrichealth-com.webp",
+      "category": "Landing",
+      "tags": {
+        "style": [
+          "technology",
+          "software",
+          "healthtech",
+          "Claim this website",
+          "Animation"
+        ],
+        "industry": [
+          "health"
+        ],
+        "typography": [
+          "Serif"
+        ],
+        "type": [
+          "landing-page",
+          "PRO",
+          "Landing"
+        ],
+        "category": [],
+        "platform": [],
+        "colors": [
+          "#F4EDE8",
+          "#BAD1FB",
+          "#CADEFF",
+          "#F9C2B7",
+          "#D3CAC5",
+          "#869CBF"
+        ]
+      },
+      "colors": [
+        "#F4EDE8",
+        "#BAD1FB",
+        "#CADEFF",
+        "#F9C2B7",
+        "#D3CAC5",
+        "#869CBF",
+        "#687DA1",
+        "#FED0C6",
+        "#5A5854",
+        "#1B1814"
+      ],
+      "websiteUrl": "https://www.fabrichealth.com/",
+      "source": "land-book",
+      "sourceUrl": "https://land-book.com/websites/58897-fabric-healthcare-s-leading-care-enablement-platform"
+    }
+  ]
+}
