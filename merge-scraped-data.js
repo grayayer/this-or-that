@@ -116,15 +116,18 @@ class DataMerger {
 		// Process each scraped design
 		for (const scrapedDesign of scrapedData.designs) {
 			try {
+				// Update image path to reflect new location in data/images/
+				const processedDesign = this.updateImagePath(scrapedDesign);
+
 				if (existingDesigns.has(scrapedDesign.id)) {
 					// Update existing design
 					const existing = existingDesigns.get(scrapedDesign.id);
-					mainData.designs[existing.index] = this.mergeDesignData(existing.design, scrapedDesign);
+					mainData.designs[existing.index] = this.mergeDesignData(existing.design, processedDesign);
 					this.stats.updatedDesigns++;
 					console.log(`📝 Updated: ${scrapedDesign.id}`);
 				} else {
 					// Add new design
-					mainData.designs.push(scrapedDesign);
+					mainData.designs.push(processedDesign);
 					this.stats.newDesigns++;
 					console.log(`➕ Added: ${scrapedDesign.id}`);
 				}
@@ -139,6 +142,24 @@ class DataMerger {
 		mainData.metadata = this.updateMetadata(mainData.metadata, scrapedData.metadata);
 
 		return mainData;
+	}
+
+	/**
+	 * Update image path to reflect new location in data/images/
+	 */
+	updateImagePath(design) {
+		if (!design.image) {
+			return design;
+		}
+
+		// Extract just the filename from the image path
+		const filename = path.basename(design.image);
+
+		// Update the design with the new path
+		return {
+			...design,
+			image: `data/images/${filename}`
+		};
 	}
 
 	/**
