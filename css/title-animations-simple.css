@@ -1,0 +1,39 @@
+/* Simple Slide Animation - Alternative Approach */
+
+.header-main h1 {
+    position: relative;
+    overflow: hidden;
+    height: 1.2em;
+    line-height: 1.2;
+}
+
+/* Base styles */
+.this, .that {
+    position: absolute;
+    display: inline-block;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+/* Font families */
+.this-style1, .that-style1 { font-family: 'Courier New', monospace; }
+.this-style2, .that-style2 { font-family: 'Papyrus', fantasy; }
+.this-style3, .that-style3 { font-family: 'Impact', sans-serif; }
+.this-style4, .that-style4 { font-family: 'Comic Sans MS', cursive; }
+.this-style5, .that-style5 { font-family: 'Times New Roman', serif; }
+
+/* Hidden states */
+.this:not(.active) {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.that:not(.active) {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Active states */
+.this.active, .that.active {
+    transform: translateY(0);
+    opacity: 1;
+}

@@ -1,0 +1,254 @@
+/* Title Animation Styles - Flip Clock Effect */
+
+/* Screen reader only class for SEO H1 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Visual title container */
+.visual-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1em;
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    min-height: 3rem; /* Prevent layout shifts */
+	margin-bottom: .5rem;
+}
+
+/* Word containers */
+.word-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em;
+    min-width: 2.5em; /* Ensure consistent width */
+}
+
+.word-separator {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin: 0 0.2em;
+}
+.this {
+	text-align: right;
+}
+.that {
+	text-align: left;
+}
+/* Base styles for animated words */
+.this, .that {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+    opacity: 0;
+    transform: translateY(100%);
+    /* transition: none; Disable any existing transitions */
+    /* text-align: center; */
+}
+
+/* Show the first style initially */
+.this-style1, .that-style1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Font families for "This" - Modern/Tech fonts */
+.this-style1 { font-family: 'Courier New', 'Monaco', monospace; }
+.this-style2 { font-family: 'Impact', 'Arial Black', sans-serif; }
+.this-style3 { font-family: 'Helvetica Neue', 'Arial', sans-serif; }
+.this-style4 { font-family: 'Georgia', 'Times', serif; }
+.this-style5 { font-family: 'Trebuchet MS', 'Verdana', sans-serif; }
+
+/* Font families for "That" - Creative/Artistic fonts */
+.that-style1 { font-family: 'Papyrus', 'Bradley Hand', fantasy; }
+.that-style2 { font-family: 'Comic Sans MS', 'Marker Felt', cursive; }
+.that-style3 { font-family: 'Brush Script MT', 'Lucida Handwriting', cursive; }
+.that-style4 { font-family: 'Chalkduster', 'Trattatello', fantasy; }
+.that-style5 { font-family: 'American Typewriter', 'Courier', monospace; }
+
+/* Keyframes for "This" - slides down */
+@keyframes flipDown {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+    25% {
+        opacity: 1;
+        transform: translateY(0) rotateX(-90deg);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(100%) rotateX(-90deg);
+    }
+    51% {
+        opacity: 0;
+        transform: translateY(-100%) rotateX(90deg);
+    }
+    75% {
+        opacity: 1;
+        transform: translateY(0) rotateX(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* Keyframes for "That" - slides up */
+@keyframes flipUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+    25% {
+        opacity: 1;
+        transform: translateY(0) rotateX(90deg);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(-100%) rotateX(90deg);
+    }
+    51% {
+        opacity: 0;
+        transform: translateY(100%) rotateX(-90deg);
+    }
+    75% {
+        opacity: 1;
+        transform: translateY(0) rotateX(-90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* Animation classes */
+.this.animate {
+    animation: flipDown 0.8s ease-in-out infinite;
+}
+
+.that.animate {
+    animation: flipUp 0.8s ease-in-out infinite;
+    animation-delay: 0.4s; /* Stagger the animation */
+}
+
+/* Cycling through different font styles */
+.this-style1.animate { animation-delay: 0s; }
+.this-style2.animate { animation-delay: 1.6s; }
+.this-style3.animate { animation-delay: 3.2s; }
+.this-style4.animate { animation-delay: 4.8s; }
+.this-style5.animate { animation-delay: 6.4s; }
+
+.that-style1.animate { animation-delay: 0.4s; }
+.that-style2.animate { animation-delay: 2.0s; }
+.that-style3.animate { animation-delay: 3.6s; }
+.that-style4.animate { animation-delay: 5.2s; }
+.that-style5.animate { animation-delay: 6.8s; }
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+    .visual-title {
+        font-size: 2rem;
+        min-height: 2.5rem;
+    }
+
+    .word-container {
+        min-width: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .visual-title {
+        font-size: 1.5rem;
+        min-height: 2rem;
+        gap: 0.3em;
+    }
+
+    .word-container {
+        min-width: 1.8em;
+    }
+
+    .word-separator {
+        font-size: 0.9em;
+        margin: 0 0.1em;
+    }
+}
+
+/* Compact state when app starts */
+.visual-title.compact {
+    font-size: 1.5rem;
+    min-height: 2rem;
+    margin-bottom: 0;
+    transition: all 0.6s ease-in-out;
+}
+
+.visual-title.compact .word-container {
+    min-width: 2em;
+    height: 1em;
+}
+
+.visual-title.compact .word-separator {
+    font-size: 0.8em;
+}
+
+/* Freeze animations in compact mode */
+.visual-title.compact .this,
+.visual-title.compact .that {
+    transition: none;
+    animation: none !important;
+}
+
+/* Ensure stable positioning when frozen */
+.visual-title.compact .this:not(.active),
+.visual-title.compact .that:not(.active) {
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.visual-title.compact .this.active,
+.visual-title.compact .that.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive compact sizing */
+@media (max-width: 768px) {
+    .visual-title.compact {
+        font-size: 1.2rem;
+        min-height: 1.5rem;
+    }
+
+    .visual-title.compact .word-container {
+        min-width: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .visual-title.compact {
+        font-size: 1rem;
+        min-height: 1.2rem;
+        gap: 0.2em;
+    }
+
+    .visual-title.compact .word-container {
+        min-width: 1.3em;
+    }
+
+    .visual-title.compact .word-separator {
+        font-size: 0.9em;
+        margin: 0 0.1em;
+    }
+}
