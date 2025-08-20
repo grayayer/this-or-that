@@ -1,6 +1,56 @@
 # Apache configuration for iframe embedding
 # This file should be placed in the root directory of your website
 
+# MIME Type Configuration - Fix for strict MIME type checking
+<IfModule mod_mime.c>
+    # Force correct MIME types for CSS and JavaScript
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType text/javascript .js
+
+    # Ensure proper charset for text files
+    AddDefaultCharset UTF-8
+    AddCharset UTF-8 .css
+    AddCharset UTF-8 .js
+    AddCharset UTF-8 .html
+    AddCharset UTF-8 .htm
+
+    # Font MIME types
+    AddType font/woff .woff
+    AddType font/woff2 .woff2
+    AddType application/font-woff .woff
+    AddType application/font-woff2 .woff2
+    AddType font/ttf .ttf
+    AddType font/otf .otf
+    AddType application/font-sfnt .ttf .otf
+
+    # Image MIME types
+    AddType image/svg+xml .svg
+    AddType image/webp .webp
+    AddType image/png .png
+    AddType image/jpeg .jpg .jpeg
+    AddType image/gif .gif
+    AddType image/x-icon .ico
+
+    # Other common types
+    AddType application/json .json
+    AddType application/xml .xml
+    AddType text/plain .txt
+</IfModule>
+
+# Force MIME type headers for specific file types (SiteGround compatibility)
+<FilesMatch "\.css$">
+    Header always set Content-Type "text/css; charset=utf-8"
+</FilesMatch>
+
+<FilesMatch "\.js$">
+    Header always set Content-Type "application/javascript; charset=utf-8"
+</FilesMatch>
+
+<FilesMatch "\.json$">
+    Header always set Content-Type "application/json; charset=utf-8"
+</FilesMatch>
+
 # Allow iframe embedding from specified domains
 Header always set Content-Security-Policy "frame-ancestors 'self' https://stg-datahub-stage.kinsta.cloud https://datahub.com https://demo.datahub.com https://data.test https://studiok40.com http://localhost:8000/ https://localhost:8000/;"
 
