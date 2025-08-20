@@ -7,10 +7,13 @@ class TitleAnimator {
 	constructor() {
 		this.thisElements = document.querySelectorAll('.this');
 		this.thatElements = document.querySelectorAll('.that');
+		this.visualTitle = document.querySelector('.visual-title');
 		this.currentThisIndex = 0;
 		this.currentThatIndex = 0;
 		this.animationInterval = 2000; // 2 seconds between cycles
-		this.isAnimating = false;
+		this.isAnimating = true;
+		this.animationTimeoutId = null;
+		this.activeTimeouts = []; // Track all active timeouts
 
 		this.init();
 	}
@@ -39,16 +42,22 @@ class TitleAnimator {
 	}
 
 	startAnimationCycle() {
+		if (!this.isAnimating) return;
+
 		this.animateThis();
 
 		// Start "that" animation with delay
-		setTimeout(() => {
+		const thatTimeout = setTimeout(() => {
+			if (!this.isAnimating) return;
 			this.animateThat();
 		}, 400); // 400ms delay for staggered effect
+		this.activeTimeouts.push(thatTimeout);
 
 		// Schedule next cycle
-		setTimeout(() => {
-			this.startAnimationCycle();
+		this.animationTimeoutId = setTimeout(() => {
+			if (this.isAnimating) {
+				this.startAnimationCycle();
+			}
 		}, this.animationInterval);
 	}
 
@@ -68,11 +77,13 @@ class TitleAnimator {
 		nextElement.style.opacity = '0';
 
 		// Animate next element in (slide down into position)
-		setTimeout(() => {
+		const thisTimeout = setTimeout(() => {
+			if (!this.isAnimating) return;
 			nextElement.style.transition = 'transform 0.4s ease-in-out, opacity 0.4s ease-in-out';
 			nextElement.style.transform = 'translateY(0)';
 			nextElement.style.opacity = '1';
 		}, 50);
+		this.activeTimeouts.push(thisTimeout);
 
 		this.currentThisIndex = nextIndex;
 	}
@@ -93,11 +104,13 @@ class TitleAnimator {
 		nextElement.style.opacity = '0';
 
 		// Animate next element in (slide up into position)
-		setTimeout(() => {
+		const thatTimeout = setTimeout(() => {
+			if (!this.isAnimating) return;
 			nextElement.style.transition = 'transform 0.4s ease-in-out, opacity 0.4s ease-in-out';
 			nextElement.style.transform = 'translateY(0)';
 			nextElement.style.opacity = '1';
 		}, 50);
+		this.activeTimeouts.push(thatTimeout);
 
 		this.currentThatIndex = nextIndex;
 	}
@@ -105,6 +118,18 @@ class TitleAnimator {
 	// Method to pause/resume animations
 	pause() {
 		this.isAnimating = false;
+
+		// Clear main animation timeout
+		if (this.animationTimeoutId) {
+			clearTimeout(this.animationTimeoutId);
+			this.animationTimeoutId = null;
+		}
+
+		// Clear all active timeouts
+		this.activeTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+		this.activeTimeouts = [];
+
+		console.log('Animation paused - all timeouts cleared');
 	}
 
 	resume() {
@@ -112,6 +137,67 @@ class TitleAnimator {
 			this.isAnimating = true;
 			this.startAnimationCycle();
 		}
+	}
+
+	// Method to freeze and compact the title
+	freezeAndCompact() {
+		console.log('Freezing title animation at:', this.currentThisIndex, this.currentThatIndex);
+		this.pause();
+
+		// Clear all inline styles and set up frozen state
+		this.thisElements.forEach((el, index) => {
+			// Clear inline styles that might conflict
+			el.style.transition = '';
+			el.style.transform = '';
+			el.style.opacity = '';
+			el.style.zIndex = '';
+
+			if (index === this.currentThisIndex) {
+				el.classList.add('frozen-active');
+				console.log('Added frozen-active to this element:', el.className);
+			} else {
+				el.classList.remove('frozen-active');
+			}
+		});
+
+		this.thatElements.forEach((el, index) => {
+			// Clear inline styles that might conflict
+			el.style.transition = '';
+			el.style.transform = '';
+			el.style.opacity = '';
+			el.style.zIndex = '';
+
+			if (index === this.currentThatIndex) {
+				el.classList.add('frozen-active');
+				console.log('Added frozen-active to that element:', el.className);
+			} else {
+				el.classList.remove('frozen-active');
+			}
+		});
+
+		// Add frozen class to visual title for CSS targeting
+		if (this.visualTitle) {
+			this.visualTitle.classList.add('frozen');
+		}
+
+		// The existing app system will handle adding .app-header.compact and .header-compact classes
+		// Our CSS is now set up to respond to those classes
+	}
+
+	// Method to expand and resume animations
+	expandAndResume() {
+		// Remove frozen classes
+		if (this.visualTitle) {
+			this.visualTitle.classList.remove('frozen');
+		}
+
+		this.thisElements.forEach(el => el.classList.remove('frozen-active'));
+		this.thatElements.forEach(el => el.classList.remove('frozen-active'));
+
+		// Resume animations after transition
+		setTimeout(() => {
+			this.resume();
+		}, 600); // Wait for CSS transition to complete
 	}
 }
 
@@ -123,10 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	}, 500);
 });
 
-// Pause animations when user starts interacting with the app
+// Freeze and compact animations when user starts interacting with the app
 document.addEventListener('click', (e) => {
 	console.log('Click detected on:', e.target.id);
 	if (e.target.id === 'start-app-btn' && window.titleAnimator) {
-		window.titleAnimator.pause();
+		window.titleAnimator.freezeAndCompact();
 	}
 });
