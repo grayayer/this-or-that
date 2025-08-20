@@ -1,0 +1,473 @@
+/* Gated Demo Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow: hidden;
+	font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.02rem;
+}
+
+p {
+	font-weight: 445;
+    margin-bottom: var(--global-md-spacing, 2rem);
+}
+
+/* Full-screen iframe container */
+.app-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.app-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Modal overlay system */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Blur effect for the background app */
+.app-container.blurred .app-iframe {
+    filter: blur(4px);
+    transform: scale(1.02);
+}
+
+/* Modal content */
+.modal-content {
+    /* background: linear-gradient(135deg, #1e293b 0%, #334155 100%); */
+	background: linear-gradient(180deg,rgb(20,21,25) 0%,rgb(55,58,71) 92%);
+    color: white;
+    border-radius: 16px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    max-width: 1200px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    padding: 2rem 2rem 0 32px;
+    text-align: center;
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+.modal-header h1 {
+    color: white;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.modal-header .subtitle {
+    color: #dee5ee;
+    font-size: 1.75rem;
+    line-height: 1.4;
+    font-weight: 350;
+    margin-bottom: 0;
+    letter-spacing: .6px;
+}
+
+.modal-body {
+    padding: 0;
+    display: flex;
+    min-height: 500px;
+}
+
+/* Two-column layout */
+.content-section {
+    flex: 1;
+    padding: 2rem 2rem 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-section {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    /* border-left: 1px solid rgba(255, 255, 255, 0.1); */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+	margin: 2rem;
+    border-radius: 16px;
+}
+
+/* Content styling */
+.content-section h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    line-height: 1.4;
+}
+
+.content-section ul {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.content-section li {
+    color: #dee5ee;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    padding-left: 24px;
+    position: relative;
+}
+
+.content-section li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* .content-section .closing-text {
+    color: #94a3b8;
+    font-size: 16px;
+    line-height: 1.6;
+} */
+
+/* HubSpot form container */
+.hubspot-form-container {
+    min-height: 200px;
+}
+
+/* Loading state for form */
+.form-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: #6b7280;
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 12px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success message */
+.success-message {
+    text-align: center;
+    padding: 2rem 24px;
+    display: none;
+    position: relative;
+}
+
+.success-message .success-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.success-message h3 {
+    color: #10b981;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.success-message p {
+    color: #cbd5e1;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.success-message .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+}
+
+.success-message .close-button:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Error message */
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+/* Footer */
+.modal-footer {
+    padding: 16px 24px 24px;
+    text-align: center;
+    font-size: 14px;
+    color: #FFF;
+}
+
+.modal-footer p {
+    margin-bottom: 0;
+}
+
+.modal-footer a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.modal-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .modal-body {
+        flex-direction: column;
+    }
+
+    .form-section {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-header h1 {
+        font-size: 36px;
+    }
+
+    .modal-header .subtitle {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .modal-header {
+        padding: 30px 30px 24px;
+    }
+
+    .modal-header h1 {
+        font-size: 28px;
+    }
+
+    .modal-header .subtitle {
+        font-size: 16px;
+    }
+
+    .content-section,
+    .form-section {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-header {
+        padding: 20px 20px 16px;
+    }
+
+    .modal-header h1 {
+        font-size: 24px;
+    }
+
+    .modal-header .subtitle {
+        font-size: 14px;
+    }
+
+    .content-section,
+    .form-section {
+        padding: 20px;
+    }
+}
+
+/* Custom HubSpot form styling */
+.hs-form {
+    font-family: inherit !important;
+}
+
+.hs-form .hs-form-field {
+    margin-bottom: 16px !important;
+}
+
+.hs-form .hs-form-field label {
+    color: white !important;
+    font-weight: 500 !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+}
+
+.hs-form .hs-input {
+    width: 100% !important;
+    background-color: #f5f8fa !important;
+    box-sizing: border-box !important;
+    padding: 0 15px !important;
+    min-height: 27px !important;
+    border-radius: 15px !important;
+    border: none !important;
+    font-size: 16px !important;
+    transition: background-color 0.2s ease !important;
+    color: #333 !important;
+}
+
+.hs-form .hs-input::placeholder {
+    color: #94a3b8 !important;
+}
+
+.hs-form .hs-input:focus {
+    outline: none !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+.hs-form .hs-button {
+    background: #1890ff !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+    width: 100% !important;
+}
+
+.hs-form .hs-button:hover {
+    background: #0066cc !important;
+}
+
+/* Placeholder form styling */
+#demo-access-form {
+    max-width: 100%;
+}
+
+#demo-access-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: white;
+    font-size: 14px;
+}
+
+#demo-access-form input {
+    width: 100%;
+    background-color: #f5f8fa;
+    box-sizing: border-box;
+    padding: 0 15px;
+    min-height: 27px;
+    border-radius: 15px;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.2s ease;
+    margin-bottom: 16px;
+}
+
+#demo-access-form input::placeholder {
+    color: #94a3b8;
+}
+
+#demo-access-form input:focus {
+    outline: none;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+#demo-access-form button {
+    width: 100%;
+    background: #1890ff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 8px;
+}
+
+#demo-access-form button:hover {
+    background: #0066cc;
+}
+
+#demo-access-form button:active {
+    transform: translateY(1px);
+}

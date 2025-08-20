@@ -2,7 +2,7 @@
 # This file should be placed in the root directory of your website
 
 # Allow iframe embedding from specified domains
-Header always set Content-Security-Policy "frame-ancestors 'self' https://stg-datahub-stage.kinsta.cloud https://datahub.com https://demo.datahub.com https://data.test https://studiok40.com;"
+Header always set Content-Security-Policy "frame-ancestors 'self' https://stg-datahub-stage.kinsta.cloud https://datahub.com https://demo.datahub.com https://data.test https://studiok40.com http://localhost:8000/ https://localhost:8000/;"
 
 # Alternative X-Frame-Options header (fallback for older browsers)
 Header always set X-Frame-Options "ALLOW-FROM https://stg-datahub-stage.kinsta.cloud"
