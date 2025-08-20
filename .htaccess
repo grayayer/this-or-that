@@ -39,17 +39,42 @@
 </IfModule>
 
 # Force MIME type headers for specific file types (SiteGround compatibility)
-<FilesMatch "\.css$">
-    Header always set Content-Type "text/css; charset=utf-8"
-</FilesMatch>
+<IfModule mod_headers.c>
+    <FilesMatch "\.css$">
+        Header always set Content-Type "text/css; charset=utf-8"
+        Header always unset X-Content-Type-Options
+        Header always set X-Content-Type-Options "nosniff"
+    </FilesMatch>
 
-<FilesMatch "\.js$">
-    Header always set Content-Type "application/javascript; charset=utf-8"
-</FilesMatch>
+    <FilesMatch "\.js$">
+        Header always set Content-Type "application/javascript; charset=utf-8"
+        Header always unset X-Content-Type-Options
+        Header always set X-Content-Type-Options "nosniff"
+    </FilesMatch>
 
-<FilesMatch "\.json$">
-    Header always set Content-Type "application/json; charset=utf-8"
-</FilesMatch>
+    <FilesMatch "\.json$">
+        Header always set Content-Type "application/json; charset=utf-8"
+    </FilesMatch>
+</IfModule>
+
+# Specific file overrides for problematic files
+<Files "title-animations.css">
+    <IfModule mod_headers.c>
+        Header always set Content-Type "text/css; charset=utf-8"
+    </IfModule>
+    <IfModule mod_mime.c>
+        ForceType text/css
+    </IfModule>
+</Files>
+
+<Files "title-animations.js">
+    <IfModule mod_headers.c>
+        Header always set Content-Type "application/javascript; charset=utf-8"
+    </IfModule>
+    <IfModule mod_mime.c>
+        ForceType application/javascript
+    </IfModule>
+</Files>
 
 # Allow iframe embedding from specified domains
 Header always set Content-Security-Policy "frame-ancestors 'self' https://stg-datahub-stage.kinsta.cloud https://datahub.com https://demo.datahub.com https://data.test https://studiok40.com http://localhost:8000/ https://localhost:8000/;"
