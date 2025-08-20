@@ -79,84 +79,9 @@
 .that-style4 { font-family: 'Chalkduster', 'Trattatello', fantasy; }
 .that-style5 { font-family: 'American Typewriter', 'Courier', monospace; }
 
-/* Keyframes for "This" - slides down */
-@keyframes flipDown {
-    0% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg);
-    }
-    25% {
-        opacity: 1;
-        transform: translateY(0) rotateX(-90deg);
-    }
-    50% {
-        opacity: 0;
-        transform: translateY(100%) rotateX(-90deg);
-    }
-    51% {
-        opacity: 0;
-        transform: translateY(-100%) rotateX(90deg);
-    }
-    75% {
-        opacity: 1;
-        transform: translateY(0) rotateX(90deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg);
-    }
-}
+/* Keyframes - UNUSED (JavaScript handles animations with inline styles) */
 
-/* Keyframes for "That" - slides up */
-@keyframes flipUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg);
-    }
-    25% {
-        opacity: 1;
-        transform: translateY(0) rotateX(90deg);
-    }
-    50% {
-        opacity: 0;
-        transform: translateY(-100%) rotateX(90deg);
-    }
-    51% {
-        opacity: 0;
-        transform: translateY(100%) rotateX(-90deg);
-    }
-    75% {
-        opacity: 1;
-        transform: translateY(0) rotateX(-90deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) rotateX(0deg);
-    }
-}
-
-/* Animation classes */
-.this.animate {
-    animation: flipDown 0.8s ease-in-out infinite;
-}
-
-.that.animate {
-    animation: flipUp 0.8s ease-in-out infinite;
-    animation-delay: 0.4s; /* Stagger the animation */
-}
-
-/* Cycling through different font styles */
-.this-style1.animate { animation-delay: 0s; }
-.this-style2.animate { animation-delay: 1.6s; }
-.this-style3.animate { animation-delay: 3.2s; }
-.this-style4.animate { animation-delay: 4.8s; }
-.this-style5.animate { animation-delay: 6.4s; }
-
-.that-style1.animate { animation-delay: 0.4s; }
-.that-style2.animate { animation-delay: 2.0s; }
-.that-style3.animate { animation-delay: 3.6s; }
-.that-style4.animate { animation-delay: 5.2s; }
-.that-style5.animate { animation-delay: 6.8s; }
+/* Animation classes - UNUSED (JavaScript handles animations with inline styles) */
 
 /* Responsive sizing */
 @media (max-width: 768px) {
@@ -187,67 +112,79 @@
     }
 }
 
-/* Compact state when app starts */
-.visual-title.compact {
+/* Compact state when app starts - integrate with existing system */
+.app-header.compact .visual-title,
+.header-compact .visual-title {
     font-size: 1.5rem;
     min-height: 2rem;
     margin-bottom: 0;
     transition: all 0.6s ease-in-out;
 }
 
-.visual-title.compact .word-container {
+.app-header.compact .visual-title .word-container,
+.header-compact .visual-title .word-container {
     min-width: 2em;
     height: 1em;
 }
 
-.visual-title.compact .word-separator {
+.app-header.compact .visual-title .word-separator,
+.header-compact .visual-title .word-separator {
     font-size: 0.8em;
 }
 
-/* Freeze animations in compact mode */
-.visual-title.compact .this,
-.visual-title.compact .that {
-    transition: none;
+/* Freeze animations when frozen class is applied */
+.visual-title.frozen .this,
+.visual-title.frozen .that,
+.app-header.compact .visual-title .this,
+.app-header.compact .visual-title .that,
+.header-compact .visual-title .this,
+.header-compact .visual-title .that {
+    transition: none !important;
     animation: none !important;
 }
 
-/* Ensure stable positioning when frozen */
-.visual-title.compact .this:not(.active),
-.visual-title.compact .that:not(.active) {
-    opacity: 0;
-    transform: translateY(100%);
+/* Ensure stable positioning ONLY when frozen */
+.visual-title.frozen .this:not(.frozen-active),
+.visual-title.frozen .that:not(.frozen-active) {
+    opacity: 0 !important;
+    transform: translateY(100%) !important;
 }
 
-.visual-title.compact .this.active,
-.visual-title.compact .that.active {
-    opacity: 1;
-    transform: translateY(0);
+.visual-title.frozen .this.frozen-active,
+.visual-title.frozen .that.frozen-active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 /* Responsive compact sizing */
 @media (max-width: 768px) {
-    .visual-title.compact {
+    .app-header.compact .visual-title,
+    .header-compact .visual-title {
         font-size: 1.2rem;
         min-height: 1.5rem;
     }
 
-    .visual-title.compact .word-container {
+    .app-header.compact .visual-title .word-container,
+    .header-compact .visual-title .word-container {
         min-width: 1.5em;
     }
 }
 
 @media (max-width: 480px) {
-    .visual-title.compact {
+    .app-header.compact .visual-title,
+    .header-compact .visual-title {
         font-size: 1rem;
         min-height: 1.2rem;
         gap: 0.2em;
     }
 
-    .visual-title.compact .word-container {
+    .app-header.compact .visual-title .word-container,
+    .header-compact .visual-title .word-container {
         min-width: 1.3em;
     }
 
-    .visual-title.compact .word-separator {
+    .app-header.compact .visual-title .word-separator,
+    .header-compact .visual-title .word-separator {
         font-size: 0.9em;
         margin: 0 0.1em;
     }
