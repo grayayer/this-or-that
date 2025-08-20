@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Development: Disable SiteGround Dynamic Caching - REMOVE FOR PRODUCTION -->
 	<meta http-equiv="cache-control" content="no-cache">
+	<!-- Allow iframe embedding from specified domains -->
+	<meta http-equiv="Content-Security-Policy"
+		content="frame-ancestors 'self' https://stg-datahub-stage.kinsta.cloud https://datahub.com https://demo.datahub.com https://data.test https://studiok40.com;">
 	<title>This or That? - Design Preference Discovery</title>
 	<meta name="description"
 		content="Discover your design preferences through quick binary choices between web design screenshots">
@@ -361,7 +364,7 @@
 	<footer class="app-footer">
 		<p>Design images courtesy of <a href="https://land-book.com" target="_blank" rel="noopener">Land-book.com</a>
 		</p>
-		<p>This or That v0.9.0 • Built by <a href="https://studiok40.com" target="_blank" rel="noopener">Gray Ayer</a>
+		<p>This or That v0.9.1 • Built by <a href="https://studiok40.com" target="_blank" rel="noopener">Gray Ayer</a>
 		</p>
 	</footer>
 

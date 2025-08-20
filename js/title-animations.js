@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Pause animations when user starts interacting with the app
 document.addEventListener('click', (e) => {
+	console.log('Click detected on:', e.target.id);
 	if (e.target.id === 'start-app-btn' && window.titleAnimator) {
 		window.titleAnimator.pause();
 	}

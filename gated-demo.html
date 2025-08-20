@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>This or That - Demo Access</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body,
+		html {
+			height: 100%;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			overflow: hidden;
+		}
+
+		/* Full-screen iframe container */
+		.app-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+		}
+
+		.app-iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+			transition: filter 0.3s ease, transform 0.3s ease;
+		}
+
+		/* Modal overlay system */
+		.modal-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.7);
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 1;
+			transition: opacity 0.3s ease;
+		}
+
+		.modal-overlay.hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		/* Blur effect for the background app */
+		.app-container.blurred .app-iframe {
+			filter: blur(4px);
+			transform: scale(1.02);
+		}
+
+		/* Modal content */
+		.modal-content {
+			background: white;
+			border-radius: 12px;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			max-width: 500px;
+			width: 90%;
+			max-height: 90vh;
+			overflow-y: auto;
+			position: relative;
+			animation: modalSlideIn 0.3s ease-out;
+		}
+
+		@keyframes modalSlideIn {
+			from {
+				opacity: 0;
+				transform: translateY(-20px) scale(0.95);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+		}
+
+		.modal-header {
+			padding: 24px 24px 16px;
+			text-align: center;
+			border-bottom: 1px solid #e5e7eb;
+		}
+
+		.modal-header h2 {
+			color: #1f2937;
+			font-size: 24px;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+
+		.modal-header p {
+			color: #6b7280;
+			font-size: 16px;
+			line-height: 1.5;
+		}
+
+		.modal-body {
+			padding: 24px;
+		}
+
+		/* HubSpot form container */
+		.hubspot-form-container {
+			min-height: 200px;
+		}
+
+		/* Loading state for form */
+		.form-loading {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 200px;
+			color: #6b7280;
+		}
+
+		.loading-spinner {
+			width: 24px;
+			height: 24px;
+			border: 2px solid #e5e7eb;
+			border-top: 2px solid #3b82f6;
+			border-radius: 50%;
+			animation: spin 1s linear infinite;
+			margin-right: 12px;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		/* Success message */
+		.success-message {
+			text-align: center;
+			padding: 40px 24px;
+			display: none;
+		}
+
+		.success-message .success-icon {
+			font-size: 48px;
+			margin-bottom: 16px;
+		}
+
+		.success-message h3 {
+			color: #059669;
+			font-size: 20px;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+
+		.success-message p {
+			color: #6b7280;
+			font-size: 16px;
+			line-height: 1.5;
+		}
+
+		/* Error message */
+		.error-message {
+			background: #fef2f2;
+			border: 1px solid #fecaca;
+			color: #dc2626;
+			padding: 12px 16px;
+			border-radius: 8px;
+			margin-bottom: 16px;
+			display: none;
+		}
+
+		/* Footer */
+		.modal-footer {
+			padding: 16px 24px 24px;
+			text-align: center;
+			font-size: 14px;
+			color: #6b7280;
+		}
+
+		.modal-footer a {
+			color: #3b82f6;
+			text-decoration: none;
+		}
+
+		.modal-footer a:hover {
+			text-decoration: underline;
+		}
+
+		/* Responsive design */
+		@media (max-width: 640px) {
+			.modal-content {
+				width: 95%;
+				margin: 20px;
+			}
+
+			.modal-header {
+				padding: 20px 20px 16px;
+			}
+
+			.modal-header h2 {
+				font-size: 20px;
+			}
+
+			.modal-body {
+				padding: 20px;
+			}
+		}
+
+		/* Custom HubSpot form styling */
+		.hs-form {
+			font-family: inherit !important;
+		}
+
+		.hs-form .hs-form-field {
+			margin-bottom: 16px !important;
+		}
+
+		.hs-form .hs-form-field label {
+			color: #374151 !important;
+			font-weight: 500 !important;
+			margin-bottom: 6px !important;
+			display: block !important;
+		}
+
+		.hs-form .hs-input {
+			width: 100% !important;
+			padding: 12px 16px !important;
+			border: 1px solid #d1d5db !important;
+			border-radius: 8px !important;
+			font-size: 16px !important;
+			transition: border-color 0.2s ease !important;
+		}
+
+		.hs-form .hs-input:focus {
+			outline: none !important;
+			border-color: #3b82f6 !important;
+			box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+		}
+
+		.hs-form .hs-button {
+			background: #3b82f6 !important;
+			color: white !important;
+			border: none !important;
+			padding: 12px 24px !important;
+			border-radius: 8px !important;
+			font-size: 16px !important;
+			font-weight: 600 !important;
+			cursor: pointer !important;
+			transition: background-color 0.2s ease !important;
+			width: 100% !important;
+		}
+
+		.hs-form .hs-button:hover {
+			background: #2563eb !important;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Full-screen app container -->
+	<div class="app-container" id="app-container">
+		<iframe src="index.html" class="app-iframe" id="app-iframe" title="This or That - Design Preference Discovery"
+			allow="fullscreen">
+		</iframe>
+	</div>
+
+	<!-- Modal overlay -->
+	<div class="modal-overlay" id="modal-overlay">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Access Demo</h2>
+				<p>Please fill out this quick form to access the This or That demo and discover your design preferences.
+				</p>
+			</div>
+
+			<div class="modal-body">
+				<div class="error-message" id="error-message"></div>
+
+				<!-- HubSpot form will be loaded here -->
+				<div class="hubspot-form-container" id="hubspot-form-container">
+					<div class="form-loading" id="form-loading">
+						<div class="loading-spinner"></div>
+						Loading form...
+					</div>
+				</div>
+
+				<!-- Success message (hidden by default) -->
+				<div class="success-message" id="success-message">
+					<div class="success-icon">✅</div>
+					<h3>Thank you!</h3>
+					<p>Your form has been submitted successfully. You now have access to the demo for the next 3 months.
+					</p>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<p>Powered by <a href="https://studiok40.com" target="_blank">Studio K40</a></p>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Cookie management utilities
+		const CookieManager = {
+			set: function (name, value, days) {
+				const expires = new Date();
+				expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+				document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Strict`;
+			},
+
+			get: function (name) {
+				const nameEQ = name + "=";
+				const ca = document.cookie.split(';');
+				for (let i = 0; i < ca.length; i++) {
+					let c = ca[i];
+					while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+					if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+				}
+				return null;
+			},
+
+			delete: function (name) {
+				document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+			}
+		};
+
+		// Demo access management
+		const DemoAccess = {
+			COOKIE_NAME: 'thisorthat_demo_access',
+			ACCESS_DURATION_DAYS: 90, // 3 months
+
+			hasAccess: function () {
+				const accessToken = CookieManager.get(this.COOKIE_NAME);
+				return accessToken === 'granted';
+			},
+
+			grantAccess: function () {
+				CookieManager.set(this.COOKIE_NAME, 'granted', this.ACCESS_DURATION_DAYS);
+				console.log('Demo access granted for 90 days');
+			},
+
+			revokeAccess: function () {
+				CookieManager.delete(this.COOKIE_NAME);
+				console.log('Demo access revoked');
+			}
+		};
+
+		// Modal management
+		const ModalManager = {
+			overlay: null,
+			appContainer: null,
+
+			init: function () {
+				this.overlay = document.getElementById('modal-overlay');
+				this.appContainer = document.getElementById('app-container');
+			},
+
+			show: function () {
+				this.overlay.classList.remove('hidden');
+				this.appContainer.classList.add('blurred');
+				document.body.style.overflow = 'hidden';
+			},
+
+			hide: function () {
+				this.overlay.classList.add('hidden');
+				this.appContainer.classList.remove('blurred');
+				document.body.style.overflow = 'auto';
+
+				// Small delay to ensure smooth transition
+				setTimeout(() => {
+					if (this.overlay.classList.contains('hidden')) {
+						this.overlay.style.display = 'none';
+					}
+				}, 300);
+			}
+		};
+
+		// HubSpot form management
+		const HubSpotForm = {
+			portalId: '14552909', // Replace with your HubSpot portal ID
+			formId: '25a1a159-d973-4d26-bdf6-64d86a08aaa4',     // Replace with your HubSpot form ID
+
+			load: function () {
+				// Hide loading spinner
+				document.getElementById('form-loading').style.display = 'none';
+
+				// TODO: Replace this with actual HubSpot form embed code
+				// For now, we'll create a placeholder form
+				this.createPlaceholderForm();
+
+				// Uncomment and configure when you have HubSpot details:
+				/*
+				hbspt.forms.create({
+					region: "na1", // or your region
+					portalId: this.portalId,
+					formId: this.formId,
+					target: '#hubspot-form-container',
+					onFormSubmit: function($form) {
+						console.log('Form submitted');
+					},
+					onFormReady: function($form) {
+						console.log('Form ready');
+						document.getElementById('form-loading').style.display = 'none';
+					},
+					onFormSubmitted: function($form) {
+						console.log('Form submission successful');
+						HubSpotForm.handleSuccess();
+					}
+				});
+				*/
+			},
+
+			createPlaceholderForm: function () {
+				const container = document.getElementById('hubspot-form-container');
+				container.innerHTML = `
+                    <form id="demo-access-form" style="max-width: 100%;">
+                        <div style="margin-bottom: 16px;">
+                            <label for="firstName" style="display: block; margin-bottom: 6px; font-weight: 500; color: #374151;">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required
+                                   style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px;">
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <label for="lastName" style="display: block; margin-bottom: 6px; font-weight: 500; color: #374151;">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required
+                                   style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px;">
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <label for="email" style="display: block; margin-bottom: 6px; font-weight: 500; color: #374151;">Email Address *</label>
+                            <input type="email" id="email" name="email" required
+                                   style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px;">
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <label for="company" style="display: block; margin-bottom: 6px; font-weight: 500; color: #374151;">Company</label>
+                            <input type="text" id="company" name="company"
+                                   style="width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px;">
+                        </div>
+
+                        <button type="submit"
+                                style="width: 100%; background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease;">
+                            Access Demo
+                        </button>
+                    </form>
+                `;
+
+				// Add form submission handler
+				document.getElementById('demo-access-form').addEventListener('submit', (e) => {
+					e.preventDefault();
+					this.handleFormSubmission(e.target);
+				});
+			},
+
+			handleFormSubmission: function (form) {
+				// Get form data
+				const formData = new FormData(form);
+				const data = Object.fromEntries(formData);
+
+				// Validate required fields
+				if (!data.firstName || !data.lastName || !data.email) {
+					this.showError('Please fill in all required fields.');
+					return;
+				}
+
+				// Validate email format
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				if (!emailRegex.test(data.email)) {
+					this.showError('Please enter a valid email address.');
+					return;
+				}
+
+				// Simulate form submission (replace with actual HubSpot submission)
+				console.log('Form data:', data);
+
+				// TODO: Send data to HubSpot or your backend
+				// For now, we'll simulate success after a short delay
+				setTimeout(() => {
+					this.handleSuccess();
+				}, 1000);
+			},
+
+			handleSuccess: function () {
+				// Grant demo access
+				DemoAccess.grantAccess();
+
+				// Show success message
+				document.getElementById('hubspot-form-container').style.display = 'none';
+				document.getElementById('success-message').style.display = 'block';
+
+				// Hide modal after 2 seconds
+				setTimeout(() => {
+					ModalManager.hide();
+				}, 2000);
+			},
+
+			showError: function (message) {
+				const errorElement = document.getElementById('error-message');
+				errorElement.textContent = message;
+				errorElement.style.display = 'block';
+
+				// Hide error after 5 seconds
+				setTimeout(() => {
+					errorElement.style.display = 'none';
+				}, 5000);
+			}
+		};
+
+		// Application initialization
+		document.addEventListener('DOMContentLoaded', function () {
+			console.log('Initializing gated demo...');
+
+			// Initialize modal manager
+			ModalManager.init();
+
+			// Check if user already has access
+			if (DemoAccess.hasAccess()) {
+				console.log('User has existing demo access');
+				ModalManager.hide();
+			} else {
+				console.log('User needs to complete form for demo access');
+				ModalManager.show();
+
+				// Load HubSpot form
+				HubSpotForm.load();
+			}
+		});
+
+		// Load HubSpot script (uncomment when you have HubSpot details)
+		/*
+		(function() {
+			const script = document.createElement('script');
+			script.src = 'https://js.hsforms.net/forms/v2.js';
+			script.async = true;
+			script.onload = function() {
+				console.log('HubSpot forms script loaded');
+			};
+			document.head.appendChild(script);
+		})();
+		*/
+
+		// Debug functions (remove in production)
+		window.debugDemoAccess = {
+			grant: () => DemoAccess.grantAccess(),
+			revoke: () => DemoAccess.revokeAccess(),
+			check: () => console.log('Has access:', DemoAccess.hasAccess()),
+			showModal: () => ModalManager.show(),
+			hideModal: () => ModalManager.hide()
+		};
+	</script>
+</body>
+
+</html>
