@@ -5,6 +5,29 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.7.1] - 2025-08-27
+
+### Added
+
+- **Mobile Screen Size Notice**: Added minimum screen size requirement notice for devices smaller than 768px
+- **Pure CSS Implementation**: Uses CSS media queries for optimal performance without JavaScript overhead
+- **Responsive Design**: Notice adapts to mobile screen sizes with clean modal-style presentation
+- **Professional UI**: Clean overlay notice with clear messaging about optimal screen sizes
+
+### Enhanced
+
+- **User Experience**: Better guidance for optimal app usage on appropriate screen sizes
+- **Performance**: Pure CSS implementation eliminates JavaScript overhead and localStorage management
+- **Accessibility**: Clear messaging about recommended screen sizes for best experience
+- **Mobile Optimization**: Maintains mobile functionality while encouraging larger screen usage
+
+### Technical
+
+- **CSS Media Queries**: Pure CSS implementation using `@media (max-width: 767px)` for notice display
+- **No JavaScript Required**: Eliminates complexity of screen size detection and user preference storage
+- **Automatic Display**: Notice automatically shows/hides based on viewport width
+- **Clean Implementation**: Simplified approach with better performance and maintainability
+
 ## [0.8.4] - 2025-08-14
 
 ### Fixed
