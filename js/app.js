@@ -685,6 +685,9 @@ function displayImagePair(pair) {
 	// Set up second image
 	setupImageElement(image2Element, pair[1], option2Element);
 
+	// Reset hover states to prevent touch device issues
+	resetHoverStates();
+
 	// Show selection section and hide loading
 	showSelectionSection();
 }
@@ -2477,4 +2480,31 @@ function showOfflineNotification() {
 			notification.remove();
 		}
 	}, 10000);
+}
+/**
+ *
+Reset hover states to prevent touch device issues
+ * This clears any persistent hover states that can occur on touch devices
+ */
+function resetHoverStates() {
+	// Remove hover-active class from all image options
+	const imageOptions = document.querySelectorAll('.image-option');
+	imageOptions.forEach(option => {
+		option.classList.remove('hover-active');
+		// Force a reflow to ensure hover states are cleared
+		option.offsetHeight;
+	});
+
+	// Clear any active touch states
+	const touchActiveElements = document.querySelectorAll('.touch-active');
+	touchActiveElements.forEach(element => {
+		element.classList.remove('touch-active');
+	});
+
+	// For touch devices, blur any focused elements to clear hover states
+	if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+		if (document.activeElement && document.activeElement.blur) {
+			document.activeElement.blur();
+		}
+	}
 }

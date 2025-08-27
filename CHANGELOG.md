@@ -5,6 +5,30 @@ All notable changes to the This or That application will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.7.2] - 2025-08-27
+
+### Fixed
+
+- **Touch Device Hover Issues**: Fixed persistent blue overlay on tablets after tapping choices
+- **Smart Touch Detection**: Uses CSS `@media (hover: none)` and `@media (pointer: coarse)` to detect touch devices
+- **Outline-Based Selection**: Touch devices now use blue outlines instead of overlays for better UX
+- **Hover State Reset**: Added `resetHoverStates()` function to clear persistent hover states between image pairs
+- **Tablet Optimization**: Enhanced tablet experience with proper touch feedback and state management
+
+### Enhanced
+
+- **Touch Device UX**: Cleaner selection feedback on tablets and touch devices
+- **State Management**: Automatic hover state cleanup when loading new image pairs
+- **Cross-Device Compatibility**: Seamless experience across desktop (hover) and touch devices (outline)
+- **Performance**: Reduced visual artifacts and improved responsiveness on touch devices
+
+### Technical
+
+- **CSS Media Query Detection**: Uses `(hover: none)` and `(pointer: coarse)` for accurate touch device detection
+- **JavaScript State Reset**: Added utility function to clear hover states and force DOM reflow
+- **Outline-Based Feedback**: Touch devices use `outline: 3px solid #0066cc` instead of overlay
+- **Tap Highlight Removal**: Added `-webkit-tap-highlight-color: transparent` for cleaner touch interaction
+
 ## [0.8.7.1] - 2025-08-27
 
 ### Added

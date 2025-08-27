@@ -1013,13 +1013,39 @@ a:hover {
     z-index: 1; /* Ensure it appears above the image */
 }
 
-/* Hover effects for overlay visibility - only on direct image hover */
-.design-image:hover {
-    /* Trigger overlay on parent wrapper */
+/* Hover effects for overlay visibility - only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+    .design-image:hover {
+        /* Trigger overlay on parent wrapper */
+    }
+
+    .image-wrapper:hover::before {
+        opacity: 1 !important;
+    }
+
+    /* Additional hover states for better compatibility */
+    .image-option.hover-active .design-image::before {
+        opacity: 1 !important;
+    }
 }
 
-.image-wrapper:hover::before {
-    opacity: 1 !important;
+/* Touch device styles - use outline instead of overlay */
+@media (hover: none) or (pointer: coarse) {
+    .image-wrapper::before {
+        display: none; /* Hide overlay on touch devices */
+    }
+
+    .image-option:hover,
+    .image-option.hover-active {
+        outline: 3px solid #0066cc;
+        outline-offset: 2px;
+        border-radius: 12px;
+    }
+
+    /* Remove hover state persistence on touch devices */
+    .image-option {
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 .image-option.loading .design-image::before,
@@ -1034,9 +1060,21 @@ a:hover {
     background: rgba(0, 102, 204, 0.95);
 }
 
-/* Additional hover states for better compatibility */
-.image-option.hover-active .design-image::before {
-    opacity: 1 !important;
+/* Touch device selection feedback */
+@media (hover: none) or (pointer: coarse) {
+    .image-option.touch-active,
+    .image-option.keyboard-selected {
+        outline: 3px solid #0066cc;
+        outline-offset: 2px;
+        border-radius: 12px;
+        transform: scale(0.98);
+        transition: transform 0.1s ease, outline 0.1s ease;
+    }
+
+    .image-option.touch-active .design-image::before,
+    .image-option.keyboard-selected .design-image::before {
+        display: none; /* No overlay on touch devices */
+    }
 }
 
 /* Legacy overlay element - hide it since we're using pseudo-element now */
