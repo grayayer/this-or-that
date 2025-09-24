@@ -1,0 +1,10 @@
+# Content Security Policy for iframe embedding
+Header always set Content-Security-Policy "frame-ancestors 'self' https://studiok40.com https://grayayer.com https://*.studiok40.com https://*.grayayer.com;"
+
+# Alternative X-Frame-Options header for older browsers (less flexible but more compatible)
+Header always set X-Frame-Options "ALLOW-FROM https://studiok40.com"
+
+# Ensure headers are sent for all file types
+<FilesMatch "\.(html|htm|js|css)$">
+    Header always set Content-Security-Policy "frame-ancestors 'self' https://studiok40.com https://grayayer.com https://*.studiok40.com https://*.grayayer.com;"
+</FilesMatch>

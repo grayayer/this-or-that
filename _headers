@@ -1,0 +1,7 @@
+/*
+  Content-Security-Policy: frame-ancestors 'self' https://studiok40.com https://grayayer.com https://*.studiok40.com https://*.grayayer.com;
+  X-Frame-Options: SAMEORIGIN
+
+/index.html
+  Content-Security-Policy: frame-ancestors 'self' https://studiok40.com https://grayayer.com https://*.studiok40.com https://*.grayayer.com;
+  X-Frame-Options: SAMEORIGIN
